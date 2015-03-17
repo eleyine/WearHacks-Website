@@ -5,8 +5,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'pyladies_django_workshop.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^$', 'pyladies_django_workshop.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
 )

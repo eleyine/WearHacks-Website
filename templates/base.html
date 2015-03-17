@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Not Google Keep</title>
+  <base href="/" />
+  {% include 'stylesheets.html' %}
+</head>
+
+<body>
+  {% include 'navbar.html' %}
+
+    {% block content %}
+      <div class="container main-content">
+        <p> There is nothing here yet. Let's start building! </p>
+      </div>
+      <!-- Debug Toolbar -->
+    {% endblock %}
+
+  {% include 'javascripts.html' %}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

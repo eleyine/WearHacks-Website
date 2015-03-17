@@ -1,0 +1,27 @@
+{
+  "name": "pyladies-django-workshop",
+  "version": "0.0.0",
+  "homepage": "https://github.com/eleyine/pyladies-django-workshop",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.0",
+    "bootstrap-material-design": "~0.1.5",
+    "jquery": "~2.1.1",
+    "underscore": "~1.7.0",
+    "bootstrap3-dialog": "~1.34.2",
+    "jasny-bootstrap": "~3.1.3",
+    "bootstrap3-typeahead": "~3.1.0",
+    "jquery-cookie": "~1.4.1",
+    "jquery-ui": "~1.11.4",
+    "autosize": "~2.0.0",
+    "jquery-masonry": "~3.2.2"
+  },
+  "resolutions": {
+    "bootstrap": "~3.3.0"
+  }
+}

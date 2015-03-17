@@ -1,0 +1,232 @@
+/* ---------------------------------------------------------------------------*
+ * NOTE CONTAINER
+ * ---------------------------------------------------------------------------*/
+
+.note-container {
+    margin-bottom: 20px;
+}
+
+.note-container .panel {
+    padding: 0;
+    margin: 0;
+}
+
+.note-container .panel > .panel-heading, 
+.note-container .panel-default > .panel-heading {
+    background:transparent;
+    font-weight:bold;
+    border:0;
+    padding-bottom: 0;
+}
+
+/* ---------------------------------------------------------------------------*
+ * NOTE ACTIONS
+ * ---------------------------------------------------------------------------*/
+
+.note-container .panel .panel-footer button {
+    background:transparent;
+    color: white;
+    font-size: 20px;
+    padding: 0 10px;
+    margin: 0;
+}
+
+
+.note-container .panel-footer {
+    background-color: rgba(0,0,0,0.1);
+    visibility: hidden;
+}
+
+.note-container:hover .panel .panel-footer{
+    visibility: visible;
+}
+
+.note-container:hover .panel .panel-footer button:hover {
+    opacity: 0.8;
+}
+
+button.pinned {
+ visibility:visible;
+}
+
+.white button.pinned i {
+    color: #ccc;
+}
+
+.note-container:hover .white button.pinned i {
+    color: #fff;
+}
+
+/* ---------------------------------------------------------------------------*
+ * NO-NOTES
+ * ---------------------------------------------------------------------------*/
+
+.no-notes-container {
+    display: table-cell;
+    width: 2000px;
+    height: 500px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.no-notes {
+    display: inline-block;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    color: rgba(51,51,51,0.4);
+    cursor: default;
+}
+
+.no-notes .icon {
+    font-size: 100px !important;
+
+}
+
+/* ---------------------------------------------------------------------------*
+ * NOTE CREATION / UPDATE FORMS
+ * ---------------------------------------------------------------------------*/
+
+.form-note.panel, 
+.form-note-.panel-default,
+.note-container .panel, 
+.note-container .panel-default {
+    padding: 8px;
+    -webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.08);
+   box-shadow: 0 2px 1px rgba(0,0,0,0.08);  
+}
+
+.form-note-container {
+    background: #fff;
+    padding: 20px;
+    margin-top:0;
+    margin-bottom: 20px;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.form-note textarea {
+    resize: none;
+    min-height: 20px;
+}
+
+.form-note fieldset[disabled] .form-control,
+.form-note .form-control-wrapper .form-control,
+.form-note .form-control,
+.form-note fieldset[disabled] .form-control:focus,
+.form-note .form-control-wrapper .form-control:focus,
+.form-note .form-control:focus,
+.form-note fieldset[disabled] .form-control.focus,
+.form-note .form-control-wrapper .form-control.focus,
+.form-note .form-control.focus {
+    border-bottom: 0;
+}
+
+.last.form-group {
+    margin-bottom: 0;
+}
+
+.form-note .panel-body {
+    padding-bottom: 0;
+}
+
+/* Edit form */
+
+.modal.boostrap-dialog {
+    background: url('../images/screen.png');
+    opacity:0.8;
+}
+
+.modal-dialog {
+    background: #fff;
+    opacity: 1;
+}
+
+#editForm {
+    z-index: 100;
+}
+
+
+/* ---------------------------------------------------------------------------*
+ * COLORS
+ * ---------------------------------------------------------------------------*/
+
+.radio-primary.white input[type=radio] ~ .circle  {
+    border-color: #ddd;
+}
+
+
+.radio-primary.white input[type=radio] ~ .circle  {
+    border-color: #ddd;
+}
+.radio-primary.red input[type=radio] ~ .circle  {
+    border-color: #FF6D3F;
+}
+.radio-primary.orange input[type=radio] ~ .circle  {
+    border-color: #FF9B00;
+}
+.radio-primary.yellow input[type=radio] ~ .circle  {
+    border-color: #FFDA00;
+}
+.radio-primary.green input[type=radio] ~ .circle  {
+    border-color: #95D641;
+}
+.radio-primary.turquoise input[type=radio] ~ .circle  {
+    border-color: #1CE8B5;
+}
+.radio-primary.blue input[type=radio] ~ .circle  {
+    border-color: #3FC3FF;
+}
+.radio-primary.gray input[type=radio] ~ .circle  {
+    border-color: #A8B4B9;
+}
+
+.radio-primary.white input[type=radio]:checked ~ .check  {
+    background-color: #ddd;
+}
+.radio-primary.red input[type=radio]:checked ~ .check  {
+    background-color: #FF6D3F;
+}
+.radio-primary.orange input[type=radio]:checked ~ .check  {
+    background-color: #FF9B00;
+}
+.radio-primary.yellow input[type=radio]:checked ~ .check  {
+    background-color: #FFDA00;
+}
+.radio-primary.green input[type=radio]:checked ~ .check  {
+    background-color: #95D641;
+}
+.radio-primary.turquoise input[type=radio]:checked ~ .check  {
+    background-color: #1CE8B5;
+}
+.radio-primary.blue input[type=radio]:checked ~ .check  {
+    background-color: #3FC3FF;
+}
+.radio-primary.gray input[type=radio]:checked ~ .check  {
+    background-color: #A8B4B9;
+}
+
+.note-container .white {
+    background-color: #FFFFFF;
+}
+.note-container .red {
+    background-color: #FF6D3F;
+}
+.note-container .orange {
+    background-color: #FF9B00;
+}
+.note-container .yellow {
+    background-color: #FFDA00;
+}
+.note-container .green {
+    background-color: #95D641;
+}
+.note-container .turquoise {
+    background-color: #1CE8B5;
+}
+.note-container .blue {
+    background-color: #3FC3FF;
+}
+.note-container .gray {
+    background-color: #B8C4C9;
+}

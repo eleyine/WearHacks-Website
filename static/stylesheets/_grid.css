@@ -1,0 +1,77 @@
+/* Grid-sizing logic
+*******************************************************************************/
+
+#container {
+    padding: 0;
+}
+.grid-sizer {
+    width: 25%;    
+}
+.grid-sizer,
+.note-container {
+    width: 25%;    
+    float: left;
+    padding: 0 10px;
+    display: block;
+    margin: 0;
+
+}
+
+@media (min-width: 1200px) {
+    .col-lg-offset-3 {
+      margin-left: 25% !important;
+    }
+
+    .container {
+        width: 1000px;
+    }
+}
+
+
+@media screen and (max-width: 1525px) {
+/*@media screen and (max-width: 1425px) {*/
+    .grid-sizer,
+    .note-container { 
+        width: 25%; 
+    }
+}
+
+@media screen and (max-width: 1167px) {
+    .grid-sizer,
+    .note-container { 
+        width: 33%; 
+    }
+}
+
+@media screen and (max-width: 880px) {
+    .grid-sizer,
+    .note-container { 
+        width: 50%; 
+    }
+
+    #container {
+        margin: 0 50px;
+    }
+
+    .form-note {
+        margin: 0 70px;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #container {
+        margin: 0 auto;
+    }
+    .grid-sizer,
+    .note-container { 
+        width: 80%; 
+        margin: 0 10%;
+    }
+
+    .form-note {
+        margin: 0 65px;
+        margin-bottom: 20px;
+    }
+
+}

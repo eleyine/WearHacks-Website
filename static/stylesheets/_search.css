@@ -1,0 +1,95 @@
+/* ---------------------------------------------------------------------------*
+ * SEARCH BAR
+ * ---------------------------------------------------------------------------*/
+
+.navbar .navbar-form {
+  margin-top: 10px;
+}
+
+.navbar .navbar-form.searchbox.expanded input.form-control{
+    width: 500px;
+    max-width: 90%;
+    opacity: 1;
+}
+
+.navbar .navbar-form.searchbox input.form-control {
+    border-bottom: 1px solid #fff;
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    opacity: 0;
+    width: 0;
+    max-width: 0;
+}
+
+.navbar .navbar-form.searchbox .search-icon {
+display:inline-block;
+float:right;
+text-align: right;
+}
+
+.search-icon {
+background: transparent;
+color: #fff;
+font-size: 20px;
+}
+
+.search-icon:hover {
+background: transparent;
+color: #eee;
+}
+
+.navbar input.form-control:focus {
+  border-bottom: 1px solid #ffbb00;
+  -webkit-transition: border-color ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s;
+  transition: border-color ease-in-out .15s;
+}
+
+@media (max-width: 768px) {
+     .navbar .navbar-nav.navbar-right {
+        display: none !important;
+    }
+}
+
+/* ---------------------------------------------------------------------------*
+ * SEARCH ALERT
+ * ---------------------------------------------------------------------------*/
+
+.search.alert {
+    position:absolute;
+    display:block;
+    width:100%;
+    left:0;
+    top:50px;
+}
+
+.main-content.search {
+    margin-top:120px;
+}
+
+.search .close {
+    margin-right: 10px;
+    font-weight: normal;
+    opacity: .8;
+    text-shadow: none;
+}
+
+.search.alert {
+    padding: 10px 105px;
+    background-color: #8ab2f4;
+}
+
+/* ---------------------------------------------------------------------------*
+ * SEARCH TYPEAHEAD
+ * ---------------------------------------------------------------------------*/
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+background-color: #ffbb00;
+}
+
+.dropdown-menu {
+margin-top: 20px;
+width: 500px;
+
+}

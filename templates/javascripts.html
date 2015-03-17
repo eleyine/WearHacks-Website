@@ -2,4 +2,27 @@
 {% load staticfiles %}
 
 {% compress js %}
+
+<!-- Utilities -->
+<script type="text/javascript" src="{% static 'bower_components/underscore/underscore.js' %}"></script>
+
+<!-- jQuery stuff -->
+<script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/jquery-cookie/jquery.cookie.js' %}"></script>
+
+<!-- Pretty Responsive Grids: Dessandro <3 -->
+<script type="text/javascript" src="{% static 'bower_components/jquery-masonry/dist/masonry.pkgd.min.js' %}"></script>
+
+<!-- Twitter Bootstrap stuff -->
+<script type="text/javascript" src="{% static 'bower_components/bootstrap/dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/bootstrap3-typeahead/bootstrap3-typeahead.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js' %}"></script>
+
+<!-- Material Design stuff -->
+<script type="text/javascript" src="{% static 'bower_components/bootstrap-material-design/dist/js/material.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/bootstrap-material-design/dist/js/ripples.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/snackbarjs/dist/snackbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/autosize/dest/autosize.min.js' %}"></script>
+
 {% endcompress %}

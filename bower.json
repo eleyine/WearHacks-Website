@@ -23,7 +23,8 @@
     "font-awesome": "~4.3.0",
     "jquery-easing": "*",
     "fittext": "*",
-    "wow": "~1.1.2"
+    "wow": "~1.1.2",
+    "jquery-cycle2": "~2.1.6"
   },
   "resolutions": {
     "bootstrap": "~3.3.0"

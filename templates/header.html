@@ -1,10 +1,60 @@
-<header>
+{% load staticfiles %}
+
+<header id="3">
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>Your Favorite Source of Free Bootstrap Themes</h1>
-                <hr>
-                <p>Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-10 action-panel">
+                        <div class="row who">
+                            <div class="col col-sm-9 logo">
+                            </div>
+                            <div class="col col-sm-3 info">
+                                <!-- <ul>
+                                <li>2-3 Oct 2015</li>
+                                <li>Montreal</li>
+                                <li>New Res Hall</li>
+                                </ul> -->
+                                <div><p class="small">2-3 Oct 2015</p></div>
+                                <div><p>Montreal</p></div>
+                                <div><p class="small">New Res Hall</p></div>
+                            </div>
+                        </div>
+                        <div class="row what">
+                            <div class="col col-sm-5 col-xs-10 text action-label">
+                                <p>Innovate with</p>
+                            </div>
+                            <div class="col col-sm-6 col-xs-10 hardware  cycle-slideshow" 
+                                data-cycle-fx="scrollHorz"
+                                data-cycle-pause-on-hover="true"
+                                data-cycle-speed="100"
+                                data-cycle-center-vert="true"
+                                data-cycle-caption="#alt-caption"
+                                data-cycle-caption-template="{{alt}}"
+                                >
+                                <!-- <img src="http://placehold.it/300x300?text=Logo" class="img-responsive" alt="WearHacks"> -->
+                                <img src="{% static 'images/carousel/1.png' %}" width="350px">
+                                <img src="{% static 'images/carousel/2.png' %}" width="350px">
+                                <img src="{% static 'images/carousel/3.gif' %}" width="350px">
+                                <img src="{% static 'images/carousel/4.png' %}" width="350px">
+                                <img src="{% static 'images/carousel/5.jpg' %}" width="350px">
+                                <div id="alt-caption" class="center"></div>
+                            <!-- </div> -->
+                            </div>
+                            <!-- <div class="col col-xs-3 text hardware-label">
+                                <p>Oculus Rift</p>
+                            </div> -->
+                        </div>
+                        <div class="row how">
+                            <div class="col-sm-offset-2 col-sm-5 col-xs-offset-1 col-xs-10">
+                                <button type="button" class="btn btn-primary btn-xl btn-block">Join</button>
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-0 col-xs-offset-1 col-xs-10">
+                                <button type="button" class="btn btn-default btn-xl btn-block">Sponsor Us</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
             </div>
         </div>
+        <div class="background"></div>
     </header>

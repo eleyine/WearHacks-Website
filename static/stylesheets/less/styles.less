@@ -1,0 +1,162 @@
+@import "variables.less";
+@import "mixins.less";
+@import "mymixins.less";
+
+// GENERAL
+p {
+    .sans-serif-font;
+}
+
+// HEADER
+
+@header-logo-height: 100px;
+@header-logo-height-sm: 80px;
+
+
+header {
+    // .cycle-slideshow {
+    //     border: 1px solid red;
+    // }
+//     .slideshow { width: 80%; height: 300px; margin: auto; border: 1px solid #bbb; background: #ffc }
+// .slideshow img { 
+//     display: block;
+// }
+    @background-color: rgb(53, 43, 78);
+    .gradient (@startColor: darken(@background-color, 5%), @endColor: #000);
+    .background {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background: 50% 50% no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-image: url('../../images/montreal.jpg');
+
+        opacity: 20;
+        filter: alpha(opacity=2000);
+        opacity: 0.4;
+    }
+    .header-content {
+        // opacity: 0.8;
+        z-index: 100;
+    }
+    .header-content-inner {
+        p {
+
+        }
+        .who {
+            .col {
+                min-height: @header-logo-height;
+                height: @header-logo-height;
+                max-height: @header-logo-height;
+                margin-bottom: 20px;
+            }
+            .logo {
+                // border: 1px solid red;
+                display: block;
+                background-image: url('../../images/logo-text-white.png');
+                background-size: 90% auto;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .info {
+                display:block;
+                
+                // border: 1px solid blue;
+
+                div {
+                   display:block;
+                   // border: 1px solid red;
+                   min-height: 33%;
+                   height: 33%;
+                   max-height: 33%;
+                }
+
+                p {
+                    // border: 1px solid red;            
+                    text-align: center;
+                    padding: 3px;
+                    vertical-align: middle;
+                    text-transform: uppercase;
+                    font-weight: 800;
+                    letter-spacing: 2px;
+                    color: #ffffff;
+                    font-size: 21px;
+                    line-height: 30px;
+                    &.small {
+                        padding: 5px 0;
+                        font-size: 15px;
+                    }
+                }
+            }
+
+            @media (max-width: 600px) {
+                .col {
+                    min-height: @header-logo-height-sm;
+                    height: @header-logo-height-sm;
+                    max-height: @header-logo-height-sm;
+                }
+                .info p {
+                    // color: red;
+                }
+            }
+        }
+
+        .what {
+            @header-what-height: @header-logo-height * 3;
+            display: block;
+            min-height: @header-what-height;
+            // border: 1px solid black;
+
+            .hardware img {
+                opacity: 1;
+            }
+
+            .col {
+                // border: 1px solid blue;
+                min-height: @header-what-height;
+                height: @header-what-height;
+                max-height: @header-what-height;
+                // position: relative;
+
+                &.text {
+                    // position: absolute;
+                    display: table;
+                    height: @header-what-height;
+                    min-height: @header-what-height;
+                    height: @header-what-height;
+                    max-height: @header-what-height;
+                    // border: 1px solid green;
+
+                    p {
+                        // line-height: @header-what-height;
+                        // height: 100%;
+                        // border: 1px solid red;
+                        display: table-cell; 
+                        vertical-align: middle; 
+                        text-align: right; 
+                        font-family: "Lato", 'Helvetica Neue', Helvetica, sans-serif;
+                        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.75);
+                        font-weight: 400;
+                        font-size: 55px;
+                        font-family: 'Raleway', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+                    }
+                }
+                
+            }
+        }
+
+        .how {
+            button {
+                margin: 10px 0;
+            }
+        }
+    }
+}

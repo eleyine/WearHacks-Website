@@ -3,19 +3,17 @@
 
 {% compress css %}
 
-<!-- Twitter Bootstrap stuff -->
+<!-- Twitter Bootstrap -->
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.css' %}" />
-<!-- <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css' %}" /> -->
-
-<!-- Material Design stuff -->
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-material-design/dist/css/material.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-material-design/dist/css/ripples.min.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/snackbarjs/dist/snackbar.min.css' %}" />
-
-<!-- Twitter Bootstrap Extension stuff -->
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css' %}" />
 
-<!-- Our stuff -->
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="{% static 'stylesheets/css/animate.min.css' %}" type="text/css">
+
+<!-- Startbootstrap Creative CSS (Modified)-->
+<link rel="stylesheet" href="{% static 'stylesheets/less/creative.less' %}" type="text/less">
+
+<!-- Custom CSS -->
 <!-- ?v=00001 ensures it doesn't get cached. Should remove this in production. -->
-<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/styles.css' %}?v=00001" />
+<link rel="stylesheet" type="text/less" href="{% static 'stylesheets/less/styles.less' %}?v=00001" />
 {% endcompress %}

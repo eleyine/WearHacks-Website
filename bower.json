@@ -1,7 +1,7 @@
 {
-  "name": "pyladies-django-workshop",
+  "name": "WearHacks-Website",
   "version": "0.0.0",
-  "homepage": "https://github.com/eleyine/pyladies-django-workshop",
+  "homepage": "https://github.com/eleyine/WearHacks-Website",
   "license": "MIT",
   "ignore": [
     "**/.*",

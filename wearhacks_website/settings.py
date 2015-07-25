@@ -1,5 +1,5 @@
 """
-Django settings for pyladies_django_workshop project.
+Django settings for wearhacks_website project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -51,9 +51,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'pyladies_django_workshop.urls'
+ROOT_URLCONF = 'wearhacks_website.urls'
 
-WSGI_APPLICATION = 'pyladies_django_workshop.wsgi.application'
+WSGI_APPLICATION = 'wearhacks_website.wsgi.application'
 
 
 # Database

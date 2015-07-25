@@ -1,11 +1,17 @@
+    {% load staticfiles %}
+
     <section class="bg-primary" id="about">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">We've got what you need!</h2>
-                    <hr class="light">
-                    <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
-                    <a href="#" class="btn btn-default btn-xl">Get Started!</a>
+                <div class="col-xs-10 col-xs-offset-1 col-sm-2 col-sm-offset-1">
+                    <img src="{% static 'images/logo.png' %}" width="100%"/>
+                </div>
+                <div class="col-xs-10 col-xs-offset-1 col-sm-8 text-left">
+                    <h2 class="section-heading">About WearHacks</h2>
+                    <!-- <hr class="light"> -->
+                    <p class="text-faded">We bring together developers, designers, project managers, students, and engineers with an entrepreneurial and creative mind. For an intensive 48 hours, you will learn new tools, meet industry experts, collaborate with other talented students and young professionals and build new wearable and connected technology. </p>
+                    <a href="http://wearhacks.com" class="btn btn-default btn-xl">
+                    Organization Website</a>
                 </div>
             </div>
         </div>
@@ -15,39 +21,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">At Your Service</h2>
+                    <h2 class="section-heading">The Good Stuff</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
+            
             <div class="row">
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
-                        <h3>Sturdy Templates</h3>
-                        <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+                        <i class="fa fa-4x fa-coffee wow bounceIn text-primary"></i>
+                        <h3>Batteries included</h3>
+                        <p class="text-muted">We'll give you a wearable kit, great food and lots of coffee. You build something <strong>awesome</strong>.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                        <h3>Ready to Ship</h3>
-                        <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+                        <i class="fa fa-4x fa-users wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                        <h3>All backgrounds</h3>
+                        <p class="text-muted">We welcome all kinds of <strong>innovators</strong> and industry experts, <strong>students and non-students</strong> alike, developers, engineers, designers, neuroscientists and <strong>curious minds</strong>.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>Up to Date</h3>
-                        <p class="text-muted">We update dependencies to keep things fresh.</p>
+                        <h3>Mentorship and Promotion</h3>
+                        <p class="text-muted">We follow-up with the teams and <strong>help promote</strong> the best projects. We organize demos, talks, etc.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Made with Love</h3>
-                        <p class="text-muted">You have to make your websites with love these days!</p>
+                        <h3>Strong track record</h3>
+                        <p class="text-muted">Our Montreal 2014 hackathon was a <strong>resounding success</strong> featuring 47+ projects. Some of the winners are being mentored by <strong>Founder Fuel</strong> and <strong>Real Ventures</strong>. <a href="http://www.wearhacks.com/#pastevent">Learn more</a></p>
                     </div>
                 </div>
             </div>

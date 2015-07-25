@@ -14,13 +14,6 @@ p {
 
 
 header {
-    // .cycle-slideshow {
-    //     border: 1px solid red;
-    // }
-//     .slideshow { width: 80%; height: 300px; margin: auto; border: 1px solid #bbb; background: #ffc }
-// .slideshow img { 
-//     display: block;
-// }
     @background-color: rgb(53, 43, 78);
     .gradient (@startColor: darken(@background-color, 5%), @endColor: #000);
     .background {
@@ -157,6 +150,34 @@ header {
             button {
                 margin: 10px 0;
             }
+        }
+    }
+}
+
+#faq {
+    .panel {
+        margin-bottom: 0;
+
+        h3 {
+            margin-top: 10px;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+}
+
+#schedule {
+    a {
+        color: white;
+        font-weight: bold;
+        border-bottom: 1px dotted white;
+
+        &:hover {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid white;
         }
     }
 }

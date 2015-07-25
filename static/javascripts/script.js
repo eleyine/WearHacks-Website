@@ -38,14 +38,16 @@
         });
 
     
-        $(document).on('click', '#register', function () {
+        $(document).on('click', '#register', function (e) {
             console.log('click!');
             var form = '#registration-form';
             console.log($(form).serialize());
             $.ajax({
+                processData: false,
+                contentType: false,
                 url: "/register/",
                 type: "POST",
-                data: $(form).serialize(),
+                data: new FormData($(form)[0]),
                 success: function(data) {
                     $(form).replaceWith(data['form_html']);
                     if (!(data['success'])) {
@@ -62,7 +64,7 @@
                     $(form).find('.error-message').show();
                 }
             });
-
+            e.preventDefault();
             console.log('Cool');
 
         } );

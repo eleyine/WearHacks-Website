@@ -9,22 +9,15 @@ def get_waiver_filename(instance, filename):
     return get_filename(instance, filename, directory='waivers')
 
 def get_filename(instance, old_filename, directory=''):
-    print 'Getting filename...'
-    print instance
-    print old_filename
-    print directory
     dirname = os.path.dirname(old_filename)
     # add time to differentiate between two registrees with the same first/last names
-    suffix = datetime.datetime.now().strftime("%b--%d--%H-%M")
+    suffix = datetime.datetime.now().strftime("__%m-%d_%H-%M")
     basename = '%s_%s_%s.pdf' % (instance.last_name, instance.first_name, suffix)
-    print 'Basename:', basename
-    print 'Dirname:', os.path.dirname(old_filename) 
     filename = os.path.join(
         os.path.dirname(old_filename),
         directory,
         basename
         )
-    print '>>>>', filename
     return filename
 
 class Registration(models.Model):

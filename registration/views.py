@@ -22,30 +22,13 @@ class SubmitRegistrationView(generic.View):
 
     @json_view
     def post(self, request, *args, **kwargs):
-        print 'Eureka!!'
-        # do_update = 'registration_id' in self.kwargs
-
-        # if do_update:
-        #     messages.error(request, 'You are already registered!')
-
-        #     # registration_instance = get_object_or_404(Registration, 
-        #     #     id=self.kwargs['registration_id'])
-        #     # form = self.form_class(request.POST, instance=registration_instance)
-
-        #     # I should really make a validation/thanks page
-        #     return HttpResponseRedirect(reverse('index'))
-        # else:
-        #     form = self.form_class(request.POST)
         form = self.form_class(request.POST, request.FILES)
-        print request.FILES
         if form.is_valid():
             form.save()
             messages.success(request, 'Your registration has been saved.')
             form_html = render_crispy_form(form)
             return {'success': True, 'form_html': form_html }
-        print 'Error'
         form_html = render_crispy_form(form)
-        print form_html
 
         return {'success': False, 'form_html': form_html}
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'rest_framework',
     'compressor',
+    'crispy_forms',
     'registration',
 )
 
@@ -134,4 +135,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR': False,
     'INSERT_BEFORE': '<!-- Debug Toolbar -->',
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 

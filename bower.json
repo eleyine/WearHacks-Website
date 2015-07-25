@@ -24,7 +24,8 @@
     "jquery-easing": "*",
     "fittext": "*",
     "wow": "~1.1.2",
-    "jquery-cycle2": "~2.1.6"
+    "jquery-cycle2": "~2.1.6",
+    "snackbarjs": "~1.0.0"
   },
   "resolutions": {
     "bootstrap": "~3.3.0"

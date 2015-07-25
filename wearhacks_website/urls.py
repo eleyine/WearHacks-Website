@@ -1,12 +1,14 @@
 from django.conf.urls import patterns, include, url
 
+from wearhacks_website import views
+
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^register/', include('registration.urls')),
 
-    url(r'^$', 'wearhacks_website.views.home', name='home'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^admin/', include(admin.site.urls)),
 )

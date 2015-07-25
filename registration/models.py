@@ -1,5 +1,5 @@
 from django.db import models
-import os, time
+import os, time, datetime
 
 # Helpers
 def get_resume_filename(instance, filename):
@@ -9,17 +9,24 @@ def get_waiver_filename(instance, filename):
     return get_filename(instance, filename, directory='waivers')
 
 def get_filename(instance, old_filename, directory=''):
+    print 'Getting filename...'
+    print instance
+    print old_filename
+    print directory
     dirname = os.path.dirname(old_filename)
     # add time to differentiate between two registrees with the same first/last names
-    suffix = time.strftime("%b--%d--%H-%M", time.gmtime(t))
-    basename = '%s_%s_%s.pdf' % (last_name, first_name, suffix)
+    suffix = datetime.datetime.now().strftime("%b--%d--%H-%M")
+    basename = '%s_%s_%s.pdf' % (instance.last_name, instance.first_name, suffix)
+    print 'Basename:', basename
+    print 'Dirname:', os.path.dirname(old_filename) 
     filename = os.path.join(
         os.path.dirname(old_filename),
         directory,
         basename
         )
+    print '>>>>', filename
     return filename
-    
+
 class Registration(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
@@ -34,8 +41,8 @@ class Registration(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # student-specific
-    is_student = models.BooleanField(default=False)
-    school = models.CharField(max_length=100, blank=True)
+    is_student = models.BooleanField(default=False, verbose_name="Are you a student?")
+    school = models.CharField(max_length=100, blank=True, verbose_name="Where did you go to school?")
 
     # contact
     email = models.EmailField()
@@ -43,7 +50,8 @@ class Registration(models.Model):
     linkedin = models.URLField(max_length=100, blank=True)
 
     # misc
-    food_restrictions = models.TextField(max_length=100, default="None.")
+    food_restrictions = models.TextField(max_length=100, default="None.",
+        verbose_name="Do you have any allergies or food restrictions?")
     TSHIRT_SIZE_CHOICES = (
         ('S', 'Small'),
         ('M', 'Medium'),
@@ -53,12 +61,14 @@ class Registration(models.Model):
     tshirt_size = models.CharField(max_length=20, 
         choices=TSHIRT_SIZE_CHOICES,
         default=TSHIRT_SIZE_CHOICES[1][0])
-    is_returning = models.BooleanField(default=False)
-    is_hacker = models.BooleanField(default=False)
+    is_returning = models.BooleanField(default=False, verbose_name="Have you attended last year's event?")
+    is_hacker = models.BooleanField(default=False, verbose_name="Is this your first hackathon?")
 
     # files
-    resume = models.FileField(upload_to=get_resume_filename, blank=True)
-    waiver = models.FileField(upload_to=get_waiver_filename, blank=True)
+    resume = models.FileField(upload_to=get_resume_filename, blank=True, 
+        help_text="Not required but this might reach our sponsors for targeted employment opportunities.")
+    waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
+       help_text="Not required but it will save us somme time during registration.")
 
     class Meta:
         ordering = ('last_name', 'first_name')

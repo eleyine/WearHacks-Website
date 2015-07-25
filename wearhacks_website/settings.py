@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'rest_framework',
     'compressor',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,6 +104,9 @@ COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),

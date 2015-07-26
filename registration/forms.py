@@ -47,10 +47,13 @@ class RegistrationForm(forms.ModelForm):
             ),
             Fieldset(
                 'Tell us a bit about yourself.',
-                Field('is_student', label="Are you a student?"),
-                'is_returning',
-                'is_hacker',
-                'school',
+                Field('is_student', 
+                    data_off_text='No', data_on_text='Yes', data_size='mini'),
+                Field('is_returning', 
+                    data_off_text='No', data_on_text='Yes', data_size='mini'),
+                Field('is_hacker', 
+                    data_off_text='No', data_on_text='Yes', data_size='mini'),
+                'school'
             ),
             Fieldset(
                 'Experience',
@@ -60,19 +63,13 @@ class RegistrationForm(forms.ModelForm):
             ),
             Fieldset(
                 'Almost there!',
-                'food_restrictions',
+                Field('food_restrictions', rows=2),
                 'waiver',
             ),
             FormActions(
                 StrictButton('Sign me up', name='register', 
-                    css_class='btn-primary pull-right', css_id="register")
+                    css_class='btn-primary pull-right page-scroll', css_id="register",
+                    href='#registration-form')
             )
         )
-
-
-        # self.helper.add_layout(
-        #     FormActions(
-        #         StrictButton('Sign me up', name='register', 
-        #     css_class='btn-success'), id="register"))
-        # self.helper.add_input(Submit('register', 'Submit'))
 

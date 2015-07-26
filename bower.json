@@ -25,7 +25,8 @@
     "fittext": "*",
     "wow": "~1.1.2",
     "jquery-cycle2": "~2.1.6",
-    "snackbarjs": "~1.0.0"
+    "snackbarjs": "~1.0.0",
+    "bootstrap-switch": "~3.3.2"
   },
   "resolutions": {
     "bootstrap": "~3.3.0"

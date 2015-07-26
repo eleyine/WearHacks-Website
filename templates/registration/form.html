@@ -2,6 +2,20 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css' %}" />
+
+<style>
+.bootstrap-switch {
+margin-left: 10px;
+display:inline-block;
+float: right;
+vertical-align: middle;
+}
+</style>
+
+{% endblock %}
+
 {% block content %}
 <div id="registration-form-container">
 <section>
@@ -38,8 +52,12 @@
 {% endblock %}
 
 {% block scripts %}
+
 <script type="text/javascript">
-  
+(function($) {
+    "use strict"; // Start of use strict
+
+    })(jQuery); // End of use strict
 </script>
 {% endblock %}
 

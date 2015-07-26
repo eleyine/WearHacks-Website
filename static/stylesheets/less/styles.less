@@ -39,6 +39,9 @@ header {
         filter: alpha(opacity=2000);
         opacity: 0.4;
     }
+    a.btn {
+        margin: 10px 0;
+    }
     .header-content {
         // opacity: 0.8;
         z-index: 100;
@@ -146,6 +149,17 @@ header {
                         font-family: 'Raleway', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
                     }
                 }
+
+                @media (max-width: 600px) {
+                    &.text {
+                        p {
+                            text-align: center;
+                        }
+                        min-height: 50px;
+                        height: 50px;
+                        max-height: 50px;
+                    }
+                }
                 
             }
         }
@@ -193,10 +207,16 @@ header {
 }
 
 #registration-form-container {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
     #snackbar-container {
         background: red;
     }
     section {
         padding: 20px 0;
+    }
+
+    label {
+     font-weight: normal;
     }
 }

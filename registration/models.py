@@ -26,7 +26,7 @@ class Registration(models.Model):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
-        ('N', 'None'),
+        ('N', 'Other / I prefer not to disclose'),
     )
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default=GENDER_CHOICES[0][0])
 

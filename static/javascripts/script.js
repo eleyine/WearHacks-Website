@@ -21,6 +21,7 @@
         });
 
         $(".checkboxinput").bootstrapSwitch();
+        $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
     
         $(document).on('click', '#register', function (e) {
             var form = '#registration-form';
@@ -34,6 +35,8 @@
                 success: function(data) {
                     $(form).replaceWith(data['form_html']);
                     $(".checkboxinput").bootstrapSwitch();
+        $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
+
                     $('html, body').stop().animate({
                         scrollTop: ($(form).offset().top - 50)
                         }, 1250, 'easeInOutExpo');

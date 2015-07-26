@@ -35,7 +35,7 @@ class Registration(models.Model):
 
     # student-specific
     is_student = models.BooleanField(default=False, verbose_name="Are you a student?")
-    school = models.CharField(max_length=100, blank=True, verbose_name="Where did you go to school?")
+    school = models.CharField(max_length=100, blank=True, verbose_name="Where do/did you go to school?")
 
     # contact
     email = models.EmailField()

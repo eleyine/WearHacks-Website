@@ -61,7 +61,7 @@ class Registration(models.Model):
     resume = models.FileField(upload_to=get_resume_filename, blank=True, 
         help_text="Not required but this might reach our sponsors for targeted employment opportunities.")
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
-       help_text="Not required but it will save us somme time during registration.")
+       help_text="Not required but it will save us some time during registration.")
 
     class Meta:
         ordering = ('last_name', 'first_name')

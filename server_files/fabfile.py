@@ -195,10 +195,14 @@ def reboot(mode='prod'):
             sudo('service nginx reload')
 
             print 'Stopping gunicorn' 
-            run('service gunicorn stop')
+            try:
+                run('service gunicorn stop')
+            except:
+                pass
 
-            print 'Running on localhost'
-            run('python manage.py runserver localhost:9000')
+            with shell_env(SECRET_KEY=SECRET_KEY, DB_PASS=DB_PASS, DB_USER=DB_USER):
+                print 'Running on localhost'
+                run('python manage.py runserver localhost:9000')
         else:
             print 'Invalid mode %s' % (mode)
 

@@ -90,7 +90,7 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', not DEBUG)
+COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', False)
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),

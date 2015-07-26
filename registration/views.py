@@ -23,14 +23,15 @@ class SubmitRegistrationView(generic.View):
     @json_view
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
+        success = False
         if form.is_valid():
             form.save()
             messages.success(request, 'Your registration has been saved.')
             form_html = render_crispy_form(form)
-            return {'success': True, 'form_html': form_html }
-        form_html = render_crispy_form(form)
+            success = True
 
-        return {'success': False, 'form_html': form_html}
+        form_html = render_crispy_form(form)
+        return {'success': success, 'form_html': form_html}
 
     def get_context_data(self, **kwargs):
         context = super(SubmitRegistrationView, self).get_context_data(**kwargs)

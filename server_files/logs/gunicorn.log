@@ -9,3 +9,6 @@
 2015-07-26 07:51:50 [859] [INFO] Worker exiting (pid: 859)
 2015-07-26 07:51:50 [687] [INFO] Handling signal: term
 2015-07-26 07:51:51 [687] [INFO] Shutting down: Master
+/usr/local/lib/python2.7/dist-packages/django/template/defaulttags.py:63: UserWarning: A {% csrf_token %} was used in a template, but the context did not provide the value.  This is usually caused by not using RequestContext.
+  warnings.warn("A {% csrf_token %} was used in a template, but the context did not provide the value.  This is usually caused by not using RequestContext.")
+

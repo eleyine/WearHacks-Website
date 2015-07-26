@@ -1,29 +1,62 @@
+"""
+Script to perform common operations on remote server from local machine.
+
+Prerequisites:
+    pip install fabric
+    Create DigitalOcean droplet with Django installation
+    Copy private_example.py to private.py and edit in your settings
+
+Usage:
+    fab setup
+    ---------
+        Installs git and package managers (npm, bower)
+        Modifies nginx and gunicorn configs to match our directory tree
+        Clones github directory and installs python + bower requirements
+        Add correct permission to static folder
+
+    fab reboot:mode=prod
+    ---------
+        (Setup step assumed to be completed.)
+        Pull changes from master repo
+        Migrate database
+        Restart nginx and gunicorn
+        Run project using production settings (see wearhacks_website/settings/prod.py)
+
+    fab reboot:mode=dev
+    ---------
+        (Setup step assumed to be completed.)
+        Pull changes from master repo
+        Migrate database
+        Restart nginx and stop gunicorn
+        Run on localhost:9000
+        Run project using dev settings (see wearhacks_website/settings/local.py)
+
+    fab get_logs
+    ---------
+        Copy nginx and gunicorn log files from remote to logs/ directory
+"""
+
 from fabric.api import *
 from fabric.contrib.console import confirm
 from fabric.context_managers import shell_env
-import tempfile, os
+import tempfile, os, sys
 
-env.user = "root"
-env.hosts = ( 
-        '45.55.84.109', # FabTest
-        # '45.55.216.44', # WearHacks
-        )
+from private_example import *
 
-GITHUB_PROJECT = 'https://github.com/eleyine/WearHacks-Website.git'
-SECRET_KEY = 'YourSecretKey'
-DJANGO_PROJECT_DIR = '/home/django'
-DJANGO_PROJECT_NAME = 'WearHacks-Website'
-DJANGO_APP_NAME = 'wearhacks_website'
-DB_USER = 'django'
-DB_PASS = 'BsSMA2QZV0'
+if not os.path.exists('private.py'):
+    print 'ERROR: You must make a private.py file (see server_files/private_example.py)'
+    sys.exit() # comment out this line if you want to use the example private settings
+else:
+    from private import *
 
-DJANGO_PROJECT_PATH = os.path.join(DJANGO_PROJECT_DIR, DJANGO_PROJECT_NAME)
-
+########### DJANGO SETTINGS
+DEFAULT_MODE = 'dev' # or 'prod'
 DEV_DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings.local'
 PROD_DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings.production'
+########### END DJANGO SETTINGS
 
+########### PROMPT SETTINGS
 AUTO_ANSWER_PROMPTS = True  
-
 if AUTO_ANSWER_PROMPTS:
     prompts = {
         'Do you want to continue [Y/n]? ': 'Y',
@@ -31,8 +64,21 @@ if AUTO_ANSWER_PROMPTS:
         }
 else:
     prompts = {}
+########### END PROMPT SETTINGS
 
-NPM_PACKAGES = ['bower', 'less']
+########### PATH AND PROJECT NAME CONFIGURATION
+# Should not change if you do not modify this GitHub project
+GITHUB_PROJECT = 'https://github.com/eleyine/WearHacks-Website.git'
+DJANGO_PROJECT_DIR = '/home/django'
+DJANGO_PROJECT_NAME = 'WearHacks-Website'
+DJANGO_APP_NAME = 'wearhacks_website'
+DJANGO_PROJECT_PATH = os.path.join(DJANGO_PROJECT_DIR, DJANGO_PROJECT_NAME)
+########### END PATH AND PROJECT NAME CONFIGURATION
+
+########### ENV VARIABLES
+env.user = ENV_USER
+env.hosts = HOSTS
+########### END ENV VARIABLES
 
 def write_file(local_path, remote_path, options):
     with open(local_path) as f:
@@ -61,6 +107,7 @@ def setup():
         if not os.path.isfile('/usr/bin/node'):
             run('ln -s /usr/bin/nodejs /usr/bin/node')
 
+        NPM_PACKAGES = ['bower', 'less']
         with settings(prompts=prompts):
             for package in NPM_PACKAGES:
                 output = run(package)

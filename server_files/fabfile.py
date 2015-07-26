@@ -168,6 +168,11 @@ def migrate(mode='prod'):
             run('python manage.py makemigrations')
             run('python manage.py migrate')
 
+def pull_changes():
+    with cd(DJANGO_PROJECT_PATH):
+        print 'Pulling changes from master repo'
+        run('git pull origin master')
+
 def reboot(mode='prod'):
 
     with cd(DJANGO_PROJECT_PATH):

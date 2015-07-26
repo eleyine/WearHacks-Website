@@ -20,3 +20,7 @@ assets/CACHE/
 
 # Migrations
 */migrations*
+
+# Deployment settings
+server_files/private.py
+server_files/logs/

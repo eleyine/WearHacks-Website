@@ -16,7 +16,7 @@ dist/
 # Staticfiles
 staticfiles/
 media/
-assets/CACHE/
+static/CACHE/
 
 # Migrations
 */migrations*

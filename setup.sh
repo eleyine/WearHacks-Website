@@ -15,6 +15,8 @@ export SECRET_KEY=mysecretkey
 pip install -r requirements.txt
 bower install --allow-root
 
+sudo nginx -t
+sudo service nginx reload
 service gunicorn restart
 
 python manage.py makemigrations

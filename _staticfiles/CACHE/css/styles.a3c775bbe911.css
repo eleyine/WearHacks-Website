@@ -1,0 +1,21 @@
+.who .col {
+  max-height: 50px;
+}
+.who .logo {
+  border: 1px solid red;
+  display: block;
+  height: 400px;
+  background-image: url('../../images/logo-text.png');
+}
+.who .info ul {
+  list-style-type: none;
+}
+.who .info li {
+  text-transform: uppercase;
+  font-size: 1em;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

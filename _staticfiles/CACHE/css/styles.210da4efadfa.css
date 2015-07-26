@@ -1,0 +1,38 @@
+header .header-content-inner .who .col {
+  min-height: 100px;
+  height: 100px;
+  max-height: 100px;
+  margin: 20px 0;
+}
+header .header-content-inner .who .logo {
+  display: block;
+  background-image: url('../../images/logo-text.png');
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+header .header-content-inner .who .info {
+  display: block;
+}
+header .header-content-inner .who .info div {
+  display: block;
+  min-height: 33%;
+  height: 33%;
+  max-height: 33%;
+}
+header .header-content-inner .who .info p {
+  text-align: center;
+  padding: 3px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@media (max-width: 600px) {
+  header .header-content-inner .who .col {
+    min-height: 60px;
+    height: 60px;
+    max-height: 60px;
+  }
+}

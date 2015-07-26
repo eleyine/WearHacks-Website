@@ -72,7 +72,8 @@ MEDIA_URL = '/media/'
 ########## STATIC FILE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
-
+# STATIC_ROOT = 'staticfiles'
+# STATIC_ROOT = '/static/'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/static/'
 
@@ -89,11 +90,13 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', not DEBUG)
+COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', True)
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
+
+COMPRESS_ROOT = 'static'
 ########## END STATIC FILE CONFIGURATION
 
 ########## SECRET CONFIGURATION

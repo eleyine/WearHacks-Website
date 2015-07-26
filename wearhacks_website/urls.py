@@ -8,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^register/', include('registration.urls')),
-
-    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.IndexView.as_view(), name='index'),
 )

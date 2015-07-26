@@ -20,6 +20,28 @@ def get_filename(instance, old_filename, directory=''):
         )
     return filename
 
+class ChargeAttempt(models.Model):
+    email = models.EmailField()
+    charge_id = models.CharField(max_length=27)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_livemode = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
+    status = models.CharField(max_length=100)
+    amount = models.IntegerField()
+    source_id = models.CharField(max_length=27)
+    is_captured = models.BooleanField(default=False)
+    failure_message = models.CharField(default='', max_length=300)
+    failure_code = models.IntegerField(blank=True)
+
+    class Meta:
+        ordering = ('created_at',)
+
+    def __unicode__(self):
+        return '{3} charge attempt by {0} on {1} [{2}]'.format(
+            self.email, self.created_at, 
+            self.charge_id, self.status)
+
+
 class Registration(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
@@ -62,6 +84,9 @@ class Registration(models.Model):
         help_text="Not required but this might reach our sponsors for targeted employment opportunities.")
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
        help_text="Not required but it will save us some time during registration.")
+
+    # payment
+    charge = models.ForeignKey('ChargeAttempt', default=1)
 
     class Meta:
         ordering = ('last_name', 'first_name')

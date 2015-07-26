@@ -1,6 +1,5 @@
 {% extends "_base.html" %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css' %}" />
@@ -17,7 +16,7 @@ vertical-align: middle;
 {% endblock %}
 
 {% block content %}
-<div id="registration-form-container">
+<div id="checkout">
 <section>
 <div class="header-content">
     <div class="header-content-inner">
@@ -40,30 +39,20 @@ vertical-align: middle;
 </section>
 <section>
     <div class="container">
-        <div class="row">
-            <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
-                <h1>Registration Form</h1>
-                {% crispy form form.helper %}
-            </div>
-        </div>
-
-        <!-- <div class="row" id="#success">
+        <div class="row" id="#success">
             <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
                 <h2>
                     <i class="fa fa-2x fa-tick wow bounceIn text-primary"></i>
                     Thank you for registering!
                 </h2>
             </div>
-        </div> -->
+        </div>
     </div>
 </section>
 </div>
 {% endblock %}
 
 {% block scripts %}
-<script src="https://checkout.stripe.com/checkout.js"></script>
-<!-- ?v=00001 ensures it doesn't get cached. Should remove this in production. -->
-<script type="text/javascript" src="{% static 'javascripts/register.js' %}?v=00001"></script>
 
 <script type="text/javascript">
 (function($) {

@@ -1,6 +1,6 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, Field
+from crispy_forms.layout import Submit, Layout, Fieldset, Div, Field, HTML
 from crispy_forms.bootstrap import FormActions, StrictButton
 
 
@@ -25,6 +25,10 @@ class RegistrationForm(forms.ModelForm):
                 'resume',
                 'waiver'
             )
+
+    # def clean_email(self):
+        
+    #     self._errors['email'] = [u'Email is already in use']
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -66,10 +70,18 @@ class RegistrationForm(forms.ModelForm):
                 Field('food_restrictions', rows=2),
                 'waiver',
             ),
-            FormActions(
-                StrictButton('Sign me up', name='register', 
-                    css_class='btn-primary pull-right page-scroll', css_id="register",
-                    href='#registration-form')
-            )
+            HTML(
+                '<div class="row"><div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">'
+                '<span id="error_id_pay" class="help-block hide"><strong>Please correct your registration information before proceeding to payment.</strong></span>'
+                '<a id="id_pay" class="btn btn-large btn-block btn-success">Enter Payment Information</a>'
+                '<p id="hint_id_pay" class="help-block">Payment is handled by Stripe. We do not store your card information.</p>'
+                '</div></div>'
+                ),
+            # FormActions(
+                
+            #     StrictButton('Sign me up', name='register', 
+            #         css_class='btn-primary pull-right page-scroll', css_id="register",
+            #         href='#registration-form')
+            # )
         )
 

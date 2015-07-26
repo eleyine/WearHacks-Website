@@ -168,6 +168,19 @@ def migrate(mode='prod'):
             run('python manage.py makemigrations')
             run('python manage.py migrate')
 
+def update_requirements():
+    with cd(DJANGO_PROJECT_PATH):
+        run('git pull origin master')
+        print 'Installing python requirements..'
+        run('pip install -r requirements.txt')
+        
+        print 'Installing bower requirements..'
+        run('bower install --allow-root')
+
+        # setup proper permissions
+        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+
+
 def pull_changes():
     with cd(DJANGO_PROJECT_PATH):
         print 'Pulling changes from master repo'
@@ -205,7 +218,8 @@ def reboot(mode='prod'):
                 run('python manage.py runserver localhost:9000')
         else:
             print 'Invalid mode %s' % (mode)
-
+    
+    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
     get_logs()
 
 

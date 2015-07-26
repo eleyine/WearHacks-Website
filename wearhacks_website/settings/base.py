@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 from os.path import abspath, basename, dirname, join, normpath
-from os import environ
+import os
 from sys import path
 
 ########## PATH CONFIGURATION
@@ -31,7 +31,7 @@ path.append(DJANGO_ROOT)
 ########## DEBUG CONFIGURATION
 # SECURITY WARNING: don't run with debug turned on in production!
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = environ.get('DEBUG', True)
+DEBUG = os.environ.get('DEBUG', True)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
@@ -90,7 +90,7 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', False)
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
@@ -191,6 +191,7 @@ DJANGO_APPS = (
     'rest_framework',
     'compressor',
     'crispy_forms',
+    # 'djstripe'
 )
 
 # Apps specific for this project go here.
@@ -275,4 +276,18 @@ REST_FRAMEWORK = {
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+########## STRIPE
+
+STRIPE_SECRET_KEY = os.environ.get(
+    "STRIPE_SECRET_KEY",
+    "sk_test_HJFprvoBQQcFpHMcJ4fcP4Nb"
+)
+STRIPE_PUBLIC_KEY = os.environ.get(
+    "STRIPE_PUBLIC_KEY",
+    "pk_test_wLynQ6aB7z7gx5vztfV37MVa"
+)
+DJSTRIPE_PLANS = {}
+
+########## END STRIPE
 

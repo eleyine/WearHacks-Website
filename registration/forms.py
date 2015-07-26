@@ -62,7 +62,7 @@ class RegistrationForm(forms.ModelForm):
                 'resume',
             ),
             Fieldset(
-                'Almost there!',
+                'Misc.',
                 Field('food_restrictions', rows=2),
                 'waiver',
             ),

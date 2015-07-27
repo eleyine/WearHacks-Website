@@ -69,7 +69,7 @@
 
     function displayServerError() {
       $('#checkout').removeClass('waiting btn-primary');
-      $('#checkout').addClass('disabled btn-error');
+      $('#checkout').addClass('disabled btn-danger');
       $('#checkout text').text('Sorry');
 
       $('.message').addClass('hide');

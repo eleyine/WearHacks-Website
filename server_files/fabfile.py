@@ -83,8 +83,8 @@ ENV_VARIABLES = {
     'DB_USER': DB_USER,
     'DB_PASS': DB_PASS,
     'SECRET_KEY': SECRET_KEY,
-    'DB_HOST': HOSTS[0], #'localhost' #HOSTS[0]
-    'DB_PORT': DB_PORT
+    'DB_HOST': 'localhost', #HOSTS[0], #'localhost' #HOSTS[0]
+    'DB_PORT': str(DB_PORT)
 }
 ########### END ENV VARIABLES
 
@@ -227,7 +227,7 @@ def migrate(mode='prod'):
         **ENV_VARIABLES):
 
         with cd(DJANGO_PROJECT_PATH):
-            cmd = run('echo "from django.db import connection; connection.vendor" | python manage.py shell ')
+            run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
             if mode == 'dev':
                 run('python manage.py sqlclear registration | python manage.py dbshell ')
             else:
@@ -279,6 +279,9 @@ def reboot(mode='prod'):
 
             print 'Restarting gunicorn'
             run('service gunicorn restart')
+
+            run('python manage.py generate_registrations 10 --reset')
+            run('python manage.py collectstatic')
 
         elif mode == 'dev':
             print 'Restarting nginx'

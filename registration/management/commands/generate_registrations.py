@@ -25,6 +25,7 @@ class Command(BaseCommand):
             raise CommandError('Usage: {0}'.format(self.args))
 
         if options['reset']:
+            ChargeAttempt.objects.all().delete()
             Registration.objects.all().delete()
 
         numRegistrations = args[0]

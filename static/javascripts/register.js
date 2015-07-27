@@ -5,6 +5,7 @@
 
         ajaxSetup();
         stylisticTweaks();
+        $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
 
         $(document).on('click', '#checkout', function (e) {
             prevalidateRegistration('#registration-form');
@@ -64,7 +65,9 @@
 
     function stylisticTweaks() {
         $(".checkboxinput").bootstrapSwitch();
-        $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
+        if (!$( "#id_gender" ).val()) {
+          $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
+        }
     }
 
     function disableButtonError() {
@@ -161,7 +164,7 @@
           opened: function() {
             $('.checkout-wrapper .fa').addClass('hide');
             $('.checkout-wrapper .fa-paper-plane').removeClass('hide');
-            $('#checkout .text').text('Stripe is now in charge...');
+            $('#checkout .text').text('Stripe doing its magic');
           },
           closed: function() {
             if ($('#checkout').hasClass('token-was-obtained')) {

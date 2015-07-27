@@ -75,7 +75,7 @@ class RegistrationForm(forms.ModelForm):
                 'waiver',
             ),
             HTML(
-                '<div class="row"><div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">'
+                '<div class="row"><div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">'
                 '<span id="registration-error" class="help-block hide message message-error"><strong>Registration Failure Message</strong></span>'
                 '<span id="checkout-error" class="help-block hide message message-error"><strong>Checkout Failure Message</strong></span>'
                 '<span id="server-error" class="help-block hide message message-error"><strong>Temporary problem with our server</strong></span>'

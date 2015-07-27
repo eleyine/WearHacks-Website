@@ -10,6 +10,9 @@ HOSTS = (
     'YourHostIP', # e.g. '45.55.216.44'
     )
 
+ALLOWED_HOSTS = (
+    '.example.com',  # Allow domain and subdomains
+    )
 
 # Django secret key
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key

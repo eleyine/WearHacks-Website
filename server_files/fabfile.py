@@ -269,6 +269,12 @@ def update_requirements():
 
 
 def pull_changes():
+    print 'Updating private.py'
+    put(local_path="../wearhacks_website/settings/private.py",
+        remote_path=os.path.join(DJANGO_PROJECT_PATH, 
+            "wearhacks_website/settings/private.py")
+        )
+
     with cd(DJANGO_PROJECT_PATH):
         print 'Pulling changes from master repo'
         run('git pull origin master')
@@ -287,12 +293,6 @@ def get_env_variables(mode='prod'):
     return ev
 
 def reboot(mode='prod', env_variables=None):
-    print 'Updating private.py'
-    put(local_path="../wearhacks_website/settings/private.py",
-        remote_path=os.path.join(DJANGO_PROJECT_PATH, 
-            "wearhacks_website/settings/private.py")
-        )
-
     if not env_variables:
         env_variables = get_env_variables(mode=mode)
 
@@ -310,6 +310,10 @@ def reboot(mode='prod', env_variables=None):
             with shell_env(**env_variables):
                 with settings(prompts=prompts):
                     run('python manage.py collectstatic')
+
+            with shell_env(**env_variables):
+                print 'Generating 1 random registration...'
+                run('python manage.py generate_registrations 1')
 
         elif mode == 'dev':
             print 'Restarting nginx'

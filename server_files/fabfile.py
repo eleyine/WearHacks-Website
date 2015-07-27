@@ -83,7 +83,8 @@ ENV_VARIABLES = {
     'DB_USER': DB_USER,
     'DB_PASS': DB_PASS,
     'SECRET_KEY': SECRET_KEY,
-    'DB_HOST': HOSTS[0] #'localhost' #HOSTS[0]
+    'DB_HOST': HOSTS[0], #'localhost' #HOSTS[0]
+    'DB_PORT': DB_PORT
 }
 ########### END ENV VARIABLES
 
@@ -114,7 +115,8 @@ def setup():
                 'postgresql',
                 'postgresql-contrib',
                 'nginx',
-                'gunicorn'
+                'gunicorn',
+                'sqlite3'
             ])
 
         if not os.path.isfile('/usr/bin/node'):
@@ -189,6 +191,27 @@ def reset_postgres_db():
     print 'Creating new database %s' % (DB_NAME)
     fabtools.postgres.create_database(DB_NAME, owner=DB_USER)
 
+def update_conf_files():
+    print 'Modifying nginx config'
+    write_file('nginx.sh', '/etc/nginx/sites-enabled/django',
+        {
+            'DJANGO_PROJECT_PATH': DJANGO_PROJECT_PATH
+        })
+
+    print 'Modifying gunicorn config'
+    write_file('gunicorn.sh', '/etc/init/gunicorn.conf',
+        {
+            'DJANGO_PROJECT_DIR': DJANGO_PROJECT_DIR,
+            'DJANGO_PROJECT_NAME': DJANGO_PROJECT_NAME,
+            'DJANGO_APP_NAME': DJANGO_APP_NAME
+        })
+    print 'Restarting nginx'
+    sudo('nginx -t')
+    sudo('service nginx reload')
+
+    print 'Restarting gunicorn'
+    run('service gunicorn restart')
+
 def migrate(mode='prod'):
 
     print 'Migrating database'
@@ -205,7 +228,12 @@ def migrate(mode='prod'):
 
         with cd(DJANGO_PROJECT_PATH):
             cmd = run('echo "from django.db import connection; connection.vendor" | python manage.py shell ')
-            print cmd
+            if mode == 'dev':
+                run('python manage.py sqlclear registration | python manage.py dbshell ')
+            else:
+                run('service postgresql status')
+                run('sudo netstat -nl | grep postgres')
+
             run('python manage.py makemigrations')
             run('python manage.py migrate')
             run('python manage.py syncdb')
@@ -265,6 +293,7 @@ def reboot(mode='prod'):
 
             with shell_env(SECRET_KEY=SECRET_KEY, DB_PASS=DB_PASS, DB_USER=DB_USER):
                 print 'Running on localhost'
+                run('python manage.py generate_registrations 10 --reset')
                 run('python manage.py runserver localhost:9000')
         else:
             print 'Invalid mode %s' % (mode)

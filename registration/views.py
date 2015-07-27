@@ -76,7 +76,6 @@ class SubmitRegistrationView(generic.View):
                 print charge
                 failure_message = charge.failure_message or ''
                 failure_code = charge.failure_code or ''
-                print 'failure: %s, %s' % (failure_code, failure_message)
                 # Log charge attempt
                 charge_attempt = ChargeAttempt.objects.create(
                         email = email,

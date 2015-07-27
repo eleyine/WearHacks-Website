@@ -193,7 +193,6 @@ def reset_postgres_db():
 
     print 'Creating new database %s' % (DB_NAME)
     fabtools.postgres.create_database(DB_NAME, owner=DB_USER)
-    migrate()
     test_models()
 
 def update_conf_files():

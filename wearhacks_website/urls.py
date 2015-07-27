@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^register/', include('registration.urls')),
     url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
+    url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.IndexView.as_view(), name='index'),
 )

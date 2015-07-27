@@ -14,7 +14,7 @@ static/bower_components/
 dist/
 
 # Staticfiles
-staticfiles/
+assets/
 media/
 static/CACHE/
 

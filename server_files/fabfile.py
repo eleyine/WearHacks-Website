@@ -279,8 +279,6 @@ def reboot(mode='prod'):
 
             print 'Restarting gunicorn'
             run('service gunicorn restart')
-
-            run('python manage.py generate_registrations 10 --reset')
             run('python manage.py collectstatic')
 
         elif mode == 'dev':

@@ -24,7 +24,7 @@ server {
 
     # your Django project's static files - amend as required
     location /static {
-        alias DJANGO_PROJECT_PATH/static; 
+        alias DJANGO_PROJECT_PATH/assets; 
     }
 
     location / {

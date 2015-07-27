@@ -90,14 +90,20 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', not DEBUG)
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
 
 COMPRESS_ROOT = normpath(join(SITE_ROOT, 'assets'))
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', not DEBUG)
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.css_default.CssAbsoluteFilter',  
+    'compressor.filters.cssmin.CSSMinFilter',
+    )
+COMPRESS_JS_FILTERS = (
+    'compressor.filters.jsmin.JSMinFilter',  
+    )
 
 ########## END STATIC FILE CONFIGURATION
 

@@ -4,17 +4,15 @@
 {% compress css %}
 
 <!-- Twitter Bootstrap -->
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" />
 
 <!-- Plugin CSS -->
 <link rel="stylesheet" href="{% static 'stylesheets/css/animate.min.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'bower_components/snackbarjs/dist/snackbar.min.css' %}" type="text/css">
 
 <!-- Startbootstrap Creative CSS (Modified)-->
-<link rel="stylesheet" href="{% static 'stylesheets/less/creative.less' %}" type="text/less">
+<link rel="stylesheet" href="{% static 'stylesheets/css/creative.css' %}" type="text/less">
 
 <!-- Custom CSS -->
 <!-- ?v=00001 ensures it doesn't get cached. Should remove this in production. -->
-<link rel="stylesheet" type="text/less" href="{% static 'stylesheets/less/styles.less' %}?v=00001" />
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/css/styles.css' %}?v=00001" />
 {% endcompress %}

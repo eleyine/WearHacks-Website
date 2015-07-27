@@ -34,7 +34,6 @@ DEBUG = True
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
 COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', not DEBUG)
-
 ########## END DEBUG CONFIGURATION
 
 ########## EMAIL CONFIGURATION

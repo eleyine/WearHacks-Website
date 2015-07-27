@@ -57,14 +57,11 @@
 
 {% block scripts %}
 <script src="https://checkout.stripe.com/checkout.js"></script>
+
+{% compress js %}
 <!-- ?v=00001 ensures it doesn't get cached. Should remove this in production. -->
-<script type="text/javascript" src="{% static 'javascripts/register.js' %}?v=00001"></script>
+<script type="text/javascript" src="{% static 'javascripts/register.js' %}{% if debug %}?v=00001{% endif %}"></script>
+{% endcompress %}
 
-<script type="text/javascript">
-(function($) {
-    "use strict"; // Start of use strict
-
-    })(jQuery); // End of use strict
-</script>
 {% endblock %}
 

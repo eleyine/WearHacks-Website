@@ -86,7 +86,7 @@ class Registration(models.Model):
        help_text="Not required but it will save us some time during registration.")
 
     # payment
-    charge = models.ForeignKey('ChargeAttempt', default=1)
+    charge = models.ForeignKey('ChargeAttempt', blank=True, null=True) #default=1)
 
     class Meta:
         ordering = ('last_name', 'first_name')

@@ -177,8 +177,8 @@ class SubmitRegistrationView(generic.View):
 
                 if not server_error and not checkout_success:
                     checkout_message = "Something went wrong on Stripe's end.\n"
-                    if charge and hasattr(charge, 'failure_message'):
-                        checkout_message += charge.failure_message
+                    if charge and hasattr(charge, 'failure_message') and failure_message:
+                        checkout_message += failure_message
                     if error_message:
                         checkout_message += '<strong>%s </strong> ' % (error_message)
                     checkout_message += "Please refresh and try again."

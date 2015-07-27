@@ -73,7 +73,9 @@ class SubmitRegistrationView(generic.View):
                   statement_descriptor="WearHacks Mtl 2015",
                   capture=False,
                 )
-
+                print charge
+                failure_code = charge.failure_code or ''
+                print 'failure_code', failure_code
                 # Log charge attempt
                 charge_attempt = ChargeAttempt.objects.create(
                         email = email,

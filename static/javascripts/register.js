@@ -38,6 +38,8 @@
                 }
             },
             error: function () {
+                console.log('Server error');
+                console.log(data);  
                 displayServerError();
             }
         });
@@ -68,15 +70,15 @@
     }
 
     function displayServerError() {
+      $('#checkout .text').text('Sorry');
       $('#checkout').removeClass('waiting btn-primary');
       $('#checkout').addClass('disabled btn-danger');
-      $('#checkout text').text("Sorry");
 
       $('.message').addClass('hide');
       $('#server-error').removeClass('hide');
       $('#server-error').html("There is a temporary problem with " +
          "our server. Please refresh.</br>If the problem " +
-         "persists, contact our support team.</br>Dont'  worry, we haven't captured your payment.");
+         "persists, contact our support team.</br><strong>Don't  worry, we haven't captured your payment.</strong>");
     }
 
     function registrationError(message) {
@@ -134,6 +136,8 @@
                     }
                   },
                   error: function(data) {
+                    console.log('Server error');
+                    console.log(data);
                     displayServerError();
                   }
                 }); // end ajax call

@@ -17,4 +17,4 @@ exec gunicorn \
     --pythonpath=DJANGO_PROJECT_NAME \
     --bind=127.0.0.1:9000 \
     --config /etc/gunicorn.d/gunicorn.py \
-    DJANGO_APP_NAME.wsgi:application
+DJANGO_APP_NAME.wsgi:application

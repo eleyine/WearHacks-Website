@@ -25,7 +25,8 @@ class SubmitRegistrationView(generic.View):
     # hard-coded for now
     # TODO: GET amount by is_student and created_at (for early birds)
     def is_valid_amount(self, is_student, amount):
-        is_valid = (is_student and amount == 100) or amount == 200
+        # keep it constant for now
+        is_valid = (is_student and amount == 200) or amount == 200
         return is_valid
 
     @json_view

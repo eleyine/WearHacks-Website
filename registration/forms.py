@@ -51,8 +51,12 @@ class RegistrationForm(forms.ModelForm):
             ),
             Fieldset(
                 'Tell us a bit about yourself.',
-                Field('is_student', 
+                Div(Field('is_student', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
+                    # HTML('<div class="row"><div class="col-lg-offset-3 col-lg-6">'
+                    #     '<div class="discount message-success">'
+                    #     'Great, you have a 50% discount!</div></div></div>')
+                    ),
                 Field('is_returning', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
                 Field('is_hacker', 
@@ -71,10 +75,14 @@ class RegistrationForm(forms.ModelForm):
                 'waiver',
             ),
             HTML(
-                '<div class="row"><div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">'
-                '<span id="error_id_pay" class="help-block hide"><strong>Please correct your registration information before proceeding to payment.</strong></span>'
-                '<a id="id_pay" class="btn btn-large btn-block btn-success">Enter Payment Information</a>'
-                '<p id="hint_id_pay" class="help-block">Payment is handled by Stripe. We do not store your card information.</p>'
+                '<div class="row"><div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">'
+                '<span id="registration-error" class="help-block hide message message-error"><strong>Registration Failure Message</strong></span>'
+                '<span id="checkout-error" class="help-block hide message message-error"><strong>Checkout Failure Message</strong></span>'
+                '<span id="server-error" class="help-block hide message message-error"><strong>Temporary problem with our server</strong></span>'
+                '<span id="success-message" class="help-block hide message message-success"><strong>Things are going great yo.</strong></span>'
+                '<a id="checkout" class="btn btn-lg btn-block btn-primary">'
+                '<i class="fa fa-lock"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Checkout</span></a>'
+                '<p id="hint_checkout" class="has-info help-block">Payment is handled by Stripe. We do not store your card information.</p>'
                 '</div></div>'
                 ),
             # FormActions(

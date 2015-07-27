@@ -30,8 +30,8 @@ class ChargeAttempt(models.Model):
     amount = models.IntegerField()
     source_id = models.CharField(max_length=27)
     is_captured = models.BooleanField(default=False)
-    failure_message = models.CharField(default='', max_length=300)
-    failure_code = models.IntegerField(blank=True)
+    failure_message = models.CharField(default='No Error', max_length=300)
+    failure_code = models.CharField(default='200', max_length=30)
 
     class Meta:
         ordering = ('created_at',)

@@ -231,16 +231,7 @@ def migrate(mode='prod', env_variables=None):
         env_variables = get_env_variables(mode=mode)
 
     print 'Migrating database'
-
-    if mode == 'dev':
-        DJANGO_SETTINGS_MODULE = DEV_DJANGO_SETTINGS_MODULE
-        SECRET_KEY = TEST_SECRET_KEY
-    elif mode == 'prod':
-        DJANGO_SETTINGS_MODULE = PROD_DJANGO_SETTINGS_MODULE
-        SECRET_KEY = PROD_SECRET_KEY
-    else:
-        print 'Invalid mode %s' % (mode)
-
+    
     with shell_env(**env_variables):
 
         with cd(DJANGO_PROJECT_PATH):

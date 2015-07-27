@@ -9,13 +9,11 @@
         $(document).on('click', '#checkout', function (e) {
             prevalidateRegistration('#registration-form');
             e.preventDefault();
-            console.log('Cool');
 
         } );
     });
 
     function prevalidateRegistration(form) {
-        console.log('Prevalidate registration form');
         $('.checkout-wrapper .fa').addClass('hide');
         $('.checkout-wrapper .fa-paper-plane').removeClass('hide');
         $('#checkout .text').text('Validating your info');

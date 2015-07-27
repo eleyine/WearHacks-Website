@@ -193,6 +193,8 @@ def reset_postgres_db():
 
     print 'Creating new database %s' % (DB_NAME)
     fabtools.postgres.create_database(DB_NAME, owner=DB_USER)
+    migrate()
+    test_models()
 
 def update_conf_files():
     print 'Modifying nginx config'
@@ -214,6 +216,12 @@ def update_conf_files():
 
     print 'Restarting gunicorn'
     run('service gunicorn restart')
+
+def test_models(mode='prod'):
+    env_variables = get_env_variables(mode=mode) 
+    with cd(DJANGO_PROJECT_PATH):
+        with shell_env(**env_variables):
+            run('python manage.py generate_registrations 10 --reset')
 
 def migrate(mode='prod', env_variables=None):
     if not env_variables:

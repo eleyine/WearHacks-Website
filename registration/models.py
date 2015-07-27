@@ -37,7 +37,7 @@ class ChargeAttempt(models.Model):
         ordering = ('created_at',)
 
     def __unicode__(self):
-        return '{3} charge attempt by {0} on {1} [{2}]'.format(
+        return 'Charge attempt by {0} on {1} [{2}]'.format(
             self.email, self.created_at, 
             self.charge_id, self.status)
 
@@ -86,7 +86,7 @@ class Registration(models.Model):
        help_text="Not required but it will save us some time during registration.")
 
     # payment
-    charge = models.ForeignKey('ChargeAttempt', default=1)
+    charge = models.ForeignKey('ChargeAttempt', null=True)
 
     class Meta:
         ordering = ('last_name', 'first_name')

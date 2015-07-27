@@ -56,7 +56,7 @@ DATABASES = {
         'NAME': 'django',
         'USER': get_env_setting('DB_USER'),
         'PASSWORD': get_env_setting('DB_PASS'),
-        'HOST': 'localhost',
+        'HOST': get_env_setting('DB_HOST'),
         'PORT': '',
     }
 }

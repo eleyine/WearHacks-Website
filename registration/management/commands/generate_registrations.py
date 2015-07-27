@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from random import randint
-from registration.models import Registration
+from registration.models import Registration, ChargeAttempt
 
 from loremipsum import get_sentence, get_paragraph
 
@@ -40,12 +40,23 @@ class Command(BaseCommand):
 
     @staticmethod
     def generate_registrations(n, **kwargs):
+        charge_attempt = ChargeAttempt.objects.create(
+                    email = 'default@charge.com',
+                    charge_id = 'ch_xxx',
+                    is_livemode = False,
+                    is_paid = False,
+                    status = 'None',
+                    amount = 0,
+                    source_id = 'tok_xxx',
+                    is_captured = False,
+                    failure_message = '',
+                    failure_code = 0
+                )
         for i in range(n):
             Registration.objects.create(**Command.generate_registration_data(**kwargs))
 
     @staticmethod
     def generate_registration_data(max_length=300):
-        content = get_paragraph()[:max_length]
         # add random hashtags
         data =  {
             'first_name':  get_word(), 

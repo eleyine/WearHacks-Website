@@ -221,7 +221,11 @@ def test_models(mode='prod'):
     env_variables = get_env_variables(mode=mode) 
     with cd(DJANGO_PROJECT_PATH):
         with shell_env(**env_variables):
+            print 'Check database backend'
+            run('echo "from django.db import connection;connection.vendor" | python manage.py shell ')
+            print 'In case you forgot the password, here it is %s' % (env_variables['DB_PASS'])
             run('python manage.py sqlclear registration | python manage.py dbshell ')
+
             pull_changes()
             migrate(mode=mode)
             run('python manage.py generate_registrations 10 --reset')

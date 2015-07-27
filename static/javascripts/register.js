@@ -70,7 +70,7 @@
     function displayServerError() {
       $('#checkout').removeClass('waiting btn-primary');
       $('#checkout').addClass('disabled btn-danger');
-      $('#checkout text').text('Sorry');
+      $('#checkout text').text("Sorry");
 
       $('.message').addClass('hide');
       $('#server-error').removeClass('hide');
@@ -157,12 +157,14 @@
             $('#checkout').addClass('waiting');
             $('#checkout .text').text('Completing registration...');
             setTimeout(function(){ 
-              $('#checkout .text').text('This may take a while...');
-              setTimeout(function(){ 
-                if ($('#checkout').hasClass('waiting')) {
-                  $('#checkout .text').text("So you want to be a hacker eh?");
-                }
-              }, 20000);
+              if ($('#checkout').hasClass('waiting')) {
+                $('#checkout .text').text('This may take a while...');
+                setTimeout(function(){ 
+                  if ($('#checkout').hasClass('waiting')) {
+                    $('#checkout .text').text("So you want to be a hacker eh?");
+                  }
+                }, 20000);
+              }
             }, 5000);
           }
         });

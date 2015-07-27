@@ -51,7 +51,7 @@ class Command(BaseCommand):
                     source_id = 'tok_xxx',
                     is_captured = False,
                     failure_message = '',
-                    failure_code = 0
+                    failure_code = 'dummy_code'
                 )
         for i in range(n):
             Registration.objects.create(**Command.generate_registration_data(**kwargs))

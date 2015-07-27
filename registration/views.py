@@ -85,7 +85,7 @@ class SubmitRegistrationView(generic.View):
                         source_id = charge.source.id,
                         is_captured = charge.captured,
                         failure_message = charge.failure_message or '',
-                        failure_code = charge.failure_code or 0
+                        failure_code = charge.failure_code or ''
                     )
                 charge_attempt.save()
 

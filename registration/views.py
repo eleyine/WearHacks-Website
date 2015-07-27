@@ -94,6 +94,7 @@ class SubmitRegistrationView(generic.View):
                     )
                     failure_message = charge.failure_message
                     failure_code = charge.failure_code
+                    checkout_success = True
 
                 except stripe.error.CardError, e:
                     # Since it's a decline, stripe.error.CardError will be caught
@@ -177,7 +178,7 @@ class SubmitRegistrationView(generic.View):
 
                 if not server_error and not checkout_success:
                     checkout_message = "Something went wrong on Stripe's end.\n"
-                    if charge and hasattr(charge, 'failure_message') and failure_message:
+                    if charge and hasattr(charge, 'failure_message') and failure_message is not None:
                         checkout_message += failure_message
                     if error_message:
                         checkout_message += '<strong>%s </strong> ' % (error_message)

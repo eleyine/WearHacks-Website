@@ -30,8 +30,21 @@ class ChargeAttempt(models.Model):
     amount = models.IntegerField()
     source_id = models.CharField(max_length=29)
     is_captured = models.BooleanField(default=False)
-    failure_message = models.CharField(default='No Error', max_length=300)
-    failure_code = models.CharField(default='200', max_length=30)
+    failure_message = models.CharField(default='No Error', max_length=300,
+        help_text='Charge object failure message')
+    failure_code = models.CharField(default='200', max_length=30, 
+        help_text='Charge object failure code')
+    error_http_status = models.CharField(default='200', max_length=4)
+    error_type = models.CharField(default='None', max_length=20,
+        help_text='The type of error returned. Can be invalid_request_error, api_error, or card_error')
+    error_code = models.CharField(default='None', max_length=20,
+        help_text='For card errors, a short string from amongst those listed on the right describing the kind of card error that occurred.')
+    error_param = models.CharField(default='None', max_length=20,
+        help_text='The parameter the error relates to if the error is parameter-specific.')
+    error_message = models.CharField(default='None', max_length=20,
+        help_text='A human-readable message giving more details about the error.')
+    server_message = models.TextField(default='None', max_length=300,
+        help_text='Message detailing internal server errors for debugging purposes')
 
     class Meta:
         ordering = ('created_at',)

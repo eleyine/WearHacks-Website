@@ -33,8 +33,9 @@ class SubmitRegistrationView(generic.View):
         stripe.api_key = "sk_test_HJFprvoBQQcFpHMcJ4fcP4Nb"
         checkout_success = False
         checkout_message = 'Checkout not attempted yet.'
-        message = "Oops! There were some errors in your registration."
         email = None
+        server_error = False
+        server_message = ''
 
         # check registration information
         registration_success= False
@@ -65,61 +66,156 @@ class SubmitRegistrationView(generic.View):
                 registration_message = 'Registration Information Valid'
                 checkout_message = ''
             else:
-                charge = stripe.Charge.create(
-                  amount=amount,
-                  currency="cad",
-                  source=token_id, # obtained with Stripe.js
-                  description="Charge for %s" % (email),
-                  statement_descriptor="WearHacks Mtl 2015",
-                  capture=False,
-                )
-                print charge
-                failure_message = charge.failure_message or ''
-                failure_code = charge.failure_code or ''
+                # Default charge attempt fields
+                charge = None
+                charge_id = 'xxx'
+                is_livemode = False
+                is_paid = False
+                status = 'Unknown'
+                source_id = 'xxx'
+                is_captured = False
+                failure_message = 'Unknown'
+                failure_code = 'Unknown'
+                error_http_status = '200'
+                error_type = 'None'
+                error_code = 'None'
+                error_param = 'None'
+                error_message = ''
+                e = None
+
+                try:
+                    charge = stripe.Charge.create(
+                      amount=amount,
+                      currency="cad",
+                      source=token_id, # obtained with Stripe.js
+                      description="Charge for %s" % (email),
+                      statement_descriptor="WearHacks Mtl 2015",
+                      capture=False,
+                    )
+                    failure_message = charge.failure_message
+                    failure_code = charge.failure_code
+
+                except stripe.error.CardError, e:
+                    # Since it's a decline, stripe.error.CardError will be caught
+                    body = e.json_body
+                    err  = body['error']
+                    error_http_status = e.http_status
+                    checkout_message = err["message"]
+                    checkout_success = False
+
+                except (stripe.error.InvalidRequestError,
+                    stripe.error.AuthenticationError,
+                    stripe.error.StripeError), e:
+                    # invalid_request: Invalid parameters were supplied to Stripe's API OR
+                    # authetication_error: Authentication with Stripe's API failed
+                    # (maybe you changed API keys recently) OR
+                    checkout_message = ''
+                    server_error = True
+                    checkout_success = False
+
+                except stripe.error.APIConnectionError, e:
+                    # Authentication with Stripe's API failed
+                    # (maybe you changed API keys recently)
+                    checkout_message = 'Network communication with Stripe failed. Please reload the page.'
+                    checkout_success = False
+
+                except stripe.error.StripeError, e:
+                    checkout_message = "Something went wrong on Stripe's end."
+                    checkout_success = False
+
+                except Exception, e:
+                    checkout_message = ''
+                    server_error = True
+                    checkout_success = False
+
+                if charge:
+                    charge_id = charge.id
+                    is_livemode = charge.livemode,
+                    is_paid = charge.paid
+                    status = charge.status
+                    amount = charge.amount
+                    source_id = charge.source.id
+                    is_captured = charge.captured
+                    failure_message = charge.failure_message
+                    failure_code = charge.failure_code
+                else:
+                    checkout_success = False
+                    server_message += 'Charge object does not exist. '
+
+                if e and hasattr(e, 'json_body') and 'error' in e.json_body:
+                    err = e.json_body['error']
+                    error_type = err["type"]
+                    if 'code' in err:
+                        error_code = err["code"]
+                    if 'param' in err:
+                        error_param = err["param"]
+                    if 'message' in err:
+                        error_message = err["message"]
+
+                if e and hasattr(e, 'http_status'):
+                    error_http_status = e.http_status
+
                 # Log charge attempt
                 charge_attempt = ChargeAttempt.objects.create(
                         email = email,
-                        charge_id = charge.id,
-                        is_livemode = charge.livemode,
-                        is_paid = charge.paid,
-                        status = charge.status,
-                        amount = charge.amount,
-                        source_id = charge.source.id,
-                        is_captured = charge.captured,
-                        failure_message = failure_message,
-                        failure_code = failure_code
+                        charge_id = charge_id,
+                        is_livemode = is_livemode,
+                        is_paid = is_paid,
+                        status = status,
+                        amount = amount,
+                        source_id = source_id,
+                        is_captured = is_captured,
+                        failure_message = failure_message or '',
+                        failure_code = failure_code or '',
+                        server_message = server_message,
+                        error_type = error_type or '',
+                        error_code = error_code or '',
+                        error_param = error_param or '',
+                        error_message = error_message or '',
                     )
                 charge_attempt.save()
 
-                # Two checks because API upgraded and too lazy to check my version
-                checkout_success = (charge.status == 'paid' or charge.status == 'succeeded')
-
-                if not checkout_success:
+                if not server_error and not checkout_success:
                     checkout_message = "Something went wrong on Stripe's end.\n"
-                    checkout_message += charge.failure_message
-                    checkout_message += "Please try again."
-                else:
-                    checkout_message = 'Valid card information'
+                    if charge and hasattr(charge, 'failure_message'):
+                        checkout_message += charge.failure_message
+                    if error_message:
+                        checkout_message += '<strong>%s </strong> ' % (error_message)
+                    checkout_message += "Please refresh and try again."
+                    checkout_message += "</br><strong>Don't worry, we did not capture your payment.</strong>"
 
-        if registration_success and checkout_success:
-            charge = stripe.Charge.retrieve(charge.id) # not sure if necessary
-            charge.capture()
-            charge_attempt.is_captured = True
-            charge_attempt.save()
-            new_regisration = form.save()
-            new_regisration.charge = charge_attempt
-            new_regisration.save()
-            message = 'Payment complete. We hope to see you there!'
+        if registration_success and checkout_success and not server_error:
+            try:
+                charge = stripe.Charge.retrieve(charge.id)
+                charge.capture()
+                is_captured = True
+            except Error, e:
+                server_error = True
+                server_message += 'Failed while capturing charge_attempt. (%s) ' % (str(e)[:100])
+
+            if is_captured:
+                charge_attempt.is_captured = True
+                charge_attempt.save()
+            
+            try:
+                new_regisration = form.save()
+                new_regisration.charge = charge_attempt
+                new_regisration.save()
+            except Error, e:
+                server_error = True
+                server_message += 'Failed while saving registration form. (%s)' % (str(e)[:100])
 
         response = {
+            'server_error': server_error,
             'registration_success': registration_success,
             'checkout_success': checkout_success,
             'registration_message': registration_message,
             'checkout_message': checkout_message,
-            'message': message,
             'success': registration_success and checkout_success,
         }
         print response
+        if server_message:
+            print server_message
         response['form_html'] = form_html
 
         return response

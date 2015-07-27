@@ -67,11 +67,15 @@
         $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
     }
 
-    function displayServerError() {
+    function disableButtonError() {
+      $('.fa').addClass('hide');
       $('#checkout .text').text('Sorry');
       $('#checkout').removeClass('waiting btn-primary');
       $('#checkout').addClass('disabled btn-danger');
+    }
 
+    function displayServerError() {
+      disableButtonError();
       $('.message').addClass('hide');
       $('#server-error').removeClass('hide');
       $('#server-error').html("There is a temporary problem with " +
@@ -99,6 +103,9 @@
             key: 'pk_test_wLynQ6aB7z7gx5vztfV37MVa',
             image: '/static/images/logo.png',
             token: function(token) {
+                if (token.id) {
+                  $('#checkout').addClass('token-was-obtained');
+                }
                 formData.append('token_id', token.id);
                 formData.append('amount', amount);
 
@@ -110,7 +117,9 @@
                   contentType: false,
                   data: formData,
                   success: function(data) {
-                    if(!data["registration_success"]) {
+                    if (data['server_error']) {
+                      displayServerError();
+                    } else if(!data["registration_success"]) {
                       registrationError(data["registration_message"]);
                     } else {
                       // Prevalidation has succeeded, user will proceed to checkout
@@ -118,7 +127,8 @@
                       if(!data["checkout_success"]) {
                         if (data["checkout_message"]) {
                           $('#checkout-error').removeClass('hide');
-                          $('#checkout-error').text(data["checkout_message"]);
+                          $('#checkout-error').html(data["checkout_message"]);
+                          disableButtonError();
                         }
                       } else {
                         // both registration and checkout have succeeded
@@ -154,20 +164,24 @@
             $('#checkout .text').text('Stripe is now in charge...');
           },
           closed: function() {
-            $('.checkout-wrapper .fa').addClass('hide');
-            $('.checkout-wrapper .fa-spinner').removeClass('hide');
-            $('#checkout').addClass('waiting');
-            $('#checkout .text').text('Completing registration...');
-            setTimeout(function(){ 
-              if ($('#checkout').hasClass('waiting')) {
-                $('#checkout .text').text('This may take a while...');
-                setTimeout(function(){ 
-                  if ($('#checkout').hasClass('waiting')) {
-                    $('#checkout .text').text("So you want to be a hacker eh?");
-                  }
-                }, 20000);
-              }
-            }, 5000);
+            if ($('#checkout').hasClass('token-was-obtained')) {
+              $('.checkout-wrapper .fa').addClass('hide');
+              $('.checkout-wrapper .fa-spinner').removeClass('hide');
+              $('#checkout').addClass('waiting');
+              $('#checkout .text').text('Completing registration...');
+              setTimeout(function(){ 
+                if ($('#checkout').hasClass('waiting')) {
+                  $('#checkout .text').text('This may take a while...');
+                  setTimeout(function(){ 
+                    if ($('#checkout').hasClass('waiting')) {
+                      $('#checkout .text').text("So you want to be a hacker eh?");
+                    }
+                  }, 20000);
+                }
+              }, 5000);
+            } else {
+              restoreCheckoutButton();
+            }
           }
         });
         // Close Checkout on page navigation
@@ -176,4 +190,11 @@
         });
     }
 
+    function restoreCheckoutButton() {
+      $('.checkout-wrapper .fa').addClass('hide');
+      $('.checkout-wrapper .fa-lock').removeClass('hide');
+      $('#checkout').removeClass('waiting token-was-obtained disabled btn-danger btn-success').addClass('btn-primary');
+      $('#checkout .text').text('Checkout');
+      $('.message').addClass('hide');
+    }
 })(jQuery); // End of use strict

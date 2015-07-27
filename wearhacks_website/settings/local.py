@@ -7,10 +7,10 @@ from .base import *
 
 ########## PRIVATE SETTINGS DO NOT MAKES THIS FILE PUBLIC
 try:
-    from settings.private import *
+    from settings import private
 except ImportError:
     print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
-    from settings.private_example import *
+    from settings import private_example as private
     sys.exit() # comment out this line if you want to use the example private settings
 ########## END PRIVATE SETTINGS DO NOT MAKES THIS PUBLIC
 
@@ -23,7 +23,7 @@ except ImportError:
 # Note: This key should only be used for development and testing.
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
-    TEST_SECRET_KEY # defined in private.py
+    private.TEST_SECRET_KEY # defined in private.py
 )
 ########## END SECRET CONFIGURATION
 
@@ -95,10 +95,10 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 STRIPE_SECRET_KEY = os.environ.get(
     "STRIPE_SECRET_KEY",
-    TEST_STRIPE_SECRET_KEY # defined in private.py
+    private.TEST_STRIPE_SECRET_KEY # defined in private.py
 )
 STRIPE_PUBLIC_KEY = os.environ.get(
     "STRIPE_PUBLIC_KEY",
-    TEST_STRIPE_PUBLIC_KEY # defined in private.py
+    private.TEST_STRIPE_PUBLIC_KEY # defined in private.py
 )
 ########## END STRIPE

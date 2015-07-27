@@ -233,7 +233,7 @@ def migrate(mode='prod', env_variables=None):
     with shell_env(**env_variables):
 
         with cd(DJANGO_PROJECT_PATH):
-            run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
+            # run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
             if mode == 'dev':
                 run('python manage.py sqlclear registration | python manage.py dbshell ')
             else:
@@ -284,6 +284,12 @@ def get_env_variables(mode='prod'):
     return ev
 
 def reboot(mode='prod', env_variables=None):
+    print 'Updating private.py'
+    put(local_path="../wearhacks_website/settings/private.py",
+        remote_path=os.path.join(DJANGO_PROJECT_PATH, 
+            "wearhacks_website/settings/private.py")
+        )
+
     if not env_variables:
         env_variables = get_env_variables(mode=mode)
 
@@ -298,8 +304,9 @@ def reboot(mode='prod', env_variables=None):
 
             print 'Restarting gunicorn'
             run('service gunicorn restart')
-            with settings(prompts=prompts):
-                run('python manage.py collectstatic')
+            with shell_env(**env_variables):
+                with settings(prompts=prompts):
+                    run('python manage.py collectstatic')
 
         elif mode == 'dev':
             print 'Restarting nginx'

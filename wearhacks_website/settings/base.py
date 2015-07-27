@@ -99,18 +99,11 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_ROOT = 'static'
 ########## END STATIC FILE CONFIGURATION
 
-########## SECRET CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key should only be used for development and testing.
-SECRET_KEY = r"{{ secret_key }}"
-########## END SECRET CONFIGURATION
-
 ########## SITE CONFIGURATION
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 ########## END SITE CONFIGURATION
-
 
 ########## FIXTURE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
@@ -281,15 +274,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ########## STRIPE
 
-STRIPE_SECRET_KEY = os.environ.get(
-    "STRIPE_SECRET_KEY",
-    "sk_test_HJFprvoBQQcFpHMcJ4fcP4Nb"
-)
-STRIPE_PUBLIC_KEY = os.environ.get(
-    "STRIPE_PUBLIC_KEY",
-    "pk_test_wLynQ6aB7z7gx5vztfV37MVa"
-)
 DJSTRIPE_PLANS = {}
 
 ########## END STRIPE
-

@@ -35,19 +35,23 @@ Usage:
     ---------
         Copy nginx and gunicorn log files from remote to logs/ directory
 """
+
 import fabtools
 from fabric.api import *
 from fabric.contrib.console import confirm
 from fabric.context_managers import shell_env
+from fabric.contrib import django
 import tempfile, os, sys
 
-from private_example import *
 
-if not os.path.exists('private.py'):
-    print 'ERROR: You must make a private.py file (see server_files/private_example.py)'
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from wearhacks_website.settings.private import *
+except ImportError:
+    print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
+    from wearhacks_website.settings.private_example import *
     sys.exit() # comment out this line if you want to use the example private settings
-else:
-    from private import *
 
 ########### DJANGO SETTINGS
 DEFAULT_MODE = 'dev' # or 'prod'
@@ -60,7 +64,8 @@ AUTO_ANSWER_PROMPTS = True
 if AUTO_ANSWER_PROMPTS:
     prompts = {
         'Do you want to continue [Y/n]? ': 'Y',
-        '? May bower anonymously report usage statistics to improve the tool over time? (Y/n)': 'Y'
+        '? May bower anonymously report usage statistics to improve the tool over time? (Y/n)': 'Y',
+        "Type 'yes' to continue, or 'no' to cancel: ": 'yes'
         }
 else:
     prompts = {}
@@ -82,7 +87,6 @@ ENV_VARIABLES = {
     'DB_NAME': DB_NAME,
     'DB_USER': DB_USER,
     'DB_PASS': DB_PASS,
-    'SECRET_KEY': SECRET_KEY,
     'DB_HOST': 'localhost', #HOSTS[0], #'localhost' #HOSTS[0]
     'DB_PORT': str(DB_PORT)
 }
@@ -212,19 +216,22 @@ def update_conf_files():
     print 'Restarting gunicorn'
     run('service gunicorn restart')
 
-def migrate(mode='prod'):
+def migrate(mode='prod', env_variables=None):
+    if not env_variables:
+        env_variables = get_env_variables(mode=mode)
 
     print 'Migrating database'
 
     if mode == 'dev':
         DJANGO_SETTINGS_MODULE = DEV_DJANGO_SETTINGS_MODULE
+        SECRET_KEY = TEST_SECRET_KEY
     elif mode == 'prod':
         DJANGO_SETTINGS_MODULE = PROD_DJANGO_SETTINGS_MODULE
+        SECRET_KEY = PROD_SECRET_KEY
     else:
         print 'Invalid mode %s' % (mode)
 
-    with shell_env(DJANGO_SETTINGS_MODULE=DJANGO_SETTINGS_MODULE, 
-        **ENV_VARIABLES):
+    with shell_env(**env_variables):
 
         with cd(DJANGO_PROJECT_PATH):
             run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
@@ -263,14 +270,27 @@ def pull_changes():
     with cd(DJANGO_PROJECT_PATH):
         print 'Pulling changes from master repo'
         run('git pull origin master')
+        run('pip install -r requirements.txt')
 
-def reboot(mode='prod'):
+def get_env_variables(mode='prod'):
+    ev = dict(ENV_VARIABLES)
+    if mode == 'dev':
+        ev["DJANGO_SETTINGS_MODULE"] = DEV_DJANGO_SETTINGS_MODULE
+        ev["SECRET_KEY"] = TEST_SECRET_KEY
+    elif mode == 'prod':
+        ev["DJANGO_SETTINGS_MODULE"] = PROD_DJANGO_SETTINGS_MODULE
+        ev["SECRET_KEY"] = PROD_SECRET_KEY
+    else:
+        print 'Invalid mode %s' % (mode)
+    return ev
+
+def reboot(mode='prod', env_variables=None):
+    if not env_variables:
+        env_variables = get_env_variables(mode=mode)
 
     with cd(DJANGO_PROJECT_PATH):
-        print 'Pulling changes from master repo'
-        run('git pull origin master')
-
-        migrate(mode=mode)
+        pull_changes()
+        migrate(mode=mode, env_variables=env_variables)
 
         if mode == 'prod':
             print 'Restarting nginx'
@@ -279,7 +299,8 @@ def reboot(mode='prod'):
 
             print 'Restarting gunicorn'
             run('service gunicorn restart')
-            run('python manage.py collectstatic')
+            with settings(prompts=prompts):
+                run('python manage.py collectstatic')
 
         elif mode == 'dev':
             print 'Restarting nginx'
@@ -292,7 +313,7 @@ def reboot(mode='prod'):
             except:
                 pass
 
-            with shell_env(SECRET_KEY=SECRET_KEY, DB_PASS=DB_PASS, DB_USER=DB_USER):
+            with shell_env(**env_variables):
                 print 'Running on localhost'
                 run('python manage.py generate_registrations 10 --reset')
                 run('python manage.py runserver localhost:9000')

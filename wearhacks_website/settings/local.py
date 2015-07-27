@@ -5,11 +5,27 @@ from os import environ
 
 from .base import *
 
+########## PRIVATE SETTINGS DO NOT MAKES THIS FILE PUBLIC
+try:
+    from settings.private import *
+except ImportError:
+    print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
+    from settings.private_example import *
+    sys.exit() # comment out this line if you want to use the example private settings
+########## END PRIVATE SETTINGS DO NOT MAKES THIS PUBLIC
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
+########## SECRET CONFIGURATION
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u-i^q400q!_q)93w+mt(8!9%h64_*lntc%1lo5&kfdzopf2ns!'
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+# Note: This key should only be used for development and testing.
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    TEST_SECRET_KEY # defined in private.py
+)
+########## END SECRET CONFIGURATION
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -74,3 +90,15 @@ DEBUG_TOOLBAR_CONFIG = {
 # http://django-debug-toolbar.readthedocs.org/en/latest/installation.html
 INTERNAL_IPS = ('127.0.0.1',)
 ########## END TOOLBAR CONFIGURATION
+
+########## STRIPE
+
+STRIPE_SECRET_KEY = os.environ.get(
+    "STRIPE_SECRET_KEY",
+    TEST_STRIPE_SECRET_KEY # defined in private.py
+)
+STRIPE_PUBLIC_KEY = os.environ.get(
+    "STRIPE_PUBLIC_KEY",
+    TEST_STRIPE_PUBLIC_KEY # defined in private.py
+)
+########## END STRIPE

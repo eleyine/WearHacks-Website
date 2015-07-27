@@ -18,6 +18,25 @@ def get_env_setting(setting):
         error_msg = "Set the %s env variable" % setting
         raise ImproperlyConfigured(error_msg)
 
+########## PRIVATE SETTINGS DO NOT MAKES THIS FILE PUBLIC
+try:
+    from settings.private import *
+except ImportError:
+    print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
+    from settings.private_example import *
+    sys.exit() # comment out this line if you want to use the example private settings
+########## END PRIVATE SETTINGS DO NOT MAKES THIS PUBLIC
+
+########## SECRET KEY CONFIGURATION
+# SECURITY WARNING: keep the secret key used in production secret!
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+# Note: This key should only be used for development and testing.
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    PROD_SECRET_KEY # defined in private.py
+)
+########## END SECRET KEY CONFIGURATION
+
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
 ALLOWED_HOSTS = []
@@ -53,7 +72,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django',
+        'NAME': get_env_setting('DB_NAME'),
         'USER': get_env_setting('DB_USER'),
         'PASSWORD': get_env_setting('DB_PASS'),
         'HOST': get_env_setting('DB_HOST'),
@@ -72,9 +91,3 @@ CACHES = {
     }
 }
 ########## END CACHE CONFIGURATION
-
-
-########## SECRET CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = get_env_setting('SECRET_KEY')
-########## END SECRET CONFIGURATION

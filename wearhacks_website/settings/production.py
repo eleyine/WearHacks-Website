@@ -24,7 +24,7 @@ try:
     from settings import private
 except ImportError:
     print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
-    from settings import private_example import private
+    from settings import private_example as private
     sys.exit() # comment out this line if you want to use the example private settings
 ########## END PRIVATE SETTINGS DO NOT MAKES THIS PUBLIC
 

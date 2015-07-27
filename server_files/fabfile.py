@@ -40,7 +40,6 @@ import fabtools
 from fabric.api import *
 from fabric.contrib.console import confirm
 from fabric.context_managers import shell_env
-from fabric.contrib import django
 import tempfile, os, sys
 
 

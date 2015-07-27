@@ -1,41 +1,14 @@
 {% extends "_base.html" %}
+{% load compress %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css' %}" />
 
-<style>
-.bootstrap-switch {
-margin-left: 10px;
-display:inline-block;
-float: right;
-vertical-align: middle;
-}
-#checkout .text {
- margin-left: 10px;
- text-transform: none;
- font-family: "Raleway";
-font-weight: 200;
-letter-spacing: 1px;
-}
-
-.help-block {
-font-family: "Helvetica Neue";
-font-weight: 300;
-font-size: small;
-}
-
-.message-error {
-color:#a94442;
-}
-
-.message-success {
-color:#3c763d;
-}
-
-</style>
-
+{% compress css %}
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/css/registration-form.css' %}" />
+{% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -47,7 +20,7 @@ color:#3c763d;
             <div class="col-sm-offset-2 col-sm-8 action-panel">
                 <div class="row who">
                     <div class="col-xs-offset-1 col-xs-10 text-center">
-                    <img src="{% static 'images/logo-text.png' %}"></img>
+                    <img id="logo" src="{% static 'images/logo-text.png' %}"></img>
                     </div>
                 </div>
                 <div class="row">

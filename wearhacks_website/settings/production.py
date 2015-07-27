@@ -38,9 +38,20 @@ SECRET_KEY = os.environ.get(
 )
 ########## END SECRET KEY CONFIGURATION
 
+########## DEBUG CONFIGURATION
+# SECURITY WARNING: don't run with debug turned on in production!
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = os.environ.get('DEBUG', False)
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
+TEMPLATE_DEBUG = DEBUG
+########## END DEBUG CONFIGURATION
+
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', not DEBUG)
+
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('HOSTS', private.ALLOWED_HOSTS)
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION

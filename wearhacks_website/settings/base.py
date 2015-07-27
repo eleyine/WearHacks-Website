@@ -96,7 +96,9 @@ COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
 
-COMPRESS_ROOT = 'static'
+COMPRESS_ROOT = normpath(join(SITE_ROOT, 'assets'))
+COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', not DEBUG)
+
 ########## END STATIC FILE CONFIGURATION
 
 ########## SITE CONFIGURATION

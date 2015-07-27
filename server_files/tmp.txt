@@ -17,4 +17,4 @@ exec gunicorn \
     --pythonpath=WearHacks-Website \
     --bind=127.0.0.1:9000 \
     --config /etc/gunicorn.d/gunicorn.py \
-    wearhacks_website.wsgi:application
+wearhacks_website.wsgi:application

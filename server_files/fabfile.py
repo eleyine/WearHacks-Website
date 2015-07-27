@@ -119,22 +119,20 @@ def setup():
                 'postgresql-contrib',
                 'nginx',
                 'gunicorn',
-                'sqlite3'
+                'sqlite3',
+                'node-less'
             ])
 
         if not os.path.isfile('/usr/bin/node'):
             run('ln -s /usr/bin/nodejs /usr/bin/node')
 
-        NPM_PACKAGES = ['bower', 'less']
+        NPM_PACKAGES = (
+            'bower', 
+            )
         with settings(prompts=prompts):
             for package in NPM_PACKAGES:
-                output = run(package)
-                if 'command not found' in output:
-                    print 'Installing %s as root...' % (package)
-                    sudo('npm install -g %s' % (package))
-                else:
-                    print 'Updating %s as root...' % (package)
-                    sudo('npm update -g %s' % (package))
+                print 'Installing %s as root...' % (package)
+                sudo('npm install -g %s' % (package))
 
         print 'Making django project directory at %s...' % (DJANGO_PROJECT_DIR)
         run('mkdir -p %s' % (DJANGO_PROJECT_DIR))

@@ -274,7 +274,7 @@ def pull_changes():
         remote_path=os.path.join(DJANGO_PROJECT_PATH, 
             "wearhacks_website/settings/private.py")
         )
-
+    
     with cd(DJANGO_PROJECT_PATH):
         print 'Pulling changes from master repo'
         run('git pull origin master')

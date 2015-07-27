@@ -73,11 +73,11 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': get_env_setting('DB_NAME'),
-        'USER': get_env_setting('DB_USER'),
-        'PASSWORD': get_env_setting('DB_PASS'),
-        'HOST': get_env_setting('DB_HOST'),
-        'PORT': get_env_setting('DB_PORT'),
+        'NAME': os.environ.get('DB_NAME', private.DB_NAME),
+        'USER': os.environ.get('DB_USER', private.DB_USER),
+        'PASSWORD': os.environ.get('DB_PASS', private.DB_PASS),
+        'HOST': os.environ.get('DB_HOST', private.DB_HOST),
+        'PORT': os.environ.get('DB_PORT', private.DB_PORT),
     }
 }
 ########## END DATABASE CONFIGURATION

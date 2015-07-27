@@ -220,9 +220,10 @@ def update_conf_files():
 def test_models(mode='prod'):
     env_variables = get_env_variables(mode=mode) 
     with cd(DJANGO_PROJECT_PATH):
-        pull_changes()
-        migrate(mode=mode)
         with shell_env(**env_variables):
+            run('python manage.py sqlclear registration | python manage.py dbshell ')
+            pull_changes()
+            migrate(mode=mode)
             run('python manage.py generate_registrations 10 --reset')
 
 def migrate(mode='prod', env_variables=None):

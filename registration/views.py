@@ -74,8 +74,9 @@ class SubmitRegistrationView(generic.View):
                   capture=False,
                 )
                 print charge
+                failure_message = charge.failure_message or ''
                 failure_code = charge.failure_code or ''
-                print 'failure_code', failure_code
+                print 'failure: %s, %s' % (failure_code, failure_message)
                 # Log charge attempt
                 charge_attempt = ChargeAttempt.objects.create(
                         email = email,
@@ -86,8 +87,8 @@ class SubmitRegistrationView(generic.View):
                         amount = charge.amount,
                         source_id = charge.source.id,
                         is_captured = charge.captured,
-                        failure_message = charge.failure_message or '',
-                        failure_code = charge.failure_code or ''
+                        failure_message = failure_message,
+                        failure_code = failure_code
                     )
                 charge_attempt.save()
 

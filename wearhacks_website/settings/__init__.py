@@ -48,4 +48,4 @@ for module_name in modules:
             module_settings[setting] = getattr(module, setting)
     deep_update(module_settings, locals())
 
-print 'Locals from settings.__init__:', locals()['DATABASES'] # for debugging
+# print 'Locals from settings.__init__:', locals()['DATABASES'] # for debugging

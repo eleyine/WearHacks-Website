@@ -31,7 +31,6 @@ DATABASES = {
         default='sqlite:///' + join(DJANGO_ROOT, 'db.sqlite3')
     )
 }
-print DATABASES
 ########## END DATABASE CONFIGURATION
 
 # Allow all host headers

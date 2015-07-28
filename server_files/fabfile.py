@@ -366,10 +366,11 @@ def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
         local('mkdir -p %s' % (log_dir))
     with settings(warn_only=True): 
         get(remote_path="%s/server_files/logs/local/django.debug.log" % (DJANGO_PROJECT_PATH), local_path="%s/django.debug.log" % (log_dir))
-        # get(remote_path="/var/log/upstart/gunicorn.log", local_path="%s/gunicorn.log" % (log_dir))
-        # get(remote_path="/var/log/nginx/error.log", local_path="%s/nginx.error.log" % (log_dir))
-        # get(remote_path="/var/log/postgresql/postgresql-9.3-main.log", local_path="%s/psql.main.log" % (log_dir))
+        get(remote_path="%s/server_files/logs/local/django.request.debug.log" % (DJANGO_PROJECT_PATH), local_path="%s/django.request.debug.log" % (log_dir))
 
+        get(remote_path="/var/log/upstart/gunicorn.log", local_path="%s/gunicorn.log" % (log_dir))
+        get(remote_path="/var/log/nginx/error.log", local_path="%s/nginx.error.log" % (log_dir))
+        get(remote_path="/var/log/postgresql/postgresql-9.3-main.log", local_path="%s/psql.main.log" % (log_dir))
 
 def all():
     setup()

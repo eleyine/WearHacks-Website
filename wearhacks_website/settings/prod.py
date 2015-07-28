@@ -2,11 +2,10 @@
 
 from __future__ import absolute_import
 
-from os import environ
 import sys
-import os
 
-from .base import *
+from .common import SITE_NAME, DJANGO_ROOT
+import os
 
 ########## DEBUG CONFIGURATION
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -29,16 +28,16 @@ ALLOWED_HOSTS = os.environ.get('HOSTS', ['*'])
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'your_email@example.com')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'your_email@example.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-EMAIL_PORT = environ.get('EMAIL_PORT', 587)
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = '[%s] ' % SITE_NAME
@@ -57,7 +56,7 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///' + join(DJANGO_ROOT, 'db.sqlite3')
+        default='sqlite:///' + os.path.join(DJANGO_ROOT, 'db.sqlite3')
     )
 }
 ########## END DATABASE CONFIGURATION

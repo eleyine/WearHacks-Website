@@ -271,12 +271,41 @@ REST_FRAMEWORK = {
 }
 ########## END REST FRAMEWORK CONFIGURATION
 
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-########## STRIPE
+log_file = '%s/server_files/logs/local/django.debug.log' % (os.path.dirname(DJANGO_ROOT))
+if not os.path.exists(os.path.dirname(log_file)):
+    os.makedirs(os.path.dirname(log_file))
+request_log_file = '%s/server_files/logs/local/django.request.debug.log' % (os.path.dirname(DJANGO_ROOT))
+if not os.path.exists(os.path.dirname(request_log_file)):
+    os.makedirs(os.path.dirname(request_log_file))
 
-DJSTRIPE_PLANS = {}
-
-########## END STRIPE
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': request_log_file,
+        },
+        'request_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': log_file,
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['request_file'],
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['file'],
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': True,
+        },
+    },
+}

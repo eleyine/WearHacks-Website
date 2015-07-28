@@ -30,3 +30,6 @@ STRIPE_PUBLIC_KEY = 'pk_test_wLynQ6aB7z7gx5vztfV37MVa'
 
 TEST_STRIPE_SECRET_KEY = 'sk_test_HJFprvoBQQcFpHMcJ4fcP4Nb'
 TEST_STRIPE_PUBLIC_KEY = 'pk_test_wLynQ6aB7z7gx5vztfV37MVa'
+
+COMPRESS_ENABLED = False
+DEBUG = True

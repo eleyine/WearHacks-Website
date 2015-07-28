@@ -24,5 +24,6 @@ static/images/_*
 
 # Deployment settings
 wearhacks_website/settings/*_private.py
+wearhacks_website/settings/private.py
 wearhacks_website/archive/
 server_files/logs/

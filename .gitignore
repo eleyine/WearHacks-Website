@@ -17,6 +17,7 @@ dist/
 assets/
 media/
 static/CACHE/
+static/images/_*
 
 # Migrations
 */migrations*

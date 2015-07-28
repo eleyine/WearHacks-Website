@@ -32,3 +32,8 @@ STRIPE_PUBLIC_KEY = 'pk_provided_by_stripe'
 
 TEST_STRIPE_SECRET_KEY = 'sk_test_provided_by_stripe'
 TEST_STRIPE_PUBLIC_KEY = 'pk_test_provided_by_stripe'
+
+# Useful when managing different servers. For example, you can have a 
+# dev_private.py and prod_private.py with different api keys and db credentials
+# which will override settings in private.py
+PRIVATE_FILENAME = 'private.py'

@@ -45,17 +45,25 @@ import tempfile, os, sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-try:
-    from wearhacks_website.settings.private import *
-except ImportError:
-    print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
-    from wearhacks_website.settings.private_example import *
-    sys.exit() # comment out this line if you want to use the example private settings
+########### DEPLOYMENT OPTIONS
+DEFAULT_MODE='prod'
+DEFAULT_DEPLOY_TO='alpha'
+
+DEPLOYMENT_MODES = ('dev', 'prod')
+DEPLOYMENT_PRIVATE_FILES = {
+    'alpha': 'alpha_private',
+    'beta': 'beta_private',
+    'live': 'live_private'
+}
+DEPLOYMENT_HOSTS = {
+    'alpha': ('alpha.wearhacks.eleyine.com',),
+    'beta': ('wearhacks.eleyine.com',),
+    'live': ('45.55.84.109',)
+}
+########### END DEPLOYMENT OPTIONS
 
 ########### DJANGO SETTINGS
-DEFAULT_MODE = 'dev' # or 'prod'
-DEV_DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings.local'
-PROD_DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings.production'
+DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings'
 ########### END DJANGO SETTINGS
 
 ########### PROMPT SETTINGS
@@ -79,15 +87,11 @@ DJANGO_APP_NAME = 'wearhacks_website'
 DJANGO_PROJECT_PATH = os.path.join(DJANGO_PROJECT_DIR, DJANGO_PROJECT_NAME)
 ########### END PATH AND PROJECT NAME CONFIGURATION
 
-########### ENV VARIABLES
-env.user = ENV_USER
-env.hosts = HOSTS
+########### ENV VARIABLES ON REMOTE
+env.user = 'root'
+env.hosts = DEPLOYMENT_HOSTS[DEFAULT_DEPLOY_TO]
 ENV_VARIABLES = {
-    'DB_NAME': DB_NAME,
-    'DB_USER': DB_USER,
-    'DB_PASS': DB_PASS,
-    'DB_HOST': 'localhost', #HOSTS[0], #'localhost' #HOSTS[0]
-    'DB_PORT': str(DB_PORT)
+    # 'ENV_USER': env.user
 }
 ########### END ENV VARIABLES
 
@@ -106,7 +110,9 @@ def write_file(local_path, remote_path, options):
     print 'Overwriting %s' % (remote_path)
     put(TMP_PATH, remote_path)
 
-def setup():
+def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
+    env.hosts = DEPLOYMENT_HOSTS[deploy_to]
+
     with settings(warn_only=True):
         with settings(prompts=prompts):
             # Require some Debian/Ubuntu packages
@@ -167,8 +173,6 @@ def setup():
             # setup proper permissions
             sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
 
-            reset_postgres_db()
-
 def reset_postgres_db():
     # Require a PostgreSQL server
     # fabtools.require.postgres.server()
@@ -214,7 +218,7 @@ def update_conf_files():
     print 'Restarting gunicorn'
     run('service gunicorn restart')
 
-def test_models(mode='prod'):
+def test_models(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     env_variables = get_env_variables(mode=mode) 
     with cd(DJANGO_PROJECT_PATH):
         with shell_env(**env_variables):
@@ -227,7 +231,7 @@ def test_models(mode='prod'):
             migrate(mode=mode)
             run('python manage.py generate_registrations 10 --reset')
 
-def migrate(mode='prod', env_variables=None):
+def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
     if not env_variables:
         env_variables = get_env_variables(mode=mode)
 
@@ -268,31 +272,48 @@ def update_requirements():
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
 
 
-def pull_changes():
+def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     print 'Updating private.py'
-    put(local_path="../wearhacks_website/settings/private.py",
-        remote_path=os.path.join(DJANGO_PROJECT_PATH, 
-            "wearhacks_website/settings/private.py")
-        )
-    
+    put(local_path=get_private_settings_file(local=True, deploy_to=deploy_to),
+        remote_path=get_private_settings_file(local=False, deploy_to=deploy_to))
+
     with cd(DJANGO_PROJECT_PATH):
         print 'Pulling changes from master repo'
         run('git pull origin master')
         run('pip install -r requirements.txt')
 
-def get_env_variables(mode='prod'):
-    ev = dict(ENV_VARIABLES)
-    if mode == 'dev':
-        ev["DJANGO_SETTINGS_MODULE"] = DEV_DJANGO_SETTINGS_MODULE
-        ev["SECRET_KEY"] = TEST_SECRET_KEY
-    elif mode == 'prod':
-        ev["DJANGO_SETTINGS_MODULE"] = PROD_DJANGO_SETTINGS_MODULE
-        ev["SECRET_KEY"] = PROD_SECRET_KEY
+def get_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO, local=True):
+    if deploy_to not in DEPLOYMENT_PRIVATE_FILES.keys():
+        print 'Unknown deployment option %s' % (deploy_to)
+        print 'Possible options:', DEPLOYMENT_PRIVATE_FILES.keys()
+        sys.exit()
+
+    basename = DEPLOYMENT_PRIVATE_FILES[deploy_to]
+
+    if local:
+        django_path = LOCAL_DJANGO_PATH
     else:
-        print 'Invalid mode %s' % (mode)
+        django_path = DJANGO_PROJECT_PATH
+    return os.path.join(django_path, 'wearhacks_website',
+            'settings', basename + '.py')
+
+def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
+    ev = dict(ENV_VARIABLES)
+    if mode not in DEPLOYMENT_MODES:
+        print 'Invalid mode option %s' % (mode)
+        print 'Possible options:', DEPLOYMENT_MODES
+        sys.exit()
+    ev['APP_ENV'] = mode
+
+    if deploy_to not in DEPLOYMENT_PRIVATE_FILES.keys():
+        print 'Unknown deployment option %s' % (deploy_to)
+        print 'Possible options:', DEPLOYMENT_PRIVATE_FILES.keys()
+        sys.exit()
+    env['PRIVATE_APP_ENV'] = DEPLOYMENT_PRIVATE_FILES[deploy_to]
+
     return ev
 
-def reboot(mode='prod', env_variables=None):
+def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
     if not env_variables:
         env_variables = get_env_variables(mode=mode)
 

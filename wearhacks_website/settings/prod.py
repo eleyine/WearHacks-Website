@@ -4,39 +4,9 @@ from __future__ import absolute_import
 
 from os import environ
 import sys
+import os
 
 from .base import *
-
-# Normally you should not import ANYTHING from Django directly
-# into your settings, but ImproperlyConfigured is an exception.
-from django.core.exceptions import ImproperlyConfigured
-
-def get_env_setting(setting):
-    """ Get the environment setting or return exception """
-    try:
-        return environ[setting]
-    except KeyError:
-        error_msg = "Set the %s env variable" % setting
-        raise ImproperlyConfigured(error_msg)
-
-########## PRIVATE SETTINGS DO NOT MAKES THIS FILE PUBLIC
-try:
-    from settings import private
-except ImportError:
-    print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
-    from settings import private_example as private
-    sys.exit() # comment out this line if you want to use the example private settings
-########## END PRIVATE SETTINGS DO NOT MAKES THIS PUBLIC
-
-########## SECRET KEY CONFIGURATION
-# SECURITY WARNING: keep the secret key used in production secret!
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key should only be used for development and testing.
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    private.PROD_SECRET_KEY # defined in private.py
-)
-########## END SECRET KEY CONFIGURATION
 
 ########## DEBUG CONFIGURATION
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -51,7 +21,7 @@ COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', not DEBUG)
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = os.environ.get('HOSTS', private.ALLOWED_HOSTS)
+ALLOWED_HOSTS = os.environ.get('HOSTS', ['*'])
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION
@@ -81,15 +51,14 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ########## END EMAIL CONFIGURATION
 
 ########## DATABASE CONFIGURATION
+# Sqlite3 is not actually suitable for production, override this in private.py
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', private.DB_NAME),
-        'USER': os.environ.get('DB_USER', private.DB_USER),
-        'PASSWORD': os.environ.get('DB_PASS', private.DB_PASS),
-        'HOST': os.environ.get('DB_HOST', private.DB_HOST),
-        'PORT': os.environ.get('DB_PORT', private.DB_PORT),
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///' + join(DJANGO_ROOT, 'db.sqlite3')
+    )
 }
 ########## END DATABASE CONFIGURATION
 
@@ -103,15 +72,3 @@ CACHES = {
     }
 }
 ########## END CACHE CONFIGURATION
-
-########## STRIPE
-
-STRIPE_SECRET_KEY = os.environ.get(
-    "STRIPE_SECRET_KEY",
-    private.STRIPE_SECRET_KEY # defined in private.py
-)
-STRIPE_PUBLIC_KEY = os.environ.get(
-    "STRIPE_PUBLIC_KEY",
-    private.STRIPE_PUBLIC_KEY # defined in private.py
-)
-########## END STRIPE

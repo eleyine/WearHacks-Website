@@ -3,29 +3,10 @@ from __future__ import absolute_import
 from os.path import join, normpath
 from os import environ
 
-from .base import *
-
-########## PRIVATE SETTINGS DO NOT MAKES THIS FILE PUBLIC
-try:
-    from settings import private
-except ImportError:
-    print 'ERROR: You must make a private.py file (see wearhacks_website/settings/private_example.py)'
-    from settings import private_example as private
-    sys.exit() # comment out this line if you want to use the example private settings
-########## END PRIVATE SETTINGS DO NOT MAKES THIS PUBLIC
+from wearhacks_website.settings.common import DJANGO_ROOT
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-########## SECRET CONFIGURATION
-# SECURITY WARNING: keep the secret key used in production secret!
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key should only be used for development and testing.
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    private.TEST_SECRET_KEY # defined in private.py
-)
-########## END SECRET CONFIGURATION
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -50,6 +31,7 @@ DATABASES = {
         default='sqlite:///' + join(DJANGO_ROOT, 'db.sqlite3')
     )
 }
+print DATABASES
 ########## END DATABASE CONFIGURATION
 
 # Allow all host headers
@@ -71,11 +53,11 @@ CACHES = {
 
 ########## TOOLBAR CONFIGURATION
 # See: http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup
-INSTALLED_APPS += (
+DJANGO_APPS = (
     'debug_toolbar',
 )
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
@@ -89,15 +71,3 @@ DEBUG_TOOLBAR_CONFIG = {
 # http://django-debug-toolbar.readthedocs.org/en/latest/installation.html
 INTERNAL_IPS = ('127.0.0.1',)
 ########## END TOOLBAR CONFIGURATION
-
-########## STRIPE
-
-STRIPE_SECRET_KEY = os.environ.get(
-    "STRIPE_SECRET_KEY",
-    private.TEST_STRIPE_SECRET_KEY # defined in private.py
-)
-STRIPE_PUBLIC_KEY = os.environ.get(
-    "STRIPE_PUBLIC_KEY",
-    private.TEST_STRIPE_PUBLIC_KEY # defined in private.py
-)
-########## END STRIPE

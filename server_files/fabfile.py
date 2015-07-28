@@ -45,7 +45,6 @@ import tempfile, os, sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOCAL_DJANGO_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print LOCAL_DJANGO_PATH
 
 ########### DEPLOYMENT OPTIONS
 DEFAULT_MODE='prod'
@@ -131,8 +130,10 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
                 'node-less'
             ])
 
-        if not os.path.isfile('/usr/bin/node'):
+        try:
             run('ln -s /usr/bin/nodejs /usr/bin/node')
+        except:
+            pass
 
         NPM_PACKAGES = (
             'bower', 
@@ -141,6 +142,7 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
             for package in NPM_PACKAGES:
                 print 'Installing %s as root...' % (package)
                 sudo('npm install -g %s' % (package))
+
 
         print 'Making django project directory at %s...' % (DJANGO_PROJECT_DIR)
         run('mkdir -p %s' % (DJANGO_PROJECT_DIR))
@@ -160,7 +162,6 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
 
         # setup proper permissions
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
-        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
 
         update_conf_files(deploy_to=deploy_to)
 
@@ -188,7 +189,7 @@ def reset_postgres_db():
     fabtools.postgres.create_database(DB_NAME, owner=DB_USER)
     test_models()
 
-def update_conf_files():
+def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO):
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
 
     print 'Modifying nginx config'
@@ -314,7 +315,6 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
         pull_changes()
 
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
-        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
         print 'Restarting nginx'
         sudo('nginx -t')
         sudo('service nginx reload')
@@ -329,6 +329,8 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
             with shell_env(**env_variables):
                 with settings(prompts=prompts):
                     run('python manage.py collectstatic')
+                    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
+
                     if deploy_to == 'alpha':
                         print 'Check database backend'
                         run('echo "from django.db import connection;connection.vendor" | python manage.py shell ')
@@ -374,7 +376,7 @@ def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
 
 def all():
     setup()
-    reboot(mode='prod')
+    reboot()
 
 def do_nothing():
     # check for compile errors

@@ -295,10 +295,13 @@ def get_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO, local=True):
 
     if local:
         django_path = LOCAL_DJANGO_PATH
+        private_file = os.path.join(django_path, 'wearhacks_website',
+            'settings', basename + '.py')
     else:
         django_path = DJANGO_PROJECT_PATH
-    return os.path.join(django_path, 'wearhacks_website',
-            'settings', basename + '.py')
+        private_file = os.path.join(django_path, 'wearhacks_website',
+            'settings', 'private.py')
+    return private_file
 
 def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     ev = dict(ENV_VARIABLES)
@@ -307,12 +310,6 @@ def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
         print 'Possible options:', DEPLOYMENT_MODES
         sys.exit()
     ev['APP_ENV'] = mode
-
-    if deploy_to not in DEPLOYMENT_PRIVATE_FILES.keys():
-        print 'Unknown deployment option %s' % (deploy_to)
-        print 'Possible options:', DEPLOYMENT_PRIVATE_FILES.keys()
-        sys.exit()
-    ev['PRIVATE_APP_ENV'] = DEPLOYMENT_PRIVATE_FILES[deploy_to]
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
     return ev
 

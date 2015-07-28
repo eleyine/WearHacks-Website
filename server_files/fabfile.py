@@ -44,6 +44,8 @@ import tempfile, os, sys
 
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+LOCAL_DJANGO_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print LOCAL_DJANGO_PATH
 
 ########### DEPLOYMENT OPTIONS
 DEFAULT_MODE='prod'
@@ -143,20 +145,6 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
         print 'Making django project directory at %s...' % (DJANGO_PROJECT_DIR)
         run('mkdir -p %s' % (DJANGO_PROJECT_DIR))
 
-        print 'Modifying nginx config'
-        write_file('nginx.sh', '/etc/nginx/sites-enabled/django',
-            {
-                'DJANGO_PROJECT_PATH': DJANGO_PROJECT_PATH
-            })
-
-        print 'Modifying gunicorn config'
-        write_file('gunicorn.sh', '/etc/init/gunicorn.conf',
-            {
-                'DJANGO_PROJECT_DIR': DJANGO_PROJECT_DIR,
-                'DJANGO_PROJECT_NAME': DJANGO_PROJECT_NAME,
-                'DJANGO_APP_NAME': DJANGO_APP_NAME
-            })
-
         if not os.path.exists(DJANGO_PROJECT_PATH):
             with cd(DJANGO_PROJECT_DIR):
                 print 'Cloning Github Project into %s...' % (DJANGO_PROJECT_NAME)
@@ -170,8 +158,11 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
             print 'Installing bower requirements..'
             run('bower install --allow-root')
 
-            # setup proper permissions
-            sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+        # setup proper permissions
+        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
+
+        update_conf_files(deploy_to=deploy_to)
 
 def reset_postgres_db():
     # Require a PostgreSQL server
@@ -198,6 +189,8 @@ def reset_postgres_db():
     test_models()
 
 def update_conf_files():
+    env.hosts = DEPLOYMENT_HOSTS[deploy_to]
+
     print 'Modifying nginx config'
     write_file('nginx.sh', '/etc/nginx/sites-enabled/django',
         {
@@ -310,44 +303,53 @@ def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
         print 'Possible options:', DEPLOYMENT_PRIVATE_FILES.keys()
         sys.exit()
     env['PRIVATE_APP_ENV'] = DEPLOYMENT_PRIVATE_FILES[deploy_to]
-
+    env.hosts = DEPLOYMENT_HOSTS[deploy_to]
     return ev
 
 def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
     if not env_variables:
-        env_variables = get_env_variables(mode=mode)
+        env_variables = get_env_variables(mode=mode, deploy_to=deploy_to)
 
     with cd(DJANGO_PROJECT_PATH):
         pull_changes()
-        migrate(mode=mode, env_variables=env_variables)
 
-        if mode == 'prod':
-            print 'Restarting nginx'
-            sudo('nginx -t')
-            sudo('service nginx reload')
+        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
+        print 'Restarting nginx'
+        sudo('nginx -t')
+        sudo('service nginx reload')
 
-            print 'Restarting gunicorn'
-            run('service gunicorn restart')
-            with shell_env(**env_variables):
-                with settings(prompts=prompts):
-                    run('python manage.py collectstatic')
-
-            with shell_env(**env_variables):
-                print 'Generating 1 random registration...'
-                run('python manage.py generate_registrations 1')
-
-        elif mode == 'dev':
-            print 'Restarting nginx'
-            sudo('nginx -t')
-            sudo('service nginx reload')
-
+        if mode == 'dev':
             print 'Stopping gunicorn' 
             try:
                 run('service gunicorn stop')
             except:
                 pass
+        elif mode == 'prod':
+            with shell_env(**env_variables):
+                with settings(prompts=prompts):
+                    run('python manage.py collectstatic')
+                    if deploy_to == 'alpha':
+                        print 'Check database backend'
+                        run('echo "from django.db import connection;connection.vendor" | python manage.py shell ')
+                        run('python manage.py sqlclear registration | python manage.py dbshell ')
+
+        migrate(mode=mode, deploy_to=deploy_to, env_variables=env_variables)
+
+        if mode == 'prod':
+            print 'Restarting gunicorn'
+            run('service gunicorn restart')
+
+            if deploy_to == 'alpha':
+                with shell_env(**env_variables):
+                    print 'Generating 3 random registration...'
+                    run('python manage.py generate_registrations 3')
+
+        elif mode == 'dev':
 
             with shell_env(**env_variables):
+                run('python manage.py sqlclear registration | python manage.py dbshell ')
+
                 print 'Running on localhost'
                 run('python manage.py generate_registrations 10 --reset')
                 run('python manage.py runserver localhost:9000')
@@ -355,18 +357,25 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
             print 'Invalid mode %s' % (mode)
     
     sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
+
     get_logs()
 
 
-def get_logs():
+def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     print 'Copying logs to logs/'
-    local('mkdir -p logs')
-
-    get(remote_path="/var/log/upstart/gunicorn.log", local_path="logs/gunicorn.log")
-    get(remote_path="/var/log/nginx/error.log", local_path="logs/nginx.log")
-    get(remote_path="tail /var/log/postgresql/postgresql-9.3-main.log", local_path="logs/postgresql.log")
+    log_dir = os.path.join(LOCAL_DJANGO_PATH, 'server_files', 'logs', deploy_to)
+    if not os.path.exists(log_dir):
+        local('mkdir -p %s' % (log_dir))
+    get(remote_path="/var/log/upstart/gunicorn.log", local_path="%s/gunicorn.log" % (log_dir))
+    get(remote_path="/var/log/nginx/error.log", local_path="logs/%s/nginx.error.log" % (log_dir))
+    get(remote_path="tail /var/log/postgresql/postgresql-9.3-main.log", local_path="logs/%s/psql.main.log" % (log_dir))
 
 
 def all():
     setup()
     reboot(mode='prod')
+
+def do_nothing():
+    # check for compile errors
+    pass

@@ -16,11 +16,11 @@ DEBUG = os.environ.get('DEBUG', False)
 TEMPLATE_DEBUG = DEBUG
 ########## END DEBUG CONFIGURATION
 
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', not DEBUG)
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = os.environ.get('HOSTS', ['*'])
+# ALLOWED_HOSTS = os.environ.get('HOSTS', ['127.0.0.1'])
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION

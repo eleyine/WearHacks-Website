@@ -4,11 +4,12 @@ import os
 ENV_USER = 'root'
 
 # remote hosts
-HOSTS = ( 
-    '127.0.0.1',
-    )
+# HOSTS = ( 
+#     '127.0.0.1',
+#     )
 
-ALLOWED_HOSTS = HOSTS
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
 
 # Django secret key
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key

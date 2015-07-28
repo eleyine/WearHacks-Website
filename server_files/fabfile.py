@@ -73,7 +73,8 @@ if AUTO_ANSWER_PROMPTS:
     prompts = {
         'Do you want to continue [Y/n]? ': 'Y',
         '? May bower anonymously report usage statistics to improve the tool over time? (Y/n)': 'Y',
-        "Type 'yes' to continue, or 'no' to cancel: ": 'yes'
+        "Type 'yes' to continue, or 'no' to cancel: ": 'yes',
+        'Would you like to create one now? (yes/no): ': 'no'
         }
 else:
     prompts = {}
@@ -89,12 +90,16 @@ DJANGO_PROJECT_PATH = os.path.join(DJANGO_PROJECT_DIR, DJANGO_PROJECT_NAME)
 ########### END PATH AND PROJECT NAME CONFIGURATION
 
 ########### ENV VARIABLES ON REMOTE
-env.user = 'root'
 env.hosts = DEPLOYMENT_HOSTS[DEFAULT_DEPLOY_TO]
 ENV_VARIABLES = {
     # 'ENV_USER': env.user
 }
 ########### END ENV VARIABLES
+
+########### FAB ENV
+env.user = 'root'
+env.colorize_errors = True
+########### END FAB ENV
 
 def write_file(local_path, remote_path, options):
     with open(local_path) as f:
@@ -138,7 +143,7 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
         NPM_PACKAGES = (
             'bower', 
             )
-        with settings(prompts=prompts):
+        with settings(prompts=prompts, warn_only=True):
             for package in NPM_PACKAGES:
                 print 'Installing %s as root...' % (package)
                 sudo('npm install -g %s' % (package))
@@ -218,7 +223,7 @@ def test_models(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
         with shell_env(**env_variables):
             print 'Check database backend'
             run('echo "from django.db import connection;connection.vendor" | python manage.py shell ')
-            print 'In case you forgot the password, here it is %s' % (env_variables['DB_PASS'])
+            # print 'In case you forgot the password, here it is %s' % (env_variables['DB_PASS'])
             run('python manage.py sqlclear registration | python manage.py dbshell ')
 
             pull_changes()
@@ -236,8 +241,11 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
         with cd(DJANGO_PROJECT_PATH):
             # run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
             if mode == 'dev':
-                run('python manage.py sqlclear registration | python manage.py dbshell ')
+                run('rm -rf wearhacks_website/db.sqlite3')
             else:
+                if deploy_to == 'alpha':
+                    run('python manage.py sqlclear registration | python manage.py dbshell ')
+
                 run('service postgresql status')
                 run('sudo netstat -nl | grep postgres')
 
@@ -267,7 +275,7 @@ def update_requirements():
 
 
 def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
-    print 'Updating private.py'
+    print 'Updating %s' % (get_private_settings_file(local=False, deploy_to=deploy_to))
     put(local_path=get_private_settings_file(local=True, deploy_to=deploy_to),
         remote_path=get_private_settings_file(local=False, deploy_to=deploy_to))
 
@@ -303,64 +311,53 @@ def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
         print 'Unknown deployment option %s' % (deploy_to)
         print 'Possible options:', DEPLOYMENT_PRIVATE_FILES.keys()
         sys.exit()
-    env['PRIVATE_APP_ENV'] = DEPLOYMENT_PRIVATE_FILES[deploy_to]
+    ev['PRIVATE_APP_ENV'] = DEPLOYMENT_PRIVATE_FILES[deploy_to]
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
     return ev
 
 def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
     if not env_variables:
         env_variables = get_env_variables(mode=mode, deploy_to=deploy_to)
-
+        print env_variables
+    
     with cd(DJANGO_PROJECT_PATH):
-        pull_changes()
+        print 'Stopping gunicorn' 
+        with settings(warn_only=True):
+            run('service gunicorn stop')
 
+        pull_changes(mode=mode, deploy_to=deploy_to)
+        with shell_env(**env_variables):
+            with settings(prompts=prompts):
+                run('python manage.py collectstatic')
+        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+        
         print 'Restarting nginx'
         sudo('nginx -t')
         sudo('service nginx reload')
 
-        if mode == 'dev':
-            print 'Stopping gunicorn' 
-            try:
-                run('service gunicorn stop')
-            except:
-                pass
-        elif mode == 'prod':
-            with shell_env(**env_variables):
-                with settings(prompts=prompts):
-                    run('python manage.py collectstatic')
-                    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
-
-                    if deploy_to == 'alpha':
-                        print 'Check database backend'
-                        run('echo "from django.db import connection;connection.vendor" | python manage.py shell ')
-                        run('python manage.py sqlclear registration | python manage.py dbshell ')
-
         migrate(mode=mode, deploy_to=deploy_to, env_variables=env_variables)
 
         if mode == 'prod':
-            print 'Restarting gunicorn'
-            run('service gunicorn restart')
 
             if deploy_to == 'alpha':
                 with shell_env(**env_variables):
                     print 'Generating 3 random registration...'
                     run('python manage.py generate_registrations 3')
 
+            print 'Restarting gunicorn'
+            run('service gunicorn restart')
+
         elif mode == 'dev':
 
             with shell_env(**env_variables):
-                run('python manage.py sqlclear registration | python manage.py dbshell ')
-
+                # run('python manage.py sqlclear registration | python manage.py dbshell ')
                 print 'Running on localhost'
                 run('python manage.py generate_registrations 10 --reset')
                 run('python manage.py runserver localhost:9000')
         else:
             print 'Invalid mode %s' % (mode)
     
-    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
-    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
-
     get_logs()
 
 
@@ -369,9 +366,10 @@ def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     log_dir = os.path.join(LOCAL_DJANGO_PATH, 'server_files', 'logs', deploy_to)
     if not os.path.exists(log_dir):
         local('mkdir -p %s' % (log_dir))
-    get(remote_path="/var/log/upstart/gunicorn.log", local_path="%s/gunicorn.log" % (log_dir))
-    get(remote_path="/var/log/nginx/error.log", local_path="logs/%s/nginx.error.log" % (log_dir))
-    get(remote_path="tail /var/log/postgresql/postgresql-9.3-main.log", local_path="logs/%s/psql.main.log" % (log_dir))
+    with settings(warn_only=True): 
+        get(remote_path="/var/log/upstart/gunicorn.log", local_path="%s/gunicorn.log" % (log_dir))
+        get(remote_path="/var/log/nginx/error.log", local_path="%s/nginx.error.log" % (log_dir))
+        get(remote_path="/var/log/postgresql/postgresql-9.3-main.log", local_path="%s/psql.main.log" % (log_dir))
 
 
 def all():

@@ -263,8 +263,6 @@ class SubmitRegistrationView(generic.View):
 
             if not server_error:
                 try:
-                    raise Exception("My exception")
-
                     charge = stripe.Charge.retrieve(charge.id)
                     charge.capture()
                     is_captured = True

@@ -63,6 +63,7 @@ class SubmitRegistrationView(generic.View):
         error_message = ''
         email = None
         server_error = False
+        server_message_client = ''
         server_message = ''
         is_captured = False
 
@@ -251,26 +252,38 @@ class SubmitRegistrationView(generic.View):
 
         if registration_success and checkout_success and not server_error:
             try:
-                charge = stripe.Charge.retrieve(charge.id)
-                charge.capture()
-                is_captured = True
-            except Error, e:
-                server_error = True
-                server_message += 'Failed while capturing charge. (%s) ' % (str(e)[:100])
-
-            if is_captured:
-                charge_attempt.is_captured = True
-                charge_attempt.save()
-            
-            try:
                 new_regisration = form.save()
                 new_regisration.charge = charge_attempt
                 new_regisration.save()
-            except Error, e:
+            except Exception, e:
                 server_error = True
+                checkout_success = False
+                server_message_client = self._get_server_error_message('Your registration could not be saved.')
                 server_message += 'Failed while saving registration form. (%s)' % (str(e)[:100])
 
+            if not server_error:
+                try:
+                    raise Exception("My exception")
+
+                    charge = stripe.Charge.retrieve(charge.id)
+                    charge.capture()
+                    is_captured = True
+                except Exception, e:
+                    server_error = True
+                    server_message_client = self._get_server_error_message('We could not charge you.', 
+                        dont_worry=False)
+
+                    server_message += 'Failed while capturing charge. (%s) ' % (str(e)[:100])
+
+                if is_captured:
+                    charge_attempt.is_captured = True
+
+            if server_error:
+                charge_attempt.server_message = server_message
+                charge_attempt.save()
+
         response = {
+            'server_message': server_message_client,
             'server_error': server_error,
             'registration_success': registration_success,
             'checkout_success': checkout_success,
@@ -284,6 +297,15 @@ class SubmitRegistrationView(generic.View):
         response['form_html'] = form_html
 
         return response
+
+    def _get_server_error_message(self, inner_message, dont_worry=True):
+        message = "Oops, something went wrong on our end.</br>Please refresh and try again. "
+        message += "If the problem persists, please contact our support team. </br>"
+        message += "<strong>%s</strong>"
+        if dont_worry:
+            message += "</br><strong>Don't worry, you haven't been charged.</strong>"
+        message = message % (inner_message)
+        return message
 
     def get_context_data(self, **kwargs):
         context = super(SubmitRegistrationView, self).get_context_data(**kwargs)

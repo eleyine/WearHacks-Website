@@ -184,13 +184,17 @@
         $('#success-message').removeClass('hide').text("Eventually send a confirmation email");
       }, 2000);
     }
-    function displayServerError() {
+    function displayServerError(message) {
       displaySorryButton();
       $('.message').addClass('hide');
       $('#server-error').removeClass('hide');
-      $('#server-error').html("There is a temporary problem with " +
-         "our server. Please refresh.</br>If the problem " +
-         "persists, contact our support team.</br><strong>Don't  worry, we haven't captured your payment.</strong>");
+      if (message) {
+        $('#server-error').html(message);
+      } else {
+        $('#server-error').html("There is a temporary problem with " +
+           "our server. Please refresh.</br>If the problem " +
+           "persists, contact our support team.</br><strong>Don't  worry, we haven't captured your payment.</strong>");
+      }
     }
 
     function registrationError(message) {
@@ -240,7 +244,7 @@
                   data: formData,
                   success: function(data) {
                     if (data['server_error']) {
-                      displayServerError();
+                      displayServerError(data['server_message']);
                     } else if(!data["registration_success"]) {
                       registrationError(data["registration_message"]);
                     } else {

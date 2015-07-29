@@ -41,6 +41,7 @@ Now, open <http://127.0.0.1:8000/>.
 * To run on [localhost](http://127.0.0.1:8000/):
 
     ```bash
+    $ workon wearhacks-website
     (wearhacks-website) $ python manage.py runserver
     ```
 

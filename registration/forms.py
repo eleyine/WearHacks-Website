@@ -53,9 +53,7 @@ class RegistrationForm(forms.ModelForm):
                 'Tell us a bit about yourself.',
                 Div(Field('is_student', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
-                    # HTML('<div class="row"><div class="col-lg-offset-3 col-lg-6">'
-                    #     '<div class="discount message-success">'
-                    #     'Great, you have a 50% discount!</div></div></div>')
+                    css_id="is_student_wrapper"
                     ),
                 Field('is_returning', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),

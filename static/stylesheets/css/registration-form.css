@@ -4,6 +4,15 @@
     float: right;
     vertical-align: middle;
 }
+
+#hint_id_is_student {
+  display:inline-block;
+  float:right;
+}
+.checkbox label {
+  padding-left: 0;
+}
+
 #register .text,
 #checkout .text {
    margin-left: 10px;
@@ -12,6 +21,10 @@
    font-weight: 200;
    letter-spacing: 1px;
    font-size: 1em;
+}
+
+.btn {
+  margin-bottom: 10px;
 }
 
 .help-block {

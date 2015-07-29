@@ -23,13 +23,20 @@ def get_filename(instance, old_filename, directory=''):
 class ChargeAttempt(models.Model):
     email = models.EmailField()
     charge_id = models.CharField(max_length=27)
+    amount = models.IntegerField()
+
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # optional fields
+    hacker = models.CharField(max_length=200, default='Unknown')
     is_livemode = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
-    status = models.CharField(max_length=100)
-    amount = models.IntegerField()
-    source_id = models.CharField(max_length=29)
     is_captured = models.BooleanField(default=False)
+
+    status = models.CharField(max_length=100, default='Unknown')
+    source_id = models.CharField(max_length=29)
+
+    # error logging (optional)
     failure_message = models.CharField(default='No Error', max_length=200,
         help_text='Charge object failure message')
     failure_code = models.CharField(default='200', max_length=200, 

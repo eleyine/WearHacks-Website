@@ -309,3 +309,7 @@ LOGGING = {
         },
     },
 }
+
+########## STRIPE
+IS_STRIPE_LIVE = False
+########## END STRIPE

@@ -35,6 +35,9 @@ TEST_STRIPE_SECRET_KEY = os.environ.get('TEST_STRIPE_SECRET_KEY',
     'sk_test_provided_by_stripe')
 TEST_STRIPE_PUBLIC_KEY = os.environ.get('TEST_STRIPE_PUBLIC_KEY',
     'pk_test_provided_by_stripe')
+
+# Once your site is live, change this to True
+IS_STRIPE_LIVE = False
 ########## END STRIPE
 
 # Comment out if you want a postgresql database backend

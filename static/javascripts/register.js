@@ -6,7 +6,7 @@
         ajaxSetup();
         stylisticTweaks();
         displayCorrectButtons();
-        $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
+        $('#div_id_gender select').prepend('<option disabled selected class="select-gender"> Select gender </option>');
 
         $(document).on('click', '.register-action', function (e) {
             register();
@@ -18,10 +18,10 @@
       $('input').attr('readOnly', !isEnabled);
       $('textarea').attr('readOnly', !isEnabled);
       $('input').attr('disabled', !isEnabled);
+      $('select').attr('disabled', !isEnabled);
       $('textarea').attr('disabled', !isEnabled);
       $(".checkboxinput").bootstrapSwitch('disabled', !isEnabled);
       $(".checkboxinput").bootstrapSwitch('readonly', !isEnabled);
-
     }
 
     function displayCorrectButtons(isMobile, isRegistrationValidated) {
@@ -109,8 +109,6 @@
                 stylisticTweaks();
                 var amount = getChargeAmount();
 
-                if (!(data['registration_success'])) {
-                    registrationError(data["registration_message"]);
                     options.error(formData, amount);
                 } else {
                     var handler = getCheckoutHandler(formData, amount);
@@ -155,15 +153,7 @@
             $("#hint_id_is_student").addClass("hide");            
           }
         });
-        if (!$( "#id_gender" ).val()) {
-          $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
         }
-        displayStudentMessage(true);
-    }
-
-    function displayStudentMessage(isDisplayed) {
-      if (isDisplayed) {
-      }
 
     }
 
@@ -198,10 +188,8 @@
     }
 
     function registrationError(message) {
-      $('.message').addClass('hide');
       $('#registration-error').removeClass('hide');
       $('#registration-error').text(message);
-      $('#checkout text').text("Gotcha, check me out.");
       $('html, body').stop().animate({
         scrollTop: ($('#registration-form').offset().top - 50)
       }, 1250, 'easeInOutExpo');

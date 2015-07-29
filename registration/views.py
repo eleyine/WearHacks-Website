@@ -10,15 +10,32 @@ from registration.forms import RegistrationForm
 from crispy_forms.utils import render_crispy_form
 from jsonview.decorators import json_view
 
+from django.conf import settings
+
 import stripe
 
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
     form_class = RegistrationForm
 
+    def get_stripe_secret_key(self):
+        if settings.IS_STRIPE_LIVE:
+            stripe_sk = settings.LIVE_STRIPE_SECRET_KEY
+        else:
+            stripe_sk = settings.TEST_STRIPE_SECRET_KEY
+        return stripe_sk
+
+    def get_stripe_public_key(self):
+        if settings.IS_STRIPE_LIVE:
+            stripe_pk = settings.LIVE_STRIPE_PUBLIC_KEY
+        else:
+            stripe_pk = settings.TEST_STRIPE_PUBLIC_KEY
+        return stripe_pk
+
     def get(self, request, *args, **kwargs):
         context = {
-            'form': RegistrationForm()
+            'form': RegistrationForm(),
+            'stripe_public_key': self.get_stripe_public_key()
         }
         return render(request, self.template_name, context)
 
@@ -31,7 +48,6 @@ class SubmitRegistrationView(generic.View):
 
     @json_view
     def post(self, request, *args, **kwargs):
-        stripe.api_key = "sk_test_HJFprvoBQQcFpHMcJ4fcP4Nb"
         checkout_success = False
         checkout_message = 'Checkout not attempted yet.'
         email = None
@@ -85,6 +101,7 @@ class SubmitRegistrationView(generic.View):
                 e = None
 
                 try:
+                    stripe.api_key = self.get_stripe_secret_key()
                     charge = stripe.Charge.create(
                       amount=amount,
                       currency="cad",
@@ -214,6 +231,7 @@ class SubmitRegistrationView(generic.View):
             'registration_message': registration_message,
             'checkout_message': checkout_message,
             'success': registration_success and checkout_success,
+            'stripe_public_key': self.get_stripe_public_key()
         }
         print response
         if server_message:
@@ -226,4 +244,3 @@ class SubmitRegistrationView(generic.View):
         context = super(SubmitRegistrationView, self).get_context_data(**kwargs)
         context['form'] = RegistrationForm()
         return context
-

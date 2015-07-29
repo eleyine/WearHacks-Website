@@ -60,6 +60,9 @@
 
 {% compress js %}
 <!-- ?v=00001 ensures it doesn't get cached. Should remove this in production. -->
+<script type="text/javascript" >
+window.stripe_pk = "{{ stripe_public_key }}";
+</script>
 <script type="text/javascript" src="{% static 'javascripts/register.js' %}{% if debug %}?v=00001{% endif %}"></script>
 {% endcompress %}
 

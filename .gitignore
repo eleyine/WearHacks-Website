@@ -18,6 +18,7 @@ assets/
 media/
 static/CACHE/
 static/images/_*
+static/images/carousel/src/
 
 # Migrations
 */migrations*

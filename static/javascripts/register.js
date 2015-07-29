@@ -1,4 +1,4 @@
-(function($) {
+(function($, Date) {
     "use strict"; // Start of use strict
 
     $( document ).ready(function() {
@@ -10,9 +10,7 @@
 
         $(document).on('click', '.register-action', function (e) {
             register();
-            // prevalidateRegistration('#registration-form');
             e.preventDefault();
-
         } );
     });
 
@@ -98,7 +96,6 @@
         $('.checkout-wrapper .fa').addClass('hide');
         $('.checkout-wrapper .fa-spinner').removeClass('hide');
         $('.register-action .text').text('Validating your info');
-        var amount = 200;
 
         var formData = new FormData($(form)[0]);
         $.ajax({
@@ -110,6 +107,7 @@
             success: function(data) {
                 $(form).replaceWith(data['form_html']);
                 stylisticTweaks();
+                var amount = getChargeAmount();
 
                 if (!(data['registration_success'])) {
                     registrationError(data["registration_message"]);
@@ -149,9 +147,24 @@
 
     function stylisticTweaks() {
         $(".checkboxinput").bootstrapSwitch();
+        $("#div_id_is_student label").prepend('<div class="controls col-lg-6 hide" id="hint_id_is_student"><p class="help-block message-success"><i class="fa fa-check"></i><strong> Great! You have a 50% discount.</strong></p></div>')
+        $("#div_id_is_student .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
+          if (state) {
+            $("#hint_id_is_student").removeClass("hide");
+          } else {
+            $("#hint_id_is_student").addClass("hide");            
+          }
+        });
         if (!$( "#id_gender" ).val()) {
           $('#div_id_gender select').prepend('<option disabled selected> Select gender </option>');
         }
+        displayStudentMessage(true);
+    }
+
+    function displayStudentMessage(isDisplayed) {
+      if (isDisplayed) {
+      }
+
     }
 
     function displaySorryButton() {
@@ -253,16 +266,38 @@
       return handler;
     }
 
-    function openCheckhoutHandler(handler, amount, email, isStudent, isEarlyBird) {
-      var description = isEarlyBird? "Early Bird Ticket": "Hackathon Ticket";
-      if (isStudent) {
-        description = "(50% Discount)"; 
-      }
+    function isStudent() {
+      return $("#div_id_is_student .checkboxinput").prop("checked");
+    }
+
+    function isEarlyBird() {
+      return Date.today() < new Date("9/15/2015");
+    }
+
+    function getChargeAmount() {
+      var amount = isStudent()? 10: 20;
+      amount = isEarlyBird()? amount * 0.5: amount;
+      // in cents
+      return amount * 100;
+    }
+
+    function getPercentDiscount() {
+      var percent = isEarlyBird()? 0.5: 1;
+      percent = isStudent()? percent * 0.5: percent;
+      return (1 - percent) * 100;
+    }
+
+    function openCheckhoutHandler(handler, amount, email) {
+      var description = isEarlyBird()? "Early Bird Ticket": "Ticket";
+      var description = isStudent()? "Student " + description: description;
+      var p = getPercentDiscount();
+      var description = (p > 0)? description + " ("+ p + "% Off)": description;
       handler.open({
         name: 'WearHacks Montreal 2015',
         description: description,
         amount: amount,
         email: email,
+        currency: "cad",
         opened: function() {
           $('.checkout-action .fa').addClass('hide');
           $('.checkout-action .fa-paper-plane').removeClass('hide');
@@ -304,4 +339,4 @@
       $('#checkout .text').text('Checkout');
       $('.message').addClass('hide');
     }
-})(jQuery); // End of use strict
+})(jQuery, Date); // End of use strict

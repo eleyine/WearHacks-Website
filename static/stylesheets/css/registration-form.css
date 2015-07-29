@@ -4,6 +4,13 @@
     float: right;
     vertical-align: middle;
 }
+#hint_id_is_student {
+display:inline-block;
+float:right;
+}
+.checkbox label {
+  padding-left: 0;
+}
 #register .text,
 #checkout .text {
    margin-left: 10px;

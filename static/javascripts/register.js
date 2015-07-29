@@ -6,7 +6,6 @@
         ajaxSetup();
         stylisticTweaks();
         displayCorrectButtons();
-        $('#div_id_gender select').prepend('<option disabled selected class="select-gender"> Select gender </option>');
 
         $(document).on('click', '.register-action', function (e) {
             register();

@@ -48,7 +48,7 @@ class SubmitRegistrationView(generic.View):
             email = form.cleaned_data['email']
         else:
             registration_message= ('Please correct your registration information'
-                ' before proceeding to checkout.')
+                ' before proceeding.')
 
         form_html = render_crispy_form(form)
 

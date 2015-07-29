@@ -68,3 +68,7 @@ Here are the setup instructions if you choose to do it with Digital Ocean.
 * In `wearhacks_website/server_files/`, copy `fab_config_example.py` and rename it to `fab_config.py`. Edit in in your deployment host address.
 * Then in `server_files`, run `fab all`
 * If you'd like a list of fab commands, run `fab -l`
+
+## Stripe settings
+
+The registration app handles payment via [Stripe](https://stripe.com). To test this feature, edit in your Stripe API keys in your private settings files (`wearhacks_website/*private.py`).

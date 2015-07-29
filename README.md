@@ -18,7 +18,7 @@ $ ./setup.sh
 
 **Note**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you'd like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
 
-### Manual install: what's in `setup.sh`?
+**Manual install: what's in `setup.sh`?**
 
 If you don't want to use setup.sh
 

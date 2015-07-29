@@ -1,25 +1,22 @@
-apt-get install git
-apt-get-install npm
-sudo npm install -g bower
-sudo npm install -g less
-ln -s /usr/bin/nodejs /usr/bin/node
+mkvirtualenv wearhacks-website
+workon wearhacks-website
 
-cd /home/django/
-mv django_project old_django_project
-git clone https://github.com/eleyine/WearHacks-Website.git django_project
-chown -R django:django /home/django/djangoapptoscana/djangoapptoscana/static
-
-export DJANGO_SETTINGS_MODULE=wearhacks_website.settings.local
-export SECRET_KEY=mysecretkey
-
+echo 'Installing pip requirements'
 pip install -r requirements.txt
-bower install --allow-root
 
-sudo nginx -t
-sudo service nginx reload
-service gunicorn restart
+echo 'Installing bower requirements'
+bower install
+
+echo 'Creating private settings to wearhacks_website/settings/private.py'
+cp wearhacks_website/settings/example_private_settings.py wearhacks_website/settings/private.py
+
+echo 'Setting up database'
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver
 
+echo 'Generating dummy data'
+python manage.py generate_registrations 3
+
+echo 'Run server'
+python manage.py runserver

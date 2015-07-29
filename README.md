@@ -11,6 +11,9 @@
 ```bash
 $ git clone git@github.com:eleyine/WearHacks-Website.git
 $ cd WearHacks-Website
+# Optional but strongly recommended
+$ mkvirtualenv wearhacks-website
+$ workon wearhacks-website
 $ chmod u+x setup.sh
 $ ./setup.sh
 ```

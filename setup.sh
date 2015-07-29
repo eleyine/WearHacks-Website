@@ -1,6 +1,3 @@
-mkvirtualenv wearhacks-website
-workon wearhacks-website
-
 echo 'Installing pip requirements'
 pip install -r requirements.txt
 

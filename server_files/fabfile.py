@@ -197,6 +197,11 @@ def reset_postgres_db():
 
 def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO):
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
+    print 'Modifying ~/.profile'
+    write_file('.profile', '.profile',
+        {
+            'DJANGO_PROJECT_PATH': DJANGO_PROJECT_PATH
+        })
 
     print 'Modifying nginx config'
     write_file('nginx.sh', '/etc/nginx/sites-enabled/django',
@@ -211,6 +216,7 @@ def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO):
             'DJANGO_PROJECT_NAME': DJANGO_PROJECT_NAME,
             'DJANGO_APP_NAME': DJANGO_APP_NAME
         })
+
     print 'Restarting nginx'
     sudo('nginx -t')
     sudo('service nginx reload')
@@ -231,7 +237,8 @@ def test_models(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
             migrate(mode=mode)
             run('python manage.py generate_registrations 10 --reset')
 
-def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
+def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
+    setup=False):
     if not env_variables:
         env_variables = get_env_variables(mode=mode)
 
@@ -251,8 +258,10 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
                 run('sudo netstat -nl | grep postgres')
 
             run('python manage.py makemigrations')
-            run('python manage.py migrate')
-            run('python manage.py syncdb')
+            if setup:
+                run('python manage.py migrate --fake-initial')
+            else:
+                run('python manage.py migrate')
 
             # create superuser
             try:
@@ -276,9 +285,10 @@ def update_requirements():
 
 
 def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
-    print 'Updating %s' % (get_private_settings_file(local=False, deploy_to=deploy_to))
-    put(local_path=get_private_settings_file(local=True, deploy_to=deploy_to),
-        remote_path=get_private_settings_file(local=False, deploy_to=deploy_to))
+    local_private_file = get_private_settings_file(local=True, deploy_to=deploy_to)
+    remote_private_file = get_private_settings_file(local=False, deploy_to=deploy_to)
+    print 'Updating %s -> %s' % (local_private_file, remote_private_file)
+    put(local_path=local_private_file,remote_path=remote_private_file)
 
     with cd(DJANGO_PROJECT_PATH):
         print 'Pulling changes from master repo'
@@ -313,7 +323,8 @@ def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
     return ev
 
-def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
+def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None, 
+    setup=False):
     if not env_variables:
         env_variables = get_env_variables(mode=mode, deploy_to=deploy_to)
         print env_variables
@@ -334,7 +345,7 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None):
         sudo('nginx -t')
         sudo('service nginx reload')
 
-        migrate(mode=mode, deploy_to=deploy_to, env_variables=env_variables)
+        migrate(mode=mode, deploy_to=deploy_to, env_variables=env_variables, setup=setup)
 
         if mode == 'prod':
 
@@ -374,7 +385,7 @@ def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
 
 def all():
     setup()
-    reboot()
+    reboot(setup=True)
 
 def do_nothing():
     # check for compile errors

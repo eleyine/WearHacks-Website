@@ -384,7 +384,7 @@ def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     log_dir = os.path.join(LOCAL_DJANGO_PATH, 'server_files', 'logs', deploy_to)
     if not os.path.exists(log_dir):
         local('mkdir -p %s' % (log_dir))
-    with settings(warn_only=True): 
+    with settings(hide('warnings')): 
         get(remote_path="%s/server_files/logs/local/django.debug.log" % (DJANGO_PROJECT_PATH), local_path="%s/django.debug.log" % (log_dir))
         get(remote_path="%s/server_files/logs/local/django.request.debug.log" % (DJANGO_PROJECT_PATH), local_path="%s/django.request.debug.log" % (log_dir))
 

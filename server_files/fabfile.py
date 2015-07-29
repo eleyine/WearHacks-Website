@@ -46,23 +46,32 @@ import tempfile, os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOCAL_DJANGO_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-########### DEPLOYMENT OPTIONS
-DEFAULT_MODE='prod'
-DEFAULT_DEPLOY_TO='alpha'
-DEBUG = None
+if not os.path.exists('fab_config.py'):
+    print 'Please create a fab_config.py file, see fab_config_example.py'
+    sys.exit()
 
-DEPLOYMENT_MODES = ('dev', 'prod')
-DEPLOYMENT_PRIVATE_FILES = {
-    'alpha': 'alpha_private',
-    'beta': 'beta_private',
-    'live': 'live_private'
-}
-DEPLOYMENT_HOSTS = {
-    'alpha': ('alpha.wearhacks.eleyine.com',),
-    'beta': ('wearhacks.eleyine.com',),
-    'live': ('45.55.84.109',)
-}
-########### END DEPLOYMENT OPTIONS
+try:
+    from fab_config import (
+        DEFAULT_MODE, 
+        DEFAULT_DEPLOY_TO,
+        DEPLOYMENT_MODES,
+        DEPLOYMENT_PRIVATE_FILES,
+        DEPLOYMENT_HOSTS)
+except ImportError, e:
+    print e
+    print 'Please update fab_config.py, see fab_config_example.py'
+    sys.exit()
+
+print """
+Default settings: 
+   - Deploying to %s host %s with mode %s. 
+   - Using private file %s.
+""" % (
+    DEFAULT_DEPLOY_TO, 
+    DEPLOYMENT_HOSTS[DEFAULT_DEPLOY_TO],
+    DEFAULT_MODE,
+    os.path.join(LOCAL_DJANGO_PATH, 'wearhacks_website',
+            'settings', DEPLOYMENT_PRIVATE_FILES[DEFAULT_DEPLOY_TO] + '.py'))
 
 ########### DJANGO SETTINGS
 DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings'

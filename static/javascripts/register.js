@@ -109,7 +109,9 @@
                 stylisticTweaks();
                 var amount = getChargeAmount();
 
+                if (!data['registration_success']) {
                     options.error(formData, amount);
+                    registrationError(data["registration_message"]);
                 } else {
                     var handler = getCheckoutHandler(formData, amount);
                     options.success(handler, formData, amount);
@@ -153,8 +155,18 @@
             $("#hint_id_is_student").addClass("hide");            
           }
         });
+        // display select gender if it's not there
+        if (!$( "#id_gender option" ).hasClass('select-gender')) {
+          $('#div_id_gender option').attr('selected', false);
+          $('#div_id_gender select').prepend('<option disabled selected="true" class="select-gender"> Select gender </option>');
         }
 
+        // if there's a validation error on gender field, switch back to select gender
+        if ($('#error_1_id_gender') != []) {
+          $('#div_id_gender option').attr('selected', false);
+          $('.select-gender').attr('selected', true);
+        } 
+        
     }
 
     function displaySorryButton() {
@@ -188,8 +200,11 @@
     }
 
     function registrationError(message) {
+      stylisticTweaks();
+      restoreCheckoutButton();
       $('#registration-error').removeClass('hide');
       $('#registration-error').text(message);
+      $('.register-action .text').text("Gotcha");
       $('html, body').stop().animate({
         scrollTop: ($('#registration-form').offset().top - 50)
       }, 1250, 'easeInOutExpo');

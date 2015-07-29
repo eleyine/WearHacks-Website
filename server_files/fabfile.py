@@ -345,8 +345,12 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     _update_private_settings_file(deploy_to=deploy_to)
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
-        run('git pull origin %s' % (branch))
         run('git checkout %s' % (branch))
+        if branch == 'stable':
+            run('git fetch --all')
+            run('git reset --hard origin/%s' % (branch))
+        else:
+            run('git pull origin %s' % (branch))
         update_requirements()
 
 def _update_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO):

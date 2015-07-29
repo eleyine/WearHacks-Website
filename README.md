@@ -45,7 +45,7 @@ Now, open <http://127.0.0.1:8000/>.
     ```
 
 * By default, you will use the Django settings defined in `wearhacks_settings/settings/dev.py`. 
-* To use production settings defined in `wearhacks_settings/settings/dev.py`:
+* To use production settings defined in `wearhacks_settings/settings/prod.py`:
 
     ```bash
     export APP_ENV=prod

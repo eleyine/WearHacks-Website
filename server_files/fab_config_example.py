@@ -29,7 +29,7 @@ DEFAULT_BRANCH='master'
 #   - wearhacks_website/settings/private_settings_example.py
 
 DEPLOYMENT_PRIVATE_FILES = {
-    'default': 'private',
+    'default': 'server_private',
     # 'alpha': 'alpha_private',
     # 'beta': 'beta_private',
     # 'live': 'live_private'

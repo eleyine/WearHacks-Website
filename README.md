@@ -61,8 +61,10 @@ I wrote a `fabric` script to automate installation on Digital Ocean droplets usi
 Here are the setup instructions if you choose to do it with Digital Ocean. 
 
 * Create a Digital Ocean droplet with a Django installation image
+* Ssh into your droplet to obtain the postgresql database password. It will be displayed in the welcome message. 
+* Copy `wearhacks_website/settings/private.py` to `wearhacks_website/settings/server_private.py` and uncomment the postgresql settings. Edit in your postgresql password from the step above.
+
 * Make sure you have fabric installed locally. If you ran `setup.sh`, you already have it.
-* In `wearhacks_website/server_files/`, copy `fab_config_example.py` and rename it to `fab_config.py`. 
-* Edit in your deployment host address
+* In `wearhacks_website/server_files/`, copy `fab_config_example.py` and rename it to `fab_config.py`. Edit in in your deployment host address.
 * Then in `server_files`, run `fab all`
 * If you'd like a list of fab commands, run `fab -l`

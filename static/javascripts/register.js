@@ -235,7 +235,6 @@
                 formData.append('token_id', token.id);
                 formData.append('amount', amount);
 
-                console.log("Atempting to charge with token id " + token.id);
                 $.ajax({
                   url: '/register/',
                   type: 'post',

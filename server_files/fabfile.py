@@ -312,13 +312,12 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
                         sudo('chmod u+x scripts/createsuperuser.sh')
                         run('./scripts/createsuperuser.sh')
 
-def update_requirements():
+def update_requirements(branch=DEFAULT_BRANCH):
     """
     Update pip and bower requirements
     """
     print '\nUpdate pip and bower requirements'
     with cd(DJANGO_PROJECT_PATH):
-        run('git pull origin master')
         print 'Installing python requirements..'
         run('pip install -r requirements.txt')
         
@@ -346,8 +345,8 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     _update_private_settings_file(deploy_to=deploy_to)
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
-        run('git checkout %s' % (branch))
         run('git pull origin %s' % (branch))
+        run('git checkout %s' % (branch))
         update_requirements()
 
 def _update_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO):

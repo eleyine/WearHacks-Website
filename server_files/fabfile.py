@@ -295,7 +295,7 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
                 run('sudo netstat -nl | grep postgres')
 
             run('python manage.py makemigrations')
-            if setup:
+            if setup or reset_db:
                 run('python manage.py migrate --fake-initial')
             else:
                 run('python manage.py migrate')

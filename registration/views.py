@@ -233,7 +233,6 @@ class SubmitRegistrationView(generic.View):
             'success': registration_success and checkout_success,
             'stripe_public_key': self.get_stripe_public_key()
         }
-        print response
         if server_message:
             print server_message
         response['form_html'] = form_html

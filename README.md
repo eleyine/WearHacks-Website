@@ -20,7 +20,7 @@ $ ./setup.sh
 
 **Manual install: what's in `setup.sh`?**
 
-If you don't want to use setup.sh
+If you don't want to use `setup.sh`
 
 ```bash
 $ mkvirtualenv wearhacks-website

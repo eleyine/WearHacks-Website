@@ -4,6 +4,7 @@
     float: right;
     vertical-align: middle;
 }
+#register .text,
 #checkout .text {
    margin-left: 10px;
    text-transform: none;

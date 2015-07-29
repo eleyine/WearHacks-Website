@@ -7,7 +7,7 @@ Prerequisites:
     Copy server_files/fab_config_example.py to server_files/fab_config.py and edit in your settings
 
 If you're starting fresh, use command: fab all. 
-For a list of commands use: fab -l
+
 For detailed information on a specific command, use: fab -d <command>
 """
 
@@ -43,6 +43,8 @@ Default settings:
    - Deploying to %s host %s with mode %s. 
    - Using private file %s.
    - Using branch %s
+
+For a list of commands use: fab -l
 """ % (
     DEFAULT_DEPLOY_TO, 
     DEPLOYMENT_HOSTS[DEFAULT_DEPLOY_TO],

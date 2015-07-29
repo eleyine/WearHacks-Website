@@ -54,6 +54,10 @@ Now, open <http://127.0.0.1:8000/>.
 
 * You can edit `wearhacks_settings/settings/private.py` to enter sensitive and user-specific settings. All settings in `private.py` will override those defined in `dev.py` and `prod.py`. See `wearhacks_website/settings/__init__.py` for more information.
 
+## Stripe settings
+
+The registration app handles payment via [Stripe](https://stripe.com). To test this feature, edit in your Stripe API keys in your private settings files (`wearhacks_website/*private.py`).
+
 ## Deployment on Digital Ocean
 
 I wrote a `fabric` script to automate installation on Digital Ocean droplets using the one-step Django installation. If you are deploying elsewhere, you can have an idea of the steps to take by inspecting `server_files/fabfile.py`. 
@@ -68,7 +72,3 @@ Here are the setup instructions if you choose to do it with Digital Ocean.
 * In `wearhacks_website/server_files/`, copy `fab_config_example.py` and rename it to `fab_config.py`. Edit in in your deployment host address.
 * Then in `server_files`, run `fab all`
 * If you'd like a list of fab commands, run `fab -l`
-
-## Stripe settings
-
-The registration app handles payment via [Stripe](https://stripe.com). To test this feature, edit in your Stripe API keys in your private settings files (`wearhacks_website/*private.py`).

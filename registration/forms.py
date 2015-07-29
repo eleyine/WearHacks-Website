@@ -77,12 +77,12 @@ class RegistrationForm(forms.ModelForm):
             HTML(
                 '<div class="row"><div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">'
                 '<span id="registration-error" class="help-block hide message message-error"><strong>Registration Failure Message</strong></span>'
-                '<span id="checkout-error" class="help-block hide message message-error"><strong>Checkout Failure Message</strong></span>'
+                '<a id="register" class="registration-form-action register-action mobile btn btn-lg btn-block btn-primary"><i class="fa fa-lock hide"></i><i class="fa fa-paper-plane"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Register</span></a>'
                 '<span id="server-error" class="help-block hide message message-error"><strong>Temporary problem with our server</strong></span>'
+                '<span id="checkout-error" class="help-block hide message message-error"><strong>Checkout Failure Message</strong></span>'
                 '<span id="success-message" class="help-block hide message message-success"><strong>Things are going great yo.</strong></span>'
-                '<a id="register" class="mobile btn btn-lg btn-block btn-primary"><i class="fa fa-lock hide"></i><i class="fa fa-paper-plane"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Register</span></a>'
-                '<a id="checkout" class="registration-form-action mobile disabled btn btn-lg btn-block btn-primary"><i class="fa fa-lock"></i><i class="fa fa-unlock hide"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Checkout</span></a>'
-                '<a id="checkout" class="registration-form-action desktop btn btn-lg btn-block btn-primary"><i class="fa fa-lock"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Checkout</span></a>'
+                '<a id="checkout" class="registration-form-action checkout-action mobile disabled btn btn-lg btn-block btn-primary"><i class="fa fa-lock"></i><i class="fa fa-unlock hide"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Checkout</span></a>'
+                '<a id="checkout" class="registration-form-action checkout-action register-action desktop btn btn-lg btn-block btn-primary"><i class="fa fa-lock"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Checkout</span></a>'
                 '<p id="hint_checkout" class="has-info help-block">Payment is handled by Stripe. We do not store your card information.</p>'
                 '</div></div>'
                 ),

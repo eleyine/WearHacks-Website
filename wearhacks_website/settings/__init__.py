@@ -18,7 +18,7 @@ def deep_update(from_dict, to_dict):
         else:
             to_dict[key] = value
 
-# this should be one of prod or dev. Default to prod for safety.
+# this should be one of prod or dev. Default to dev for safety.
 env = os.environ.get('APP_ENV', 'dev')
 penv = os.environ.get('PRIVATE_APP_ENV', 'private')
 

@@ -41,5 +41,18 @@ TEST_STRIPE_PUBLIC_KEY = os.environ.get('TEST_STRIPE_PUBLIC_KEY',
 DB_NAME = 'django'
 DB_USER = 'django'
 DB_PASS = 'pass'
-DB_PORT = 5432
+DB_PORT = ''
 ########## END POSTGRES SETTINGS
+
+########## DATABASE CONFIGURATION
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DB_NAME', DB_NAME),
+        'USER': os.environ.get('DB_USER', DB_USER),
+        'PASSWORD': os.environ.get('DB_PASS', DB_PASS),
+        'HOST': os.environ.get('DB_HOST', DB_HOST),
+        'PORT': os.environ.get('DB_PORT', DB_PORT),
+    }
+}
+########## END DATABASE CONFIGURATION

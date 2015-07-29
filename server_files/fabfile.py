@@ -4,36 +4,11 @@ Script to perform common operations on remote server from local machine.
 Prerequisites:
     pip install fabric
     Create DigitalOcean droplet with Django installation
-    Copy private_example.py to private.py and edit in your settings
+    Copy server_files/fab_config_example.py to server_files/fab_config.py and edit in your settings
 
-Usage:
-    fab setup
-    ---------
-        Installs git and package managers (npm, bower)
-        Modifies nginx and gunicorn configs to match our directory tree
-        Clones github directory and installs python + bower requirements
-        Add correct permission to static folder
-
-    fab reboot:mode=prod
-    ---------
-        (Setup step assumed to be completed.)
-        Pull changes from master repo
-        Migrate database
-        Restart nginx and gunicorn
-        Run project using production settings (see wearhacks_website/settings/prod.py)
-
-    fab reboot:mode=dev
-    ---------
-        (Setup step assumed to be completed.)
-        Pull changes from master repo
-        Migrate database
-        Restart nginx and stop gunicorn
-        Run on localhost:9000
-        Run project using dev settings (see wearhacks_website/settings/local.py)
-
-    fab get_logs
-    ---------
-        Copy nginx and gunicorn log files from remote to logs/ directory
+If you're starting fresh, use command: fab all. 
+For a list of commands use: fab -l
+For detailed information on a specific command, use: fab -d <command>
 """
 
 import fabtools
@@ -56,7 +31,8 @@ try:
         DEFAULT_DEPLOY_TO,
         DEPLOYMENT_MODES,
         DEPLOYMENT_PRIVATE_FILES,
-        DEPLOYMENT_HOSTS)
+        DEPLOYMENT_HOSTS,
+        DEFAULT_BRANCH)
 except ImportError, e:
     print e
     print 'Please update fab_config.py, see fab_config_example.py'
@@ -66,12 +42,14 @@ print """
 Default settings: 
    - Deploying to %s host %s with mode %s. 
    - Using private file %s.
+   - Using branch %s
 """ % (
     DEFAULT_DEPLOY_TO, 
     DEPLOYMENT_HOSTS[DEFAULT_DEPLOY_TO],
     DEFAULT_MODE,
     os.path.join(LOCAL_DJANGO_PATH, 'wearhacks_website',
-            'settings', DEPLOYMENT_PRIVATE_FILES[DEFAULT_DEPLOY_TO] + '.py'))
+            'settings', DEPLOYMENT_PRIVATE_FILES[DEFAULT_DEPLOY_TO] + '.py'),
+    DEFAULT_BRANCH)
 
 ########### DJANGO SETTINGS
 DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings'
@@ -111,7 +89,7 @@ env.user = 'root'
 env.colorize_errors = True
 ########### END FAB ENV
 
-def write_file(local_path, remote_path, options):
+def _write_file(local_path, remote_path, options):
     with open(local_path) as f:
         content = f.read()
 
@@ -126,7 +104,40 @@ def write_file(local_path, remote_path, options):
     print 'Overwriting %s' % (remote_path)
     put(TMP_PATH, remote_path)
 
-def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
+def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH):
+    """
+    Sets up a DigitalOcean server 'droplet' using a Django One-Click Install Image.
+
+    Prerequisites
+    --------
+    Create DigitalOcean droplet with Django installation
+
+    Overview
+    --------
+    Installs git and package managers (npm, bower)
+    Add correct permission to static folder
+    Clones github directory and installs python + bower requirements
+    Updates configuration files (see update_conf_files)
+
+    Options
+    -------
+        mode
+            default: DEFAULT_MODE
+        deploy_to
+            default: DEFAULT_DEPLOY_TO
+        branch [DEFAULT_BRANCH]
+            git branch to pull from
+
+    fab reboot
+    =========
+        (Setup step assumed to be completed.)
+        Pull changes from master repo
+        Migrate database
+        Restart nginx and gunicorn
+        Run project using production settings (see wearhacks_website/settings/prod.py)
+
+        
+    """
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
 
     with settings(warn_only=True):
@@ -168,101 +179,116 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
                 run('git clone %s %s' % (GITHUB_PROJECT, DJANGO_PROJECT_NAME)) 
 
         with cd(DJANGO_PROJECT_PATH):
-            run('git pull origin master')
-            print 'Installing python requirements..'
-            run('pip install -r requirements.txt')
-            
-            print 'Installing bower requirements..'
-            run('bower install --allow-root')
+            pull_changes(mode=mode, deploy_to=deploy_to, branch=branch)
 
         # setup proper permissions
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
 
         update_conf_files(deploy_to=deploy_to)
 
-def reset_postgres_db():
-    # Require a PostgreSQL server
-    # fabtools.require.postgres.server()
-    if  fabtools.postgres.user_exists(DB_USER):
-        print 'Deleting superuser %s' % (DB_USER)
-        fabtools.postgres.drop_user(DB_USER)
-
-    print 'Creating new superuser %s' % (DB_USER)
-    try:
-        fabtools.postgres.create_user(DB_USER, DB_PASS, 
-            superuser=True, createrole=True)
-    except:
-        fabtools.postgres.create_user(DB_USER, DB_PASS, 
-            superuser=True, createrole=False)
-
-    # Remove DB if it exists
-    if fabtools.postgres.database_exists(DB_NAME):
-        print 'Dropping database %s ' % (DB_NAME)
-        fabtools.postgres.drop_database(DB_NAME)
-
-    print 'Creating new database %s' % (DB_NAME)
-    fabtools.postgres.create_database(DB_NAME, owner=DB_USER)
-    test_models()
-
-def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO):
+def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO, restart=True):
+    """
+    Updates private django settings file as well as .profile, nginx and gunicorn configs
+    
+    Options
+    -------
+        deploy_to [DEFAULT_DEPLOY_TO]
+        restart [True]
+            Whether or not to restart nginx and gunicorn
+    """
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
+    _update_private_settings_file(deploy_to=deploy_to)
+
     print 'Modifying ~/.profile'
-    write_file('.profile', '.profile',
+    _write_file('.profile', '.profile',
         {
             'DJANGO_PROJECT_PATH': DJANGO_PROJECT_PATH
         })
 
     print 'Modifying nginx config'
-    write_file('nginx.sh', '/etc/nginx/sites-enabled/django',
+    _write_file('nginx.sh', '/etc/nginx/sites-enabled/django',
         {
             'DJANGO_PROJECT_PATH': DJANGO_PROJECT_PATH
         })
 
     print 'Modifying gunicorn config'
-    write_file('gunicorn.sh', '/etc/init/gunicorn.conf',
+    _write_file('gunicorn.sh', '/etc/init/gunicorn.conf',
         {
             'DJANGO_PROJECT_DIR': DJANGO_PROJECT_DIR,
             'DJANGO_PROJECT_NAME': DJANGO_PROJECT_NAME,
             'DJANGO_APP_NAME': DJANGO_APP_NAME
         })
+    if restart:
+        print 'Restarting nginx'
+        sudo('nginx -t')
+        sudo('service nginx reload')
 
-    print 'Restarting nginx'
-    sudo('nginx -t')
-    sudo('service nginx reload')
-
-    print 'Restarting gunicorn'
-    run('service gunicorn restart')
+        print 'Restarting gunicorn'
+        run('service gunicorn restart')
 
 def test_models(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
-    env_variables = get_env_variables(mode=mode) 
+    """
+    Generate random data using registration/management/comands/generate_registrations.py.
+    """
+    print '\nTesting models'
+    env_variables = _get_env_variables(mode=mode) 
     with cd(DJANGO_PROJECT_PATH):
         with shell_env(**env_variables):
-            print 'Check database backend'
+            print '> Check database backend'
             run('echo "from django.db import connection;connection.vendor" | python manage.py shell ')
-            # print 'In case you forgot the password, here it is %s' % (env_variables['DB_PASS'])
-            run('python manage.py sqlclear registration | python manage.py dbshell ')
 
-            pull_changes()
-            migrate(mode=mode)
+            print '> Generate random registrations'
             run('python manage.py generate_registrations 10 --reset')
 
-def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
-    setup=False):
-    if not env_variables:
-        env_variables = get_env_variables(mode=mode)
+def reset_db(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
+    """
+    Delete database and perform migrations (see migrate).
 
-    print 'Migrating database'
+    Options
+    -------
+        mode [DEFAULT_MODE]
+        deploy_to [DEFAULT_DEPLOY_TO]
+    """
+    with (hide('stdout')):
+        pull_changes(mode=mode, deploy_to=deploy_to)
+    migrate(mode=mode, deploy_to=deploy_to, reset_db=True)
+
+def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
+    setup=False, reset_db=False, generate_dummy_data=True, create_super_user=True):
+    """
+    Perform migrations.
+
+    Options
+    -------
+        mode [DEFAULT_MODE]
+        deploy_to [DEFAULT_DEPLOY_TO]
+        reset_db [False]
+            If True, delete the database.
+        generate_dummy_data [True]
+            Generate dummy data (see registration/management/)
+        createsuperuser [True]
+            If True and reset_db is True, create admin super user.
+    """
+    if not env_variables:
+        env_variables = _get_env_variables(mode=mode)
+
+    print '\nMigrating database'
     
     with shell_env(**env_variables):
 
         with cd(DJANGO_PROJECT_PATH):
-            # run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
-            if mode == 'dev':
-                run('rm -rf wearhacks_website/db.sqlite3')
-            else:
-                if deploy_to == 'alpha':
+            print '> Checking database backend'
+            run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
+            
+            if reset_db:
+                print '> Deleting database'
+                if mode == 'dev':
+                    run('rm -rf wearhacks_website/db.sqlite3')
+                else:
                     run('python manage.py sqlclear registration | python manage.py dbshell ')
 
+            if mode == 'prod':
+                print '> Checking postgresql status'
                 run('service postgresql status')
                 run('sudo netstat -nl | grep postgres')
 
@@ -272,15 +298,23 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
             else:
                 run('python manage.py migrate')
 
+            if mode == 'dev':
+                if generate_dummy_data:
+                    run('python manage.py generate_registrations 3 --reset')
+            
             # create superuser
-            try:
-                with hide('stderr', 'stdout'):
-                    sudo('chmod u+x scripts/createsuperuser.sh')
-                    run('./scripts/createsuperuser.sh')
-            except:
-                pass
+            if reset_db and create_super_user:
+                print '> Creating super user with login admin/pass'
+                with settings(warn_only=True):
+                    with hide('stderr', 'stdout', 'warnings'):
+                        sudo('chmod u+x scripts/createsuperuser.sh')
+                        run('./scripts/createsuperuser.sh')
 
 def update_requirements():
+    """
+    Update pip and bower requirements
+    """
+    print '\nUpdate pip and bower requirements'
     with cd(DJANGO_PROJECT_PATH):
         run('git pull origin master')
         print 'Installing python requirements..'
@@ -292,19 +326,35 @@ def update_requirements():
         # setup proper permissions
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
 
+def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH):
+    """
+    Update conf files, pull changes from repo and update requirements.
 
-def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
-    local_private_file = get_private_settings_file(local=True, deploy_to=deploy_to)
-    remote_private_file = get_private_settings_file(local=False, deploy_to=deploy_to)
-    print 'Updating %s -> %s' % (local_private_file, remote_private_file)
+    Options
+    -------
+        mode [DEFAULT_MODE]
+        deploy_to [DEFAULT_DEPLOY_TO]
+        branch [DEFAULT_BRANCH]
+            git branch to pull from
+
+    See
+    -------
+        update_requirements
+    """
+    _update_private_settings_file(deploy_to=deploy_to)
+    with cd(DJANGO_PROJECT_PATH):
+        print '\nPulling changes from %s repo' % (branch)
+        run('git checkout %s' % (branch))
+        run('git pull origin %s' % (branch))
+        update_requirements()
+
+def _update_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO):
+    print '\nUpdating private settings'
+    local_private_file = _get_private_settings_file(local=True, deploy_to=deploy_to)
+    remote_private_file = _get_private_settings_file(local=False, deploy_to=deploy_to)
     put(local_path=local_private_file,remote_path=remote_private_file)
 
-    with cd(DJANGO_PROJECT_PATH):
-        print 'Pulling changes from master repo'
-        run('git pull origin master')
-        run('pip install -r requirements.txt')
-
-def get_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO, local=True):
+def _get_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO, local=True):
     if deploy_to not in DEPLOYMENT_PRIVATE_FILES.keys():
         print 'Unknown deployment option %s' % (deploy_to)
         print 'Possible options:', DEPLOYMENT_PRIVATE_FILES.keys()
@@ -322,7 +372,7 @@ def get_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO, local=True):
             'settings', 'private.py')
     return private_file
 
-def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
+def _get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     ev = dict(ENV_VARIABLES)
     if mode not in DEPLOYMENT_MODES:
         print 'Invalid mode option %s' % (mode)
@@ -333,10 +383,39 @@ def get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     return ev
 
 def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None, 
-    setup=False):
+    setup=False, reset_db=False, branch=DEFAULT_BRANCH):
+    """
+    Reboot server.
+
+    Prerequisites
+    -------------
+        fab setup
+    
+    Overview
+    -------------
+        Update conf files (see update_conf_files)
+        Pull changes from repo (see pull_chages)
+        Migrate database (see migrate)
+        Collects static files
+        Restart nginx
+        If mode is dev, stop gunicorn and run localhost
+        If mode is prod, restart gunicorn
+        Updates logs (see get_logs)
+
+    Options
+    -------------
+        mode [DEFAULT_MODE]
+        deploy_to [DEFAULT_DEPLOY_TO]
+        env_variables [None]
+            dictionary of env variables to pass to remote shell env
+            see: _get_env_variables
+        reset_db [False]
+            whether or not to delete database
+        branch [DEFAULT_BRANCH]
+            git branch to pull from
+    """
     if not env_variables:
-        env_variables = get_env_variables(mode=mode, deploy_to=deploy_to)
-        print env_variables
+        env_variables = _get_env_variables(mode=mode, deploy_to=deploy_to)
     
     with cd(DJANGO_PROJECT_PATH):
         print 'Stopping gunicorn' 
@@ -354,7 +433,8 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
         sudo('nginx -t')
         sudo('service nginx reload')
 
-        migrate(mode=mode, deploy_to=deploy_to, env_variables=env_variables, setup=setup)
+        migrate(mode=mode, deploy_to=deploy_to, env_variables=env_variables, 
+            setup=setup, reset_db=reset_db)
 
         if mode == 'prod':
 
@@ -365,22 +445,22 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
 
             print 'Restarting gunicorn'
             run('service gunicorn restart')
+            get_logs(deploy_to=deploy_to)
 
         elif mode == 'dev':
-
+            get_logs(deploy_to=deploy_to)
             with shell_env(**env_variables):
-                # run('python manage.py sqlclear registration | python manage.py dbshell ')
                 print 'Running on localhost'
-                run('python manage.py generate_registrations 10 --reset')
                 run('python manage.py runserver localhost:9000')
         else:
             print 'Invalid mode %s' % (mode)
-    
-    get_logs()
 
 
 def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
-    print 'Copying logs to logs/'
+    """
+    Copy django, nginx and gunicorn log files from remote to server_files/logs
+    """
+    print '\nCopying logs to server_files/logs/'
     log_dir = os.path.join(LOCAL_DJANGO_PATH, 'server_files', 'logs', deploy_to)
     if not os.path.exists(log_dir):
         local('mkdir -p %s' % (log_dir))
@@ -392,10 +472,7 @@ def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
         get(remote_path="/var/log/nginx/error.log", local_path="%s/nginx.error.log" % (log_dir))
         get(remote_path="/var/log/postgresql/postgresql-9.3-main.log", local_path="%s/psql.main.log" % (log_dir))
 
-def all():
-    setup()
-    reboot(setup=True)
-
-def do_nothing():
-    # check for compile errors
-    pass
+def all(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE):
+    """Setup and reboot."""
+    setup(deploy_to=deploy_to, mode=mode)
+    reboot(deploy_to=deploy_to, mode=mode, setup=True)

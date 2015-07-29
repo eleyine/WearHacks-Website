@@ -11,6 +11,7 @@ DEFAULT_DEPLOY_TO='default'
 
 DEPLOYMENT_MODES = ('dev', 'prod')
 DEFAULT_MODE='prod' 
+DEFAULT_BRANCH='master'
 
 # The following settings are used to manage different servers. 
 # 

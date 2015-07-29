@@ -49,7 +49,7 @@ Now, open <http://127.0.0.1:8000/>.
 * To use production settings defined in `wearhacks_settings/settings/prod.py`:
 
     ```bash
-    export APP_ENV=prod
+    (wearhacks-website) $ export APP_ENV=prod
     (wearhacks-website) $ python manage.py runserver
     ```
 

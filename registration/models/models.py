@@ -86,7 +86,7 @@ class Registration(models.Model):
     tshirt_size = models.CharField(max_length=20, 
         choices=TSHIRT_SIZE_CHOICES,
         )
-    is_returning = models.BooleanField(default=False, verbose_name="Have you attended last year's event?")
+    is_returning = models.BooleanField(default=False, verbose_name="Did you attend last year's event?")
     is_first_time_hacker = models.BooleanField(default=False, verbose_name="Is this your first hackathon?")
 
     # files

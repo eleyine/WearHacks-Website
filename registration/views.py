@@ -275,8 +275,9 @@ class SubmitRegistrationView(generic.View):
 
                 if is_captured:
                     charge_attempt.is_captured = True
+                    charge_attempt.save()
 
-            if server_error:
+            else:
                 charge_attempt.server_message = server_message
                 charge_attempt.save()
 

@@ -24,6 +24,7 @@ class RegistrationForm(forms.ModelForm):
                 'is_hacker',
                 'resume',
                 'waiver'
+                'has_read_code_of_conduct'
             )
 
     # def clean_email(self):
@@ -59,7 +60,8 @@ class RegistrationForm(forms.ModelForm):
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
                 Field('is_hacker', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
-                'school'
+                'school',
+                css_id='about-you'
             ),
             Fieldset(
                 'Experience',
@@ -69,10 +71,11 @@ class RegistrationForm(forms.ModelForm):
             ),
             Fieldset(
                 'Misc.',
-                Field('tshirt_size'),
+                'tshirt_size',
                 Field('food_restrictions', rows=2),
                 'waiver',
             ),
+            Field('has_read_code_of_conduct', css_class="conduct"),
             HTML(
                 '<div class="row"><div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">'
                 '<span id="registration-error" class="help-block hide message message-error"><strong>Registration Failure Message</strong></span>'

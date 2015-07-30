@@ -9,7 +9,7 @@
   display:inline-block;
   float:right;
 }
-.checkbox label {
+#about-you .checkbox label {
   padding-left: 0;
 }
 

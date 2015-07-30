@@ -19,8 +19,8 @@
       $('input').attr('disabled', !isEnabled);
       $('select').attr('disabled', !isEnabled);
       $('textarea').attr('disabled', !isEnabled);
-      $(".checkboxinput").bootstrapSwitch('disabled', !isEnabled);
-      $(".checkboxinput").bootstrapSwitch('readonly', !isEnabled);
+      $("#about-you .checkboxinput").bootstrapSwitch('disabled', !isEnabled);
+      $("#about-you .checkboxinput").bootstrapSwitch('readonly', !isEnabled);
     }
 
     function displayCorrectButtons(isMobile, isRegistrationValidated) {
@@ -145,7 +145,10 @@
     }
 
     function stylisticTweaks() {
-        $(".checkboxinput").bootstrapSwitch();
+        $(".conduct ~ a")
+          .attr("href", window.code_of_conduct)
+          .attr("target", "_blank");
+        $("#about-you .checkboxinput").bootstrapSwitch();
         $("#div_id_is_student label").prepend('<div class="controls col-lg-6 hide" id="hint_id_is_student"><p class="help-block message-success"><i class="fa fa-check"></i><strong> Great! You have a 50% discount.</strong></p></div>')
         $("#div_id_is_student .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
           if (state) {

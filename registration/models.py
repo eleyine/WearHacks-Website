@@ -105,6 +105,8 @@ class Registration(models.Model):
     # files
     resume = models.FileField(upload_to=get_resume_filename, blank=True, 
         help_text="Not required but this might reach our sponsors for targeted employment opportunities.")
+    has_read_code_of_conduct = models.BooleanField(default=False, 
+        verbose_name='I have read the <a href="#">Code of Conduct.</a>')
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
        help_text="Not required but it will save us some time during registration.")
 

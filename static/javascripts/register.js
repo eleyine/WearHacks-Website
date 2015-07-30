@@ -4,8 +4,8 @@
     $( document ).ready(function() {
 
         ajaxSetup();
-        stylisticTweaks();
         displayCorrectButtons();
+        stylisticTweaks();
 
         $(document).on('click', '.register-action', function (e) {
             register();
@@ -153,19 +153,7 @@
           } else {
             $("#hint_id_is_student").addClass("hide");            
           }
-        });
-        // display select gender if it's not there
-        if (!$( "#id_gender option" ).hasClass('select-gender')) {
-          $('#div_id_gender option').attr('selected', false);
-          $('#div_id_gender select').prepend('<option disabled selected="true" class="select-gender"> Select gender </option>');
-        }
-
-        // if there's a validation error on gender field, switch back to select gender
-        if ($('#error_1_id_gender') != []) {
-          $('#div_id_gender option').attr('selected', false);
-          $('.select-gender').attr('selected', true);
-        } 
-        
+        });        
     }
 
     function displaySorryButton() {

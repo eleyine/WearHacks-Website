@@ -19,12 +19,19 @@ class RegistrationForm(forms.ModelForm):
                 'github',
                 'linkedin',
                 'food_restrictions',
-                # 'tshirt_size',
+                'tshirt_size',
                 'is_returning',
                 'is_hacker',
                 'resume',
                 'waiver'
             )
+
+    tshirt_size = forms.ChoiceField(
+            choices = (('', 'Select T-shirt Size'),) + Registration.TSHIRT_SIZE_CHOICES,
+        )
+    gender = forms.ChoiceField(
+            choices = (('', 'Select Gender'),) + Registration.GENDER_CHOICES,
+        )
 
     # def clean_email(self):
         
@@ -69,6 +76,7 @@ class RegistrationForm(forms.ModelForm):
             ),
             Fieldset(
                 'Misc.',
+                Field('tshirt_size'),
                 Field('food_restrictions', rows=2),
                 'waiver',
             ),

@@ -41,7 +41,7 @@ class RegistrationForm(forms.ModelForm):
         self.helper.form_action = 'register'
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-lg-3'
-        self.helper.field_class = 'col-lg-6'
+        self.helper.field_class = 'col-lg-7'
 
 
         self.helper.layout = Layout(
@@ -79,7 +79,7 @@ class RegistrationForm(forms.ModelForm):
             ),
             Field('has_read_code_of_conduct', css_class="conduct"),
             HTML(
-                '<div class="row"><div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">'
+                '<div class="row"><div class="col-xs-12 col-sm-7 col-sm-offset-3 text-center checkout-wrapper">'
                 '<span id="registration-error" class="help-block hide message message-error"><strong>Registration Failure Message</strong></span>'
                 '<a id="register" class="registration-form-action register-action mobile btn btn-lg btn-block btn-primary"><i class="fa fa-lock hide"></i><i class="fa fa-paper-plane"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Register</span></a>'
                 '<span id="server-error" class="help-block hide message message-error"><strong>Temporary problem with our server</strong></span>'

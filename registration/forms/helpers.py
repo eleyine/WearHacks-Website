@@ -47,3 +47,4 @@ class PDFField(forms.FileField):
         except Exception, e:
             print str(e)
             raise forms.ValidationError(self.error_messages['sever_error'])
+        return data

@@ -64,7 +64,7 @@ class Command(BaseCommand):
             'last_name':  get_word(), 
             'school': 'McGill University',
             'email': '@'.join([get_word(), get_word() + '.com']),
-            'is_hacker': bool(randint(0, 1)),
+            'is_first_time_hacker': bool(randint(0, 1)),
             'is_returning': bool(randint(0, 1))
             }
         return data

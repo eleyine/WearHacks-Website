@@ -14,6 +14,8 @@ DEBUG = os.environ.get('DEBUG', False)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
+CRISPY_FAIL_SILENTLY = not DEBUG
+
 ########## END DEBUG CONFIGURATION
 
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', not DEBUG)

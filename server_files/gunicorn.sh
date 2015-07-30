@@ -8,8 +8,8 @@ stop on runlevel [!12345]
 # If the process quits unexpectadly trigger a respawn
 respawn
 
-# setuid django
-# setgid django
+setuid django
+setgid django
 chdir DJANGO_PROJECT_DIR
 
 exec gunicorn \

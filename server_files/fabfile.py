@@ -88,6 +88,7 @@ ENV_VARIABLES = {
 
 ########### FAB ENV
 env.user = 'root'
+env.project_root = DJANGO_PROJECT_PATH
 env.colorize_errors = True
 ########### END FAB ENV
 
@@ -186,16 +187,58 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
         _update_permissions()
         update_conf_files(deploy_to=deploy_to)
 
-def _update_permissions():
+def _update_permissions(debug=False, setup=False, only_static=False):
+    """
+    An exhaustive fail-proof permission setup. I tried to give the least possible 
+    permissions.
+    """
     print 'Updating permissions'
-    with settings(warn_only=True):
-        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
-        # 0644 rw-r--r--
-        sudo('chmod -R 0644 %s' % (os.path.join(DJANGO_PROJECT_PATH, 'media')))
+    with settings():
+
+        with cd('/home'):
+            sudo("find -type d -exec chmod a+x {} \;"); # makre sure all directories are executable
+
+        if setup and not only_static:
+            sudo('groupadd staticusers')
+            sudo('adduser www-data staticusers')
+            sudo('adduser django staticusers')
+
+        # change permissions to static files
+        sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
+        sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'media')))
+
+        with cd(DJANGO_PROJECT_PATH):    
+            # all files under the project dir are owned by django (gunicorn's uid) is the owner
+
+            if not only_static:
+                sudo("chmod -R 500 .") # r-x --- --- : django can only read and execute files by default
+            
+            sudo("chmod -R 644 assets") # rw- r-- r-- : assets can be read by nginx (var-www) as well as everyone else
+            sudo("chmod -R 644 media") # rw- r-- r--
+
+            if not only_static:
+                sudo("chmod -R 200 server_files/logs") # -w- r-- r--
+                blacklist = (
+                    'scripts',
+                    'wearhacks_website/settings/*_private.py',
+                )
+
+                for f in blacklist:
+                    sudo("chmod -R 000" % (f))
+
+            sudo("find -type d -exec chmod a+x {} \;") # set all directories to executable            
+            run("ls -la")
+
+            if debug:
+                with settings(warn_only=True):
+                    env.user = 'django'
+                    run('python manage.py runserver')
+        
 
 def update_permissions(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE):
     _update_permissions()
     restart_nginx()
+    restart_gunicorn()
 
 def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO, restart=True):
     """
@@ -313,13 +356,11 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
                 if generate_dummy_data:
                     run('python manage.py generate_registrations 3 --reset')
             
-            # create superuser
-            if reset_db and create_super_user:
-                print '> Creating super user with login admin/pass'
-                with settings(warn_only=True):
-                    with hide('stderr', 'stdout', 'warnings'):
-                        sudo('chmod u+x scripts/createsuperuser.sh')
-                        run('./scripts/createsuperuser.sh')
+            print '> Creating super user with login admin/pass'
+            with settings(warn_only=True):
+                with hide('stderr', 'stdout', 'warnings'):
+                    sudo('chmod u+x scripts/createsuperuser.sh')
+                    run('./scripts/createsuperuser.sh')
 
 def update_requirements(branch=DEFAULT_BRANCH):
     """
@@ -332,9 +373,6 @@ def update_requirements(branch=DEFAULT_BRANCH):
         
         print 'Installing bower requirements..'
         run('bower install --allow-root')
-
-        # setup proper permissions
-        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
 
 def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH):
     """
@@ -354,7 +392,10 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     _update_private_settings_file(deploy_to=deploy_to)
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
-        run('git checkout %s' % (branch))
+        try:
+            run('git checkout %s' % (branch))
+        except:
+            pass
         if branch == 'stable':
             run('git fetch --all')
             run('git reset --hard origin/%s' % (branch))
@@ -403,10 +444,14 @@ def hard_reboot(**kwargs):
     kwargs["reset_db"] = True
     reboot(**kwargs)
 
+def restart_gunicorn():
+    print 'Restarting gunicorn'
+    run('service gunicorn restart')
+
 def restart_nginx():
     print 'Restarting nginx'
     sudo('nginx -t')
-    sudo('service nginx reload')
+    sudo('service nginx restart')
 
 def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None, 
     setup=False, reset_db=False, branch=DEFAULT_BRANCH):
@@ -452,8 +497,7 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
         with shell_env(**env_variables):
             with settings(prompts=prompts):
                 run('python manage.py collectstatic')
-        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
-        _update_permissions()
+        _update_permissions(only_static=True)
         
         restart_nginx()
 
@@ -479,6 +523,16 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
         else:
             print 'Invalid mode %s' % (mode)
 
+def get_media(deploy_to=DEFAULT_DEPLOY_TO):
+    """
+    Copy server's media folder
+    """
+    print '\nCopying media to server_files/media/'
+    log_dir = os.path.join(LOCAL_DJANGO_PATH, 'server_files', 'media', deploy_to)
+    if not os.path.exists(log_dir):
+        local('mkdir -p %s' % (log_dir))
+    with settings(hide('warnings')): 
+        get(remote_path="%s/media" % (DJANGO_PROJECT_PATH), local_path="%s" % (log_dir))
 
 def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     """
@@ -489,11 +543,13 @@ def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     if not os.path.exists(log_dir):
         local('mkdir -p %s' % (log_dir))
     with settings(hide('warnings')): 
+        get(remote_path="/var/log/nginx/error.log", local_path="%s/nginx.error.log" % (log_dir))
+        get(remote_path="/var/log/nginx/access.log", local_path="%s/nginx.access.log" % (log_dir))
+
         get(remote_path="%s/server_files/logs/local/django.debug.log" % (DJANGO_PROJECT_PATH), local_path="%s/django.debug.log" % (log_dir))
         get(remote_path="%s/server_files/logs/local/django.request.debug.log" % (DJANGO_PROJECT_PATH), local_path="%s/django.request.debug.log" % (log_dir))
 
         get(remote_path="/var/log/upstart/gunicorn.log", local_path="%s/gunicorn.log" % (log_dir))
-        get(remote_path="/var/log/nginx/error.log", local_path="%s/nginx.error.log" % (log_dir))
         get(remote_path="/var/log/postgresql/postgresql-9.3-main.log", local_path="%s/psql.main.log" % (log_dir))
 
 def all(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE):

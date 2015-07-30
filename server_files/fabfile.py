@@ -188,9 +188,10 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
 
 def _update_permissions():
     print 'Updating permissions'
-    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
-    # 0644 rw-r--r--
-    sudo('chmod -R 0644 %s' % (os.path.join(DJANGO_PROJECT_PATH, 'media')))
+    with settings(warn_only=True):
+        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+        # 0644 rw-r--r--
+        sudo('chmod -R 0644 %s' % (os.path.join(DJANGO_PROJECT_PATH, 'media')))
 
 def update_permissions(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE):
     _update_permissions()
@@ -452,7 +453,7 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
             with settings(prompts=prompts):
                 run('python manage.py collectstatic')
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
-        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+        _update_permissions()
         
         restart_nginx()
 

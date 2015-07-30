@@ -5,6 +5,7 @@
 
         ajaxSetup();
         displayCorrectButtons();
+        $("#div_id_is_student .controls").append('<div class="controls col-lg-6 hide" id="hint_id_is_student"><p class="help-block message-success"><i class="fa fa-check"></i><strong> Great! You have a 50% discount.</strong></p></div>');
         stylisticTweaks();
 
         $(document).on('click', '.register-action', function (e) {
@@ -149,7 +150,6 @@
           .attr("href", window.code_of_conduct)
           .attr("target", "_blank");
         $("#about-you .checkboxinput").bootstrapSwitch();
-        $("#div_id_is_student label").prepend('<div class="controls col-lg-6 hide" id="hint_id_is_student"><p class="help-block message-success"><i class="fa fa-check"></i><strong> Great! You have a 50% discount.</strong></p></div>')
         $("#div_id_is_student .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
           if (state) {
             $("#hint_id_is_student").removeClass("hide");

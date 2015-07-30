@@ -183,10 +183,18 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
         with cd(DJANGO_PROJECT_PATH):
             pull_changes(mode=mode, deploy_to=deploy_to, branch=branch)
 
-        # setup proper permissions
-        sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
-
+        _update_permissions()
         update_conf_files(deploy_to=deploy_to)
+
+def _update_permissions():
+    print 'Updating permissions'
+    sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
+    # 0644 rw-r--r--
+    sudo('chmod -R 0644 %s' % (os.path.join(DJANGO_PROJECT_PATH, 'media')))
+
+def update_permissions(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE):
+    _update_permissions()
+    restart_nginx()
 
 def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO, restart=True):
     """
@@ -394,6 +402,11 @@ def hard_reboot(**kwargs):
     kwargs["reset_db"] = True
     reboot(**kwargs)
 
+def restart_nginx():
+    print 'Restarting nginx'
+    sudo('nginx -t')
+    sudo('service nginx reload')
+
 def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None, 
     setup=False, reset_db=False, branch=DEFAULT_BRANCH):
     """
@@ -441,9 +454,7 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
         sudo('chown -R django:django %s' % (os.path.join(DJANGO_PROJECT_PATH, 'static')))
         
-        print 'Restarting nginx'
-        sudo('nginx -t')
-        sudo('service nginx reload')
+        restart_nginx()
 
         migrate(mode=mode, deploy_to=deploy_to, env_variables=env_variables, 
             setup=setup, reset_db=reset_db)

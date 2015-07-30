@@ -22,6 +22,7 @@ static/images/carousel/src/
 
 # Migrations
 */migrations*
+migrate.sh
 
 # Deployment settings
 wearhacks_website/settings/*_private.py

@@ -70,7 +70,10 @@ class Registration(models.Model):
         ('F', 'Female'),
         ('N', 'Other / I prefer not to disclose'),
     )
-    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default=GENDER_CHOICES[0][0])
+    gender = models.CharField(max_length=20, 
+        choices=GENDER_CHOICES, 
+        # default=GENDER_CHOICES[0][0],
+        )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -95,7 +98,7 @@ class Registration(models.Model):
     )
     tshirt_size = models.CharField(max_length=20, 
         choices=TSHIRT_SIZE_CHOICES,
-        default=TSHIRT_SIZE_CHOICES[1][0])
+        )
     is_returning = models.BooleanField(default=False, verbose_name="Have you attended last year's event?")
     is_hacker = models.BooleanField(default=False, verbose_name="Is this your first hackathon?")
 

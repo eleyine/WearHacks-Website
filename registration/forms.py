@@ -26,13 +26,6 @@ class RegistrationForm(forms.ModelForm):
                 'waiver'
             )
 
-    tshirt_size = forms.ChoiceField(
-            choices = (('', 'Select T-shirt Size'),) + Registration.TSHIRT_SIZE_CHOICES,
-        )
-    gender = forms.ChoiceField(
-            choices = (('', 'Select Gender'),) + Registration.GENDER_CHOICES,
-        )
-
     # def clean_email(self):
         
     #     self._errors['email'] = [u'Email is already in use']

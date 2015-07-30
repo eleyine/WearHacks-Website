@@ -22,7 +22,6 @@ class PDFField(forms.FileField):
     content_types = ['application/pdf']
 
     def clean(self, data, initial=None):
-        print 'doing super stuff'
         super(forms.FileField, self).clean(initial or data)
         if not data:
             return data

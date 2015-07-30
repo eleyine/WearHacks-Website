@@ -47,10 +47,16 @@ header {
         z-index: 100;
     }
     .header-content-inner {
-        p {
-
+        h3 {
+            line-height: 1.3em;
+            font-family: "Helvetica Neue", "Helvetica", sans-serif;
+            font-weight: 200;
+            @media (max-width: 992px) {
+            font-family: "Raleway", "Helvetica Neue", "Helvetica", sans-serif;
+            }
         }
         .who {
+
             .col {
                 min-height: @header-logo-height;
                 height: @header-logo-height;
@@ -61,9 +67,13 @@ header {
                 // border: 1px solid red;
                 display: block;
                 background-image: url('../../images/logo-text-white.png');
-                background-size: 90% auto;
+                background-size: auto 100%;
                 background-repeat: no-repeat;
                 background-position: center;
+
+                @media (max-width: 500px) {
+                    background-size: 90% auto;
+                }
             }
 
             .info {
@@ -96,18 +106,57 @@ header {
                 }
             }
 
-            @media (max-width: 600px) {
+
+
+            @media (max-width: 992px) {
                 .col {
                     min-height: @header-logo-height-sm;
                     height: @header-logo-height-sm;
                     max-height: @header-logo-height-sm;
                 }
-                .info p {
-                    // color: red;
+                .info  {
+                    width: 100%;
+                    min-height: 10px;
+                    height: 10px;
+                    div {
+                        &:last-child {
+                            // p:after {
+                            //     content: "";
+                            // }
+                        }
+                        // border: 1px solid red;
+                        height: 20px;
+                        min-height: 20px;
+                        max-height: 20px;
+                        width: 33%;
+                        float: left;
+                        margin: auto;
+                        display: block;
+                    }
+                    p {
+                        text-align: middle;
+                        width: 100%;
+                        padding: 0;
+                        top:0;
+                        // border: 1px solid green;
+                        line-height: 15px;
+                        font-size: 0.9em;
+                        &.small {
+                            font-size: 0.9em;
+                            padding: 0;
+                        }
+                    }
+                    // p:after {
+                    //     content: " /";
+                    // }
                 }
             }
         }
-
+        @media (max-width: 600px) {
+            .what {
+                display: none!important;
+            }
+        }
         .what {
             @header-what-height: @header-logo-height * 3;
             display: block;
@@ -116,6 +165,46 @@ header {
 
             .hardware img {
                 opacity: 1;
+            }
+
+            img {
+                width: 100%;
+                &.nuance,
+                &.nod,
+                &.myo-white {
+                  max-width: 350px;  
+                }
+                &.kinect {
+                  max-width: 300px;  
+                }
+                &.oculus {
+                  max-width: 250px;  
+                }
+                &.intel {
+                    max-width: 200px;
+                    max-width: 200px;  
+                }
+            }
+
+            @media (max-width: 600px) {
+                img {
+                    max-width: 80%;
+                    // &.nuance,
+                    // &.nod,
+                    // &.myo-white {
+                    //   max-width: 350px;  
+                    // }
+                    // &.kinect {
+                    //   max-width: 300px;  
+                    // }
+                    // &.oculus {
+                    //   max-width: 250px;  
+                    // }
+                    // &.intel {
+                    //     max-width: 200px;
+                    //     max-width: 200px;  
+                    // }
+                }
             }
 
             .col {
@@ -153,9 +242,9 @@ header {
                         p {
                             text-align: center;
                         }
-                        min-height: 50px;
-                        height: 50px;
-                        max-height: 50px;
+                        min-height: 30px;
+                        height: 30px;
+                        max-height: 30px;
                     }
                 }
                 

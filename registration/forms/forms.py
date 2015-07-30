@@ -1,10 +1,11 @@
 from django import forms
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, Field, HTML
 from crispy_forms.bootstrap import FormActions, StrictButton
 
-
 from registration.models import Registration
+from registration.forms.helpers import PDFField
 
 class RegistrationForm(forms.ModelForm):
     class Meta:
@@ -23,13 +24,14 @@ class RegistrationForm(forms.ModelForm):
                 'is_returning',
                 'is_hacker',
                 'resume',
-                'waiver'
+                # 'waiver',
                 'has_read_code_of_conduct'
             )
 
-    # def clean_email(self):
-        
-    #     self._errors['email'] = [u'Email is already in use']
+    resume = PDFField(required=False, 
+        help_text=Registration.RESUME_HELP_TEXT)
+    waiver = PDFField(required=False, 
+        help_text=Registration.WAIVER_HELP_TEXT)
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -95,4 +97,3 @@ class RegistrationForm(forms.ModelForm):
             #         href='#registration-form')
             # )
         )
-

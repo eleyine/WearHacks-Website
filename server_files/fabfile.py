@@ -387,6 +387,13 @@ def _get_env_variables(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     env.hosts = DEPLOYMENT_HOSTS[deploy_to]
     return ev
 
+def hard_reboot(**kwargs):
+    """
+    Reboot server and reset database (see reboot)
+    """
+    kwargs["reset_db"] = True
+    reboot(**kwargs)
+
 def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None, 
     setup=False, reset_db=False, branch=DEFAULT_BRANCH):
     """

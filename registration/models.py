@@ -1,6 +1,9 @@
 from django.db import models
 import os, time, datetime
 
+from django.core.validators import RegexValidator#, URLValidator
+from django.core.exceptions import ValidationError
+
 # Helpers
 def get_resume_filename(instance, filename):
     return get_filename(instance, filename, directory='resumes')
@@ -63,8 +66,13 @@ class ChargeAttempt(models.Model):
 
 
 class Registration(models.Model):
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
+    alpha = RegexValidator(regex=r'^[a-zA-Z]*$',  message='Only letters are allowed.')
+    def validate_true(value):
+        if not value:
+            raise ValidationError('This field must be checked')
+
+    first_name = models.CharField(max_length=20, validators=[alpha])
+    last_name = models.CharField(max_length=20, validators=[alpha])
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -80,7 +88,8 @@ class Registration(models.Model):
 
     # student-specific
     is_student = models.BooleanField(default=False, verbose_name="Are you a student?")
-    school = models.CharField(max_length=100, blank=True, verbose_name="Where do/did you go to school?")
+    school = models.CharField(max_length=100, blank=True, 
+        verbose_name="Where do/did you go to school?", validators=[alpha])
 
     # contact
     email = models.EmailField()
@@ -103,12 +112,20 @@ class Registration(models.Model):
     is_hacker = models.BooleanField(default=False, verbose_name="Is this your first hackathon?")
 
     # files
+    RESUME_HELP_TEXT = "Not required but this might reach our sponsors for targeted employment opportunities."
+    MAX_UPLOAD_SIZE=2621440 # 2.5MB
     resume = models.FileField(upload_to=get_resume_filename, blank=True, 
-        help_text="Not required but this might reach our sponsors for targeted employment opportunities.")
+        help_text=RESUME_HELP_TEXT,
+        # max_upload_size=MAX_UPLOAD_SIZE
+    )
     has_read_code_of_conduct = models.BooleanField(default=False, 
-        verbose_name='I have read the <a href="#">Code of Conduct.</a>')
+        verbose_name='I have read the <a href="#">Code of Conduct.</a>',
+        validators=[validate_true])
+    WAIVER_HELP_TEXT = "Not required but it will save us some time during registration."
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
-       help_text="Not required but it will save us some time during registration.")
+       help_text=WAIVER_HELP_TEXT,
+       # max_upload_size=MAX_UPLOAD_SIZE
+    )
 
     # payment
     charge = models.ForeignKey('ChargeAttempt', blank=True, null=True) #default=1)

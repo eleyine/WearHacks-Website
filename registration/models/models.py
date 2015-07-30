@@ -47,7 +47,7 @@ class ChargeAttempt(models.Model):
             self.charge_id, self.status)
 
 class Registration(models.Model):
-    alpha = RegexValidator(regex=r'^[a-zA-Z]*$',  message='Only letters are allowed.')
+    alpha = RegexValidator(regex=r'^[a-zA-Z\s]*$',  message='Only letters are allowed.')
 
     first_name = models.CharField(max_length=20, validators=[alpha])
     last_name = models.CharField(max_length=20, validators=[alpha])

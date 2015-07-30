@@ -184,8 +184,9 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
         with cd(DJANGO_PROJECT_PATH):
             pull_changes(mode=mode, deploy_to=deploy_to, branch=branch)
 
-        _update_permissions()
+        run("git config --global core.filemode false")
         update_conf_files(deploy_to=deploy_to)
+        update_permissions()
 
 def _update_permissions(debug=False, setup=False, only_static=False):
     """
@@ -199,9 +200,10 @@ def _update_permissions(debug=False, setup=False, only_static=False):
             sudo("find -type d -exec chmod a+x {} \;"); # makre sure all directories are executable
 
         if setup and not only_static:
-            sudo('groupadd staticusers')
-            sudo('adduser www-data staticusers')
-            sudo('adduser django staticusers')
+            with settings(warn_only=True):
+                sudo('groupadd staticusers')
+                sudo('adduser www-data staticusers')
+                sudo('adduser django staticusers')
 
         # change permissions to static files
         sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
@@ -220,11 +222,11 @@ def _update_permissions(debug=False, setup=False, only_static=False):
                 sudo("chmod -R 200 server_files/logs") # -w- r-- r--
                 blacklist = (
                     'scripts',
-                    'wearhacks_website/settings/*_private.py',
+                    # 'wearhacks_website/settings/*_private.py',
                 )
 
                 for f in blacklist:
-                    sudo("chmod -R 000" % (f))
+                    sudo("chmod -R 000 %s" % (f))
 
             sudo("find -type d -exec chmod a+x {} \;") # set all directories to executable            
             run("ls -la")
@@ -235,8 +237,8 @@ def _update_permissions(debug=False, setup=False, only_static=False):
                     run('python manage.py runserver')
         
 
-def update_permissions(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE):
-    _update_permissions()
+def update_permissions(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE, setup=False):
+    _update_permissions(setup=setup)
     restart_nginx()
     restart_gunicorn()
 
@@ -392,15 +394,13 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     _update_private_settings_file(deploy_to=deploy_to)
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
-        try:
-            run('git checkout %s' % (branch))
-        except:
-            pass
+        sudo("git config core.filemode false")
         if branch == 'stable':
             run('git fetch --all')
             run('git reset --hard origin/%s' % (branch))
         else:
             run('git pull origin %s' % (branch))
+            run('git checkout %s' % (branch))
         update_requirements()
 
 def _update_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO):

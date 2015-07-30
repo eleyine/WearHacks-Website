@@ -22,7 +22,7 @@ class RegistrationForm(forms.ModelForm):
                 'food_restrictions',
                 'tshirt_size',
                 'is_returning',
-                'is_hacker',
+                'is_first_time_hacker',
                 'resume',
                 # 'waiver',
                 'has_read_code_of_conduct'
@@ -60,7 +60,7 @@ class RegistrationForm(forms.ModelForm):
                     ),
                 Field('is_returning', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
-                Field('is_hacker', 
+                Field('is_first_time_hacker', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
                 'school',
                 css_id='about-you'

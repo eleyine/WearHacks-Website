@@ -156,7 +156,19 @@
           } else {
             $("#hint_id_is_student").addClass("hide");            
           }
-        });        
+        });     
+        $("#div_id_is_first_time_hacker .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
+          var is_returning = "#div_id_is_returning .checkboxinput";
+          if (state && $(is_returning).val()) {
+            $(is_returning).bootstrapSwitch('state', false);
+          }
+        }); 
+        $("#div_id_is_returning .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
+          var is_first_time_hacker = "#div_id_is_first_time_hacker .checkboxinput";
+          if (state && $(is_first_time_hacker).val()) {
+            $(is_first_time_hacker).bootstrapSwitch('state', false);
+          }
+        });     
     }
 
     function displaySorryButton() {

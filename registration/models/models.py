@@ -1,27 +1,9 @@
 from django.db import models
-import os, time, datetime
 
 from django.core.validators import RegexValidator#, URLValidator
 from django.core.exceptions import ValidationError
 
-# Helpers
-def get_resume_filename(instance, filename):
-    return get_filename(instance, filename, directory='resumes')
-
-def get_waiver_filename(instance, filename):
-    return get_filename(instance, filename, directory='waivers')
-
-def get_filename(instance, old_filename, directory=''):
-    dirname = os.path.dirname(old_filename)
-    # add time to differentiate between two registrees with the same first/last names
-    suffix = datetime.datetime.now().strftime("__%m-%d_%H-%M")
-    basename = '%s_%s_%s.pdf' % (instance.last_name, instance.first_name, suffix)
-    filename = os.path.join(
-        os.path.dirname(old_filename),
-        directory,
-        basename
-        )
-    return filename
+from registration.models.helpers import *
 
 class ChargeAttempt(models.Model):
     email = models.EmailField()
@@ -64,12 +46,8 @@ class ChargeAttempt(models.Model):
             self.email, self.created_at, 
             self.charge_id, self.status)
 
-
 class Registration(models.Model):
     alpha = RegexValidator(regex=r'^[a-zA-Z]*$',  message='Only letters are allowed.')
-    def validate_true(value):
-        if not value:
-            raise ValidationError('This field must be checked')
 
     first_name = models.CharField(max_length=20, validators=[alpha])
     last_name = models.CharField(max_length=20, validators=[alpha])
@@ -109,7 +87,7 @@ class Registration(models.Model):
         choices=TSHIRT_SIZE_CHOICES,
         )
     is_returning = models.BooleanField(default=False, verbose_name="Have you attended last year's event?")
-    is_hacker = models.BooleanField(default=False, verbose_name="Is this your first hackathon?")
+    is_first_time_hacker = models.BooleanField(default=False, verbose_name="Is this your first hackathon?")
 
     # files
     RESUME_HELP_TEXT = "Not required but this might reach our sponsors for targeted employment opportunities."
@@ -135,4 +113,3 @@ class Registration(models.Model):
 
     def __unicode__(self):
         return '{0} {1}'.format(self.first_name, self.last_name)
-

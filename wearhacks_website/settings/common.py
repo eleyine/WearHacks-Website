@@ -8,7 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-from os.path import abspath, basename, dirname, join, normpath
+from os.path import abspath, basename, dirname, normpath
 import os
 from sys import path
 
@@ -63,7 +63,7 @@ DATABASES = {
 
 ########## MEDIA CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
+MEDIA_ROOT = normpath(os.path.join(SITE_ROOT, 'media'))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
@@ -72,7 +72,7 @@ MEDIA_URL = '/media/'
 
 ########## STATIC FILE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
+STATIC_ROOT = normpath(os.path.join(SITE_ROOT, 'assets'))
 # STATIC_ROOT = 'staticfiles'
 # STATIC_ROOT = '/static/'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
@@ -80,8 +80,8 @@ STATIC_URL = '/static/'
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = (
-    normpath(join(SITE_ROOT, 'static')),
-    normpath(join(SITE_ROOT, 'media')),
+    normpath(os.path.join(SITE_ROOT, 'static')),
+    normpath(os.path.join(SITE_ROOT, 'media')),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
@@ -98,7 +98,7 @@ COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
 
-COMPRESS_ROOT = normpath(join(SITE_ROOT, 'assets'))
+COMPRESS_ROOT = normpath(os.path.join(SITE_ROOT, 'assets'))
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',  
     'compressor.filters.cssmin.CSSMinFilter',
@@ -118,7 +118,7 @@ ALLOWED_HOSTS = []
 ########## FIXTURE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
 FIXTURE_DIRS = (
-    normpath(join(SITE_ROOT, 'fixtures')),
+    normpath(os.path.join(SITE_ROOT, 'fixtures')),
 )
 ########## END FIXTURE CONFIGURATION
 
@@ -144,7 +144,8 @@ TEMPLATE_LOADERS = (
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
 TEMPLATE_DIRS = (
-    normpath(join(SITE_ROOT, 'templates')),
+    normpath(os.path.join(SITE_ROOT, 'templates')),
+    normpath(os.path.join(SITE_ROOT, 'static', 'javascripts')),
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -156,6 +157,7 @@ CRISPY_FAIL_SILENTLY = not DEBUG
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#middleware-classes
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -249,7 +251,7 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -258,6 +260,21 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(SITE_ROOT, 'registration', 'locale'),
+    os.path.join(SITE_ROOT, 'templates', 'locale'),
+    # Note: django-admin makemessages won't find the path below, because it's in the static folder
+    # will have to cd in there and run the command there
+    os.path.join(SITE_ROOT, 'static', 'javascripts', 'locale'),
+)
+
+ugettext = lambda s: s
+LANGUAGES = (
+    ('en', ugettext('English')),
+    ('fr', ugettext('French')),
+)
+AVAILABLE_LANGUAGES = ('en', 'fr')
 ########## END INTERNATIONALIZATION
 
 ########## REST FRAMEWORK CONFIGURATION

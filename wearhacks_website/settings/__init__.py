@@ -2,7 +2,12 @@
 Splitting Settings Solution by Karim Nassar
 https://code.djangoproject.com/wiki/SplitSettings#SettingInheritancewithHierarchy
 """
-import os, pwd
+import os, pwd, sys
+
+# add this directory python path
+# DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+# sys.path.append(DJANGO_ROOT)
+
 
 # certain keys we want to merge instead of copy
 merge_keys = ('DJANGO_APPS', 'MIDDLEWARE_CLASSES')
@@ -34,7 +39,7 @@ for module_name in modules:
         print 'ERROR: Unable to import %s configuration: %s' % (module_name, e)
         raise
     except AttributeError, e:
-        if env == 'dev' and module_name == uid:
+        if env == 'dev':
             print 'WARNING: Unable to import %s dev configuration: does %s.py exist?' % (module_name, module_name)
         else:
             raise
@@ -48,4 +53,4 @@ for module_name in modules:
             module_settings[setting] = getattr(module, setting)
     deep_update(module_settings, locals())
 
-# print 'Locals from settings.__init__:', locals()['DATABASES'] # for debugging
+# print 'Locals from settings.__init__:', locals()['LOCALE_PATHS'] # for debugging

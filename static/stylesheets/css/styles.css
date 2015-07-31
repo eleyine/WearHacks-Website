@@ -34,6 +34,7 @@ header a.btn {
   margin: 10px 0;
 }
 header .header-content {
+  padding-top: 20px;
   z-index: 100;
 }
 header .header-content-inner h3 {

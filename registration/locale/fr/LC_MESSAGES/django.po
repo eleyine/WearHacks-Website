@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-31 13:18+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: forms/helpers.py:10
+msgid "No file was submitted."
+msgstr "Aucun fichier n'a été soumis."
+
+#: forms/helpers.py:11
+msgid "No file was submitted."
+msgstr "Aucun fichier n'a été soumis"
+
+#: forms/helpers.py:12
+msgid "The submitted file is empty."
+msgstr "Le fichier qui a été soumis est vide."
+
+#: forms/helpers.py:13
+msgid "Upload a valid document. The file you uploaded appears to be corrupted."
+msgstr "Veuillez soumettre "
+
+#: forms/helpers.py:14
+msgid "Not a PDF file."
+msgstr "Ceci n'est pas un fichier PDF."
+
+#: forms/helpers.py:15
+#, python-format
+msgid ""
+"Please keep file size under %(max_file_size)s. Current filesize "
+"%(current_file_size)s"
+msgstr ""
+""Veuillez soumettre un fichier plus petit que %(max_file_size). La taille"
+"du fichier est actuellement %(current_file_size)s"
+
+#: forms/helpers.py:16
+msgid "There was an issue uploading your file. Try to submit again."
+msgstr ""
+"Nous n'avons pas pu recevoir votre fichier. Veuillez essayer de "
+"le soumettre une nouvelle fois."
+
+
+
+#: models/models.py:55
+msgid "first name"
+msgstr "Prénom"
+
+#: models/models.py:57
+msgid "last name"
+msgstr "Nom de famille"
+
+#: models/models.py:59
+msgid "Male"
+msgstr "Masculin"
+
+#: models/models.py:60
+msgid "Female"
+msgstr "Féminin"
+
+#. Translators: Gender information
+#: models/models.py:62
+msgid "Other / I prefer not to disclose"
+msgstr "Autre / Je préfère ne pas le signaler"
+
+#: models/models.py:67
+msgid "gender"
+msgstr "Sexe"
+
+#: models/models.py:74
+msgid "Are you a student?"
+msgstr "Êtes-vous étudiant?"
+
+#: models/models.py:76
+msgid "Where do/did you go to school?"
+msgstr "Nom du collège / de l'université"
+
+#: models/models.py:79
+msgid "email"
+msgstr "courriel"
+
+#: models/models.py:85
+msgid "Do you have any allergies or food restrictions?"
+msgstr "Avez-vous des allergies ou des restrictions alimentaires?"
+
+#. Translators: T-shirt sizes
+#: models/models.py:88
+msgid "Small"
+msgstr "Petit"
+
+#: models/models.py:89
+msgid "Medium"
+msgstr "Moyen"
+
+#: models/models.py:90
+msgid "Large"
+msgstr "Grand"
+
+#: models/models.py:91
+msgid "X-Large"
+msgstr "Très Grand"
+
+#: models/models.py:95
+msgid "T-Shirt size"
+msgstr "Taille de T-shirt"
+
+#: models/models.py:97
+msgid "Did you attend last year's event?"
+msgstr "Avez-vous assisté au hackathon de l'année dernière?"
+
+#: models/models.py:98
+msgid "Is this your first hackathon?"
+msgstr "Est-ce votre premier hackathon?"
+
+#: models/models.py:104
+msgid "resume"
+msgstr "CV"

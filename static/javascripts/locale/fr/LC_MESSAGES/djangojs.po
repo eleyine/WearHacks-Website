@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-31 13:18+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: register.js:18
+msgid "Checkout"
+msgstr "Soummettre"
+
+#: register.js:19 register.js:32
+msgid "Checking out"
+msgstr "En cours de soummission"
+
+#: register.js:20
+msgid "Proceed to checkout"
+msgstr "Procéder au payement"
+
+#: register.js:21
+msgctxt "Appears when user has form validation error and needs to resubmit"
+msgid "Gotcha"
+msgstr "Compris"
+
+#: register.js:23
+msgid "Validating your info"
+msgstr "Validation de ton info"
+
+#: register.js:24
+msgid "Valid Registration"
+msgstr "Inscription Valide"
+
+#: register.js:25
+msgid "Sorry"
+msgstr "On est désolé"
+
+#: register.js:26
+msgid "Thank you"
+msgstr "Merci"
+
+#: register.js:29
+msgctxt "AJAX error"
+msgid ""
+"There is a temporary problem with our server. Please refresh.</br>If the "
+"problem persists, contact our support team.</br><strong>Don't  worry, we "
+"haven't charged you.</strong>"
+msgstr ""
+"Notre serveur éprouve des difficultés. Veuillez rafraîchir la page.</br> Si "
+"le problème persiste, veuillez contactez notre équipe de soutien.</br>Ne "
+"vous inquiétez pas, nous ne vous avons pas chargé."
+
+#: register.js:33
+msgctxt "Make sure you keep the trailing space"
+msgid "Early Bird Ticket "
+msgstr "Billet Lève-Tôt"
+
+#: register.js:34
+msgctxt "Make sure you keep the trailing space"
+msgid "Student "
+msgstr "Étudiant /"
+
+#: register.js:35
+msgctxt "Regular ticket, make sure to keep trailing space"
+msgid "Ticket "
+msgstr ""
+
+#: register.js:36
+msgctxt "%i%% Off"
+msgid "Discount text"
+msgstr ""
+
+#: register.js:37
+msgctxt "Name that appears on Stripe popout"
+msgid "WearHacks Montreal 2015"
+msgstr ""
+
+#: register.js:38
+msgid "Stripe doing its magic"
+msgstr ""
+
+#: register.js:39
+msgid "Completing registration"
+msgstr ""
+
+#: register.js:40
+msgid "This may take a while..."
+msgstr ""
+
+#: register.js:41
+msgctxt "Appears to entertain user when registration validation takes too long"
+msgid "So you want to be a hacker eh?"
+msgstr ""

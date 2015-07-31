@@ -1,9 +1,9 @@
-(function($, Date) {
+(function($, Date, _, pgettext, interpolate) {
     "use strict"; // Start of use strict
 
     $( document ).ready(function() {
 
-        ajaxSetup();
+        // ajaxSetup();
         displayCorrectButtons();
         $("#div_id_is_student .controls").append('<div class="controls col-lg-6 hide" id="hint_id_is_student"><p class="help-block message-success"><i class="fa fa-check"></i><strong> Great! You have a 50% discount.</strong></p></div>');
         stylisticTweaks();
@@ -13,6 +13,36 @@
             e.preventDefault();
         } );
     });
+
+    // Strings that need to be translated
+    var strCheckout = _('Checkout');
+    var strCheckoutInProgress = _('Checking out');
+    var strCheckoutProceed = _('Proceed to checkout');
+    var strGotcha = pgettext('Appears when user has form validation error and needs to resubmit', 'Gotcha');
+        console.log(strGotcha);
+    var strValidatingInfo = _('Validating your info');
+    var strValidRegistration = _('Valid Registration');
+    var strSorry = _('Sorry');
+    var strThankYou = _('Thank you');
+    var strServerError = pgettext( 
+            "AJAX error",
+           "There is a temporary problem with our server. Please refresh.</br>" +
+           "If the problem persists, contact our support team.</br>"+
+           "<strong>Don't  worry, we haven't charged you.</strong>");
+    var strCheckintOut = _('Checking out');
+    var strEarlyBird = pgettext("Make sure you keep the trailing space", 'Early Bird Ticket ');
+    var strStudent = pgettext("Make sure you keep the trailing space", "Student ");
+    var strRegular = pgettext('Regular ticket, make sure to keep trailing space', 'Ticket ');
+    var strDiscount = pgettext('Discount text', '%i%% Off');
+    var strOrgName = pgettext('Name that appears on Stripe popout', 'WearHacks Montreal 2015');
+    var strStripeInAction = _('Stripe doing its magic');
+    var strCompletingRegistration = _('Completing registration');
+    var strPlsWait = _('This may take a while...');
+    var strSmallTalk = pgettext('Appears to entertain user when registration validation takes too long', 'So you want to be a hacker eh?');
+    var strTicketDescription = _('Ticket Description', 'Ticket');
+    var strTicketEarlyBirdDescription = _('Ticket Description', 'Early Bird Ticket');
+    var strTicketStudentDescription = _('Ticket Description', 'Student Ticket');
+    var strTicketStudentEarlyBirdDescription = _('Ticket Description', 'Early Bird Student Ticket');
 
     function enabledFormControls(isEnabled) {
       $('input').attr('readOnly', !isEnabled);
@@ -37,7 +67,7 @@
           $('#register.mobile').addClass('disabled btn-success').removeClass('btn-primary');
           $('#register.mobile .fa').addClass('hide');
           $('#register.mobile .fa-check').removeClass('hide');
-          $('#register.mobile .text').text('Valid registration');
+          $('#register.mobile .text').text(strValidRegistration);
           $('#hint_checkout').removeClass('hide');
         } else {
           enabledFormControls(true);
@@ -95,13 +125,14 @@
         displayCorrectButtons(isMobile, false);
         $('.checkout-wrapper .fa').addClass('hide');
         $('.checkout-wrapper .fa-spinner').removeClass('hide');
-        $('.register-action .text').text('Validating your info');
+        $('.register-action .text').text(strValidatingInfo);
 
         var formData = new FormData($(form)[0]);
+        var lang = document.documentElement.lang;
         $.ajax({
             processData: false,
             contentType: false,
-            url: "/register/",
+            url: "/" + lang + "/register/",
             type: "POST",
             data: formData,
             success: function(data) {
@@ -182,7 +213,7 @@
       $('.checkout-wrapper .fa').addClass('hide');
       $('.checkout-wrapper .fa-check').removeClass('hide');
       $('.checkout-action').removeClass('waiting');
-      $('#checkout .text').text('Thank you');
+      $('#checkout .text').text(strThankYou);
       $('.checkout-action').removeClass('btn-primary').addClass('disabled btn-success');
       setTimeout(function(){ 
         $('#success-message').removeClass('hide').text("Eventually send a confirmation email");
@@ -195,9 +226,7 @@
       if (message) {
         $('#server-error').html(message);
       } else {
-        $('#server-error').html("There is a temporary problem with " +
-           "our server. Please refresh.</br>If the problem " +
-           "persists, contact our support team.</br><strong>Don't  worry, we haven't captured your payment.</strong>");
+        $('#server-error').html(strServerError);
       }
     }
 
@@ -206,7 +235,7 @@
       restoreCheckoutButton();
       $('#registration-error').removeClass('hide');
       $('#registration-error').text(message);
-      $('.register-action .text').text("Gotcha");
+      $('.register-action .text').text(strGotcha);
       $('html, body').stop().animate({
         scrollTop: ($('#registration-form').offset().top - 50)
       }, 1250, 'easeInOutExpo');
@@ -216,11 +245,11 @@
       $('.message').addClass('hide');
       $('.checkout-action .fa').addClass('hide');
       $('.checkout-action .fa-spinner').removeClass('hide');
-      $('#checkout .text').text('Checking out...');
+      $('#checkout .text').text(strCheckoutInProgress);
     }
 
     function mobileCheckout(handler, formData, amount) {
-      $('#checkout.mobile .text').text("Proceed to checkout");
+      $('#checkout.mobile .text').text(strCheckoutProceed);
       $('#checkout.mobile .fa').addClass('hide');
       $('#checkout.mobile .fa-lock').removeClass('hide');
       var handler = getCheckoutHandler(formData, amount);
@@ -296,12 +325,17 @@
     }
 
     function openCheckhoutHandler(handler, amount, email) {
-      var description = isEarlyBird()? "Early Bird Ticket": "Ticket";
-      var description = isStudent()? "Student " + description: description;
+      var isBird = isEarlyBird();
+      var description = "";
+      if (!isStudent()) {
+        description = isBird? strTicketEarlyBirdDescription: strTicketDescription;
+      } else {
+        description = isBird? strTicketStudentEarlyBirdDescription: strTicketStudentDescription;
+      } 
       var p = getPercentDiscount();
-      var description = (p > 0)? description + " ("+ p + "% Off)": description;
+      var description = (p > 0)? description + interpolate(strDiscount, p): description;
       handler.open({
-        name: 'WearHacks Montreal 2015',
+        name: strOrgName,
         description: description,
         amount: amount,
         email: email,
@@ -309,20 +343,20 @@
         opened: function() {
           $('.checkout-action .fa').addClass('hide');
           $('.checkout-action .fa-paper-plane').removeClass('hide');
-          $('.checkout-action .text').text('Stripe doing its magic');
+          $('.checkout-action .text').text(strStripeInAction);
         },
         closed: function() {
           if ($('.checkout-action').hasClass('token-was-obtained')) {
             $('.checkout-action .fa').addClass('hide');
             $('.checkout-action .fa-spinner').removeClass('hide');
             $('.checkout-action').addClass('waiting');
-            $('.checkout-action .text').text('Completing registration...');
+            $('.checkout-action .text').text(strCompletingRegistration);
             setTimeout(function(){ 
               if ($('.checkout-action').hasClass('waiting')) {
-                $('.checkout-action .text').text('This may take a while...');
+                $('.checkout-action .text').text(strPlsWait);
                 setTimeout(function(){ 
                   if ($('.checkout-action').hasClass('waiting')) {
-                    $('.checkout-action .text').text("So you want to be a hacker eh?");
+                    $('.checkout-action .text').text(strSmallTalk);
                   }
                 }, 20000);
               }
@@ -344,7 +378,7 @@
       $('.checkout-wrapper .fa').addClass('hide');
       $('.checkout-wrapper .fa-lock').removeClass('hide');
       $('.checkout-action').removeClass('waiting token-was-obtained disabled btn-danger btn-success').addClass('btn-primary');
-      $('#checkout .text').text('Checkout');
+      $('#checkout .text').text(strCheckout);
       $('.message').addClass('hide');
     }
-})(jQuery, Date); // End of use strict
+})(jQuery, Date, gettext, pgettext, interpolate); // End of use strict

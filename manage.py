@@ -9,7 +9,7 @@ if __name__ == "__main__":
     os.environ.setdefault("APP_ENV", "dev")
 
     if settings.DEBUG:
-        error_code = os.system("lesc static/stylesheets/less/styles.less static/stylesheets/css/styles.css")
+        error_code = os.system("lessc static/stylesheets/less/styles.less static/stylesheets/css/styles.css")
         if error_code > 0:
             print "Warning: Failed to compile LESS files. Make sure you have LESS CSS installed."
 

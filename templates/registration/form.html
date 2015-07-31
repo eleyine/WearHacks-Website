@@ -3,6 +3,9 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css' %}" />
 
@@ -25,7 +28,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-offset-1 col-xs-10 text-center">
-                    <h3>The Biggest Wearable Hackathon in North-America</h3>
+                    <h3>{% trans "The Biggest Wearable Hackathon in North-America" %}</h3>
                     </div>
                 </div>
             </div>
@@ -37,19 +40,10 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
-                <h1>Registration Form</h1>
+                <h1>{% trans "Registration Form" %}</h1>
                 {% crispy form form.helper %}
             </div>
         </div>
-
-        <!-- <div class="row" id="#success">
-            <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
-                <h2>
-                    <i class="fa fa-2x fa-tick wow bounceIn text-primary"></i>
-                    Thank you for registering!
-                </h2>
-            </div>
-        </div> -->
     </div>
 </section>
 </div>
@@ -65,8 +59,8 @@ window.code_of_conduct = "{% static 'documents/conduct.pdf' %}";
 window.stripe_pk = "{{ stripe_public_key }}";
 </script>
 <script type="text/javascript" src="{% static 'bower_components/datejs/build/production/date-en-CA.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascripts/register.js' %}{% if debug %}?v=00001{% endif %}"></script>
 {% endcompress %}
 
+<script type="text/javascript" src="{% static 'javascripts/register.js' %}{% if debug %}?v=00001{% endif %}"></script>
 {% endblock %}
 

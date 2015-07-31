@@ -1,4 +1,9 @@
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language_info for LANGUAGE_CODE as lang %}
+{% get_language_info_list for available_languages as langs %}
+
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="10" data-target="#header">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -47,6 +52,34 @@
                 <li>
                     <a class="page-scroll" href="#contact">Contact</a>
                 </li>
+                <li class="dropdown language-selection-dropdown">
+                  <a href="#" id="{{lang.code}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ lang.name_local }} <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    {% for other_lang in LANGUAGES %}
+                        {% ifnotequal lang.code other_lang.0 %}
+                            <li><a href="#" id="{{other_lang.0}}" class="lang">{{ other_lang.1 }}</a></li>
+                        {% endifnotequal %}
+                    {% endfor %}
+                  </ul>
+                </li>
+                <!-- <li> -->
+                   <!--  <a class="language" href="#">{{ lang.name_local }}</a>
+                    {% for other_lang in langs %}
+                        {% if lang != other_lang %}
+                            {{ other_lang.name_local }}
+                        {% endif %}
+                    {% endfor %} -->
+                     <!--       
+                      <form action="/i18n/setlang/" method="post">
+                            <input name="next" type="hidden" value="/next/page/" />
+                            <select name="language">
+                                {% for lang in LANGUAGES %}
+                                <option value="{{ lang.0 }}">{{ lang.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Go" />
+                    </form> -->
+                <!-- </li> -->
             </ul>
         </div>
         <!-- /.navbar-collapse -->

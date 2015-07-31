@@ -496,6 +496,7 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
         pull_changes(mode=mode, deploy_to=deploy_to)
         with shell_env(**env_variables):
             with settings(prompts=prompts):
+                run('django-admin compilemessages')
                 run('python manage.py collectstatic')
         _update_permissions(only_static=True)
         

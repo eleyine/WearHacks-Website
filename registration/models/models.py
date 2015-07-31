@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext_lazy as __
 
 from django.core.validators import RegexValidator#, URLValidator
 from django.core.exceptions import ValidationError
@@ -49,60 +51,65 @@ class ChargeAttempt(models.Model):
 class Registration(models.Model):
     alpha = RegexValidator(regex=r'^[a-zA-Z\s]*$',  message='Only letters are allowed.')
 
-    first_name = models.CharField(max_length=20, validators=[alpha])
-    last_name = models.CharField(max_length=20, validators=[alpha])
+    first_name = models.CharField(max_length=20, validators=[alpha], 
+        verbose_name=_('first name'))
+    last_name = models.CharField(max_length=20, validators=[alpha], 
+        verbose_name=_('last name'))
     GENDER_CHOICES = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('N', 'Other / I prefer not to disclose'),
+        ('M', _('Male')),
+        ('F', _('Female')),
+        # Translators: Gender information
+        ('N', _('Other / I prefer not to disclose')),
     )
     gender = models.CharField(max_length=20, 
         choices=GENDER_CHOICES, 
         # default=GENDER_CHOICES[0][0],
+        verbose_name=_('gender')
         )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     # student-specific
-    is_student = models.BooleanField(default=False, verbose_name="Are you a student?")
+    is_student = models.BooleanField(default=False, verbose_name=_("Are you a student?"))
     school = models.CharField(max_length=100, blank=True, 
-        verbose_name="Where do/did you go to school?", validators=[alpha])
+        verbose_name=_("Where do/did you go to school?"), validators=[alpha])
 
     # contact
-    email = models.EmailField()
+    email = models.EmailField(verbose_name=_('email'))
     github = models.URLField(max_length=100, blank=True)
     linkedin = models.URLField(max_length=100, blank=True)
 
     # misc
     food_restrictions = models.TextField(max_length=100, default="None.",
-        verbose_name="Do you have any allergies or food restrictions?")
+        verbose_name=_("Do you have any allergies or food restrictions?"))
     TSHIRT_SIZE_CHOICES = (
-        ('S', 'Small'),
-        ('M', 'Medium'),
-        ('L', 'Large'),
-        ('XL', 'X-Large'),
+        # Translators: T-shirt sizes
+        ('S', _('Small')),
+        ('M', _('Medium')),
+        ('L', _('Large')),
+        ('XL', _('X-Large')),
     )
     tshirt_size = models.CharField(max_length=20, 
         choices=TSHIRT_SIZE_CHOICES,
+        verbose_name=_('T-Shirt size')
         )
-    is_returning = models.BooleanField(default=False, verbose_name="Did you attend last year's event?")
-    is_first_time_hacker = models.BooleanField(default=False, verbose_name="Is this your first hackathon?")
+    is_returning = models.BooleanField(default=False, verbose_name=_("Did you attend last year's event?"))
+    is_first_time_hacker = models.BooleanField(default=False, verbose_name=_("Is this your first hackathon?"))
 
     # files
-    RESUME_HELP_TEXT = "Not required but this might reach our sponsors for targeted employment opportunities."
+    RESUME_HELP_TEXT = "Not required but this might reach our sponsors for targeted employment opportunities.",
     MAX_UPLOAD_SIZE=2621440 # 2.5MB
     resume = models.FileField(upload_to=get_resume_filename, blank=True, 
-        help_text=RESUME_HELP_TEXT,
-        # max_upload_size=MAX_UPLOAD_SIZE
+        verbose_name = _('resume'),
+        help_text = __(RESUME_HELP_TEXT, "Help text for resume field"),
     )
     has_read_code_of_conduct = models.BooleanField(default=False, 
-        verbose_name='I have read the <a href="#">Code of Conduct.</a>',
-        validators=[validate_true])
+        verbose_name = __('I have read the <a href="#">Code of Conduct.</a>', "Keep the <a></a> tags"),
+        validators = [validate_true])
     WAIVER_HELP_TEXT = "Not required but it will save us some time during registration."
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
-       help_text=WAIVER_HELP_TEXT,
-       # max_upload_size=MAX_UPLOAD_SIZE
+        help_text = __(WAIVER_HELP_TEXT, "Help text for waiver field"),
     )
 
     # payment

@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.views import generic
 from django.shortcuts import render
 
+from django.utils import translation
+
 from registration.models import Registration, ChargeAttempt
 from registration.forms import RegistrationForm
 
@@ -34,6 +36,7 @@ class SubmitRegistrationView(generic.View):
         return stripe_pk
 
     def get(self, request, *args, **kwargs):
+        print request.LANGUAGE_CODE
         context = {
             'form': RegistrationForm(),
             'stripe_public_key': self.get_stripe_public_key()
@@ -57,6 +60,9 @@ class SubmitRegistrationView(generic.View):
 
     @json_view
     def post(self, request, *args, **kwargs):
+        # language = translation.get_language_from_request(request)
+        # translation.activate(language)
+        # request.LANGUAGE_CODE = translation.get_language()
         checkout_success = False
         checkout_message = 'Checkout not attempted yet.'
         fraud_attempt = False
@@ -310,3 +316,13 @@ class SubmitRegistrationView(generic.View):
         context = super(SubmitRegistrationView, self).get_context_data(**kwargs)
         context['form'] = RegistrationForm()
         return context
+
+# # Internationalization support
+# from django.views.decorators.http import last_modified
+# from django.views.i18n import javascript_catalog
+
+# last_modified_date = timezone.now()
+
+# @last_modified(lambda req, **kw: last_modified_date)
+# def cached_javascript_catalog(request, domain='djangojs', packages=None):
+#     return javascript_catalog(request, domain, packages)

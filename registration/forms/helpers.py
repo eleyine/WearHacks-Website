@@ -7,7 +7,7 @@ class PDFField(forms.FileField):
     Modified from https://djangosnippets.org/snippets/1189/
     """
     default_error_messages = {
-        'invalid': _(u"No file was submitted. Check the encoding type on the form."),
+        'invalid': _(u"No file was submitted."), #" Check the encoding type on the form."),
         'missing': _(u"No file was submitted."),
         'empty': _(u"The submitted file is empty."),
         'not_valid': _(u"Upload a valid document. The file you uploaded appears to be corrupted."),

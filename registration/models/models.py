@@ -49,7 +49,7 @@ class ChargeAttempt(models.Model):
             self.charge_id, self.status)
 
 class Registration(models.Model):
-    alpha = RegexValidator(regex=r'^[a-zA-Z\s]*$',  message='Only letters are allowed.')
+    alpha = RegexValidator(regex=r'^[a-zA-Z\s\u00C0-\u017F]*$',  message=_('Only letters are allowed.'))
 
     first_name = models.CharField(max_length=20, validators=[alpha], 
         verbose_name=_('first name'))
@@ -102,14 +102,14 @@ class Registration(models.Model):
     MAX_UPLOAD_SIZE=2621440 # 2.5MB
     resume = models.FileField(upload_to=get_resume_filename, blank=True, 
         verbose_name = _('resume'),
-        help_text = __(RESUME_HELP_TEXT, "Help text for resume field"),
+        help_text = __("Help text for resume field", RESUME_HELP_TEXT),
     )
     has_read_code_of_conduct = models.BooleanField(default=False, 
-        verbose_name = __('I have read the <a href="#">Code of Conduct.</a>', "Keep the <a></a> tags"),
+        verbose_name = _('I have read the <a href="#" target="_blank">Code of Conduct.</a>'),
         validators = [validate_true])
     WAIVER_HELP_TEXT = "Not required but it will save us some time during registration."
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
-        help_text = __(WAIVER_HELP_TEXT, "Help text for waiver field"),
+        help_text = __("Help text for waiver field", WAIVER_HELP_TEXT),
     )
 
     # payment

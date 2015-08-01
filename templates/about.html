@@ -1,4 +1,5 @@
     {% load staticfiles %}
+    {% load i18n %}
 
     <section class="bg-primary" id="about">
         <div class="container">
@@ -7,11 +8,15 @@
                     <img src="{% static 'images/logo-white.png' %}" width="100%"/>
                 </div>
                 <div class="col-xs-10 col-xs-offset-1 col-sm-7 col-sm-offset-0 text-left">
-                    <h2 class="section-heading">About WearHacks</h2>
+                    <h2 class="section-heading">{% trans "About WearHacks" %}</h2>
                     <!-- <hr class="light"> -->
-                    <p class="text-faded">We bring together developers, designers, project managers, students, and engineers with an entrepreneurial and creative mind. For an intensive 48 hours, you will learn new tools, meet industry experts, collaborate with other talented students and young professionals and build new wearable and connected technology. </p>
+                    <p class="text-faded">
+                    {% blocktrans %}
+                    We bring together developers, designers, project managers, students, and engineers with an entrepreneurial and creative mind. For an intensive 48 hours, you will learn new tools, meet industry experts, collaborate with other talented students and young professionals and build new wearable and connected technology. 
+                    {% endblocktrans %}
+                    </p>
                     <a href="http://wearhacks.com" class="btn btn-default btn-xl">
-                    Organization Website</a>
+                    {% trans "Organization Website" %}</a>
                 </div>
             </div>
         </div>
@@ -21,7 +26,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">What you get</h2>
+                    <h2 class="section-heading">{% trans "What you get" %}</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -31,29 +36,33 @@
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-coffee wow bounceIn text-primary"></i>
-                        <h3>Batteries included</h3>
-                        <p class="text-muted">We'll give you a wearable kit, great food and lots of coffee. You build something <strong>awesome</strong>.</p>
+                        <h3>{% trans "Batteries included" %}</h3>
+                        <p class="text-muted">{% trans "We'll give you a wearable kit, great food and lots of coffee. You build something <strong>awesome</strong>." %}</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-users wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                        <h3>All backgrounds</h3>
-                        <p class="text-muted">We welcome all kinds of <strong>innovators</strong> and industry experts, <strong>students and non-students</strong> alike, developers, engineers, designers, neuroscientists and <strong>curious minds</strong>.</p>
+                        <h3>{% trans "All backgrounds" %}</h3>
+                        <p class="text-muted">{% trans "We welcome all kinds of <strong>innovators</strong> and industry experts, <strong>students and non-students</strong> alike, developers, engineers, designers, neuroscientists and <strong>curious minds</strong>." %}
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>Mentorship and Promotion</h3>
-                        <p class="text-muted">We follow-up with the teams and <strong>help promote</strong> the best projects. We organize demos, talks, etc.</p>
+                        <h3>{% trans "Mentorship and Promotion" %}</h3>
+                        <p class="text-muted">{% trans "We follow-up with the teams and <strong>help promote</strong> the best projects. We organize demos, talks, etc." %}</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Strong track record</h3>
-                        <p class="text-muted">Our Montreal 2014 hackathon was a <strong>resounding success</strong> featuring 47+ projects. Some of the winners are being mentored by <strong>Founder Fuel</strong> and <strong>Real Ventures</strong>. <a href="http://www.wearhacks.com/#pastevent">Learn more</a></p>
+                        <h3>{% trans "Strong track record" %}</h3>
+                        <p class="text-muted">{% blocktrans %} 
+                            Our Montreal 2014 hackathon was a <strong>resounding success</strong> featuring 47+ projects. Some of the winners are being mentored by <strong>Founder Fuel</strong> and <strong>Real Ventures</strong>. <a href="http://www.wearhacks.com/#pastevent">Learn more</a>
+                            {% endblocktrans %} 
+                        </p>
                     </div>
                 </div>
             </div>

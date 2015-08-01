@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-31 13:18+0000\n"
+"POT-Creation-Date: 2015-08-01 10:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,42 +18,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms/helpers.py:10
+#: forms/forms.py:53
+msgid "General Information"
+msgstr "Informations Générales"
+
+#: forms/forms.py:60
+msgid "Tell us a bit about yourself."
+msgstr "À propos de vous"
+
+#: forms/forms.py:73
+msgid "Experience"
+msgstr "Expérience"
+
+#: forms/forms.py:79
+msgid "Misc."
+msgstr "Divers"
+
+#: forms/helpers.py:11 forms/helpers.py:12
 msgid "No file was submitted."
 msgstr "Aucun fichier n'a été soumis."
 
-#: forms/helpers.py:11
-msgid "No file was submitted."
-msgstr "Aucun fichier n'a été soumis"
-
-#: forms/helpers.py:12
+#: forms/helpers.py:13
 msgid "The submitted file is empty."
 msgstr "Le fichier qui a été soumis est vide."
 
-#: forms/helpers.py:13
+#: forms/helpers.py:14
 msgid "Upload a valid document. The file you uploaded appears to be corrupted."
 msgstr "Veuillez soumettre "
 
-#: forms/helpers.py:14
+#: forms/helpers.py:15
 msgid "Not a PDF file."
 msgstr "Ceci n'est pas un fichier PDF."
 
-#: forms/helpers.py:15
+#: forms/helpers.py:16
 #, python-format
 msgid ""
 "Please keep file size under %(max_file_size)s. Current filesize "
 "%(current_file_size)s"
 msgstr ""
-""Veuillez soumettre un fichier plus petit que %(max_file_size). La taille"
-"du fichier est actuellement %(current_file_size)s"
+"Veuillez soumettre un fichier plus petit que %(max_file_size)s. La taille du "
+"fichier est actuellement %(current_file_size)s"
 
-#: forms/helpers.py:16
+#: forms/helpers.py:17
 msgid "There was an issue uploading your file. Try to submit again."
 msgstr ""
-"Nous n'avons pas pu recevoir votre fichier. Veuillez essayer de "
-"le soumettre une nouvelle fois."
+"Nous n'avons pas pu recevoir votre fichier. Veuillez essayer de le soumettre "
+"une nouvelle fois."
 
+#: forms/helpers.py:84
+msgid "Registration Failure Message"
+msgstr "Inscription échouée"
 
+#: forms/helpers.py:85
+msgid "Register"
+msgstr "S'inscrire"
+
+#: forms/helpers.py:86
+msgid "Temporary problem with our server"
+msgstr "Difficultés temporaires avec notre serveur"
+
+#: forms/helpers.py:87
+msgid "Checkout Failure Message"
+msgstr "Payment échoué"
+
+#: forms/helpers.py:88
+msgid "Success"
+msgstr "Succès"
+
+#: forms/helpers.py:89
+msgid "Checkout"
+msgstr "Procéder au payment"
+
+#: forms/helpers.py:90
+msgid ""
+"Payment is handled by <a target=\"_blank\" href=\"https://stripe.com/ca"
+"\">Stripe</a>. We do not have acces to your card information."
+msgstr ""
+"Le payment est pris en charge par <a target=\"_blank\"  href=\"https://"
+"stripe.com/ca\">Stripe</a>. Nous n'avons pas accès aux informations de votre "
+"carte de crédit."
+
+#: models/models.py:52
+msgid "Only letters are allowed."
+msgstr "Seules les lettres sont autorisées."
 
 #: models/models.py:55
 msgid "first name"
@@ -128,3 +175,7 @@ msgstr "Est-ce votre premier hackathon?"
 #: models/models.py:104
 msgid "resume"
 msgstr "CV"
+
+#: models/models.py:108
+msgid "I have read the <a href=\"#\" target=\"_blank\">Code of Conduct.</a>"
+msgstr "J'ai bien lu le <a href=\"#\" target=\"_blank\">Code de Conduite.</a>"

@@ -31,3 +31,6 @@ wearhacks_website/settings/archive/
 server_files/logs/
 server_files/fab_config.py
 server_files/tmp.txt
+
+# Internationalization
+*.mo

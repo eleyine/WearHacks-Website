@@ -7,6 +7,10 @@ from crispy_forms.bootstrap import FormActions, StrictButton
 from registration.models import Registration
 from registration.forms.helpers import PDFField
 
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext_lazy as __
+from registration.forms.helpers import get_registration_button_html
+
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration
@@ -46,14 +50,14 @@ class RegistrationForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             Fieldset(
-                'General Information',
+                _('General Information'),
                 'first_name',
                 'last_name',
                 'gender',
                 'email',
             ),
             Fieldset(
-                'Tell us a bit about yourself.',
+                _('Tell us a bit about yourself.'),
                 Div(Field('is_student', 
                     data_off_text='No', data_on_text='Yes', data_size='mini'),
                     css_id="is_student_wrapper"
@@ -66,34 +70,17 @@ class RegistrationForm(forms.ModelForm):
                 css_id='about-you'
             ),
             Fieldset(
-                'Experience',
+                _('Experience'),
                 'github',
                 'linkedin',
                 'resume',
             ),
             Fieldset(
-                'Misc.',
+                _('Misc.'),
                 'tshirt_size',
                 Field('food_restrictions', rows=2),
                 'waiver',
             ),
             Field('has_read_code_of_conduct', css_class="conduct"),
-            HTML(
-                '<div class="row"><div class="col-xs-12 col-sm-7 col-sm-offset-3 text-center checkout-wrapper">'
-                '<span id="registration-error" class="help-block hide message message-error"><strong>Registration Failure Message</strong></span>'
-                '<a id="register" class="registration-form-action register-action mobile btn btn-lg btn-block btn-primary"><i class="fa fa-lock hide"></i><i class="fa fa-paper-plane"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Register</span></a>'
-                '<span id="server-error" class="help-block hide message message-error"><strong>Temporary problem with our server</strong></span>'
-                '<span id="checkout-error" class="help-block hide message message-error"><strong>Checkout Failure Message</strong></span>'
-                '<span id="success-message" class="help-block hide message message-success"><strong>Things are going great yo.</strong></span>'
-                '<a id="checkout" class="registration-form-action checkout-action mobile disabled btn btn-lg btn-block btn-primary"><i class="fa fa-lock"></i><i class="fa fa-unlock hide"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Checkout</span></a>'
-                '<a id="checkout" class="registration-form-action checkout-action register-action desktop btn btn-lg btn-block btn-primary"><i class="fa fa-lock"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> <span class="text">Checkout</span></a>'
-                '<p id="hint_checkout" class="has-info help-block">Payment is handled by Stripe. We do not store your card information.</p>'
-                '</div></div>'
-                ),
-            # FormActions(
-                
-            #     StrictButton('Sign me up', name='register', 
-            #         css_class='btn-primary pull-right page-scroll', css_id="register",
-            #         href='#registration-form')
-            # )
+            HTML(get_registration_button_html())
         )

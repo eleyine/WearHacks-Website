@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-01 11:17+0000\n"
+"POT-Creation-Date: 2015-08-01 20:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,119 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"                \n"
+
+#: templates/about.html:11
+msgid "About WearHacks"
+msgstr "À propos de WearHacks"
+
+#: templates/about.html:14
+msgid ""
+"\n"
+"                    We bring together developers, designers, project "
+"managers, students, and engineers with an entrepreneurial and creative mind. "
+"For an intensive 48 hours, you will learn new tools, meet industry experts, "
+"collaborate with other talented students and young professionals and build "
+"new wearable and connected technology. \n"
+"                    "
+msgstr ""
+"\n"
+" Nous réunissons dévelopeurs, designeurs, directeurs de projet, étudiants et "
+"ingénieurs qui ont le goût de l'entrepreneuriat et l'esprit créatif. Pendant "
+"l'espace de 48 heures intenses, vous allez adopter de nouveaus outils, "
+"apprendre à satisfaire des standards industriels, rencontrer des "
+"spécialistes du domaine, collaborer avec d'autres étudiants et jeunes "
+"professionnels talentueux  et construire de nouvelles technologies portables "
+"et connectées."
+
+#: templates/about.html:19
+msgid "Organization Website"
+msgstr "Site web de l'organization"
+
+#: templates/about.html:29
+msgid "What you get"
+msgstr "Atouts"
+
+#: templates/about.html:39
+msgid "Batteries included"
+msgstr "Tout compris"
+
+#: templates/about.html:40
+msgid ""
+"We'll give you a wearable kit, great food and lots of coffee. You build "
+"something <strong>awesome</strong>."
+msgstr ""
+"Nous vous donnerons un \"wearable kit\", de la bonne nourriture et plein de "
+"café. Vous contruisez quelque chose d'<strong>époustouflant</strong>!"
+
+#: templates/about.html:46
+msgid "All backgrounds"
+msgstr "Tous bienvenus"
+
+#: templates/about.html:47
+msgid ""
+"We welcome all kinds of <strong>innovators</strong> and industry experts, "
+"<strong>students and non-students</strong> alike, developers, engineers, "
+"designers, neuroscientists and <strong>curious minds</strong>."
+msgstr ""
+"Nous accueillons toutes sortes d'<strong>innovateurs</strong> et de "
+"spécialistes, qu'ils soient étudiants ou non, de dévelopeurs, d'ingénieurs, "
+"de designers, de neuroscientifiques et surtout des <strong>esprits curieux.</"
+"strong>"
+
+#: templates/about.html:54
+msgid "Mentorship and Promotion"
+msgstr "Assistanat et Promotion"
+
+#: templates/about.html:55
+msgid ""
+"We follow-up with the teams and <strong>help promote</strong> the best "
+"projects. We organize demos, talks, etc."
+msgstr ""
+"Nous suivons les équipes et assistont à promouvoir les meilleurs projets. "
+"Nous organizons des démos, des présentations, etc."
+
+#: templates/about.html:61
+msgid "Strong track record"
+msgstr "Historique Parlant"
+
+#: templates/about.html:62
+msgid ""
+" \n"
+"                            Our Montreal 2014 hackathon was a "
+"<strong>resounding success</strong> featuring 47+ projects. Some of the "
+"winners are being mentored by <strong>Founder Fuel</strong> and <strong>Real "
+"Ventures</strong>. <a href=\"http://www.wearhacks.com/#pastevent\">Learn "
+"more</a>\n"
+"                            "
+msgstr ""
+" \n"
+"                            Wearhacks Montreal 2014 a <strong>fait un tabac</"
+"strong>, avec plus de 47 projets à son compte. Certains gagnants sont "
+"présentement supervisés par <strong>Founder Fuel</strong> and <strong>Real "
+"Ventures</strong>. <a href=\"http://www.wearhacks.com/#pastevent\">En savoir "
+"plus</a>\n"
+"                            "
+
+#: templates/contact.html:6
+msgid "Don't miss out!"
+msgstr "Ne ratez pas ça!"
+
+#: templates/contact.html:7
+msgid "Register Now"
+msgstr "Inscrivez-vous"
+
+#: templates/contact.html:16
+msgid "Let's Get In Touch!"
+msgstr "Restons en contact!"
+
+#: templates/contact.html:18
+msgid "For any questions and inquiries, feel free to contact us!"
+msgstr "Pour toute question ou demande, n'hésitez pas à nous contacter!"
+
+#: templates/faq.html:7 templates/navigation.html:32
+msgid "FAQ"
+msgstr "Questions Fréquentes"
 
 #: templates/faq.html:17
 msgid "What is WearHacks?"
@@ -31,6 +144,13 @@ msgid ""
 "focused on wearable and connected technologies.\n"
 "                "
 msgstr ""
+"\n"
+"                  Wearhacks est un hackathon international géré par des "
+"étudiants. Un <emph> hackathon </emph> est un évènement où des équipes "
+"construisent des projets intéressants ensemble pour 36 heures -- le sommeil "
+"est facultatif, faire quelque chose de génial ne l'est pas. Wearhacks est "
+"focalisé sur les technologies portables et connectées\n"
+"                "
 
 #: templates/faq.html:32
 msgid "Who can participate?"
@@ -46,6 +166,14 @@ msgid ""
 "brightest young minds out there, we want you at WearHacks.\n"
 "                "
 msgstr ""
+"\n"
+"                  N'importe qui dans le monde peut assister à WearHacks. "
+"Vous ne devez pas être ungénie de programmation ou de hardware. Nous ne "
+"sommes pas soucieux de votre majeure ou de votre domaine d'étude. Si vous "
+"voulez apprendre des choses sur les technologies portables, construire "
+"quelque chose d'époustouflant ou travailler parmi des espritsjeunes et "
+"doués, nous vous voulons à WearHacks.\n"
+"                "
 
 #: templates/faq.html:48
 msgid "What if I'm new to all of this?"
@@ -62,6 +190,16 @@ msgid ""
 "build.\n"
 "                "
 msgstr ""
+"\n"
+"                  Ne vous inquiétez pas. C'est vrai qu'avoir des "
+"connaissances en programmation ou une certaine expertise technique est un "
+"plus mais ce n'est pas obligatoire. Nous aurons des présentations ainsi que "
+"des mentors et des ateliers pour vous aider dans vos projets. Le hackathon "
+"peut être le lieu idéal pour aquérir de nouveaux atouts pendant une courte "
+"période. Simplement, venez avec une soif du savoir et enthousiastes à l'idée "
+"de pouvoir rencontrer des gens extraordinaires, et surtout, venez prêts à "
+"construire!\n"
+"                "
 
 #: templates/faq.html:64
 msgid "How much will WearHacks cost me?"
@@ -80,7 +218,7 @@ msgstr ""
 
 #: templates/faq.html:80
 msgid "What about food?"
-msgstr "Et la bouffe?"
+msgstr "Et qu'en est-il de la nourriture?"
 
 #: templates/faq.html:86
 msgid ""
@@ -89,6 +227,11 @@ msgid ""
 "and drinks will be served. Locally sourced. Completely free.\n"
 "                "
 msgstr ""
+"\n"
+"                  Ne vous inquiétez pas, on a tout assuré. Déjeuner, dîner, "
+"souper, grignotines et boissons seront servies. Tous locaux. Entièrement "
+"gratuits.\n"
+"                "
 
 #: templates/faq.html:96
 msgid "I don’t have a team or an idea!"
@@ -102,10 +245,16 @@ msgid ""
 "an idea but no team. Either way, you're good to go!\n"
 "                "
 msgstr ""
+"\n"
+"                  Pas de problèmes. Inscrivez-vous sur WearHacks Sparkboard. "
+"Vous pourriez alors vous joindre à des projets si vous n'avez pas d'idée ou "
+"créer un projet si vous avez une idée mais pas d'équipe. Dans tous les cas, "
+"vous n'avez pas de soucis à vous faire!\n"
+"                "
 
 #: templates/faq.html:116
 msgid "How many people can be on my team?"
-msgstr "Combien de personnes sont dans mon équipe?"
+msgstr "Combien de personnes peuvent être dans mon équipe?"
 
 #: templates/faq.html:122
 msgid ""
@@ -115,6 +264,12 @@ msgid ""
 "We recommend a maximum team size of four people and encourage diversity.\n"
 "                "
 msgstr ""
+"\n"
+"                  Nous n'avons pas de règles spécifiques pour le nombre de "
+"coéquipiers mais gardez en tête que les équipes nombreuses sont plus "
+"difficiles à gérer. Nous suggérons un maximum de 4 personnes par équipe et "
+"encourageons la diversité.\n"
+"                "
 
 #: templates/faq.html:132
 msgid "What should I bring?"
@@ -129,10 +284,18 @@ msgid ""
 "toiletries.\n"
 "                "
 msgstr ""
+"\n"
+"                  Un ordinateur portable ainsi que des cables/chargeurs sont "
+"essentiels. Si vous aimeriez ramener vos propres hardware et qu'ils ne "
+"figurent pas dans la liste de matériel fourni, assurez-vous que vous avez "
+"bien tous les accessoires nécessaires.Vous pouvez également ramener un sac "
+"de couchage et accessoires de toilette.\n"
+"                "
 
 #: templates/faq.html:148
 msgid "Can I start working on my project before WearHacks?"
-msgstr "Est-ce que je peux commencer à travail sur mon projet avant WearHacks?"
+msgstr ""
+"Est-ce que je peux commencer à travailler sur mon projet avant WearHacks?"
 
 #: templates/faq.html:154
 msgid ""
@@ -146,6 +309,16 @@ msgid ""
 "providing, so stay tuned!\n"
 "                "
 msgstr ""
+"\n"
+"                  La réponse courte est non. La réponse longue est que vous "
+"pouvez créer un projet et discuter de vos idées sur WearHacks SparkBoard. "
+"Nous n'encourageons pas les participants à travailler sur des projets pré-"
+"existants puisque cela n'est pas en accord avec l'esprit des hackathons. "
+"Cependant, vous pouvez certainement vous familiariser avec les APIs, "
+"libraries et kits sur lesquels vous aimeriez travailler.Nous allons fournir "
+"plus d'infos sur les APIs que nos sponsors nous ont offerts, alors restez à "
+"l'écoute!\n"
+"                "
 
 #: templates/faq.html:164
 msgid "How does judging work?"
@@ -164,9 +337,15 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"Un groupe de juges vont vous noter d'après votre créativité dont vous avez "
-"faitpreuve ainsi que d'après la difficulté technique, le design et l'utilité "
-"de votreprojet..."
+"                  Un groupe de juges vont vous noter d'après la créativité "
+"dont vous avez fait preuve ainsi que d'après la difficulté technique, le "
+"design et l'utilité de votre projet. Les parains vont également évaluer les "
+"projets qui disputent leurs prix respectifs selon leur propres critères. Les "
+"10 meilleurs projets participeront à une ronde finale où les équipes aurant "
+"à faire une démonstration de ce qu'elles ontconstruit devant tous les juges "
+"et participants. Nous allons vous fournir plus de détails sur les juges et "
+"l'arbitrage plus tard, ainsi que les prix octroyés.\n"
+"                "
 
 #: templates/faq.html:180
 msgid "What kind of hardware will you guys have?"
@@ -186,10 +365,11 @@ msgid ""
 "              "
 msgstr ""
 "\n"
-"N'hésitez pas à nous contacter sur <a href=\"//twitter.com/wearhackstwitter"
-"\">twitter</a>, a href=\"//www.facebook.com/wearhacks\">facebook</a> ou "
-"encore par <a href=\"mailto:montreal@wearhacks.com\">courriel</a> si vous "
-"avez des questions."
+"                  N'hésitez pas à nous contacter sur <a href=\"//twitter.com/"
+"wearhackstwitter\">twitter</a>, a href=\"//www.facebook.com/wearhacks"
+"\">facebook</a> ou encore par <a href=\"mailto:montreal@wearhacks.com"
+"\">courriel</a> si vous avez des questions.\n"
+"                "
 
 #: templates/hardware.html:14
 msgid ""
@@ -206,6 +386,8 @@ msgid ""
 "with gestures and motion. \n"
 "                                 "
 msgstr ""
+"\n"
+"                "
 
 #: templates/hardware.html:33
 msgid ""
@@ -223,6 +405,8 @@ msgid ""
 "incredible visual fidelity and an immersive, wide field of view. \n"
 "                                "
 msgstr ""
+"\n"
+"                "
 
 #: templates/hardware.html:52
 msgid ""
@@ -240,6 +424,8 @@ msgid ""
 "favorite smart devices.\n"
 "                                  "
 msgstr ""
+"\n"
+"                "
 
 #: templates/hardware.html:71
 msgid ""
@@ -256,6 +442,8 @@ msgid ""
 "competitive products and scale affordably.\n"
 "                                "
 msgstr ""
+"\n"
+"                "
 
 #: templates/hardware.html:90
 msgid ""
@@ -271,6 +459,8 @@ msgid ""
 "or to any object \n"
 "to create new, contextually rich mobile experiences.\n"
 msgstr ""
+"\n"
+"                                    \n"
 
 #: templates/hardware.html:111
 msgid ""
@@ -286,6 +476,8 @@ msgid ""
 "audio - and exciting new apps platform!\n"
 "                                "
 msgstr ""
+"\n"
+"                "
 
 #: templates/hardware.html:130
 msgid ""
@@ -303,6 +495,8 @@ msgid ""
 "Bluetooth Low Energy to a base station. \n"
 "                                "
 msgstr ""
+"\n"
+"                "
 
 #: templates/hardware.html:149
 msgid ""
@@ -321,6 +515,8 @@ msgid ""
 "rewards to encourage you to build a regular practice. \n"
 "                                "
 msgstr ""
+"\n"
+"                "
 
 #: templates/hardware.html:170
 msgid ""
@@ -340,6 +536,8 @@ msgid ""
 "devices!\n"
 "                                "
 msgstr ""
+"\n"
+"                "
 
 #: templates/header.html:26 templates/registration/form.html:31
 msgid "The Biggest Wearable Hackathon in North-America"
@@ -354,10 +552,8 @@ msgid "Join"
 msgstr "S'inscrire"
 
 #: templates/header.html:61
-#, fuzzy
-#| msgid "Sponsors"
 msgid "Sponsor Us"
-msgstr "Sponsors"
+msgstr "Parrainez-nous"
 
 #: templates/navigation.html:23
 msgid "Home"
@@ -371,13 +567,9 @@ msgstr "À propos"
 msgid "Hardware"
 msgstr "Hardware"
 
-#: templates/navigation.html:32
-msgid "FAQ"
-msgstr "Questions Fréquentes"
-
 #: templates/navigation.html:35
 msgid "Sponsors"
-msgstr "Sponsors"
+msgstr "Parrains"
 
 #: templates/navigation.html:38
 msgid "Judges"
@@ -387,7 +579,7 @@ msgstr "Juges"
 msgid "Mentors"
 msgstr "Mentors"
 
-#: templates/navigation.html:44
+#: templates/navigation.html:44 templates/schedule.html:7
 msgid "Schedule"
 msgstr "Horaire"
 
@@ -406,3 +598,25 @@ msgstr "Contact"
 #: templates/registration/form.html:43
 msgid "Registration Form"
 msgstr "Formulaire d'inscription"
+
+#: templates/schedule.html:9
+msgid "We will post the finalized schedule as soon as it's done. Stay tuned!"
+msgstr ""
+"Nous mettrons à jour l'horaire final aussitôt qu'il sera prêt. Restez à "
+"l'écoute!"
+
+#: templates/schedule.html:11
+msgid ""
+" \n"
+"                If you'd like to get an idea of what to expect, check out <a "
+"class=\"text-primary\" href=\"http://montreal.wearhacks.com/#schedule\">last "
+"year's  schedule</a>.\n"
+"                "
+msgstr ""
+
+#~ msgid ""
+#~ "Ready to start your next project with us? That's great! Give us a call or "
+#~ "send us an email and we will get back to you as soon as possible!"
+#~ msgstr ""
+#~ "Prêt à commencer votre prochain projet avec nous? Passez-nous un coup de "
+#~ "fil "

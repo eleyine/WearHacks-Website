@@ -8,17 +8,18 @@ echo $PATH
 
 echo "Make messages in root dir `pwd`"
 pwd
-django-admin makemessages -x js --settings=wearhacks_website.settings
+django-admin makemessages -x js -l fr --settings=wearhacks_website.settings
 cd registration
 mkdir -p locale
 
 echo "Make messages in registration dir `pwd`"
-django-admin makemessages -x js --settings=wearhacks_website.settings
+django-admin makemessages -x js -l fr --settings=wearhacks_website.settings
 
 cd ../static/javascripts
 echo "Make messages in dir `pwd`"
-django-admin makemessages -d djangojs --settings=wearhacks_website.settings
+django-admin makemessages -d djangojs -l fr --settings=wearhacks_website.settings
 
-# cd ../..
-# echo "Compile messages in dir `pwd`"
-# django-admin compilemessages --settings=wearhacks_website.settings
+cd ../..
+echo "Compile messages in dir `pwd`"
+django-admin compilemessages --settings=wearhacks_website.settings
+python manage.py runserver

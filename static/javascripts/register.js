@@ -39,10 +39,10 @@
     var strCompletingRegistration = _('Completing registration');
     var strPlsWait = _('This may take a while...');
     var strSmallTalk = pgettext('Appears to entertain user when registration validation takes too long', 'So you want to be a hacker eh?');
-    var strTicketDescription = _('Ticket Description', 'Ticket');
-    var strTicketEarlyBirdDescription = _('Ticket Description', 'Early Bird Ticket');
-    var strTicketStudentDescription = _('Ticket Description', 'Student Ticket');
-    var strTicketStudentEarlyBirdDescription = _('Ticket Description', 'Early Bird Student Ticket');
+    var strTicketDescription = pgettext('Ticket Description', 'Ticket');
+    var strTicketEarlyBirdDescription = pgettext('Ticket Description', 'Early Bird Ticket');
+    var strTicketStudentDescription = pgettext('Ticket Description', 'Student Ticket');
+    var strTicketStudentEarlyBirdDescription = pgettext('Ticket Description', 'Early Bird Student Ticket');
 
     function enabledFormControls(isEnabled) {
       $('input').attr('readOnly', !isEnabled);
@@ -129,6 +129,7 @@
 
         var formData = new FormData($(form)[0]);
         var lang = document.documentElement.lang;
+        formData.append("lang", lang);
         $.ajax({
             processData: false,
             contentType: false,
@@ -268,9 +269,10 @@
                 }
                 formData.append('token_id', token.id);
                 formData.append('amount', amount);
-
+                // formData.append("lang", lang);
+                var lang = document.documentElement.lang;
                 $.ajax({
-                  url: '/register/',
+                  url: '/' + lang + '/register/',
                   type: 'post',
                   processData: false,
                   contentType: false,

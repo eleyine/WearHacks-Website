@@ -36,7 +36,6 @@ class SubmitRegistrationView(generic.View):
         return stripe_pk
 
     def get(self, request, *args, **kwargs):
-        print request.LANGUAGE_CODE
         context = {
             'form': RegistrationForm(),
             'stripe_public_key': self.get_stripe_public_key()
@@ -60,9 +59,11 @@ class SubmitRegistrationView(generic.View):
 
     @json_view
     def post(self, request, *args, **kwargs):
-        # language = translation.get_language_from_request(request)
-        # translation.activate(language)
-        # request.LANGUAGE_CODE = translation.get_language()
+
+        language = request.POST.get('lang', settings.LANGUAGE_CODE)
+        translation.activate(language)
+        request.LANGUAGE_CODE = language
+        
         checkout_success = False
         checkout_message = 'Checkout not attempted yet.'
         fraud_attempt = False

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-01 10:42+0000\n"
+"POT-Creation-Date: 2015-08-01 11:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,391 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/registration/form.html:31
+#: templates/faq.html:17
+msgid "What is WearHacks?"
+msgstr "Qu'est-ce que WearHacks?"
+
+#: templates/faq.html:23
+msgid ""
+"\n"
+"                  WearHacks is an international, student run hackathon held "
+"in Montreal. A hackathon is an event where teams build cool stuff together "
+"for 36 hours- sleep is optional, making awesome things is not. WearHacks is "
+"focused on wearable and connected technologies.\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:32
+msgid "Who can participate?"
+msgstr "Qui peut participer?"
+
+#: templates/faq.html:38
+msgid ""
+"\n"
+"                  Anyone from anywhere in the world can attend WearHacks. "
+"You don't have to be a programming or hardware whiz. We don’t even care "
+"about your major or area of study. If you want to learn about wearable "
+"technologies technologies, build something awesome and work with some of the "
+"brightest young minds out there, we want you at WearHacks.\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:48
+msgid "What if I'm new to all of this?"
+msgstr "Et si je suis nouveau à tout ça?"
+
+#: templates/faq.html:54
+msgid ""
+"\n"
+"                  No worries. It's definitely a plus to have prior coding or "
+"technical experience, but it's not a requirement. We'll have talks, mentors "
+"and workshops to help you with your project- Hackathons can be a great place "
+"to learn new skills in a short amount of time. Just come eager to learn, "
+"excited to meet lots of awesome people and most importantly, come ready to "
+"build.\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:64
+msgid "How much will WearHacks cost me?"
+msgstr "Combien va me coûter WearHacks?"
+
+#: templates/faq.html:70
+msgid ""
+"\n"
+"                  For the first 180 persons, WearHacks will absolutely free! "
+"Price of admission is a \"can do\" attitude and a burning desire to get shit "
+"done. After that first 180 tickets are gone, the price will be $15 a ticket, "
+"with a *wink* special discount for student hackers. Contact us to get the "
+"discount code. :)\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:80
+msgid "What about food?"
+msgstr "Et la bouffe?"
+
+#: templates/faq.html:86
+msgid ""
+"\n"
+"                  We've got that covered. Breakfast, lunch, dinner, snacks "
+"and drinks will be served. Locally sourced. Completely free.\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:96
+msgid "I don’t have a team or an idea!"
+msgstr "Je n'ai pas d'équipe ou d'idée!"
+
+#: templates/faq.html:102
+msgid ""
+"\n"
+"                  Not a problem. Sign up on the WearHacks SparkBoard. You "
+"can join projects if you don't have an idea or create a project if you have "
+"an idea but no team. Either way, you're good to go!\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:116
+msgid "How many people can be on my team?"
+msgstr "Combien de personnes sont dans mon équipe?"
+
+#: templates/faq.html:122
+msgid ""
+"\n"
+"                  We do not have any specific requirements for team sizes, "
+"but keep in mind that the bigger your team the harder it will be to manage. "
+"We recommend a maximum team size of four people and encourage diversity.\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:132
+msgid "What should I bring?"
+msgstr "Qu'est-ce que je dois ramener?"
+
+#: templates/faq.html:138
+msgid ""
+"\n"
+"                  A laptop and cables/chargers are the essentials. If you "
+"have a hardware hack in mind that uses kits not being provided, then bring "
+"along the needed components! You can also bring your sleeping bag and "
+"toiletries.\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:148
+msgid "Can I start working on my project before WearHacks?"
+msgstr "Est-ce que je peux commencer à travail sur mon projet avant WearHacks?"
+
+#: templates/faq.html:154
+msgid ""
+"\n"
+"                  The short answer is no. The long answer is that you can "
+"create projects and discuss your ideas on the WearHacks SparkBoard. We do "
+"not encourage participants to work on pre-existing projects as this goes "
+"against the spirit of hackathons. However, you can definitely familiarize "
+"yourself with the APIs, libraries and kits that you want to work on. We'll "
+"also be providing more info about the APIs that our sponsors will be "
+"providing, so stay tuned!\n"
+"                "
+msgstr ""
+
+#: templates/faq.html:164
+msgid "How does judging work?"
+msgstr "Comment marche l'arbitrage?"
+
+#: templates/faq.html:170
+msgid ""
+"\n"
+"                  A group of judges will rate the hacks based on creativity, "
+"technical difficulty, design, and usefulness. Sponsors also evaluate "
+"projects that are competing for their respective prizes based on their own "
+"criteria. The top 10 overall projects will go to a final round of judging, "
+"where teams will demo what they built in front of all the judges and "
+"participants. We will be posting more details about our judges and judging "
+"categories closer to the event, along with what prizes are up for grabs.\n"
+"                "
+msgstr ""
+"\n"
+"Un groupe de juges vont vous noter d'après votre créativité dont vous avez "
+"faitpreuve ainsi que d'après la difficulté technique, le design et l'utilité "
+"de votreprojet..."
+
+#: templates/faq.html:180
+msgid "What kind of hardware will you guys have?"
+msgstr "Quel type de hardware avez-vous?"
+
+#: templates/faq.html:194
+msgid "I have a question that is not listed here."
+msgstr "J'ai une question mais elle n'est pas incluse ici."
+
+#: templates/faq.html:200
+msgid ""
+"\n"
+"                Feel free to reach out to us on <a href=\"//twitter.com/"
+"wearhackstwitter\">twitter</a>, <a href=\"//www.facebook.com/wearhacks"
+"\">facebook</a> or <a href=\"mailto:montreal@wearhacks.com\">email</a> with "
+"any questions.\n"
+"              "
+msgstr ""
+"\n"
+"N'hésitez pas à nous contacter sur <a href=\"//twitter.com/wearhackstwitter"
+"\">twitter</a>, a href=\"//www.facebook.com/wearhacks\">facebook</a> ou "
+"encore par <a href=\"mailto:montreal@wearhacks.com\">courriel</a> si vous "
+"avez des questions."
+
+#: templates/hardware.html:14
+msgid ""
+"\n"
+"                                    Myo Thalmic\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:19
+msgid ""
+"\n"
+"                                    The Myo gesture control armband reads "
+"your muscle activity so you can control your favourite presentation software "
+"with gestures and motion. \n"
+"                                 "
+msgstr ""
+
+#: templates/hardware.html:33
+msgid ""
+"\n"
+"                                    Oculus Rift\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:38
+msgid ""
+"\n"
+"                                    The Rift uses state of the art displays "
+"and optics designed specifically for VR. Its high refresh rate and low-"
+"persistence display work together with its custom optics system to provide "
+"incredible visual fidelity and an immersive, wide field of view. \n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:52
+msgid ""
+"\n"
+"                                    Nod Ring\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:57
+msgid ""
+"\n"
+"                                    Nod seamlessly transforms your movements "
+"using precision skeletal tracking to fully experience VR environments, "
+"command drones with a wave of your hand, and even interact with your "
+"favorite smart devices.\n"
+"                                  "
+msgstr ""
+
+#: templates/hardware.html:71
+msgid ""
+"\n"
+"                                    MetaWear\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:76
+msgid ""
+"\n"
+"                                    The MetaWear SDK is a low-cost solution "
+"that includes Bluetooth Sensors and Analytics Tools so you can build "
+"competitive products and scale affordably.\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:90
+msgid ""
+"\n"
+"                                    Estimote\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:95
+msgid ""
+"\n"
+"                                    Stick our tiny beacons in any location "
+"or to any object \n"
+"to create new, contextually rich mobile experiences.\n"
+msgstr ""
+
+#: templates/hardware.html:111
+msgid ""
+"\n"
+"                                    Jabra Intelligent Headset\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:116
+msgid ""
+"\n"
+"                                    Advanced sensor pack and dynamic 3D "
+"audio - and exciting new apps platform!\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:130
+msgid ""
+"\n"
+"                                    Device Factory DF1\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:135
+msgid ""
+"\n"
+"                                    DF1 is the first FCC certified "
+"production device from Device Factory. The unit contains a 3-axis "
+"accelerometer connected to a micro controller that can communicate via "
+"Bluetooth Low Energy to a base station. \n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:149
+msgid ""
+"\n"
+"                                    Muse\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:154
+msgid ""
+"\n"
+"                                    Muse is the first tool in the world that "
+"can give you accurate, real-time feedback on what’s happening in your brain "
+"when you meditate. \n"
+"                                    It provides motivational challenges and "
+"rewards to encourage you to build a regular practice. \n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:170
+msgid ""
+"\n"
+"                                    Xadow Wearable kit for Intel Edison\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:175
+msgid ""
+"\n"
+"                                    Xadow Wearable Kit for Intel Edison is a "
+"perfect kit to make wearable devices with Intel Edison. It includes an "
+"expansion board together with eight tiny and powerful Xadow modules, "
+"covering sensors, actuators, displays and communication parts. Based on the "
+"kit, you could build your own pedometer, thermometer and NFC enabled "
+"devices!\n"
+"                                "
+msgstr ""
+
+#: templates/header.html:26 templates/registration/form.html:31
 msgid "The Biggest Wearable Hackathon in North-America"
 msgstr "Le Plus Grand Hackathon de Technologies Portables en Amérique du Nord"
 
-#: templates/registration/form.html:44
+#: templates/header.html:31
+msgid "Innovate with"
+msgstr "Innovez avec"
+
+#: templates/header.html:58
+msgid "Join"
+msgstr "S'inscrire"
+
+#: templates/header.html:61
+#, fuzzy
+#| msgid "Sponsors"
+msgid "Sponsor Us"
+msgstr "Sponsors"
+
+#: templates/navigation.html:23
+msgid "Home"
+msgstr ""
+
+#: templates/navigation.html:26
+msgid "About"
+msgstr "À propos"
+
+#: templates/navigation.html:29
+msgid "Hardware"
+msgstr "Hardware"
+
+#: templates/navigation.html:32
+msgid "FAQ"
+msgstr "Questions Fréquentes"
+
+#: templates/navigation.html:35
+msgid "Sponsors"
+msgstr "Sponsors"
+
+#: templates/navigation.html:38
+msgid "Judges"
+msgstr "Juges"
+
+#: templates/navigation.html:41
+msgid "Mentors"
+msgstr "Mentors"
+
+#: templates/navigation.html:44
+msgid "Schedule"
+msgstr "Horaire"
+
+#: templates/navigation.html:47
+msgid "Venue"
+msgstr "Lieu"
+
+#: templates/navigation.html:50
+msgid "Team"
+msgstr "Équipe"
+
+#: templates/navigation.html:53
+msgid "Contact"
+msgstr "Contact"
+
+#: templates/registration/form.html:43
 msgid "Registration Form"
 msgstr "Formulaire d'inscription"

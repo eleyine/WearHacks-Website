@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <section id="faq">
   <div class="container">
     <div class="row">
@@ -12,32 +14,30 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-              <h3>
-                What is WearHacks?
-              </h3>
+              <h3>{% trans "What is WearHacks?" %}</h3>
               </a>
             </div>
             <div id="collapseOne" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                WearHacks is an international, student run hackathon held in Montreal. A hackathon is an event where teams build cool stuff together for 36 hours- sleep is optional, making awesome things is not. WearHacks is focused on wearable and connected technologies.
-                </p>
+                {% blocktrans %}
+                  WearHacks is an international, student run hackathon held in Montreal. A hackathon is an event where teams build cool stuff together for 36 hours- sleep is optional, making awesome things is not. WearHacks is focused on wearable and connected technologies.
+                {% endblocktrans %}
               </div>
             </div>
           </div>
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-              <h3>
-                Who can participate?
-              </h3>
+              <h3>{% trans "Who can participate?" %}</h3>
               </a>
             </div>
             <div id="collapseTwo" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                Anyone from anywhere in the world can attend WearHacks. You don't have to be a programming or hardware whiz. We don’t even care about your major or area of study. If you want to learn about wearable technologies technologies, build something awesome and work with some of the brightest young minds out there, we want you at WearHacks.
-                </p>
+                {% blocktrans %}
+                  Anyone from anywhere in the world can attend WearHacks. You don't have to be a programming or hardware whiz. We don’t even care about your major or area of study. If you want to learn about wearable technologies technologies, build something awesome and work with some of the brightest young minds out there, we want you at WearHacks.
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -45,16 +45,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-              <h3>
-                What if I'm new to all of this?
-              </h3>
+              <h3>{% trans "What if I'm new to all of this?" %}</h3>
               </a>
             </div>
             <div id="collapseThree" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                No worries. It's definitely a plus to have prior coding or technical experience, but it's not a requirement. We'll have talks, mentors and workshops to help you with your project- Hackathons can be a great place to learn new skills in a short amount of time. Just come eager to learn, excited to meet lots of awesome people and most importantly, come ready to build.
-                </p>
+                {% blocktrans %}
+                  No worries. It's definitely a plus to have prior coding or technical experience, but it's not a requirement. We'll have talks, mentors and workshops to help you with your project- Hackathons can be a great place to learn new skills in a short amount of time. Just come eager to learn, excited to meet lots of awesome people and most importantly, come ready to build.
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -62,16 +61,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-              <h3>
-                How much will WearHacks cost me?
-              </h3>
+              <h3>{% trans "How much will WearHacks cost me?" %}</h3>
               </a>
             </div>
             <div id="collapseFour" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                For the first 180 persons, WearHacks will absolutely free! Price of admission is a "can do" attitude and a burning desire to get shit done. After that first 180 tickets are gone, the price will be $15 a ticket, with a *wink* special discount for student hackers. Contact us to get the discount code. :)
-                </p>
+                {% blocktrans %}
+                  For the first 180 persons, WearHacks will absolutely free! Price of admission is a "can do" attitude and a burning desire to get shit done. After that first 180 tickets are gone, the price will be $15 a ticket, with a *wink* special discount for student hackers. Contact us to get the discount code. :)
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -79,16 +77,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
-              <h3>
-                What about food?
-              </h3>
+              <h3>{% trans "What about food?" %}</h3>
               </a>
             </div>
             <div id="collapseFive" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                We've got that covered. Breakfast, lunch, dinner, snacks and drinks will be served. Locally sourced. Completely free.
-                </p>
+                {% blocktrans %}
+                  We've got that covered. Breakfast, lunch, dinner, snacks and drinks will be served. Locally sourced. Completely free.
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -96,16 +93,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
-              <h3>
-                I don’t have a team or an idea!
-              </h3>
+              <h3>{% trans "I don’t have a team or an idea!" %}</h3>
               </a>
             </div>
             <div id="collapseSix" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                Not a problem. Sign up on the WearHacks SparkBoard. You can join projects if you don't have an idea or create a project if you have an idea but no team. Either way, you're good to go!
-                </p>
+                {% blocktrans %}
+                  Not a problem. Sign up on the WearHacks SparkBoard. You can join projects if you don't have an idea or create a project if you have an idea but no team. Either way, you're good to go!
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -117,16 +113,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseSeven">
-              <h3>
-                How many people can be on my team?
-              </h3>
+              <h3>{% trans "How many people can be on my team?" %}</h3>
               </a>
             </div>
             <div id="collapseSeven" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                We do not have any specific requirements for team sizes, but keep in mind that the bigger your team the harder it will be to manage. We recommend a maximum team size of four people and encourage diversity.
-                </p>
+                {% blocktrans %}
+                  We do not have any specific requirements for team sizes, but keep in mind that the bigger your team the harder it will be to manage. We recommend a maximum team size of four people and encourage diversity.
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -134,16 +129,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseEight">
-              <h3>
-                What should I bring?
-              </h3>
+              <h3>{% trans "What should I bring?" %}</h3>
               </a>
             </div>
             <div id="collapseEight" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                A laptop and cables/chargers are the essentials. If you have a hardware hack in mind that uses kits not being provided, then bring along the needed components! You can also bring your sleeping bag and toiletries.
-                </p>
+                {% blocktrans %}
+                  A laptop and cables/chargers are the essentials. If you have a hardware hack in mind that uses kits not being provided, then bring along the needed components! You can also bring your sleeping bag and toiletries.
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -151,16 +145,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseNine">
-              <h3>
-                Can I start working on my project before WearHacks?
-              </h3>
+              <h3>{% trans "Can I start working on my project before WearHacks?" %}</h3>
               </a>
             </div>
             <div id="collapseNine" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                The short answer is no. The long answer is that you can create projects and discuss your ideas on the WearHacks SparkBoard. We do not encourage participants to work on pre-existing projects as this goes against the spirit of hackathons. However, you can definitely familiarize yourself with the APIs, libraries and kits that you want to work on. We'll also be providing more info about the APIs that our sponsors will be providing, so stay tuned!
-                </p>
+                {% blocktrans %}
+                  The short answer is no. The long answer is that you can create projects and discuss your ideas on the WearHacks SparkBoard. We do not encourage participants to work on pre-existing projects as this goes against the spirit of hackathons. However, you can definitely familiarize yourself with the APIs, libraries and kits that you want to work on. We'll also be providing more info about the APIs that our sponsors will be providing, so stay tuned!
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -168,16 +161,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTen">
-              <h3>
-                How does judging work?
-              </h3>
+              <h3>{% trans "How does judging work?" %}</h3>
               </a>
             </div>
             <div id="collapseTen" class="accordion-body collapse">
               <div class="accordion-inner">
                 <p>
-                A group of judges will rate the hacks based on creativity, technical difficulty, design, and usefulness. Sponsors also evaluate projects that are competing for their respective prizes based on their own criteria. The top 10 overall projects will go to a final round of judging, where teams will demo what they built in front of all the judges and participants. We will be posting more details about our judges and judging categories closer to the event, along with what prizes are up for grabs.
-                </p>
+                {% blocktrans %}
+                  A group of judges will rate the hacks based on creativity, technical difficulty, design, and usefulness. Sponsors also evaluate projects that are competing for their respective prizes based on their own criteria. The top 10 overall projects will go to a final round of judging, where teams will demo what they built in front of all the judges and participants. We will be posting more details about our judges and judging categories closer to the event, along with what prizes are up for grabs.
+                {% endblocktrans %}
               </div>
             </div>
           </div>
@@ -185,14 +177,13 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseEleven">
-              <h3>
-                What kind of hardware will you guys have?
-              </h3>
+              <h3>{% trans "What kind of hardware will you guys have?" %}</h3>
               </a>
             </div>
             <div id="collapseEleven" class="accordion-body collapse">
               <div class="accordion-inner">
-                <p>So far we've got the following kits available for WearHacks:</p><p><a href="https://www.thalmic.com/en/myo/">Thalmic Myo</a></p><p><a href="https://www.mbientlab.com/">MetaWear</a></p><p><a href="http://estimote.com/">Estimote</a></p><p><a href="http://hellonod.com/">Nod Ring</a></p><p><a href="http:http://www.oculusvr.com/">Oculus Rift</a></p><p><a href="https://intelligentheadset.com/">Intelligent Headset</a></p><p><a href="http://devicefactory.com/df1/">DF1</a></p><p><a href="http://www.choosemuse.com/">Muse Headband</a></p>
+                <p>{% trans "So far we've got the following kits available for WearHacks:</p><p><a href="https://www.thalmic.com/en/myo/">Thalmic Myo</a></p><p><a href="https://www.mbientlab.com/">MetaWear</a></p><p><a href="http://estimote.com/">Estimote</a></p><p><a href="http://hellonod.com/">Nod Ring</a></p><p><a href="http:http://www.oculusvr.com/">Oculus Rift</a></p><p><a href="https://intelligentheadset.com/">Intelligent Headset</a></p><p><a href="http://devicefactory.com/df1/">DF1</a></p><p><a href="http://www.choosemuse.com/">Muse Headband</a>"
+                %}</p>
               </div>
             </div>
           </div>
@@ -200,12 +191,15 @@
           <div class="accordion-group panel">
             <div class="accordion-heading">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTwelve">
-                <h3>I have a question that is not listed here. </h3>
+                <h3>{% trans "I have a question that is not listed here." %}</h3>
               </a>
             </div>
             <div id="collapseTwelve" class="accordion-body collapse">
               <div class="accordion-inner">
-                <p>Feel free to reach out to us on <a href="//twitter.com/wearhackstwitter">twitter</a>, <a href="//www.facebook.com/wearhacks">facebook</a> or <a href="mailto:montreal@wearhacks.com">email</a> with any questions.</p>
+                <p>
+                {% blocktrans %}
+                Feel free to reach out to us on <a href="//twitter.com/wearhackstwitter">twitter</a>, <a href="//www.facebook.com/wearhacks">facebook</a> or <a href="mailto:montreal@wearhacks.com">email</a> with any questions.
+              {% endblocktrans %}
               </div>
             </div>
           </div>

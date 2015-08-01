@@ -82,7 +82,8 @@ DJANGO_PROJECT_PATH = os.path.join(DJANGO_PROJECT_DIR, DJANGO_PROJECT_NAME)
 ########### ENV VARIABLES ON REMOTE
 env.hosts = DEPLOYMENT_HOSTS[DEFAULT_DEPLOY_TO]
 ENV_VARIABLES = {
-    # 'ENV_USER': env.user
+    'DJANGO_SETTINGS_MODULE': 'wearhacks_website.settings',
+    'PYTHONPATH': DJANGO_PROJECT_PATH
 }
 ########### END ENV VARIABLES
 
@@ -156,7 +157,8 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
                 'nginx',
                 'gunicorn',
                 'sqlite3',
-                'node-less'
+                'node-less',
+                'gettext'
             ])
 
         try:
@@ -187,6 +189,16 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
         run("git config --global core.filemode false")
         update_conf_files(deploy_to=deploy_to)
         update_permissions()
+
+def compile_messages(mode=DEFAULT_MODE):
+    env_variables = _get_env_variables(mode=mode) 
+    with shell_env(**env_variables):
+        with cd(DJANGO_PROJECT_PATH):
+            run('django-admin makemessages -x js -l fr')
+        with cd(os.path.join(DJANGO_PROJECT_PATH, 'static', 'javascripts')):
+            run('django-admin makemessages -d djangojs -l fr')
+        with cd(DJANGO_PROJECT_PATH):
+            run('django-admin compilemessages')
 
 def _update_permissions(debug=False, setup=False, only_static=False):
     """
@@ -496,7 +508,7 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
         pull_changes(mode=mode, deploy_to=deploy_to)
         with shell_env(**env_variables):
             with settings(prompts=prompts):
-                run('django-admin compilemessages')
+                compile_messages(mode=mode)
                 run('python manage.py collectstatic')
         _update_permissions(only_static=True)
         

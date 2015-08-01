@@ -86,7 +86,7 @@ msgid ""
 "We follow-up with the teams and <strong>help promote</strong> the best "
 "projects. We organize demos, talks, etc."
 msgstr ""
-"Nous suivons les équipes et assistont à promouvoir les meilleurs projets. "
+"Nous suivons les équipes et assistons à promouvoir les meilleurs projets. "
 "Nous organizons des démos, des présentations, etc."
 
 #: templates/about.html:61

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-02 09:57+0000\n"
+"POT-Creation-Date: 2015-08-02 10:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,8 +76,8 @@ msgid ""
 msgstr ""
 "Nous accueillons toutes sortes d'<strong>innovateurs</strong> et de "
 "spécialistes de tout âge, qu'ils soient étudiants ou non, dans le domaine de "
-"laCe qui compte le plus c'est qu'ils aient un <strong>esprit curieux.</"
-"strong>"
+"de la technologie ou non. Ce qui compte le plus c'est qu'ils aient un "
+"<strong>esprit curieux.</strong>"
 
 #: templates/about.html:54
 msgid "Mentorship and Promotion"
@@ -165,11 +165,11 @@ msgstr ""
 "ainsi que l'investissement de départ pour eux.\n"
 "                "
 
-#: templates/faq.html:34
+#: templates/faq.html:35
 msgid "What if I'm new to all of this?"
 msgstr "Et si je suis un débutant?"
 
-#: templates/faq.html:40
+#: templates/faq.html:41
 msgid ""
 "\n"
 "                  No worries. It's definitely a plus to have prior coding or "
@@ -190,11 +190,11 @@ msgstr ""
 "incroyables, et surtout, soit prêt à construire!\n"
 "                "
 
-#: templates/faq.html:50
+#: templates/faq.html:52
 msgid "How much will WearHacks cost me?"
 msgstr "Combien va me coûter WearHacks?"
 
-#: templates/faq.html:56
+#: templates/faq.html:58
 msgid ""
 "\n"
 "                  For the first 180 persons, WearHacks will absolutely free! "
@@ -205,11 +205,11 @@ msgid ""
 "                "
 msgstr ""
 
-#: templates/faq.html:66
+#: templates/faq.html:69
 msgid "What about food?"
 msgstr "Et qu'en est-il de la nourriture?"
 
-#: templates/faq.html:72 templates/faq.html.py:91
+#: templates/faq.html:75
 msgid ""
 "\n"
 "                  We've got that covered. Breakfast, lunch, dinner, snacks "
@@ -221,35 +221,35 @@ msgstr ""
 "souper, grignotines et boissons seront servis. Approvisionnés localement.\n"
 "                "
 
-#: templates/faq.html:81
+#: templates/faq.html:86
 msgid "What should I know before coming to the event?"
 msgstr "Que devrais-je savoir avant mon arrivée à l'événement?"
 
-#: templates/faq.html:87
+#: templates/faq.html:92
 msgid "Code of Conduct"
 msgstr "Code de Conduite"
 
-#: templates/faq.html:87
+#: templates/faq.html:92
 msgid "and"
 msgstr "et"
 
-#: templates/faq.html:87
+#: templates/faq.html:92
 msgid "Reporting procedures"
 msgstr "les Procédures de Déclaration des Incidents"
 
-#: templates/faq.html:88
+#: templates/faq.html:93
 msgid "Terms and conditions </a> for the event"
 msgstr "Conditions Générales</a> de l'évènement"
 
-#: templates/faq.html:89
+#: templates/faq.html:94
 msgid "Resume Collection and Privacy Policy"
 msgstr "Utilisation et Politique de Confidentialité des curriculum vitaes"
 
-#: templates/faq.html:101
+#: templates/faq.html:103
 msgid "I don’t have a team or an idea!"
 msgstr "Je n'ai pas d'équipe ou d'idée!"
 
-#: templates/faq.html:107
+#: templates/faq.html:109
 msgid ""
 "\n"
 "                  Not a problem. Sign up on the WearHacks SparkBoard. You "
@@ -264,11 +264,11 @@ msgstr ""
 "vous n'avez pas de soucis à vous faire!\n"
 "                "
 
-#: templates/faq.html:121
+#: templates/faq.html:120
 msgid "How many people can be on my team?"
 msgstr "Combien de personnes peuvent être dans mon équipe?"
 
-#: templates/faq.html:127
+#: templates/faq.html:126
 msgid ""
 "\n"
 "                  We do not have any specific requirements for team sizes, "
@@ -283,11 +283,11 @@ msgstr ""
 "encourageons la diversité.\n"
 "                "
 
-#: templates/faq.html:137
+#: templates/faq.html:141
 msgid "What should I bring?"
 msgstr "Qu'est-ce que je dois ramener?"
 
-#: templates/faq.html:143
+#: templates/faq.html:147
 msgid ""
 "\n"
 "                  A laptop and cables/chargers are the essentials. If you "
@@ -304,12 +304,12 @@ msgstr ""
 "de couchage et accessoires de toilette.\n"
 "                "
 
-#: templates/faq.html:153
+#: templates/faq.html:158
 msgid "Can I start working on my project before WearHacks?"
 msgstr ""
 "Est-ce que je peux commencer à travailler sur mon projet avant WearHacks?"
 
-#: templates/faq.html:159
+#: templates/faq.html:164
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -339,11 +339,11 @@ msgstr ""
 "APIs que nos sponsors nous ont offerts, alors restez à l'écoute!\n"
 "                "
 
-#: templates/faq.html:169
+#: templates/faq.html:175
 msgid "How does judging work?"
 msgstr "Comment marche la procédure de séléction?"
 
-#: templates/faq.html:175
+#: templates/faq.html:181
 msgid ""
 "\n"
 "                  A group of judges will rate the hacks based on creativity, "
@@ -366,11 +366,11 @@ msgstr ""
 "l'arbitrage plus tard, ainsi que les prix octroyés.\n"
 "                "
 
-#: templates/faq.html:185
+#: templates/faq.html:192
 msgid "I have a question that is not listed here."
 msgstr "J'ai une question mais elle n'est pas incluse ici."
 
-#: templates/faq.html:191
+#: templates/faq.html:198
 msgid ""
 "\n"
 "                Feel free to reach out to us on <a href=\"//twitter.com/"

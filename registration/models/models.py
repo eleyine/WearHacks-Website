@@ -49,7 +49,8 @@ class ChargeAttempt(models.Model):
             self.charge_id, self.status)
 
 class Registration(models.Model):
-    alpha = RegexValidator(regex=r'^[a-zA-Z\s\u00C0-\u017F]*$',  message=_('Only letters are allowed.'))
+    import re
+    alpha = RegexValidator(regex=re.compile(r'^[\w\s]*$', flags=re.UNICODE), message=_('Only letters are allowed.'))
 
     first_name = models.CharField(max_length=20, validators=[alpha], 
         verbose_name=_('first name'))

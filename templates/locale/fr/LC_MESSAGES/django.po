@@ -89,7 +89,7 @@ msgid ""
 "projects. We organize demos, talks, etc."
 msgstr ""
 "Nous suivons des équipes et faisons la promotion des meilleurs projets. Nous "
-"organizons des démos, des présentations, etc."
+"organisons des démos, des présentations, etc."
 
 #: templates/about.html:61
 msgid "Strong track record"

@@ -407,7 +407,7 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
         sudo("git config core.filemode false")
-        if branch == 'stable':
+        if True or branch == 'stable':
             run('git fetch --all')
             run('git reset --hard origin/%s' % (branch))
         else:

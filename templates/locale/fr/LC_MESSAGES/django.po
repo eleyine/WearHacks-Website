@@ -527,7 +527,7 @@ msgstr "À propos"
 
 #: templates/navigation.html:29
 msgid "Hardware"
-msgstr "Hardware"
+msgstr "Matériel"
 
 #: templates/navigation.html:35
 msgid "Sponsors"

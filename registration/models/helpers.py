@@ -1,5 +1,6 @@
 import datetime, os
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 # Helpers
 def get_resume_filename(instance, filename):
@@ -22,4 +23,4 @@ def get_filename(instance, old_filename, directory=''):
 
 def validate_true(value):
     if not value:
-        raise ValidationError('This field must be checked')
+        raise ValidationError(_('This field must be checked'))

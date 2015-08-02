@@ -110,7 +110,8 @@ class Registration(models.Model):
         validators = [validate_true])
     WAIVER_HELP_TEXT = "Not required but it will save us some time during registration."
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
-        help_text = __("Help text for waiver field", WAIVER_HELP_TEXT),
+        help_text = __("Help text for waiver field", WAIVER_HELP_TEXT,
+        verbose_name = _('waiver')),
     )
 
     # payment

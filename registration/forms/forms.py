@@ -1,7 +1,7 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, Field, HTML
+from crispy_forms.layout import Submit, Layout, Fieldset, Div, Field, HTML, MultiField
 from crispy_forms.bootstrap import FormActions, StrictButton
 
 from registration.models import Registration
@@ -28,13 +28,15 @@ class RegistrationForm(forms.ModelForm):
                 'is_returning',
                 'is_first_time_hacker',
                 'resume',
-                # 'waiver',
+                'waiver',
                 'has_read_code_of_conduct'
             )
 
     resume = PDFField(required=False, 
+        label = _('Resume'),
         help_text=Registration.RESUME_HELP_TEXT)
     waiver = PDFField(required=False, 
+        label = _('Waiver'),
         help_text=Registration.WAIVER_HELP_TEXT)
 
     def __init__(self, *args, **kwargs):
@@ -79,7 +81,7 @@ class RegistrationForm(forms.ModelForm):
                 _('Misc.'),
                 'tshirt_size',
                 Field('food_restrictions', rows=2),
-                'waiver',
+                'waiver'
             ),
             Field('has_read_code_of_conduct', css_class="conduct"),
             HTML(get_registration_button_html())

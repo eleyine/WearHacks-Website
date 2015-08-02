@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-02 10:17+0000\n"
+"POT-Creation-Date: 2015-08-02 11:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms/forms.py:53
+#: forms/forms.py:36
+msgid "Resume"
+msgstr "CV"
+
+#: forms/forms.py:39
+msgid "Waiver"
+msgstr "Renonciation"
+
+#: forms/forms.py:55
 msgid "General Information"
 msgstr "Informations Générales"
 
-#: forms/forms.py:60
+#: forms/forms.py:62
 msgid "Tell us a bit about yourself."
 msgstr "À propos de vous"
 
-#: forms/forms.py:73
+#: forms/forms.py:75
 msgid "Experience"
 msgstr "Expérience"
 
-#: forms/forms.py:79
+#: forms/forms.py:81
 msgid "Misc."
 msgstr "Divers"
 
@@ -98,84 +106,92 @@ msgstr ""
 "stripe.com/ca\">Stripe</a>. Nous n'avons pas accès aux informations de votre "
 "carte de crédit."
 
-#: models/models.py:52
+#: models/helpers.py:26
+msgid "This field must be checked"
+msgstr "Cette case doit être cochée"
+
+#: models/models.py:53
 msgid "Only letters are allowed."
 msgstr "Seules les lettres sont autorisées."
 
-#: models/models.py:55
+#: models/models.py:56
 msgid "first name"
 msgstr "Prénom"
 
-#: models/models.py:57
+#: models/models.py:58
 msgid "last name"
 msgstr "Nom de famille"
 
-#: models/models.py:59
+#: models/models.py:60
 msgid "Male"
 msgstr "Masculin"
 
-#: models/models.py:60
+#: models/models.py:61
 msgid "Female"
 msgstr "Féminin"
 
 #. Translators: Gender information
-#: models/models.py:62
+#: models/models.py:63
 msgid "Other / I prefer not to disclose"
 msgstr "Autre / Je préfère ne pas le signaler"
 
-#: models/models.py:67
+#: models/models.py:68
 msgid "gender"
 msgstr "Sexe"
 
-#: models/models.py:74
+#: models/models.py:75
 msgid "Are you a student?"
 msgstr "Êtes-vous étudiant?"
 
-#: models/models.py:76
+#: models/models.py:77
 msgid "Where do/did you go to school?"
 msgstr "Nom du collège / de l'université"
 
-#: models/models.py:79
+#: models/models.py:80
 msgid "email"
 msgstr "courriel"
 
-#: models/models.py:85
+#: models/models.py:86
 msgid "Do you have any allergies or food restrictions?"
 msgstr "Avez-vous des allergies ou des restrictions alimentaires?"
 
 #. Translators: T-shirt sizes
-#: models/models.py:88
+#: models/models.py:89
 msgid "Small"
 msgstr "Petit"
 
-#: models/models.py:89
+#: models/models.py:90
 msgid "Medium"
 msgstr "Moyen"
 
-#: models/models.py:90
+#: models/models.py:91
 msgid "Large"
 msgstr "Grand"
 
-#: models/models.py:91
+#: models/models.py:92
 msgid "X-Large"
 msgstr "Très Grand"
 
-#: models/models.py:95
+#: models/models.py:96
 msgid "T-Shirt size"
 msgstr "Taille de T-shirt"
 
-#: models/models.py:97
+#: models/models.py:98
 msgid "Did you attend last year's event?"
 msgstr "Avez-vous assisté au hackathon de l'année dernière?"
 
-#: models/models.py:98
+#: models/models.py:99
 msgid "Is this your first hackathon?"
 msgstr "Est-ce votre premier hackathon?"
 
-#: models/models.py:104
+#: models/models.py:105
 msgid "resume"
 msgstr "CV"
 
-#: models/models.py:108
+#: models/models.py:109
 msgid "I have read the <a href=\"#\" target=\"_blank\">Code of Conduct.</a>"
 msgstr "J'ai bien lu le <a href=\"#\" target=\"_blank\">Code de Conduite.</a>"
+
+#: models/models.py:114
+msgid "waiver"
+msgstr "Renonciation"

@@ -4,6 +4,7 @@
     $( document ).ready(function() {
         ajaxSetup();
         langSetup();
+        $('[data-toggle="tooltip"]').tooltip({ html : true });
     });
     function ajaxSetup() {
         // Protect against CSRF using a csrf_token
@@ -39,7 +40,7 @@
                 },
                 error: function (data) {
                     console.log("Could not set language");
-                    console.log(data);
+                    // console.log(data);
                 }
             });
         });

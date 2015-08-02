@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-01 20:12+0000\n"
+"POT-Creation-Date: 2015-08-02 09:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,13 +34,15 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-" Nous réunissons dévelopeurs, designeurs, directeurs de projet, étudiants et "
-"ingénieurs qui ont le goût de l'entrepreneuriat et l'esprit créatif. Pendant "
-"l'espace de 48 heures intenses, vous allez adopter de nouveaus outils, "
-"apprendre à satisfaire des standards industriels, rencontrer des "
-"spécialistes du domaine, collaborer avec d'autres étudiants et jeunes "
-"professionnels talentueux  et construire de nouvelles technologies portables "
-"et connectées."
+"Événement multidisciplinaire, nous réunissons développeurs, designers, "
+"graphistes, chefs de projets, étudiants, ingénieurs, artistes, architectes, "
+"créateurs et toutes autres personnes qui ont le goût de l'entrepreneuriat et "
+"l'esprit créatif.Durant 48 heures, vous utiliserez de nouveaux outils et  "
+"matériels, accompagnés d'experts dans le domaine de la technologie. Vous "
+"aurez ainsi l'opportunité de collaborer avec des étudiants et jeunes "
+"professionels talentueux pour développer un projet dans les domaines de "
+"l'informatique vestimentaire et de l'Internet des objets. \n"
+"                    "
 
 #: templates/about.html:19
 msgid "Organization Website"
@@ -60,7 +62,7 @@ msgid ""
 "something <strong>awesome</strong>."
 msgstr ""
 "Nous vous donnerons un \"wearable kit\", de la bonne nourriture et plein de "
-"café. Vous contruisez quelque chose d'<strong>époustouflant</strong>!"
+"café. Vous contruirez quelque chose d'<strong>époustouflant</strong>!"
 
 #: templates/about.html:46
 msgid "All backgrounds"
@@ -73,25 +75,25 @@ msgid ""
 "designers, neuroscientists and <strong>curious minds</strong>."
 msgstr ""
 "Nous accueillons toutes sortes d'<strong>innovateurs</strong> et de "
-"spécialistes, qu'ils soient étudiants ou non, de dévelopeurs, d'ingénieurs, "
-"de designers, de neuroscientifiques et surtout des <strong>esprits curieux.</"
+"spécialistes de tout âge, qu'ils soient étudiants ou non, dans le domaine de "
+"laCe qui compte le plus c'est qu'ils aient un <strong>esprit curieux.</"
 "strong>"
 
 #: templates/about.html:54
 msgid "Mentorship and Promotion"
-msgstr "Assistanat et Promotion"
+msgstr "Mentorat et Promotion"
 
 #: templates/about.html:55
 msgid ""
 "We follow-up with the teams and <strong>help promote</strong> the best "
 "projects. We organize demos, talks, etc."
 msgstr ""
-"Nous suivons les équipes et assistons à promouvoir les meilleurs projets. "
-"Nous organizons des démos, des présentations, etc."
+"Nous suivons des équipes et faisons la promotion des meilleurs projets. Nous "
+"organizons des démos, des présentations, etc."
 
 #: templates/about.html:61
 msgid "Strong track record"
-msgstr "Historique Parlant"
+msgstr "Un bilan solide"
 
 #: templates/about.html:62
 msgid ""
@@ -104,11 +106,10 @@ msgid ""
 "                            "
 msgstr ""
 " \n"
-"                            Wearhacks Montreal 2014 a <strong>fait un tabac</"
-"strong>, avec plus de 47 projets à son compte. Certains gagnants sont "
-"présentement supervisés par <strong>Founder Fuel</strong> and <strong>Real "
-"Ventures</strong>. <a href=\"http://www.wearhacks.com/#pastevent\">En savoir "
-"plus</a>\n"
+"                            Wearhacks Montreal 2014 a connu un grand succès "
+"<strong>avec plus de 47 projets à son compte</strong>. Certains gagnants ont "
+"été supervisés par <strong>Founder Fuel</strong> and <strong>Real Ventures</"
+"strong>. <a href=\"http://www.wearhacks.com/#pastevent\">En savoir plus</a>\n"
 "                            "
 
 #: templates/contact.html:6
@@ -138,48 +139,35 @@ msgstr "Qu'est-ce que WearHacks?"
 #: templates/faq.html:23
 msgid ""
 "\n"
-"                  WearHacks is an international, student run hackathon held "
-"in Montreal. A hackathon is an event where teams build cool stuff together "
-"for 36 hours- sleep is optional, making awesome things is not. WearHacks is "
-"focused on wearable and connected technologies.\n"
+"                  WearHacks is an international Montreal-based nonprofit "
+"organization whose mission is to make hardware education - with an emphasis "
+"on the domain of Wearable and Internet of Things technologies - accessible, "
+"approachable, and affordable to everyone.\n"
+"                  Through our WearHacks hackathons, we give hackers access "
+"to cutting edge hardware devices with learning materials, create an "
+"environment whereby hackers feel comfortable exploring new domains, and "
+"reduce the price of experimentation and upfront investment from the "
+"hackers.\n"
 "                "
 msgstr ""
 "\n"
-"                  Wearhacks est un hackathon international géré par des "
-"étudiants. Un <emph> hackathon </emph> est un évènement où des équipes "
-"construisent des projets intéressants ensemble pour 36 heures -- le sommeil "
-"est facultatif, faire quelque chose de génial ne l'est pas. Wearhacks est "
-"focalisé sur les technologies portables et connectées\n"
+"                  WearHacks est une organization internationale à but non "
+"lucratif basée à Montréal dont la mission est de rendre l'éducation "
+"\"hardware\" (l'accent étant mis sur les domaines de l'informatique "
+"vestimentaire et l'Internet des objets) compréhensible, abordable et facile "
+"d'accès à tout le monde.                  À travers nos marathons de "
+"programmation, nous donnons accès aux bidouilleurs à des technologies de "
+"pointe accompagnées de ressources d'apprentissage; nous créons un "
+"environnement dans lequel ils sont à l'aise à l'idée d'explorer de nouveaux "
+"domaines; et nous reduisons considerablement le coût associé à "
+"l'experimentation hardware ainsi que l'investissement de départ pour eux.\n"
 "                "
 
-#: templates/faq.html:32
-msgid "Who can participate?"
-msgstr "Qui peut participer?"
-
-#: templates/faq.html:38
-msgid ""
-"\n"
-"                  Anyone from anywhere in the world can attend WearHacks. "
-"You don't have to be a programming or hardware whiz. We don’t even care "
-"about your major or area of study. If you want to learn about wearable "
-"technologies technologies, build something awesome and work with some of the "
-"brightest young minds out there, we want you at WearHacks.\n"
-"                "
-msgstr ""
-"\n"
-"                  N'importe qui dans le monde peut assister à WearHacks. "
-"Vous ne devez pas être ungénie de programmation ou de hardware. Nous ne "
-"sommes pas soucieux de votre majeure ou de votre domaine d'étude. Si vous "
-"voulez apprendre des choses sur les technologies portables, construire "
-"quelque chose d'époustouflant ou travailler parmi des espritsjeunes et "
-"doués, nous vous voulons à WearHacks.\n"
-"                "
-
-#: templates/faq.html:48
+#: templates/faq.html:34
 msgid "What if I'm new to all of this?"
-msgstr "Et si je suis nouveau à tout ça?"
+msgstr "Et si je suis un débutant?"
 
-#: templates/faq.html:54
+#: templates/faq.html:40
 msgid ""
 "\n"
 "                  No worries. It's definitely a plus to have prior coding or "
@@ -191,21 +179,20 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                  Ne vous inquiétez pas. C'est vrai qu'avoir des "
-"connaissances en programmation ou une certaine expertise technique est un "
-"plus mais ce n'est pas obligatoire. Nous aurons des présentations ainsi que "
-"des mentors et des ateliers pour vous aider dans vos projets. Le hackathon "
-"peut être le lieu idéal pour aquérir de nouveaux atouts pendant une courte "
-"période. Simplement, venez avec une soif du savoir et enthousiastes à l'idée "
-"de pouvoir rencontrer des gens extraordinaires, et surtout, venez prêts à "
-"construire!\n"
+"                  Ne t'inquiète pas. C'est vrai qu'avoir des connaissances "
+"en programmation ou une certaine expertise technique est un plus mais ce "
+"n'est pas obligatoire. Nous aurons des présentations ainsi que des mentors "
+"et des ateliers pour t'aider dans tes projets. Le hackathon peut être le "
+"lieu idéal pour aquérir de nouveaux atouts pendant une courte période. Soit "
+"juste avide de connaissances et enthousiaste à l'idée de rencontrer des gens "
+"incroyables, et surtout, soit prêt à construire!\n"
 "                "
 
-#: templates/faq.html:64
+#: templates/faq.html:50
 msgid "How much will WearHacks cost me?"
 msgstr "Combien va me coûter WearHacks?"
 
-#: templates/faq.html:70
+#: templates/faq.html:56
 msgid ""
 "\n"
 "                  For the first 180 persons, WearHacks will absolutely free! "
@@ -216,11 +203,11 @@ msgid ""
 "                "
 msgstr ""
 
-#: templates/faq.html:80
+#: templates/faq.html:66
 msgid "What about food?"
 msgstr "Et qu'en est-il de la nourriture?"
 
-#: templates/faq.html:86
+#: templates/faq.html:72 templates/faq.html.py:91
 msgid ""
 "\n"
 "                  We've got that covered. Breakfast, lunch, dinner, snacks "
@@ -228,16 +215,39 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                  Ne vous inquiétez pas, on a tout assuré. Déjeuner, dîner, "
-"souper, grignotines et boissons seront servies. Tous locaux. Entièrement "
-"gratuits.\n"
+"                  Ne t'inquiète pas, on a tout assuré. Déjeuner, dîner, "
+"souper, grignotines et boissons seront servis. Approvisionnés localement.\n"
 "                "
 
-#: templates/faq.html:96
+#: templates/faq.html:81
+msgid "What should I know before coming to the event?"
+msgstr "Que devrais-je savoir avant mon arrivée à l'événement?"
+
+#: templates/faq.html:87
+msgid "Code of Conduct"
+msgstr "Code de Conduite"
+
+#: templates/faq.html:87
+msgid "and"
+msgstr "et"
+
+#: templates/faq.html:87
+msgid "Reporting procedures"
+msgstr "les Procédures de Déclaration des Incidents"
+
+#: templates/faq.html:88
+msgid "Terms and conditions </a> for the event"
+msgstr "Conditions Générales</a> de l'évènement"
+
+#: templates/faq.html:89
+msgid "Resume Collection and Privacy Policy"
+msgstr "Utilisation et Politique de Confidentialité des curriculum vitaes"
+
+#: templates/faq.html:101
 msgid "I don’t have a team or an idea!"
 msgstr "Je n'ai pas d'équipe ou d'idée!"
 
-#: templates/faq.html:102
+#: templates/faq.html:107
 msgid ""
 "\n"
 "                  Not a problem. Sign up on the WearHacks SparkBoard. You "
@@ -252,11 +262,11 @@ msgstr ""
 "vous n'avez pas de soucis à vous faire!\n"
 "                "
 
-#: templates/faq.html:116
+#: templates/faq.html:121
 msgid "How many people can be on my team?"
 msgstr "Combien de personnes peuvent être dans mon équipe?"
 
-#: templates/faq.html:122
+#: templates/faq.html:127
 msgid ""
 "\n"
 "                  We do not have any specific requirements for team sizes, "
@@ -271,11 +281,11 @@ msgstr ""
 "encourageons la diversité.\n"
 "                "
 
-#: templates/faq.html:132
+#: templates/faq.html:137
 msgid "What should I bring?"
 msgstr "Qu'est-ce que je dois ramener?"
 
-#: templates/faq.html:138
+#: templates/faq.html:143
 msgid ""
 "\n"
 "                  A laptop and cables/chargers are the essentials. If you "
@@ -292,39 +302,46 @@ msgstr ""
 "de couchage et accessoires de toilette.\n"
 "                "
 
-#: templates/faq.html:148
+#: templates/faq.html:153
 msgid "Can I start working on my project before WearHacks?"
 msgstr ""
 "Est-ce que je peux commencer à travailler sur mon projet avant WearHacks?"
 
-#: templates/faq.html:154
+#: templates/faq.html:159
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "                  The short answer is no. The long answer is that you can "
+#| "create projects and discuss your ideas on the WearHacks SparkBoard. We do "
+#| "not encourage participants to work on pre-existing projects as this goes "
+#| "against the spirit of hackathons. However, you can definitely familiarize "
+#| "yourself with the APIs, libraries and kits that you want to work on. "
+#| "We'll also be providing more info about the APIs that our sponsors will "
+#| "be providing, so stay tuned!\n"
+#| "                "
 msgid ""
 "\n"
-"                  The short answer is no. The long answer is that you can "
-"create projects and discuss your ideas on the WearHacks SparkBoard. We do "
-"not encourage participants to work on pre-existing projects as this goes "
-"against the spirit of hackathons. However, you can definitely familiarize "
-"yourself with the APIs, libraries and kits that you want to work on. We'll "
-"also be providing more info about the APIs that our sponsors will be "
-"providing, so stay tuned!\n"
+"                  The short answer is no. We do not encourage participants "
+"to work on pre-existing projects as this goes against the spirit of "
+"hackathons. However, you can definitely familiarize yourself with the APIs, "
+"libraries and kits that you want to work on. We'll also be providing more "
+"info about the APIs that our sponsors will be providing, so stay tuned!\n"
 "                "
 msgstr ""
 "\n"
-"                  La réponse courte est non. La réponse longue est que vous "
-"pouvez créer un projet et discuter de vos idées sur WearHacks SparkBoard. "
-"Nous n'encourageons pas les participants à travailler sur des projets pré-"
-"existants puisque cela n'est pas en accord avec l'esprit des hackathons. "
-"Cependant, vous pouvez certainement vous familiariser avec les APIs, "
-"libraries et kits sur lesquels vous aimeriez travailler.Nous allons fournir "
-"plus d'infos sur les APIs que nos sponsors nous ont offerts, alors restez à "
-"l'écoute!\n"
+"                  La réponse courte est non. Nous n'encourageons pas les "
+"participants à travailler sur des projets pré-existants puisque cela n'est "
+"pas en accord avec l'esprit des marathons de programmation. Cependant, vous "
+"pouvez certainement vous familiariser avec les APIs, libraries et kits sur "
+"lesquels vous aimeriez travailler.Nous allons fournir plus d'infos sur les "
+"APIs que nos sponsors nous ont offerts, alors restez à l'écoute!\n"
 "                "
 
-#: templates/faq.html:164
+#: templates/faq.html:169
 msgid "How does judging work?"
-msgstr "Comment marche l'arbitrage?"
+msgstr "Comment marche la procédure de séléction?"
 
-#: templates/faq.html:170
+#: templates/faq.html:175
 msgid ""
 "\n"
 "                  A group of judges will rate the hacks based on creativity, "
@@ -347,15 +364,11 @@ msgstr ""
 "l'arbitrage plus tard, ainsi que les prix octroyés.\n"
 "                "
 
-#: templates/faq.html:180
-msgid "What kind of hardware will you guys have?"
-msgstr "Quel type de hardware avez-vous?"
-
-#: templates/faq.html:194
+#: templates/faq.html:185
 msgid "I have a question that is not listed here."
 msgstr "J'ai une question mais elle n'est pas incluse ici."
 
-#: templates/faq.html:200
+#: templates/faq.html:191
 msgid ""
 "\n"
 "                Feel free to reach out to us on <a href=\"//twitter.com/"
@@ -366,19 +379,23 @@ msgid ""
 msgstr ""
 "\n"
 "                  N'hésitez pas à nous contacter sur <a href=\"//twitter.com/"
-"wearhackstwitter\">twitter</a>, a href=\"//www.facebook.com/wearhacks"
+"wearhackstwitter\">twitter</a>, <a href=\"//www.facebook.com/wearhacks"
 "\">facebook</a> ou encore par <a href=\"mailto:montreal@wearhacks.com"
 "\">courriel</a> si vous avez des questions.\n"
 "                "
 
-#: templates/hardware.html:14
+#: templates/hardware.html:9
+msgid "Available Hardware"
+msgstr "Hardware Dispobible"
+
+#: templates/hardware.html:18
 msgid ""
 "\n"
 "                                    Myo Thalmic\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:19
+#: templates/hardware.html:23
 msgid ""
 "\n"
 "                                    The Myo gesture control armband reads "
@@ -389,14 +406,14 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/hardware.html:33
+#: templates/hardware.html:37
 msgid ""
 "\n"
 "                                    Oculus Rift\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:38
+#: templates/hardware.html:42
 msgid ""
 "\n"
 "                                    The Rift uses state of the art displays "
@@ -408,14 +425,14 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/hardware.html:52
+#: templates/hardware.html:56
 msgid ""
 "\n"
 "                                    Nod Ring\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:57
+#: templates/hardware.html:61
 msgid ""
 "\n"
 "                                    Nod seamlessly transforms your movements "
@@ -427,14 +444,14 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/hardware.html:71
+#: templates/hardware.html:75
 msgid ""
 "\n"
 "                                    MetaWear\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:76
+#: templates/hardware.html:80
 msgid ""
 "\n"
 "                                    The MetaWear SDK is a low-cost solution "
@@ -445,14 +462,14 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/hardware.html:90
+#: templates/hardware.html:94
 msgid ""
 "\n"
 "                                    Estimote\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:95
+#: templates/hardware.html:99
 msgid ""
 "\n"
 "                                    Stick our tiny beacons in any location "
@@ -462,50 +479,14 @@ msgstr ""
 "\n"
 "                                    \n"
 
-#: templates/hardware.html:111
-msgid ""
-"\n"
-"                                    Jabra Intelligent Headset\n"
-"                                "
-msgstr ""
-
-#: templates/hardware.html:116
-msgid ""
-"\n"
-"                                    Advanced sensor pack and dynamic 3D "
-"audio - and exciting new apps platform!\n"
-"                                "
-msgstr ""
-"\n"
-"                "
-
-#: templates/hardware.html:130
-msgid ""
-"\n"
-"                                    Device Factory DF1\n"
-"                                "
-msgstr ""
-
-#: templates/hardware.html:135
-msgid ""
-"\n"
-"                                    DF1 is the first FCC certified "
-"production device from Device Factory. The unit contains a 3-axis "
-"accelerometer connected to a micro controller that can communicate via "
-"Bluetooth Low Energy to a base station. \n"
-"                                "
-msgstr ""
-"\n"
-"                "
-
-#: templates/hardware.html:149
+#: templates/hardware.html:114
 msgid ""
 "\n"
 "                                    Muse\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:154
+#: templates/hardware.html:119
 msgid ""
 "\n"
 "                                    Muse is the first tool in the world that "
@@ -513,27 +494,6 @@ msgid ""
 "when you meditate. \n"
 "                                    It provides motivational challenges and "
 "rewards to encourage you to build a regular practice. \n"
-"                                "
-msgstr ""
-"\n"
-"                "
-
-#: templates/hardware.html:170
-msgid ""
-"\n"
-"                                    Xadow Wearable kit for Intel Edison\n"
-"                                "
-msgstr ""
-
-#: templates/hardware.html:175
-msgid ""
-"\n"
-"                                    Xadow Wearable Kit for Intel Edison is a "
-"perfect kit to make wearable devices with Intel Edison. It includes an "
-"expansion board together with eight tiny and powerful Xadow modules, "
-"covering sensors, actuators, displays and communication parts. Based on the "
-"kit, you could build your own pedometer, thermometer and NFC enabled "
-"devices!\n"
 "                                "
 msgstr ""
 "\n"
@@ -614,9 +574,42 @@ msgid ""
 "                "
 msgstr ""
 
+#~ msgid "What kind of hardware will you guys have?"
+#~ msgstr "Quel type de hardware avez-vous?"
+
+#~ msgid "Who can participate?"
+#~ msgstr "Qui peut participer?"
+
 #~ msgid ""
-#~ "Ready to start your next project with us? That's great! Give us a call or "
-#~ "send us an email and we will get back to you as soon as possible!"
+#~ "\n"
+#~ "                  Anyone from anywhere in the world can attend WearHacks. "
+#~ "You don't have to be a programming or hardware whiz. We don’t even care "
+#~ "about your major or area of study. If you want to learn about wearable "
+#~ "technologies technologies, build something awesome and work with some of "
+#~ "the brightest young minds out there, we want you at WearHacks.\n"
+#~ "                "
 #~ msgstr ""
-#~ "Prêt à commencer votre prochain projet avec nous? Passez-nous un coup de "
-#~ "fil "
+#~ "\n"
+#~ "                  N'importe qui dans le monde peut assister à WearHacks. "
+#~ "Vous ne devez pas être ungénie de programmation ou de hardware. Nous ne "
+#~ "sommes pas soucieux de votre majeure ou de votre domaine d'étude. Si vous "
+#~ "voulez apprendre des choses sur les technologies portables, construire "
+#~ "quelque chose d'époustouflant ou travailler parmi des espritsjeunes et "
+#~ "doués, nous vous voulons à WearHacks.\n"
+#~ "                "
+
+#~ msgid ""
+#~ "\n"
+#~ "                  WearHacks is an international, student run hackathon "
+#~ "held in Montreal. A hackathon is an event where teams build cool stuff "
+#~ "together for 36 hours- sleep is optional, making awesome things is not. "
+#~ "WearHacks is focused on wearable and connected technologies.\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "                  Wearhacks est un hackathon international géré par des "
+#~ "étudiants. Un <emph> hackathon </emph> est un évènement où des équipes "
+#~ "construisent des projets intéressants ensemble pour 36 heures -- le "
+#~ "sommeil est facultatif, faire quelque chose de génial ne l'est pas. "
+#~ "Wearhacks est focalisé sur les technologies portables et connectées\n"
+#~ "                "

@@ -403,6 +403,7 @@ class SubmitRegistrationView(generic.View):
         from django.core.mail import send_mail, EmailMultiAlternatives
         from django.template import Context
         from django.template.loader import render_to_string
+        import os
 
         # create context 
         d = ConfirmationEmailView.get_extra_context(registration)
@@ -426,10 +427,18 @@ class SubmitRegistrationView(generic.View):
             tags.append('student')
         metadata = {'order_id': registration.order_id}
 
-        # with open('tmp/' + registration.order_id + '.txt', 'w') as f:
-        #     f.write(msg_plaintext)
-        # with open('tmp/' + registration.order_id + '.html', 'w') as f:
-        #     f.write(msg_html)
+        try:
+            fn = ''
+            directory = os.path.join(settings.SITE_ROOT, 'media', 'orders')
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            fn = os.path.join(directory, registration.order_id + '.html')
+            with open(fn, 'w') as f:
+                f.write(msg_html)
+        except Exception, e:
+            if fn:
+                print "Could not write to %s" % (fn)
+            print 'ERROR: %s' % (str(e))
 
         msg = EmailMultiAlternatives(
             subject=subject,

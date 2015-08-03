@@ -256,7 +256,7 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Canada/Eastern'
 
 USE_I18N = True
 

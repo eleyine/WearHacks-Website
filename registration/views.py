@@ -4,7 +4,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
 
 from django.contrib import messages
 from django.views import generic
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.utils import translation
 
@@ -18,6 +18,8 @@ from django.conf import settings
 
 import stripe
 from datetime import datetime
+
+from django.contrib.sites.shortcuts import get_current_site
 
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
@@ -43,21 +45,6 @@ class SubmitRegistrationView(generic.View):
             'stripe_public_key': self.get_stripe_public_key()
         }
         return render(request, self.template_name, context)
-
-    # hard-coded for now
-    # TODO: GET amount by is_student and created_at (for early birds)
-    def is_valid_amount(self, is_student, amount):
-        full_price = 2000 # in cents
-
-        early_bird_deadline = datetime.strptime('Sep 15 2015', '%b %d %Y')
-        is_early_bird = datetime.now() < early_bird_deadline
-
-        ratio_to_pay = 0.5 if is_early_bird else 1
-        ratio_to_pay = ratio_to_pay * 0.5 if is_student else ratio_to_pay
-
-        # keep it constant for now
-        is_valid = amount == ratio_to_pay * full_price
-        return is_valid
 
     @json_view
     def post(self, request, *args, **kwargs):
@@ -87,6 +74,24 @@ class SubmitRegistrationView(generic.View):
             request.POST["tshirt_size"] = 'M'
             request.POST['has_read_code_of_conduct'] = True
 
+        # add additional fields to request
+        request.POST['preferred_language'] = language
+
+        is_student = request.POST.get('is_student', False)
+        early_bird_deadline = datetime.strptime('Sep 15 2015', '%b %d %Y')
+        is_early_bird = datetime.now() < early_bird_deadline
+
+        request.POST['is_student'] = is_student
+        request.POST['is_early_bird'] = is_early_bird
+
+        ticket_description, ticket_price = Registration.get_ticket_info(
+                is_student=is_student,
+                is_early_bird=is_early_bird
+            )
+
+        request.POST['ticket_description'] = ticket_description
+        request.POST['ticket_price'] = ticket_price
+
         # check registration information
         registration_success= False
         registration_message = ''
@@ -101,8 +106,10 @@ class SubmitRegistrationView(generic.View):
 
         form_html = render_crispy_form(form)
 
+        # check amount is valid
         amount = int(request.POST.get('amount', 0))
-        if amount and not self.is_valid_amount(form.cleaned_data['is_student'], amount):
+        is_valid_amount = (amount == form.cleaned_data['ticket_price'])
+        if amount and not is_valid_amount:
             checkout_message = ''
             checkout_success = False
 
@@ -404,6 +411,72 @@ class SubmitRegistrationView(generic.View):
                     charge_attempt,
                     str(e)
                 )
+
+    def send_email(self, registration):
+        from django.core.mail import send_mail
+        from django.template import Context
+        from django.template.loader import render_to_string
+
+        c = Context({
+            'name': registration.first_name
+        })
+
+        f = open()
+
+        plaintext = render_to_string('registration/confirmation_email.txt', c)
+        htmly     = render_to_string('registration/confirmation_email.html', c)
+
+        subject = 'Thanks for signing up!'
+        from_email = "WearHacks Montreal <%s>" % settings.DEFAULT_FROM_EMAIL
+        to = registrtion.email
+
+        send_mail(
+            subject,
+            plaintext,
+            from_email,
+            to,
+            html_message=htmly,
+        )
+
+    def generate_pdf_ticket(self):
+        import cStringIO as StringIO
+        import ho.pisa as pisa
+        from django.template.loader import get_template
+        from django.template import Context
+        from django.http import HttpResponse
+        from cgi import escape
+
+
+        def render_to_pdf(template_src, context_dict):
+            template = get_template(template_src)
+            context = Context(context_dict)
+            html  = template.render(context)
+            result = StringIO.StringIO()
+
+            pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+            if not pdf.err:
+                return HttpResponse(result.getvalue(), content_type='application/pdf')
+            return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+
+class ConfirmationEmailView(generic.DetailView):
+    template_name = 'registration/confirmation_email.html'
+    model = Registration
+    context_object_name = 'r'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(generic.DetailView, self).get_context_data(**kwargs)
+        obj = context['object']
+        context['ticket_price_in_dollars'] = obj.ticket_price / float(100) if obj.ticket_price else 0
+        tshirt_size_choices = dict(Registration.TSHIRT_SIZE_CHOICES)
+        context['tshirt_size'] = tshirt_size_choices[obj.tshirt_size]
+        context['site_root'] = settings.HOSTS[0]
+        return context
+
+    def get_object(self, queryset=None):
+        # obj = get_object_or_404(Registration, order_id=self.kwargs['order_id'])
+        obj = Registration.objects.filter(order_id=self.kwargs['order_id']).first()
+        return obj
 
 # # Internationalization support
 # from django.views.decorators.http import last_modified

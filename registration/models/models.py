@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as __
+from django.conf import settings
 
 from django.core.validators import RegexValidator#, URLValidator
 from django.core.exceptions import ValidationError
@@ -86,7 +87,7 @@ class Registration(models.Model):
     linkedin = models.URLField(max_length=100, blank=True)
 
     # misc
-    food_restrictions = models.TextField(max_length=100, default="None.",
+    food_restrictions = models.TextField(max_length=100, default="None",
         verbose_name=_("Do you have any allergies or food restrictions?"))
     TSHIRT_SIZE_CHOICES = (
         # Translators: T-shirt sizes
@@ -101,7 +102,9 @@ class Registration(models.Model):
         )
     is_returning = models.BooleanField(default=False, verbose_name=_("Did you attend last year's event?"))
     is_first_time_hacker = models.BooleanField(default=False, verbose_name=_("Is this your first hackathon?"))
-
+    preferred_language = models.CharField(max_length=2, 
+        choices=settings.LANGUAGES, 
+        default=settings.LANGUAGE_CODE)
     # files
     RESUME_HELP_TEXT = "Not required but this might reach our sponsors for targeted employment opportunities.",
     MAX_UPLOAD_SIZE=2621440 # 2.5MB
@@ -128,8 +131,56 @@ class Registration(models.Model):
         help_text='True if a confirmation email was sent and the user was charged without error.',
     )
 
-    # payment
+    # Ticket Info
     charge = models.ForeignKey('ChargeAttempt', blank=True, null=True) #default=1)
+
+    is_early_bird = models.BooleanField(default=False)
+
+    TICKET_FULL_PRICE = 2000 # in cents
+    ticket_price = models.SmallIntegerField(default=0)
+    ticket_description = models.CharField(default='No ticket yet', max_length=100)
+
+    ORDER_ID_MAX_LENGTH = 6
+    order_id = models.CharField(default='xxx', max_length=ORDER_ID_MAX_LENGTH)
+
+
+    @staticmethod
+    def get_ticket_info(registration=None, is_early_bird=False, is_student=False):
+        from datetime import datetime
+
+        if registration:
+            is_early_bird = registration.is_early_bird
+            is_student = registration.is_student
+
+        # ticket price
+        full_price = Registration.TICKET_FULL_PRICE
+        ratio_to_pay = 0.5 if is_early_bird else 1
+        ratio_to_pay = ratio_to_pay * 0.5 if is_student else ratio_to_pay
+        price = full_price * ratio_to_pay
+
+        # ticket description
+        description = ''
+        if is_student:
+            if is_early_bird:
+                __('Ticket Description', 'Early Bird Student Ticket')
+            else:
+                __('Ticket Description', 'Student Ticket')
+        else:
+            if is_early_bird:
+                description = __('Ticket Description', 'Early Bird Ticket')
+            else:
+                description = __('Ticket Description', 'Ticket')
+
+        return (description, price)
+
+    @staticmethod
+    def generate_random_order_number():
+        n, generated, order_id = Registration.ORDER_ID_MAX_LENGTH, False, 'xxx'
+        while not generated:
+            order_id = ''.join(["%s" % randint(0, 9) for num in range(0, n)])
+            if not Registration.objects.filter(order_id=order_id).exists():
+                generated = True
+        return order_id
 
     class Meta:
         ordering = ('last_name', 'first_name')

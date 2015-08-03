@@ -218,6 +218,7 @@ def _update_permissions(debug=False, setup=False, only_static=False):
                 sudo('adduser django staticusers')
 
         # change permissions to static files
+        sudo('chown -R django %s' % (DJANGO_PROJECT_PATH))
         sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
         sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'media')))
 

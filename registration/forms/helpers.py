@@ -18,7 +18,6 @@ class PDFField(forms.FileField):
 
     }
 
-    required = False
     max_upload_size = 2621440 # 2MB
     content_types = ['application/pdf']
 

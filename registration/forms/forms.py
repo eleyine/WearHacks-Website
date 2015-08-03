@@ -32,12 +32,8 @@ class RegistrationForm(forms.ModelForm):
                 'has_read_code_of_conduct'
             )
 
-    resume = PDFField(required=False, 
-        label = _('Resume'),
-        help_text=Registration.RESUME_HELP_TEXT)
-    waiver = PDFField(required=False, 
-        label = _('Waiver'),
-        help_text=Registration.WAIVER_HELP_TEXT)
+    resume = PDFField(required=False, label = _('Resume'))
+    waiver = PDFField(required=False, label = _('Waiver'))
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)

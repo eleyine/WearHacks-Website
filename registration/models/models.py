@@ -20,7 +20,7 @@ class ChargeAttempt(models.Model):
     is_paid = models.BooleanField(default=False)
     is_captured = models.BooleanField(default=False)
 
-    status = models.CharField(max_length=100, default='Unknown')
+    status = models.CharField(max_length=100, default='No Status')
     source_id = models.CharField(max_length=29)
 
     # error logging (optional)
@@ -37,16 +37,20 @@ class ChargeAttempt(models.Model):
         help_text='The parameter the error relates to if the error is parameter-specific.')
     error_message = models.CharField(default='None', max_length=300,
         help_text='A human-readable message giving more details about the error.')
-    server_message = models.TextField(default='None', max_length=300,
+    SERVER_MESSAGE_MAX_LENGTH = 300
+    server_message = models.TextField(default='None', max_length=SERVER_MESSAGE_MAX_LENGTH,
         help_text='Message detailing internal server errors for debugging purposes')
 
     class Meta:
-        ordering = ('created_at',)
+        ordering = ('-created_at',)
 
     def __unicode__(self):
-        return 'Charge attempt by {0} on {1} [{2}]'.format(
-            self.email, self.created_at, 
-            self.charge_id, self.status)
+        if self.pk:
+            return '[{2}] Attempt #{3} by {0} [{1}]'.format(
+                self.email, self.charge_id, self.status, self.pk)
+        else:            
+            return '[{2}] Attempt (unsaved) by {0} [{1}]'.format(
+                self.email, self.charge_id, self.status)
 
 class Registration(models.Model):
     import re
@@ -110,8 +114,18 @@ class Registration(models.Model):
         validators = [validate_true])
     WAIVER_HELP_TEXT = "Not required but it will save us some time during registration."
     waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
-        help_text = __("Help text for waiver field", WAIVER_HELP_TEXT,
-        verbose_name = _('waiver')),
+        help_text = __("Help text for waiver field", WAIVER_HELP_TEXT),
+        verbose_name = _('waiver'),
+    )
+
+    is_email_sent = models.BooleanField(
+        default=False,
+        verbose_name= 'Was the confirmation email sent?',
+    )
+    is_valid = models.BooleanField(
+        default=False,
+        verbose_name= 'Is the registration valid?',
+        help_text='True if a confirmation email was sent and the user was charged without error.',
     )
 
     # payment
@@ -121,4 +135,7 @@ class Registration(models.Model):
         ordering = ('last_name', 'first_name')
 
     def __unicode__(self):
-        return '{0} {1}'.format(self.first_name, self.last_name)
+        if self.pk:
+            return '{0} {1} (#{2})'.format(self.first_name, self.last_name, self.pk)
+        else:
+            return '{0} {1} (Not saved)'.format(self.first_name, self.last_name)

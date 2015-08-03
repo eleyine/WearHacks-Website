@@ -187,6 +187,7 @@ DJANGO_APPS = (
     # Admin panel and documentation:
     'grappelli',
     'django.contrib.admin',
+    # 'django.contrib.admin.apps.SimpleAdminConfig',
     # 'django.contrib.admindocs',
 
     # Third-party apps
@@ -194,6 +195,7 @@ DJANGO_APPS = (
     'compressor',
     'crispy_forms',
     # 'djstripe'
+    'djrill',
 )
 
 # Apps specific for this project go here.

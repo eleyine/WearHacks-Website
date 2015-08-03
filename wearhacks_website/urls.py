@@ -4,9 +4,12 @@ from django.conf.urls.i18n import i18n_patterns
 from wearhacks_website import views
 
 from django.contrib import admin
+# from djrill import DjrillAdminSite
+
+# admin.site = DjrillAdminSite()
 admin.autodiscover()
 
-urlpatterns = patterns(
+urlpatterns = patterns('',
     # Examples:
     url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),

@@ -1,5 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
+
 from django.contrib import messages
 from django.views import generic
 from django.shortcuts import render
@@ -64,15 +66,26 @@ class SubmitRegistrationView(generic.View):
         translation.activate(language)
         request.LANGUAGE_CODE = language
         
+        charge_attempt = None
         checkout_success = False
+        success_message = ''
         checkout_message = 'Checkout not attempted yet.'
         fraud_attempt = False
         error_message = ''
         email = None
         server_error = False
         server_message_client = ''
-        server_message = ''
+        server_messages = []
         is_captured = False
+
+        if settings.DEBUG:
+            # auto fill some fields
+            request.POST["first_name"] = 'First'
+            request.POST["last_name"] = 'Last'
+            request.POST["gender"] = 'N'
+            request.POST["email"] = settings.EMAIL_HOST_USER
+            request.POST["tshirt_size"] = 'M'
+            request.POST['has_read_code_of_conduct'] = True
 
         # check registration information
         registration_success= False
@@ -95,12 +108,11 @@ class SubmitRegistrationView(generic.View):
 
             error_message = '</br>r u trying to hack us? u wot m8'
             fraud_attempt = True
-            server_message += "Fraud attempt: amount entered was %.2f$" % (amount * 0.01)
+            server_messages.append("Fraud attempt: amount entered was %.2f$" % (amount * 0.01))
 
         # attempt charge only if registration information is valid
         if registration_success and amount:
             token_id = request.POST.get('token_id', None)
-            charge_attempt = None
 
             if not token_id:
                 # no token id is sent during form prevalidation
@@ -207,7 +219,7 @@ class SubmitRegistrationView(generic.View):
                 else:
                     checkout_success = False
                     if not fraud_attempt:
-                        server_message += 'Charge object does not exist. '
+                        server_messages.append('Charge object does not exist. ')
 
                 if e and hasattr(e, 'json_body') and 'error' in e.json_body:
                     err = e.json_body['error']
@@ -237,7 +249,7 @@ class SubmitRegistrationView(generic.View):
                         is_captured = is_captured,
                         failure_message = failure_message or '',
                         failure_code = failure_code or '',
-                        server_message = server_message,
+                        server_message = ' / '.join(server_messages),
                         error_type = error_type or '',
                         error_code = error_code or '',
                         error_param = error_param or '',
@@ -257,7 +269,10 @@ class SubmitRegistrationView(generic.View):
                 if not checkout_success and not is_captured:
                     checkout_message += "</br><strong>Don't worry, you haven't been charged.</strong>"
 
+        new_regisration = None
         if registration_success and checkout_success and not server_error:
+
+            # Save registration
             try:
                 new_regisration = form.save()
                 new_regisration.charge = charge_attempt
@@ -266,8 +281,10 @@ class SubmitRegistrationView(generic.View):
                 server_error = True
                 checkout_success = False
                 server_message_client = self._get_server_error_message('Your registration could not be saved.')
-                server_message += 'Failed while saving registration form. (%s)' % (str(e)[:100])
+                server_messages.append('Failed while saving registration form.')
+                self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
 
+            # Charge user
             if not server_error:
                 try:
                     charge = stripe.Charge.retrieve(charge.id)
@@ -275,18 +292,71 @@ class SubmitRegistrationView(generic.View):
                     is_captured = True
                 except Exception, e:
                     server_error = True
-                    server_message_client = self._get_server_error_message('We could not charge you.', 
+                    server_message_client = self._get_server_error_message(
+                        'We could not charge you.', 
                         dont_worry=False)
+                    server_messages.append('Failed while capturing charge.')
+                    charge_attempt.is_captured = is_captured
+                    self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
 
-                    server_message += 'Failed while capturing charge. (%s) ' % (str(e)[:100])
+            # Send confirmation email
+            if not server_error:
+                try:
+                    send_mail("It works!", "This will get sent through Mandrill",
+                        "WearHacks Montreal <%s>" % settings.DEFAULT_FROM_EMAIL, [new_regisration.email])
 
-                if is_captured:
-                    charge_attempt.is_captured = True
-                    charge_attempt.save()
+                    # msg = EmailMessage(subject="Thank you for signing up!", 
+                    #     from_email="WearHacks Montreal <%s>" % settings.DEFAULT_FROM_EMAIL,
+                    #     to=[new_regisration.email])
+                    # msg.template_name = "SHIPPING_NOTICE"           # A Mandrill template name
+                    # msg.template_content = {                        # Content blocks to fill in
+                    #     'TRACKING_BLOCK': "<a href='.../*|TRACKINGNO|*'>track it</a>"
+                    # }
+                    # # Merge tags in your template
+                    # msg.global_merge_vars = {                       
+                    #     'ORDERNO': new_regisration.pk, 
+                    #     'TRACKINGNO': "1Z987"
+                    # }
+                    # # Per-recipient merge tags
+                    # merge_vars = {}
+                    # merge_vars[new_regisration.email] = {                           
+                    #     'NAME': new_regisration.first_name
+                    # }
+                    # msg.merge_vars = merge_vars
+                    # msg.send()
+                    success_message = 'A confirmation email will be sent shortly.'
 
-            else:
-                charge_attempt.server_message = server_message
-                charge_attempt.save()
+                except Exception, e:
+                    server_error = True
+                    checkout_success = False
+                    server_message_client = self._get_server_error_message(
+                        'Your confirmation email cannot be sent at the moment. '
+                        'Everything else went smoothly and your payment went through. '
+                        'Admins have been notified and we will send you a new confirmation email shortly.',
+                        dont_worry=False,
+                        )
+                    server_messages.append('Failed while sending confirmation email.')
+                    self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
+
+                if not server_error:
+                    try:
+                        new_regisration.is_email_sent = True
+                        new_regisration.save()
+                    except Exception, e:
+                        server_messages.append('Failed while setting is_email_sent to True in registration.')
+                        self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
+
+            # Setting registration as valid
+            if not server_error:
+                try:
+                    new_regisration.is_valid = True
+                    new_regisration.save()
+                except Exception, e:
+                    server_messages.append('Failed while setting is_valid to True in registration.')
+                    self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
+
+        elif charge_attempt and len(server_messages) > 0:
+            self._save_server_message_to_charge_attempt(charge_attempt, server_messages, None)
 
         response = {
             'server_message': server_message_client,
@@ -296,10 +366,11 @@ class SubmitRegistrationView(generic.View):
             'registration_message': registration_message,
             'checkout_message': checkout_message,
             'success': registration_success and checkout_success,
+            'success_message': success_message,
             'stripe_public_key': self.get_stripe_public_key()
         }
-        if server_message:
-            print server_message
+        if server_messages:
+            print ' / '.join(server_messages)
         response['form_html'] = form_html
 
         return response
@@ -317,6 +388,22 @@ class SubmitRegistrationView(generic.View):
         context = super(SubmitRegistrationView, self).get_context_data(**kwargs)
         context['form'] = RegistrationForm()
         return context
+
+    def _save_server_message_to_charge_attempt(self, charge_attempt, messages, e):
+        try:
+            if e:
+                server_message = '%s (%s)' % (' / '.join(messages), str(e)[:100])
+                print str(e)
+            else:
+                server_message = ' / '.join(messages)
+            charge_attempt.server_message = server_message[:ChargeAttempt.SERVER_MESSAGE_MAX_LENGTH-1]
+            charge_attempt.save()
+        except Exception, e:
+            print 'ERROR: Could not save server message %s to charge attempt %s (%a)' % (
+                    server_message,
+                    charge_attempt,
+                    str(e)
+                )
 
 # # Internationalization support
 # from django.views.decorators.http import last_modified

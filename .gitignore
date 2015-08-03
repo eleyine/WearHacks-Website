@@ -34,3 +34,5 @@ server_files/tmp.txt
 
 # Internationalization
 *.mo
+
+tmp/

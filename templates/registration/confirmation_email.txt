@@ -1,0 +1,44 @@
+{% load staticfiles %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+You're going to WearHacks Montreal 2015!
+
+Hi {{r.first_name}},
+
+We're glad you're joining us! We can't wait to see all the awesome stuff you'll build.
+
+Don't forget to print and bring your attached ticket to the event! 
+
+In the meantime, take a look at our FAQ at http://{{site_root}}/{{r.preferred_language}}/#faq and let others know you're going via Twitter or Facebook.
+
+Love,
+WearHacks Montreal Team
+http://{{site_root}}
+
+> ORDER SUMMARY
+
+Order #{{ r.order_id }} on {{ r.updated_at|date:"jS F Y H:i" }}
+
+Attendee: {{r.first_name}}{{r.last_name}} 
+Ticket: {{r.ticket_description}}	
+Total: ${{ticket_price_in_dollars|floatformat:2}}
+
+> WHEN
+
+October 2-4 2015 10:00 am - 5:00 pm
+
+> WHERE
+
+1448 Sherbrooke St W, Montreal, Quebec, H3G 1L2
+
+> ATTENDEE INFO
+
+Email: {{r.email}}
+T-Shirt Size: {{r.gender}} {{tshirt_size}}
+Payment status: {% if r.charge and r.charge.is_paid %}Paid{% else %}Not paid{% endif %}
+Food allergies and Restrictions: {{r.food_restrictions}}
+
+---
+For general inquiries, info@wearhacks.com
+View this email in your browser at http://{{site_root}}/{{r.preferred_language}}/register/confirmation/{{r.order_id}}/

@@ -106,7 +106,7 @@ class Registration(models.Model):
         choices=settings.LANGUAGES, 
         default=settings.LANGUAGE_CODE)
     # files
-    RESUME_HELP_TEXT = "Not required but this might reach our sponsors for targeted employment opportunities.",
+    RESUME_HELP_TEXT = "Not required but this might reach our sponsors for targeted employment opportunities."
     MAX_UPLOAD_SIZE=2621440 # 2.5MB
     resume = models.FileField(upload_to=get_resume_filename, blank=True, 
         verbose_name = _('resume'),
@@ -125,11 +125,6 @@ class Registration(models.Model):
         default=False,
         verbose_name= 'Was the confirmation email sent?',
     )
-    is_valid = models.BooleanField(
-        default=False,
-        verbose_name= 'Is the registration valid?',
-        help_text='True if a confirmation email was sent and the user was charged without error.',
-    )
 
     # Ticket Info
     charge = models.ForeignKey('ChargeAttempt', blank=True, null=True) #default=1)
@@ -140,9 +135,13 @@ class Registration(models.Model):
     ticket_price = models.SmallIntegerField(default=0)
     ticket_description = models.CharField(default='No ticket yet', max_length=100)
 
+    # Logistics
     ORDER_ID_MAX_LENGTH = 6
     order_id = models.CharField(default='xxx', max_length=ORDER_ID_MAX_LENGTH)
 
+    has_attended = models.BooleanField(default=False)
+    staff_comments = models.TextField(max_length=100, default="",
+        help_text='Log anything to do with this registration here.')
 
     @staticmethod
     def get_ticket_info(registration=None, is_early_bird=False, is_student=False):
@@ -162,9 +161,9 @@ class Registration(models.Model):
         description = ''
         if is_student:
             if is_early_bird:
-                __('Ticket Description', 'Early Bird Student Ticket')
+                description = __('Ticket Description', 'Early Bird Student Ticket')
             else:
-                __('Ticket Description', 'Student Ticket')
+                description = __('Ticket Description', 'Student Ticket')
         else:
             if is_early_bird:
                 description = __('Ticket Description', 'Early Bird Ticket')
@@ -174,7 +173,8 @@ class Registration(models.Model):
         return (description, price)
 
     @staticmethod
-    def generate_random_order_number():
+    def generate_order_id():
+        from random import randint
         n, generated, order_id = Registration.ORDER_ID_MAX_LENGTH, False, 'xxx'
         while not generated:
             order_id = ''.join(["%s" % randint(0, 9) for num in range(0, n)])

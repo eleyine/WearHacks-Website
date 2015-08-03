@@ -29,7 +29,7 @@ class RegistrationForm(forms.ModelForm):
                 'is_first_time_hacker',
                 'resume',
                 'waiver',
-                'has_read_code_of_conduct'
+                'has_read_code_of_conduct',
             )
 
     resume = PDFField(required=False, 

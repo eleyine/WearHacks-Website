@@ -29,21 +29,21 @@ class ChargeAttempt(models.Model):
 
     # error logging (optional)
     failure_message = models.CharField(default='No Error', max_length=200,
-        help_text='Charge object failure message')
+        help_text='Charge object failure message', blank=True)
     failure_code = models.CharField(default='200', max_length=200, 
-        help_text='Charge object failure code')
-    error_http_status = models.CharField(default='200', max_length=4)
+        help_text='Charge object failure code', blank=True)
+    error_http_status = models.CharField(default='200', max_length=4, blank=True)
     error_type = models.CharField(default='None', max_length=200,
-        help_text='The type of error returned. Can be invalid_request_error, api_error, or card_error')
+        help_text='The type of error returned. Can be invalid_request_error, api_error, or card_error', blank=True)
     error_code = models.CharField(default='None', max_length=200,
-        help_text='For card errors, a short string from amongst those listed on the right describing the kind of card error that occurred.')
+        help_text='For card errors, a short string from amongst those listed on the right describing the kind of card error that occurred.', blank=True)
     error_param = models.CharField(default='None', max_length=200,
-        help_text='The parameter the error relates to if the error is parameter-specific.')
+        help_text='The parameter the error relates to if the error is parameter-specific.', blank=True)
     error_message = models.CharField(default='None', max_length=300,
-        help_text='A human-readable message giving more details about the error.')
+        help_text='A human-readable message giving more details about the error.', blank=True)
     SERVER_MESSAGE_MAX_LENGTH = 300
     server_message = models.TextField(default='None', max_length=SERVER_MESSAGE_MAX_LENGTH,
-        help_text='Message detailing internal server errors for debugging purposes')
+        help_text='Message detailing internal server errors for debugging purposes', blank=True)
 
 
     def save_server_message(self, messages, exception=None):

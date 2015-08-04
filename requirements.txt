@@ -28,6 +28,7 @@ pycrypto==2.6.1
 pyPdf==1.13
 PyPDF2==1.25.1
 pytz==2015.4
+qrcode==5.1
 reportlab==2.7
 requests==2.7.0
 six==1.8.0

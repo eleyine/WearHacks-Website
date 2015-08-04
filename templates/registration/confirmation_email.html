@@ -195,7 +195,12 @@
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 We're glad you're joining us! We can't wait to see all the awesome stuff you'll build.</br>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
-                                <strong>Don't forget to print and bring this email to the event!</strong> </br>
+                                {% if r.ticket_file %}
+                                <strong>Don't forget to print and bring your ticket!</a></strong> 
+                                Open the email attachment or <a style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}{{r.ticket_file.url}}">download it here</a>.</br>
+                                {% else %}
+                                <strong>Don't forget to print and bring this email!</a></strong> 
+                                {% endif %}
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 We will update you with more details closer to the event.
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>

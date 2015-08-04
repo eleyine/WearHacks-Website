@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
 
@@ -20,6 +20,9 @@ import stripe
 from datetime import datetime
 
 from django.contrib.sites.shortcuts import get_current_site
+
+from django.template import Context
+from django.template.loader import render_to_string
 
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
@@ -312,8 +315,9 @@ class SubmitRegistrationView(generic.View):
             # Send confirmation email
             if not server_error:
                 try:
+                    TicketView.generate_pdf_ticket(registration=new_registration)
+                    print "Sending confirmation email..."
                     self.send_confirmation_email(new_registration)
-
                 except Exception, e:
                     server_error = True
                     checkout_success = False
@@ -373,20 +377,9 @@ class SubmitRegistrationView(generic.View):
         return context
 
     def _save_server_message_to_charge_attempt(self, charge_attempt, messages, e):
-        try:
-            if e:
-                server_message = '%s (%s)' % (' / '.join(messages), str(e)[:100])
-                print str(e)
-            else:
-                server_message = ' / '.join(messages)
-            charge_attempt.server_message = server_message[:ChargeAttempt.SERVER_MESSAGE_MAX_LENGTH-1]
-            charge_attempt.save()
-        except Exception, e:
-            print 'ERROR: Could not save server message %s to charge attempt %s (%a)' % (
-                    server_message,
-                    charge_attempt,
-                    str(e)
-                )
+        print e
+        if charge_attempt:
+            charge_attempt.save_server_message(messages, exception=e)
 
     def get_ticket_info(self, is_student):
         early_bird_deadline = datetime.strptime('Sep 15 2015', '%b %d %Y')
@@ -400,9 +393,6 @@ class SubmitRegistrationView(generic.View):
 
 
     def send_confirmation_email(self, registration):
-        from django.core.mail import send_mail, EmailMultiAlternatives
-        from django.template import Context
-        from django.template.loader import render_to_string
         import os
 
         # create context 
@@ -421,44 +411,45 @@ class SubmitRegistrationView(generic.View):
 
         # mandrill settings
         tags = ['registration confirmation']
+        if settings.DEBUG:
+            tags.append('test')
         if registration.is_early_bird:
             tags.append('early bird')
         else:
             tags.append('student')
         metadata = {'order_id': registration.order_id}
 
-        try:
-            fn = ''
-            directory = os.path.join(settings.SITE_ROOT, 'media', 'orders')
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-            fn = os.path.join(directory, registration.order_id + '.html')
-            with open(fn, 'w') as f:
-                f.write(msg_html)
-        except Exception, e:
-            if fn:
-                print "Could not write to %s" % (fn)
-            print 'ERROR: %s' % (str(e))
+        # ticket
+        ticket_file_path = os.path.join(settings.SITE_ROOT, registration.ticket_file.path)
+
+        print "Files all validated..."
+
+        # try:
+        #     fn = ''
+        #     directory = os.path.join(settings.SITE_ROOT, 'media', 'orders')
+        #     if not os.path.exists(directory):
+        #         os.makedirs(directory)
+        #     fn = os.path.join(directory, registration.order_id + '.html')
+        #     with open(fn, 'w') as f:
+        #         f.write(msg_html)
+        # except Exception, e:
+        #     if fn:
+        #         print "Could not write to %s" % (fn)
+        #     print 'ERROR: %s' % (str(e))
 
         msg = EmailMultiAlternatives(
             subject=subject,
             body=msg_plaintext,
             from_email=from_email,
             to=to,
+            reply_to=[from_email],
             headers=headers # optional extra headers
         )
         msg.attach_alternative(msg_html, "text/html")
+        msg.attach_file(ticket_file_path)
         msg.tags = tags
         msg.metadata = metadata
         msg.send()
-
-        # send_mail(
-        #     subject,
-        #     msg_plaintext,
-        #     from_email,
-        #     to,
-        #     html_message=msg_html,
-        # )
 
     def generate_pdf_ticket(self):
         import cStringIO as StringIO
@@ -480,6 +471,7 @@ class SubmitRegistrationView(generic.View):
                 return HttpResponse(result.getvalue(), content_type='application/pdf')
             return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 
+
 class ConfirmationEmailView(generic.DetailView):
     template_name = 'registration/confirmation_email.html'
     model = Registration
@@ -497,7 +489,8 @@ class ConfirmationEmailView(generic.DetailView):
             'tshirt_size': tshirt_size,
             'site_root': site_root,
             'r': registration,
-            'http': http
+            'http': http,
+            'pdf_file_path': 'some_path'
         }
         return d
 
@@ -512,6 +505,61 @@ class ConfirmationEmailView(generic.DetailView):
         # obj = get_object_or_404(Registration, order_id=self.kwargs['order_id'])
         obj = Registration.objects.filter(order_id=self.kwargs['order_id']).first()
         return obj
+
+class TicketView(ConfirmationEmailView):
+    template_name = 'registration/ticket.html'
+
+    def get_object(self, queryset=None):
+        obj = super(TicketView, self).get_object(queryset=queryset) 
+        return obj
+
+    def render_to_response(self, context, **response_kwargs):
+        from cgi import escape
+        pdf, result, html = TicketView.generate_pdf_ticket(context=context)
+        if not pdf.err:
+            return HttpResponse(result, content_type='application/pdf')
+        return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+
+    @staticmethod
+    def generate_pdf_ticket(registration=None, context=None, encoding='utf-8'):
+        from django.template.loader import get_template
+        from django.template import Context
+        import ho.pisa as pisa
+        import cStringIO as StringIO
+        from django.utils.six import BytesIO
+        from tempfile import TemporaryFile
+        from django.core.files import File
+
+        if not registration and not context:
+            raise Http404("Invalid arguments")
+
+        if not context:
+            d = ConfirmationEmailView.get_extra_context(registration)
+            context = Context(d)
+        template = get_template('registration/ticket.html')
+        html  = template.render(context)
+
+        if not registration:
+            registration = context['r']
+
+        result = StringIO.StringIO()
+        pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+        result = result.getvalue()
+
+        try:
+            file = TemporaryFile()
+            file.write(result)
+            registration.ticket_file = File(file)
+            registration.save()
+            file.close()
+        except Exception, e:
+            charge = registration.charge
+            if charge:
+                charge.save_server_message(
+                    ['Failed while saving ticket file'], exception=e)
+
+        return (pdf, result, html)
+
 
 # # Internationalization support
 # from django.views.decorators.http import last_modified

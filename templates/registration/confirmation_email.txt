@@ -10,7 +10,12 @@ We're glad you're joining us! We can't wait to see all the awesome stuff you'll 
 
 We will update you with more details closer to the event.
 
+{% if r.ticket_file %}
 Don't forget to print and bring your attached ticket to the event! 
+Or download it here: {{http}}{{site_root}}{{r.ticket_file.url}}.
+{% else %}
+Don't forget to print and bring this email to the event! 
+{% endif %}
 
 In the meantime, take a look at our FAQ at http://{{site_root}}/{{r.preferred_language}}/#faq and let others know you're going via Twitter or Facebook.
 

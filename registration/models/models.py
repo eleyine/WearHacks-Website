@@ -6,6 +6,9 @@ from django.conf import settings
 from django.core.validators import RegexValidator#, URLValidator
 from django.core.exceptions import ValidationError
 
+from django.core.urlresolvers import reverse
+from django.db.models import permalink
+
 from registration.models.helpers import *
 
 class ChargeAttempt(models.Model):
@@ -41,6 +44,26 @@ class ChargeAttempt(models.Model):
     SERVER_MESSAGE_MAX_LENGTH = 300
     server_message = models.TextField(default='None', max_length=SERVER_MESSAGE_MAX_LENGTH,
         help_text='Message detailing internal server errors for debugging purposes')
+
+
+    def save_server_message(self, messages, exception=None):
+        try:
+            server_message = ''
+            if self.server_message:
+                messages = [self.server_message] + list(messages)
+                print messages
+            if exception:
+                server_message = '%s (%s)' % ('\n> '.join(messages), str(exception)[:100])
+            else:
+                server_message = '\n> '.join(messages)
+            n = ChargeAttempt.SERVER_MESSAGE_MAX_LENGTH
+            if len(server_message) > n:
+                self.server_message = "...%s" % (server_message[-(n-3):])
+            print self.server_message
+            self.save()
+        except Exception, e:
+            print 'ERROR: Could not save server message %s to charge attempt %s (%s)' % (
+                    self.server_message, self, str(e))
 
     class Meta:
         ordering = ('-created_at',)
@@ -134,6 +157,7 @@ class Registration(models.Model):
     TICKET_FULL_PRICE = 2000 # in cents
     ticket_price = models.SmallIntegerField(default=0)
     ticket_description = models.CharField(default='No ticket yet', max_length=100)
+    ticket_file = models.FileField(upload_to=get_ticket_filename, blank=True)
 
     # Logistics
     ORDER_ID_MAX_LENGTH = 6
@@ -181,6 +205,9 @@ class Registration(models.Model):
             if not Registration.objects.filter(order_id=order_id).exists():
                 generated = True
         return order_id
+
+    def get_absolute_url(self):
+        return reverse("confirmation_email", kwargs={'order_id': str(self.order_id)})
 
     class Meta:
         ordering = ('last_name', 'first_name')

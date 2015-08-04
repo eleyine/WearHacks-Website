@@ -396,18 +396,20 @@ class SubmitRegistrationView(generic.View):
                 self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
 
             # Charge user
+            is_captured = False
             if not server_error:
                 try:
                     charge = stripe.Charge.retrieve(charge.id)
                     charge.capture()
                     is_captured = True
+                    charge_attempt.is_captured = is_captured
+                    charge_attempt.save()
                 except Exception, e:
                     server_error = True
                     server_message_client = self._get_server_error_message(
                         'We could not charge you.', 
                         dont_worry=False)
                     server_messages.append('Failed while capturing charge.')
-                    charge_attempt.is_captured = is_captured
                     self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
 
             # Send confirmation email

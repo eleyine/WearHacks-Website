@@ -415,6 +415,7 @@ class SubmitRegistrationView(generic.View):
             # Send confirmation email
             if not server_error:
                 try:
+                    QRCodeView.generate_qr_code(registration=new_registration)
                     TicketView.generate_pdf_ticket(registration=new_registration)
                     print "Sending confirmation email..."
                     self.send_confirmation_email(new_registration)

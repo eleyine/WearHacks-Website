@@ -1,20 +1,28 @@
+"""
+This file must be copied and renamed to private.py
+It contains sensitive / deployment-specific settings
+Do not make it public!
+"""
+from __future__ import absolute_import
 import os
-
-# This file must be copied and renamed to private.py
-# It contains sensitive / deployment-specific settings
-# Do not make it public!
+from .common import SITE_NAME
 
 # Username on remote
 ENV_USER = 'root'
 
 # Remote hosts
+# The first item will be used as the url domain when making 
+# absolute urls (e.g. in the email confirmation)
 HOSTS = ( 
     'YourHostIP', # e.g. '45.55.216.44'
     )
 
 ALLOWED_HOSTS = (
     '.example.com',  # Allow domain and subdomains
+    '.example.com.', 
     )
+
+SITE_NAME = 'Example Website'
 
 ########## SECRET CONFIGURATION
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -26,9 +34,9 @@ SECRET_KEY = os.environ.get(
 ########## END SECRET CONFIGURATION
 
 ########## STRIPE
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY',
+LIVE_STRIPE_SECRET_KEY = os.environ.get('LIVE_STRIPE_SECRET_KEY',
     'sk_provided_by_stripe')
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY',
+LIVE_STRIPE_PUBLIC_KEY = os.environ.get('LIVE_STRIPE_PUBLIC_KEY',
     'pk_provided_by_stripe')
 
 TEST_STRIPE_SECRET_KEY = os.environ.get('TEST_STRIPE_SECRET_KEY',
@@ -63,3 +71,31 @@ IS_STRIPE_LIVE = False
 #     }
 # }
 # ########## END DATABASE CONFIGURATION
+
+########## EMAIL / MANDRILL
+MANDRILL_API_KEY = "your_mandrill_api_key"
+EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend' 
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.mandrillapp.com')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', MANDRILL_API_KEY)
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'user@example.com')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = '[%s] ' % SITE_NAME
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
+EMAIL_USE_TLS = True
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#server-email
+SERVER_EMAIL = EMAIL_HOST_USER
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+########## END EMAIL / MANDRILL

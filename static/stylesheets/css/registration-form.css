@@ -12,10 +12,12 @@
   padding-left: 0;
 }
 
-#about-you .checkbox label {
+
+.checkbox label {
   padding-left: 0;
 }
 
+#confirm .text,
 #register .text,
 #checkout .text {
    margin-left: 10px;
@@ -46,4 +48,9 @@
 
 #logo {
     width: 100%;
+}
+
+.waiver{
+  padding: 5px 0 15px 0;
+  font-size: 15px;
 }

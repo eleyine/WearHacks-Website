@@ -1,0 +1,21 @@
+{% load staticfiles %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{LANGUAGE_CODE}}">
+<head>
+<title>Registration Confirmation</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style type="text/css"></style>
+</head>
+
+
+<body style="margin: 0; padding:0">
+
+
+<div>
+<img style="padding: 100px 0 100px 0; margin: 100px 0 100px 0;" src="{{http}}{{site_root}}{{ r.qrcode_file.url }}" width="200px"/>
+</div>

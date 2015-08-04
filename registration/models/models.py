@@ -158,6 +158,7 @@ class Registration(models.Model):
     ticket_price = models.SmallIntegerField(default=0)
     ticket_description = models.CharField(default='No ticket yet', max_length=100)
     ticket_file = models.FileField(upload_to=get_ticket_filename, blank=True)
+    qrcode_file = models.FileField(upload_to=get_qrcode_filename, blank=True)
 
     # Logistics
     ORDER_ID_MAX_LENGTH = 6
@@ -167,6 +168,13 @@ class Registration(models.Model):
     staff_comments = models.TextField(max_length=100, default="",
         help_text='Log anything to do with this registration here.')
 
+    @property
+    def has_submitted_waiver(self):
+        print "waiver", self.waiver
+        print bool(self.waiver)
+        print 'name', self.waiver.name
+        return bool(self.waiver)
+    
     @staticmethod
     def get_ticket_info(registration=None, is_early_bird=False, is_student=False):
         from datetime import datetime
@@ -205,6 +213,22 @@ class Registration(models.Model):
             if not Registration.objects.filter(order_id=order_id).exists():
                 generated = True
         return order_id
+
+    def get_confirmation_url(self):
+        """
+        Staff-only url to confirm registration
+        """
+        url = reverse("confirm-registration", kwargs={'order_id': str(self.order_id)})
+        full_url = ''.join([settings.HTTP_PREFIX, settings.HOSTS[0], url])
+        return full_url 
+
+    def get_qrcode_url(self):
+        """
+        Access hacker mobile ticket
+        """
+        url = reverse("qrcode", kwargs={'order_id': str(self.order_id)})
+        full_url = ''.join([settings.HTTP_PREFIX, settings.HOSTS[0], url])
+        return full_url 
 
     def get_absolute_url(self):
         return reverse("confirmation_email", kwargs={'order_id': str(self.order_id)})

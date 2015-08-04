@@ -9,7 +9,56 @@ from registration.forms.helpers import PDFField
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as __
-from registration.forms.helpers import get_registration_button_html
+from registration.forms.helpers import get_registration_button_html, get_confirm_button_html
+
+class ConfirmRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Registration
+        fields = (
+                'first_name',
+                'last_name',
+                'gender',
+                'is_student',
+                'school',
+                'food_restrictions',
+                'tshirt_size',
+                'is_returning',
+                'is_first_time_hacker',
+                'has_attended',
+            )
+
+    def __init__(self, *args, **kwargs):
+        super(ConfirmRegistrationForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'registration-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = 'register'
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col-lg-7'
+
+
+        self.helper.layout = Layout(
+            Fieldset(
+                _('Attendee Information'),
+                'first_name',
+                'last_name',
+                'gender',
+                'is_student',
+                'school',
+                'tshirt_size',
+                'is_returning',
+                'is_first_time_hacker',
+                Field('food_restrictions', rows=1),
+                css_class="attendee-info"
+            ),
+            Fieldset(
+                _('Staff Actions'),
+                'has_attended',
+                css_class = 'staff-actions'
+            ),
+            HTML(get_confirm_button_html())
+        )
 
 class RegistrationForm(forms.ModelForm):
     class Meta:

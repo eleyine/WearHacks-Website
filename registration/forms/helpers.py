@@ -93,6 +93,38 @@ def get_registration_button_html():
 
     return html
 
+def get_confirm_button_html():
+    html = """
+    <div class="row"><div class="col-xs-12 col-sm-7 col-sm-offset-3 text-center checkout-wrapper">
+        <span id="confirmation-error" class="help-block hide message message-error">
+            <strong>%(confirmation_failure_message)s</strong>
+        </span>
+        <span id="server-error" class="help-block hide message message-error"><
+            strong>%(temporary_server_problem)s</strong>
+        </span>
+        <span id="checkout-error" class="help-block hide message message-error">
+            <strong>%(checkin_failure_message)s</strong>
+        </span>
+        <span id="success-message" class="help-block hide message message-success">
+            <strong>%(success_message)s</strong>
+        </span>
+        <a id="confirm" class="confirmation-form-action confirm-action mobile btn btn-lg btn-block btn-primary">
+            <i class="fa fa-lock hide"></i><i class="fa fa-paper-plane"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> 
+        <span class="text"> %(confirm)s</span></a>
+    </div>
+    """
+
+    html = html % {
+        'confirmation_failure_message': _('Confirmation Failure Message'),
+        'confirm': _('Confirm'),
+        'temporary_server_problem': _('Temporary problem with our server'),
+        'checkin_failure_message': _('Checkin Failure Message'),
+        'success_message': _('Success'),
+        }
+    # __('Placeholder value'
+
+    return html
+
 
 
 

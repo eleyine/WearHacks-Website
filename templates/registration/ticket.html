@@ -52,15 +52,17 @@
                                 
                             </table>
                         </td>
-                        <td>
+                        <td width="180px" align="right">
                             <!-- Ticket header right panel -->
-                            <table width="100px" cellpadding="10px">
+                            <table  cellpadding="0px">
                                 <tr>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img style="padding: 100px 0 100px 0; margin: 100px 0 100px 0;" src="{{http}}{{site_root}}{% static 'images/logo.png' %}" width="100px"/>
+                                        {% if r.qrcode_file %}
+                                        <img src="{{http}}{{site_root}}{{ r.qrcode_file.url }}" width="180px"/>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             </table>

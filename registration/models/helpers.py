@@ -15,6 +15,12 @@ def get_ticket_filename(instance, old_filename):
         'tickets', basename )
     return filename
 
+def get_qrcode_filename(instance, old_filename):
+    basename = '%s.png' % (instance.order_id)
+    filename = os.path.join(os.path.dirname(old_filename), 
+        'qrcodes', basename )
+    return filename
+
 
 def get_filename(instance, old_filename, directory=''):
     # add time to differentiate between two registrees with the same first/last names

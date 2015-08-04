@@ -622,6 +622,7 @@ class TicketView(ConfirmationEmailView):
 
     def render_to_response(self, context, **response_kwargs):
         from cgi import escape
+        QRCodeView.generate_qr_code(registration=context["r"])
         pdf, result, html = TicketView.generate_pdf_ticket(context=context)
         if not pdf.err:
             return HttpResponse(result, content_type='application/pdf')
@@ -698,7 +699,7 @@ class QRCodeView(ConfirmationEmailView):
         if not registration:
             registration = context['r']
 
-        img = qrcode.make(data=registration.get_qrcode_url(), version=3)
+        img = qrcode.make(data=registration.get_confirmation_url(), version=3)
         img_io = StringIO.StringIO()
         img.save(img_io)
 

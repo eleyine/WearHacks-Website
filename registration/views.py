@@ -481,7 +481,10 @@ class ConfirmationEmailView(generic.DetailView):
     def get_extra_context(registration):
         ticket_price = registration.ticket_price / float(100) if registration.ticket_price else 0
         tshirt_size_choices = dict(Registration.TSHIRT_SIZE_CHOICES)
-        tshirt_size = tshirt_size_choices[registration.tshirt_size]
+        if registration.tshirt_size:
+            tshirt_size = tshirt_size_choices[registration.tshirt_size]
+        else:
+            tshirt_size = 'Unknown'
         site_root = settings.HOSTS[0]
         http = settings.HTTP_PREFIX
         d = {
@@ -489,8 +492,7 @@ class ConfirmationEmailView(generic.DetailView):
             'tshirt_size': tshirt_size,
             'site_root': site_root,
             'r': registration,
-            'http': http,
-            'pdf_file_path': 'some_path'
+            'http': http
         }
         return d
 

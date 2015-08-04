@@ -158,7 +158,7 @@ class Registration(models.Model):
     ticket_price = models.SmallIntegerField(default=0)
     ticket_description = models.CharField(default='No ticket yet', max_length=100)
     ticket_file = models.FileField(upload_to=get_ticket_filename, blank=True)
-    qrcode_file = models.FileField(upload_to=get_qrcode_filename, blank=True)
+    qrcode_file = models.FileField(upload_to=get_qrcode_filename, blank=True, storage=OverwriteStorage())
 
     # Logistics
     ORDER_ID_MAX_LENGTH = 6

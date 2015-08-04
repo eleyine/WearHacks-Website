@@ -680,8 +680,6 @@ class QRCodeView(ConfirmationEmailView):
         if 'qrcode_file' in context.keys() and not context['qrcode_file'] \
             and registration.qrcode_file:
             context["qrcode_file"] = registration.qrcode_file.url
-        print "Qr code"
-        print context['qrcode_file']
         return super(QRCodeView, self).render_to_response(context, **response_kwargs)
 
     @staticmethod

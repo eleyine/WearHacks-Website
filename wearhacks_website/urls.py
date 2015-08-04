@@ -4,9 +4,12 @@ from django.conf.urls.i18n import i18n_patterns
 from wearhacks_website import views
 
 from django.contrib import admin
+# from djrill import DjrillAdminSite
+
+# admin.site = DjrillAdminSite()
 admin.autodiscover()
 
-urlpatterns = patterns(
+urlpatterns = patterns('',
     # Examples:
     url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
@@ -39,4 +42,9 @@ if settings.DEBUG:
     # static files (images, css, javascript, etc.)
     urlpatterns += patterns('',
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT}))
+        'document_root': settings.MEDIA_ROOT}),
+    )
+    urlpatterns += patterns(
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.STATIC_ROOT}),
+        )

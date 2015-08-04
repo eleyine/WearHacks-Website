@@ -11,11 +11,18 @@
   float: left;
   padding-left: 0;
 }
-
+#confirmation-form-container section{
+  padding: 10px 0 0 0;
+}
+#confirmation-form-container {
+margin-top: 10px;
+}
+#confirmation-form .checkbox label,
 #about-you .checkbox label {
   padding-left: 0;
 }
 
+#confirm .text,
 #register .text,
 #checkout .text {
    margin-left: 10px;
@@ -46,4 +53,9 @@
 
 #logo {
     width: 100%;
+}
+
+.waiver{
+  padding: 5px 0 15px 0;
+  font-size: 15px;
 }

@@ -218,6 +218,7 @@ def _update_permissions(debug=False, setup=False, only_static=False):
                 sudo('adduser django staticusers')
 
         # change permissions to static files
+        sudo('chown -R django %s' % (DJANGO_PROJECT_PATH))
         sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
         sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'media')))
 
@@ -353,6 +354,8 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
                 if mode == 'dev':
                     run('rm -rf wearhacks_website/db.sqlite3')
                 else:
+                    with settings(warn_only=True):
+                        run('rm -rf registration/migrations')
                     run('python manage.py sqlclear registration | python manage.py dbshell ')
 
             if mode == 'prod':
@@ -546,6 +549,13 @@ def get_media(deploy_to=DEFAULT_DEPLOY_TO):
         local('mkdir -p %s' % (log_dir))
     with settings(hide('warnings')): 
         get(remote_path="%s/media" % (DJANGO_PROJECT_PATH), local_path="%s" % (log_dir))
+
+def generate_registrations(n=3, mode=DEFAULT_MODE):
+    env_variables = _get_env_variables(mode=mode) 
+    with shell_env(**env_variables):
+        with cd(DJANGO_PROJECT_PATH):
+            print 'Generating %i random registration...' % (n)
+            run('python manage.py generate_registrations %i' % (n))
 
 def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     """

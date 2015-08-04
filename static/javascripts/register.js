@@ -210,14 +210,16 @@
       $('.checkout-action').addClass('disabled btn-danger');
     }
 
-    function displayThankYouButton() {
+    function displayThankYouButton(message) {
       $('.checkout-wrapper .fa').addClass('hide');
       $('.checkout-wrapper .fa-check').removeClass('hide');
       $('.checkout-action').removeClass('waiting');
       $('#checkout .text').text(strThankYou);
       $('.checkout-action').removeClass('btn-primary').addClass('disabled btn-success');
       setTimeout(function(){ 
-        $('#success-message').removeClass('hide').text("Eventually send a confirmation email");
+        if (message) {
+          $('#success-message').removeClass('hide').text(message);
+        }
       }, 2000);
     }
     function displayServerError(message) {
@@ -292,7 +294,11 @@
                         }
                       } else {
                         // both registration and checkout have succeeded
-                        displayThankYouButton();
+                        if (data["success_message"]) {
+                          displayThankYouButton(data["success_message"]);
+                        } else {
+                          displayThankYouButton();                          
+                        }
                       }
                     }
                   },

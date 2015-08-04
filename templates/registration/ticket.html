@@ -1,0 +1,107 @@
+{% load staticfiles %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{LANGUAGE_CODE}}">
+<head>
+<title>Registration Confirmation</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style type="text/css"></style>
+</head>
+
+
+<body style="margin: 0; padding:0">
+
+
+<div>
+    <!-- Ticket wrapper -->
+    <table width="500px" style="border: 3px solid #1e699c; border-collapse: collapse;" >
+        <tr>
+            <td>
+                <!-- Ticket header wrapper -->
+                <table  width="500px">
+                    <tr>
+                        <td width="400px"> 
+                            <!-- Ticket header left panel -->
+                            <table width="400px" cellpadding="10px">
+                                <tr>
+                                    <td width="100px"><!-- Ticket header logo -->
+                                        <table >
+                                            <tr><td>
+                                            <img style="padding: 100px 0 100px 0; margin: 100px 0 100px 0;" src="{{http}}{{site_root}}{% static 'images/logo.png' %}" width="100px"/>
+                                            </td></tr>
+                                        </table>
+                                    </td>
+                                    <td width="300px"><!-- Ticket header event info -->
+                                        <table>
+                                            <tr style="font-size: 20px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
+                                                <td>WearHacks Montreal</td>
+                                            </tr>
+                                            <tr style="font-size: 13px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
+                                                <td>Oct 2-4 2015</td>
+                                            </tr>
+                                            <tr style="font-size: 13px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
+                                                <td>Venue TBD </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </td>
+                        <td width="180px" align="right">
+                            <!-- Ticket header right panel -->
+                            <table  cellpadding="0px">
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {% if r.qrcode_file %}
+                                        <img src="{{http}}{{site_root}}{{ r.qrcode_file.url }}" width="180px"/>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Ticket footer wrapper -->
+                <table style="background-color: #1e699c; color: #fff;" height="250px" width="500px" cellpadding="10px" color="white">
+                    <tr>
+                        <td width="300px">
+                            <!-- Ticket footer left panel -->
+                            <table width="400px">
+                                <tr style="font-size: 18px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
+                                    <td>{{r.first_name}} {{r.last_name}}</td>
+                                </tr>
+                                <tr style="font-size: 14px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
+                                    <td>{{r.ticket_description}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="200px" align="right">
+                            <!-- Ticket header right panel -->
+                            <table align="right">
+                                <tr>
+                                    <td>Order Info</td>
+                                </tr>
+                                <tr>
+                                    <td>#{{r.order_id}} @ {{ r.updated_at|date:"jS F Y H:i" }}</td>
+                                </tr>
+                            </table>
+                        </td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

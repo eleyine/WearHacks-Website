@@ -51,7 +51,7 @@ class PDFField(forms.FileField):
 
 def get_registration_button_html():
     html = """
-    <div class="row"><div class="col-xs-12 col-sm-7 col-sm-offset-3 text-center checkout-wrapper">
+    <div class="row"><div class="col-xs-12 col-sm-8 col-sm-offset-2 text-center checkout-wrapper">
         <span id="registration-error" class="help-block hide message message-error">
             <strong>%(registration_failure_message)s</strong>
         </span>
@@ -87,6 +87,39 @@ def get_registration_button_html():
         'success_message': _('Success'),
         'checkout': _('Checkout'),
         'payment_handled_by_stripe': _('Payment is handled by <a target="_blank" href="https://stripe.com/ca">Stripe</a>. We do not have acces to your card information.')
+        }
+    # __('Placeholder value'
+
+    return html
+
+def get_confirm_button_html():
+    html = """
+    <div class="row"><div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">
+        <span id="confirmation-error" class="help-block hide message message-error">
+            <strong>%(confirmation_failure_message)s</strong>
+        </span>
+        <span id="server-error" class="help-block hide message message-error"><
+            strong>%(temporary_server_problem)s</strong>
+        </span>
+        <span id="checkout-error" class="help-block hide message message-error">
+            <strong>%(checkin_failure_message)s</strong>
+        </span>
+        <span id="success-message" class="help-block hide message message-success">
+            <strong>%(success_message)s</strong>
+        </span>
+        <a id="confirm" class="confirmation-form-action confirm-action mobile btn btn-lg btn-block btn-primary">
+            <i class="fa fa-lock hide"></i><i class="fa fa-paper-plane"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> 
+        <span class="text"> %(confirm)s</span></a>
+    </div>
+    </div>
+    """
+
+    html = html % {
+        'confirmation_failure_message': _('Confirmation Failure Message'),
+        'confirm': _('Confirm'),
+        'temporary_server_problem': _('Temporary problem with our server'),
+        'checkin_failure_message': _('Checkin Failure Message'),
+        'success_message': _('Success'),
         }
     # __('Placeholder value'
 

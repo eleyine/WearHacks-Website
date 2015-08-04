@@ -23,6 +23,8 @@ SITE_ROOT = dirname(DJANGO_ROOT)
 # Site name:
 SITE_NAME = basename(DJANGO_ROOT)
 
+HTTP_PREFIX = 'http://'
+
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
 path.append(DJANGO_ROOT)
@@ -187,6 +189,7 @@ DJANGO_APPS = (
     # Admin panel and documentation:
     'grappelli',
     'django.contrib.admin',
+    # 'django.contrib.admin.apps.SimpleAdminConfig',
     # 'django.contrib.admindocs',
 
     # Third-party apps
@@ -194,6 +197,7 @@ DJANGO_APPS = (
     'compressor',
     'crispy_forms',
     # 'djstripe'
+    'djrill',
 )
 
 # Apps specific for this project go here.
@@ -252,7 +256,7 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Canada/Eastern'
 
 USE_I18N = True
 

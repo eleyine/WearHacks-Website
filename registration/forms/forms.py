@@ -17,7 +17,6 @@ class ConfirmRegistrationForm(forms.ModelForm):
         fields = (
                 'first_name',
                 'last_name',
-                'gender',
                 'is_student',
                 'school',
                 'food_restrictions',
@@ -30,7 +29,7 @@ class ConfirmRegistrationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ConfirmRegistrationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_id = 'registration-form'
+        self.helper.form_id = 'confirmation-form'
         self.helper.form_method = 'post'
         self.helper.form_action = 'register'
         self.helper.form_class = 'form-horizontal'
@@ -39,25 +38,24 @@ class ConfirmRegistrationForm(forms.ModelForm):
 
 
         self.helper.layout = Layout(
-            Fieldset(
-                _('Attendee Information'),
-                'first_name',
-                'last_name',
-                'gender',
-                'is_student',
-                'school',
-                'tshirt_size',
-                'is_returning',
-                'is_first_time_hacker',
-                Field('food_restrictions', rows=1),
-                css_class="attendee-info"
-            ),
+            HTML(get_confirm_button_html()),
             Fieldset(
                 _('Staff Actions'),
                 'has_attended',
                 css_class = 'staff-actions'
             ),
-            HTML(get_confirm_button_html())
+            Fieldset(
+                _('Attendee Information'),
+                'first_name',
+                'last_name',
+                'is_student',
+                'school',
+                Field('food_restrictions', rows=1),
+                'tshirt_size',
+                'is_returning',
+                'is_first_time_hacker',
+                css_class="attendee-info"
+            ),
         )
 
 class RegistrationForm(forms.ModelForm):

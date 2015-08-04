@@ -8,6 +8,7 @@ from django.views import generic
 from django.shortcuts import render, get_object_or_404
 
 from django.utils import translation
+from django.utils.decorators import method_decorator
 
 from registration.models import Registration, ChargeAttempt
 from registration.forms import RegistrationForm, ConfirmRegistrationForm
@@ -30,6 +31,10 @@ class ConfirmRegistrationView(generic.DetailView):
     model = Registration
     form_class = ConfirmRegistrationForm
 
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ConfirmRegistrationView, self).dispatch(request, *args, **kwargs)
+
     def get_object(self, queryset=None):
         # obj = get_object_or_404(Registration, order_id=self.kwargs['order_id'])
         obj = Registration.objects.filter(order_id=self.kwargs['order_id']).first()
@@ -41,8 +46,6 @@ class ConfirmRegistrationView(generic.DetailView):
         context['form'] = ConfirmRegistrationForm(instance=context['registration'])
         d = ConfirmRegistrationView.get_extra_context(context["registration"])
         context.update(d)
-        print "GET >>>"
-        print context["registration"].has_attended
         return context
 
     @staticmethod

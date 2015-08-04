@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="registration-form-container">
+<div id="confirmation-form-container">
 <section>
 <div class="header-content">
     <div class="header-content-inner">
@@ -28,7 +28,37 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-offset-1 col-xs-10 text-center">
-                    <h3>{% trans "Registration Check In" %}</h3>
+                    <h3>
+                    {% if registration %}
+                        {% if registration.is_returning %}
+                            Great to have you back, {{registration.first_name}}
+                        {% elif not registration.is_first_time_hacker %}
+                            {{registration.first_name}} checkin' in</br>
+                            <small>Plus, it's
+                            {% if registration.gender == 'M' %}
+                            his
+                            {% elif registration.gender == 'F' %}
+                            her
+                            {% else %}
+                            their
+                            {% endif %}
+                            first time at a hackathon.</small>
+                        {% else %}
+                            {{registration.first_name}} in the house</br>
+                            <small>
+                            {% if registration.gender == 'M' %}
+                            he's
+                            {% elif registration.gender == 'F' %}
+                            She's
+                            {% else %}
+                            They're
+                            {% endif %}
+                             a seasoned hacker.</small>                            
+                        {% endif %}
+                    {% else %}
+                        Check In
+                    {% endif %}
+                    </h3>
                     </div>
                 </div>
             </div>

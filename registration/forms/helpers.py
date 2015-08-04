@@ -52,7 +52,7 @@ class PDFField(forms.FileField):
 
 def get_registration_button_html():
     html = """
-    <div class="row"><div class="col-xs-12 col-sm-7 col-sm-offset-3 text-center checkout-wrapper">
+    <div class="row"><div class="col-xs-12 col-sm-8 col-sm-offset-2 text-center checkout-wrapper">
         <span id="registration-error" class="help-block hide message message-error">
             <strong>%(registration_failure_message)s</strong>
         </span>
@@ -95,7 +95,7 @@ def get_registration_button_html():
 
 def get_confirm_button_html():
     html = """
-    <div class="row"><div class="col-xs-12 col-sm-7 col-sm-offset-3 text-center checkout-wrapper">
+    <div class="row"><div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center checkout-wrapper">
         <span id="confirmation-error" class="help-block hide message message-error">
             <strong>%(confirmation_failure_message)s</strong>
         </span>
@@ -111,6 +111,7 @@ def get_confirm_button_html():
         <a id="confirm" class="confirmation-form-action confirm-action mobile btn btn-lg btn-block btn-primary">
             <i class="fa fa-lock hide"></i><i class="fa fa-paper-plane"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> 
         <span class="text"> %(confirm)s</span></a>
+    </div>
     </div>
     """
 

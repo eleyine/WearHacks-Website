@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 08:40-0400\n"
+"POT-Creation-Date: 2015-08-05 13:13-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,110 +134,110 @@ msgstr "Paiement échoué"
 msgid "This field must be checked"
 msgstr "Cette case doit être cochée"
 
-#: models/models.py:81
+#: models/models.py:80
 msgid "Only letters are allowed."
 msgstr "Seules les lettres sont autorisées."
 
-#: models/models.py:84
+#: models/models.py:83
 msgid "first name"
 msgstr "Prénom"
 
-#: models/models.py:86
+#: models/models.py:85
 msgid "last name"
 msgstr "Nom de famille"
 
-#: models/models.py:88
+#: models/models.py:87
 msgid "Male"
 msgstr "Masculin"
 
-#: models/models.py:89
+#: models/models.py:88
 msgid "Female"
 msgstr "Féminin"
 
 #. Translators: Gender information
-#: models/models.py:91
+#: models/models.py:90
 msgid "Other / I prefer not to disclose"
 msgstr "Autre / Je préfère ne pas le signaler"
 
-#: models/models.py:96
+#: models/models.py:95
 msgid "gender"
 msgstr "Sexe"
 
-#: models/models.py:103
+#: models/models.py:102
 msgid "Are you a student?"
 msgstr "Êtes-vous étudiant?"
 
-#: models/models.py:105
+#: models/models.py:104
 msgid "Where do/did you go to school?"
 msgstr "Nom du collège / de l'université"
 
-#: models/models.py:108
+#: models/models.py:107
 msgid "email"
 msgstr "courriel"
 
-#: models/models.py:114
+#: models/models.py:113
 msgid "Do you have any allergies or food restrictions?"
 msgstr "Avez-vous des allergies ou des restrictions alimentaires?"
 
 #. Translators: T-shirt sizes
-#: models/models.py:117
+#: models/models.py:116
 msgid "Small"
 msgstr "Petit"
 
-#: models/models.py:118
+#: models/models.py:117
 msgid "Medium"
 msgstr "Moyen"
 
-#: models/models.py:119
+#: models/models.py:118
 msgid "Large"
 msgstr "Grand"
 
-#: models/models.py:120
+#: models/models.py:119
 msgid "X-Large"
 msgstr "Très Grand"
 
-#: models/models.py:124
+#: models/models.py:123
 msgid "T-Shirt size"
 msgstr "Taille de T-shirt"
 
-#: models/models.py:126
+#: models/models.py:125
 msgid "Did you attend last year's event?"
 msgstr "Avez-vous assisté au hackathon de l'année dernière?"
 
-#: models/models.py:127
+#: models/models.py:126
 msgid "Is this your first hackathon?"
 msgstr "Est-ce votre premier hackathon?"
 
-#: models/models.py:135
+#: models/models.py:134
 msgid "resume"
 msgstr "CV"
 
-#: models/models.py:139
+#: models/models.py:138
 msgid "I have read the <a href=\"#\" target=\"_blank\">Code of Conduct.</a>"
 msgstr "J'ai bien lu le <a href=\"#\" target=\"_blank\">Code de Conduite.</a>"
 
-#: models/models.py:144
+#: models/models.py:143
 msgid "waiver"
 msgstr "Renonciation"
 
 #. Translators: Ticket descriptions
-#: models/models.py:161
+#: models/models.py:160
 msgid "No ticket yet"
 msgstr "Pas de billet encore"
 
-#: models/models.py:162
+#: models/models.py:161
 msgid "Regular Ticket"
 msgstr "Billet Régulier"
 
-#: models/models.py:163
+#: models/models.py:162
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
 
-#: models/models.py:164
+#: models/models.py:163
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt Étudiant"
 
-#: models/models.py:165
+#: models/models.py:164
 msgid "Early Bird Student Ticket"
 msgstr "Billet Lève-Tôt"
 
@@ -334,7 +334,7 @@ msgstr "Hâte de te voir à WearHacks"
 msgid "WearHacks Montreal Team <montreal@wearhacks.com>"
 msgstr "Équipe WearHacks à Montréal <montreal@wearhacks.com>"
 
-#: views.py:582 views.py:641
+#: views.py:582 views.py:643
 #, python-format
 msgid "We had some errors<pre>%s</pre>"
 msgstr "Nous éprouvons des difficultés<pre>%s</pre>"
@@ -343,6 +343,6 @@ msgstr "Nous éprouvons des difficultés<pre>%s</pre>"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: views.py:654 views.py:706
+#: views.py:656 views.py:708
 msgid "Invalid arguments"
 msgstr "Arguments invalides"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 08:40-0400\n"
+"POT-Creation-Date: 2015-08-05 13:13-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -195,21 +195,39 @@ msgid "How much will WearHacks cost me?"
 msgstr "Combien va me coûter WearHacks?"
 
 #: templates/faq.html:58
+#, python-format
 msgid ""
 "\n"
-"                  For the first 180 persons, WearHacks will absolutely free! "
-"Price of admission is a \"can do\" attitude and a burning desire to get shit "
-"done. After that first 180 tickets are gone, the price will be $15 a ticket, "
-"with a *wink* special discount for student hackers. Contact us to get the "
-"discount code. :)\n"
+"                  Students attend at a 75%% discount before September 1 - "
+"only $5!<br>\n"
+"                  Starting September 1, students get a 50%% discount - only "
+"$10!<br>\n"
+"                  Non-student hackers who want to attend are welcome and get "
+"a 50%% discount before September 1 - only $10!<br>\n"
+"                  Starting September 1,  non-student hackers can attend for "
+"only $20. <br>\n"
+"                  <strong>This covers all costs of attending - food will be "
+"provided.</strong> See you there! :)\n"
 "                "
 msgstr ""
+"\n"
+"                  Les étudiants ont une remise de 75%% avant le 1er "
+"Septembre - seulement $5!<br>\n"
+" À partir du 1er September, les étudiants auront une remise de 50%% - "
+"seulement $10!<br>\n"
+"Les non-étudiants sont aussi les bienvenus et auront une remise de 50%% "
+"avant le 1er Septembre.<br>\n"
+"À partir du 1er Septembre, les non-étudiants peuvent assister pour seulement "
+"20$.<br>\n"
+"<strong>Tout est compris dans les frais d'inscriptions y compris la "
+"nourriture.</strong> Au plaisir de vous voir! :)\n"
+"                "
 
-#: templates/faq.html:69
+#: templates/faq.html:73
 msgid "What about food?"
 msgstr "Et qu'en est-il de la nourriture?"
 
-#: templates/faq.html:75
+#: templates/faq.html:79
 msgid ""
 "\n"
 "                  We've got that covered. Breakfast, lunch, dinner, snacks "
@@ -221,54 +239,55 @@ msgstr ""
 "souper, grignotines et boissons seront servis. Approvisionnés localement.\n"
 "                "
 
-#: templates/faq.html:86
+#: templates/faq.html:90
 msgid "What should I know before coming to the event?"
 msgstr "Que devrais-je savoir avant mon arrivée à l'événement?"
 
-#: templates/faq.html:92
+#: templates/faq.html:96
 msgid "Code of Conduct"
 msgstr "Code de Conduite"
 
-#: templates/faq.html:92
+#: templates/faq.html:96
 msgid "and"
 msgstr "et"
 
-#: templates/faq.html:92
+#: templates/faq.html:96
 msgid "Reporting procedures"
 msgstr "les Procédures de Déclaration des Incidents"
 
-#: templates/faq.html:93
+#: templates/faq.html:97
 msgid "Terms and conditions </a> for the event"
 msgstr "Conditions Générales</a> de l'évènement"
 
-#: templates/faq.html:94
+#: templates/faq.html:98
 msgid "Resume Collection and Privacy Policy"
 msgstr "Utilisation et Politique de Confidentialité des curriculum vitaes"
 
-#: templates/faq.html:103
+#: templates/faq.html:107
 msgid "I don’t have a team or an idea!"
 msgstr "Je n'ai pas d'équipe ou d'idée!"
 
-#: templates/faq.html:109
+#: templates/faq.html:113
 msgid ""
 "\n"
-"                  Not a problem. Sign up on the WearHacks SparkBoard. You "
-"can join projects if you don't have an idea or create a project if you have "
-"an idea but no team. Either way, you're good to go!\n"
+"                  Not a problem. You can join projects if you don't have an "
+"idea or create a project if you have an idea but no team at the event. There "
+"will be a little mingling on Friday night - time for brainstorming and team "
+"forming. Either way, you're good to go!\n"
 "                "
 msgstr ""
 "\n"
-"                  Pas de problèmes. Inscrivez-vous sur WearHacks Sparkboard. "
-"Vous pourriez alors vous joindre à des projets si vous n'avez pas d'idée ou "
-"créer un projet si vous avez une idée mais pas d'équipe. Dans tous les cas, "
-"vous n'avez pas de soucis à vous faire!\n"
+"                  Pas de problème. Tu peux rejoindre des projets si tu n'as "
+"pas d'idée ou créer un projet si tu as une idée mais pas d'équipe. Il y aura "
+"une session de réseautage vendredi soir pour faire du brainstorming et "
+"former les équipes. Dans tous les cas, tu n'as pas de soucis à te faire!\n"
 "                "
 
-#: templates/faq.html:120
+#: templates/faq.html:128
 msgid "How many people can be on my team?"
 msgstr "Combien de personnes peuvent être dans mon équipe?"
 
-#: templates/faq.html:126
+#: templates/faq.html:134
 msgid ""
 "\n"
 "                  We do not have any specific requirements for team sizes, "
@@ -283,11 +302,11 @@ msgstr ""
 "encourageons la diversité.\n"
 "                "
 
-#: templates/faq.html:141
+#: templates/faq.html:145
 msgid "What should I bring?"
 msgstr "Qu'est-ce que je dois ramener?"
 
-#: templates/faq.html:147
+#: templates/faq.html:151
 msgid ""
 "\n"
 "                  A laptop and cables/chargers are the essentials. If you "
@@ -304,12 +323,12 @@ msgstr ""
 "de couchage et accessoires de toilette.\n"
 "                "
 
-#: templates/faq.html:158
+#: templates/faq.html:162
 msgid "Can I start working on my project before WearHacks?"
 msgstr ""
 "Est-ce que je peux commencer à travailler sur mon projet avant WearHacks?"
 
-#: templates/faq.html:164
+#: templates/faq.html:168
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -339,11 +358,11 @@ msgstr ""
 "APIs que nos sponsors nous ont offerts, alors restez à l'écoute!\n"
 "                "
 
-#: templates/faq.html:175
+#: templates/faq.html:179
 msgid "How does judging work?"
 msgstr "Comment marche la procédure de séléction?"
 
-#: templates/faq.html:181
+#: templates/faq.html:185
 msgid ""
 "\n"
 "                  A group of judges will rate the hacks based on creativity, "
@@ -366,11 +385,13 @@ msgstr ""
 "l'arbitrage plus tard, ainsi que les prix octroyés.\n"
 "                "
 
-#: templates/faq.html:192
-msgid "I have a question that is not listed here."
+#: templates/faq.html:196
+#, fuzzy
+#| msgid "I have a question that is not listed here."
+msgid "I have a question that is not listed here. How can I contact you?"
 msgstr "J'ai une question mais elle n'est pas incluse ici."
 
-#: templates/faq.html:198
+#: templates/faq.html:202
 msgid ""
 "\n"
 "                Feel free to reach out to us on <a href=\"//twitter.com/"
@@ -501,7 +522,7 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/header.html:26 templates/registration/confirmation_email.html:144
+#: templates/header.html:26 templates/registration/confirmation_email.html:149
 #: templates/registration/form.html:32
 msgid "The Biggest Wearable Hackathon in North-America"
 msgstr ""
@@ -566,15 +587,15 @@ msgstr "Contact"
 msgid "Registration Confirmation"
 msgstr "Formulaire d'inscription"
 
-#: templates/registration/confirmation_email.html:171
+#: templates/registration/confirmation_email.html:176
 msgid "You're going to WearHacks Montreal 2015!"
 msgstr "Tu t'en vas à WearHacks Montréal 2015!"
 
-#: templates/registration/confirmation_email.html:193
+#: templates/registration/confirmation_email.html:198
 msgid "Hi"
 msgstr "Salut"
 
-#: templates/registration/confirmation_email.html:196
+#: templates/registration/confirmation_email.html:201
 msgid ""
 "We're glad you're joining us! We can't wait to see all the awesome stuff "
 "you'll build."
@@ -582,126 +603,126 @@ msgstr ""
 "Il nous fait grand plaisir de t'accueillir à WearHacks Montréal! On a hâte "
 "de voir les projets déjantés que vous allez tous nous concocter."
 
-#: templates/registration/confirmation_email.html:199
+#: templates/registration/confirmation_email.html:204
 msgid "Don't forget to print and bring your ticket!"
 msgstr "N'oublie pas d'imprimer et de ramener ton billet!"
 
-#: templates/registration/confirmation_email.html:200
+#: templates/registration/confirmation_email.html:205
 msgid "Open the email attachment or "
 msgstr "Ouvre le billet attaché à ce courriel ou "
 
-#: templates/registration/confirmation_email.html:200
+#: templates/registration/confirmation_email.html:205
 msgid "download it here"
 msgstr "télécharge-le ici"
 
-#: templates/registration/confirmation_email.html:202
+#: templates/registration/confirmation_email.html:207
 msgid "Don't forget to print and bring this email!"
 msgstr "N'oublie pas d'imprimer et de ramener ce courriel avec toi!"
 
-#: templates/registration/confirmation_email.html:205
+#: templates/registration/confirmation_email.html:210
 msgid "We will update you with more details closer to the event."
 msgstr ""
 "On va vous donner davantage de détails lorsqu'on se rapprochera de "
 "l'évènement."
 
-#: templates/registration/confirmation_email.html:207
+#: templates/registration/confirmation_email.html:212
 msgid "In the meantime, take a look at "
 msgstr "Entre temps, jette un coup d'oeil à "
 
-#: templates/registration/confirmation_email.html:207
+#: templates/registration/confirmation_email.html:212
 msgid "our FAQ"
 msgstr "nos questions fréquentes"
 
-#: templates/registration/confirmation_email.html:207
+#: templates/registration/confirmation_email.html:212
 msgid " and let others know you're going via "
 msgstr " et informe les autres que tu viens à WearHacks via "
 
-#: templates/registration/confirmation_email.html:207
+#: templates/registration/confirmation_email.html:212
 msgid " or "
 msgstr " ou "
 
-#: templates/registration/confirmation_email.html:210
+#: templates/registration/confirmation_email.html:215
 msgid "Love,"
 msgstr "Bien à toi,"
 
-#: templates/registration/confirmation_email.html:212
+#: templates/registration/confirmation_email.html:217
 msgid "WearHacks Montreal Team"
 msgstr "Équipe WearHacks Montréal"
 
-#: templates/registration/confirmation_email.html:226
+#: templates/registration/confirmation_email.html:231
 msgid "Event Website"
 msgstr "Site web de l'évènement"
 
-#: templates/registration/confirmation_email.html:253
+#: templates/registration/confirmation_email.html:258
 msgid "Order Summary"
 msgstr "Bilan"
 
-#: templates/registration/confirmation_email.html:258
+#: templates/registration/confirmation_email.html:263
 msgid "Order"
 msgstr "Ordre"
 
-#: templates/registration/confirmation_email.html:269
+#: templates/registration/confirmation_email.html:274
 msgid "Attendee"
 msgstr "Invité"
 
-#: templates/registration/confirmation_email.html:270
+#: templates/registration/confirmation_email.html:275
 msgid "Ticket"
 msgstr "Billet"
 
-#: templates/registration/confirmation_email.html:313
+#: templates/registration/confirmation_email.html:318
 msgid "When"
 msgstr "Quand"
 
-#: templates/registration/confirmation_email.html:318
+#: templates/registration/confirmation_email.html:323
 msgid "October 2-4 2015"
 msgstr "2-4 Octobre 2014"
 
-#: templates/registration/confirmation_email.html:318
+#: templates/registration/confirmation_email.html:323
 msgid "Detailed Schedule"
 msgstr "Horaire Détaillé"
 
-#: templates/registration/confirmation_email.html:346
+#: templates/registration/confirmation_email.html:351
 msgid "Where"
 msgstr "Où"
 
-#: templates/registration/confirmation_email.html:351
+#: templates/registration/confirmation_email.html:356
 msgid "We will send you an email update with the venue."
 msgstr ""
 "On vous enverra un courriel pour vous tenir au courant du l'emplacement."
 
-#: templates/registration/confirmation_email.html:379
+#: templates/registration/confirmation_email.html:384
 msgid "Attendee info"
 msgstr "Infos de l'Invité"
 
-#: templates/registration/confirmation_email.html:384
+#: templates/registration/confirmation_email.html:389
 msgid "Email"
 msgstr "Courriel"
 
-#: templates/registration/confirmation_email.html:392
+#: templates/registration/confirmation_email.html:397
 msgid "T-Shirt Size"
 msgstr "Taille du T-Shirt"
 
-#: templates/registration/confirmation_email.html:400
+#: templates/registration/confirmation_email.html:405
 msgid "Payment status"
 msgstr "Status du Paiement"
 
-#: templates/registration/confirmation_email.html:404
+#: templates/registration/confirmation_email.html:409
 msgid "Paid"
 msgstr "Payé"
 
-#: templates/registration/confirmation_email.html:406
+#: templates/registration/confirmation_email.html:411
 msgid "Not paid"
 msgstr "Non payé"
 
-#: templates/registration/confirmation_email.html:413
+#: templates/registration/confirmation_email.html:418
 msgid "Food allergies and Restrictions"
 msgstr "Allergies et restrictions alimentaires"
 
-#: templates/registration/confirmation_email.html:439
+#: templates/registration/confirmation_email.html:444
 msgid "For general inquiries"
 msgstr "Pour plus d'infos"
 
-#: templates/registration/confirmation_email.html:440
+#: templates/registration/confirmation_email.html:445
 msgid "View this email in your browser"
 msgstr "Voir ce courriel sur ton navigateur"
 

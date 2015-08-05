@@ -618,6 +618,8 @@ class ConfirmationEmailView(generic.DetailView):
         context = super(generic.DetailView, self).get_context_data(**kwargs)
         d = ConfirmationEmailView.get_extra_context(context['object'])
         context.update(d)
+        # Regenerate ticket
+        TicketView.generate_pdf_ticket(registration=context['object'], context=context)
         return context
 
     def get_object(self, queryset=None):

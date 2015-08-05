@@ -85,7 +85,7 @@
                                     <td>{{r.first_name|stripaccents}} {{r.last_name|stripaccents}}</td>
                                 </tr>
                                 <tr style="font-size: 14px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
-                                    <td>{{r.ticket_description|stripaccents}} </td>
+                                    <td>{{r.get_ticket_description_display|stripaccents}} </td>
                                 </tr>
                             </table>
                         </td>

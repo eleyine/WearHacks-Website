@@ -158,6 +158,7 @@ class Registration(models.Model):
     ticket_price = models.SmallIntegerField(default=0)
     TICKET_DESCRIPTION_CHOICES = (
         # Translators: Ticket descriptions
+        ('N', _('No ticket yet')),
         ('R', _('Regular Ticket')),
         ('S', _('Student Ticket')),
         ('ER', _('Early Bird Ticket')),

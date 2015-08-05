@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 07:06-0400\n"
+"POT-Creation-Date: 2015-08-05 08:40-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,18 +222,22 @@ msgstr "Renonciation"
 
 #. Translators: Ticket descriptions
 #: models/models.py:161
+msgid "No ticket yet"
+msgstr "Pas de billet encore"
+
+#: models/models.py:162
 msgid "Regular Ticket"
 msgstr "Billet Régulier"
 
-#: models/models.py:162
+#: models/models.py:163
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
 
-#: models/models.py:163
+#: models/models.py:164
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt Étudiant"
 
-#: models/models.py:164
+#: models/models.py:165
 msgid "Early Bird Student Ticket"
 msgstr "Billet Lève-Tôt"
 

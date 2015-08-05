@@ -339,7 +339,7 @@
     }
 
     function isEarlyBird() {
-      return Date.today() < new Date("9/15/2015");
+      return Date.today() < new Date("9/01/2015");
     }
 
     function getChargeAmount() {

@@ -48,10 +48,10 @@ class ChargeAttempt(models.Model):
 
     def save_server_message(self, messages, exception=None):
         try:
+            print 'Saving message to server...'
             server_message = ''
             if self.server_message:
                 messages = [self.server_message] + list(messages)
-                print messages
             if exception:
                 server_message = '%s (%s)' % ('\n> '.join(messages), str(exception)[:100])
             else:
@@ -59,7 +59,6 @@ class ChargeAttempt(models.Model):
             n = ChargeAttempt.SERVER_MESSAGE_MAX_LENGTH
             if len(server_message) > n:
                 self.server_message = "...%s" % (server_message[-(n-3):])
-            print self.server_message
             self.save()
         except Exception, e:
             print 'ERROR: Could not save server message %s to charge attempt %s (%s)' % (
@@ -201,9 +200,8 @@ class Registration(models.Model):
 
         # ticket description
         choices = dict(Registration.TICKET_DESCRIPTION_CHOICES)
-        key = 'E' if is_early_bird else ''
-        key += 'S' if is_student else 'R'
-        description = choices[key]
+        description = 'E' if is_early_bird else ''
+        description += 'S' if is_student else 'R'
         return (description, price)
 
     @staticmethod

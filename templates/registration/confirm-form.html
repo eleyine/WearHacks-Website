@@ -94,7 +94,7 @@
 <!-- ?v=00001 ensures it doesn't get cached. Should remove this in production. -->
 <script type="text/javascript" >
 window.order_id = "{{ order_id }}";
-window.has_submitted_waiver = "{{ has_submitted_waiver }}";
+{# window.has_submitted_waiver = "{{ has_submitted_waiver }}"; #}
 </script>
 <script type="text/javascript" src="{% static 'bower_components/datejs/build/production/date-en-CA.min.js' %}"></script>
 {% endcompress %}

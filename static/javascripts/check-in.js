@@ -25,11 +25,11 @@
           .attr("href", window.code_of_conduct)
           .attr("target", "_blank");
         $(".checkboxinput").bootstrapSwitch();  
-        if (window.has_submitted_waiver == "True") {
-          $("fieldset.attendee-info").prepend('<div class="waiver message-success"><i class="fa fa-check"></i> Attendee submitted waiver.</div>');
-        } else {
-          $("fieldset.attendee-info").prepend('<div class="waiver message-error"><i class="fa fa-remove"></i> Attendee didn\'t submit a waiver.</div>');
-        }
+        // if (window.has_submitted_waiver == "True") {
+        //   $("fieldset.attendee-info").prepend('<div class="waiver message-success"><i class="fa fa-check"></i> Attendee submitted waiver.</div>');
+        // } else {
+        //   $("fieldset.attendee-info").prepend('<div class="waiver message-error"><i class="fa fa-remove"></i> Attendee didn\'t submit a waiver.</div>');
+        // }
     }
 
     function checkin() {

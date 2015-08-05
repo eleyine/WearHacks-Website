@@ -32,7 +32,7 @@
     var strEarlyBird = pgettext("Make sure you keep the trailing space", 'Early Bird Ticket ');
     var strStudent = pgettext("Make sure you keep the trailing space", "Student ");
     var strRegular = pgettext('Regular ticket, make sure to keep trailing space', 'Ticket ');
-    var strDiscount = pgettext('Discount text', '%i%% Off');
+    var strDiscount = _('%(percent)s% Off');
     var strOrgName = pgettext('Name that appears on Stripe popout', 'WearHacks Montreal 2015');
     var strStripeInAction = _('Stripe doing its magic');
     var strCompletingRegistration = _('Completing registration');
@@ -46,7 +46,6 @@
     var strGreatYouHaveADiscount = _('Great! You have a 50%% discount.');
 
     function makeDiscountHintElement() {
-        console.log(strGreatYouHaveADiscount);
         var elemYouHaveADiscount = '<div class="controls col-lg-6 hide"' +
         ' id="hint_id_is_student"><p class="help-block message-success"><i class="fa ' +
         'fa-check"></i><strong> ' + strGreatYouHaveADiscount + '</strong></p></div>';
@@ -192,6 +191,9 @@
     function stylisticTweaks() {
         $(".conduct ~ a")
           .attr("href", window.code_of_conduct)
+          .attr("target", "_blank");
+        $(".waiver ~ a")
+          .attr("href", window.waiver)
           .attr("target", "_blank");
         $("#about-you .checkboxinput").bootstrapSwitch();
         $("#div_id_is_student .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
@@ -364,7 +366,9 @@
         description = isBird? strTicketStudentEarlyBirdDescription: strTicketStudentDescription;
       } 
       var p = getPercentDiscount();
-      var description = (p > 0)? description + interpolate(strDiscount, p): description;
+      var description = (p > 0)? description + ' (' + interpolate(strDiscount, {'percent': p}, true) + ')': description;
+      console.log(p);
+      console.log(interpolate(strDiscount, p));
       handler.open({
         name: strOrgName,
         description: description,

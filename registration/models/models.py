@@ -142,6 +142,9 @@ class Registration(models.Model):
         help_text = __("Help text for waiver field", WAIVER_HELP_TEXT),
         verbose_name = _('waiver'),
     )
+    has_read_waiver = models.BooleanField(default=False, 
+        verbose_name = _('I have read the <a href="#" target="_blank">Waiver.</a>'),
+        validators = [validate_true])
 
     is_email_sent = models.BooleanField(
         default=False,

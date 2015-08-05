@@ -75,12 +75,12 @@ class RegistrationForm(forms.ModelForm):
                 'is_returning',
                 'is_first_time_hacker',
                 'resume',
-                'waiver',
+                'has_read_waiver',
                 'has_read_code_of_conduct',
             )
 
-    resume = PDFField(required=False, label = _('Resume'))
-    waiver = PDFField(required=False, label = _('Waiver'))
+    resume = PDFField(required=False, label = _('Resume'),
+        help_text=_('Not required but this might reach our sponsors for targeted employment opportunities.'))
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -124,8 +124,8 @@ class RegistrationForm(forms.ModelForm):
                 _('Misc.'),
                 'tshirt_size',
                 Field('food_restrictions', rows=2),
-                'waiver'
             ),
+            Field('has_read_waiver', css_class="waiver"),
             Field('has_read_code_of_conduct', css_class="conduct"),
             HTML(get_registration_button_html())
         )

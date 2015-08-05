@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 06:59-0400\n"
+"POT-Creation-Date: 2015-08-05 07:06-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgstr "Difficultés temporaires avec notre serveur"
 
 #: forms/helpers.py:86
 msgid "Checkout Failure Message"
-msgstr "Payment échoué"
+msgstr "Paiement échoué"
 
 #: forms/helpers.py:87 forms/helpers.py:122
 msgid "Success"
@@ -105,14 +105,14 @@ msgstr "Succès"
 
 #: forms/helpers.py:88
 msgid "Checkout"
-msgstr "Procéder au payment"
+msgstr "Procéder au paiement"
 
 #: forms/helpers.py:89
 msgid ""
 "Payment is handled by <a target=\"_blank\" href=\"https://stripe.com/ca"
 "\">Stripe</a>. We do not have acces to your card information."
 msgstr ""
-"Le payment est pris en charge par <a target=\"_blank\"  href=\"https://"
+"Le paiement est pris en charge par <a target=\"_blank\"  href=\"https://"
 "stripe.com/ca\">Stripe</a>. Nous n'avons pas accès aux informations de votre "
 "carte de crédit."
 
@@ -128,7 +128,7 @@ msgstr "Confirmer"
 #, fuzzy
 #| msgid "Checkout Failure Message"
 msgid "Checkin Failure Message"
-msgstr "Payment échoué"
+msgstr "Paiement échoué"
 
 #: models/helpers.py:38
 msgid "This field must be checked"

@@ -1,12 +1,29 @@
+{% load staticfiles %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
+<!-- Current Language: {{ LANGUAGE_CODE }} -->
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<!-- Current Language: {{ LANGUAGE_CODE }} -->
+<meta name="author" content="Eleyine Zarour">
 <meta http-equiv="content-language" content="{{ LANGUAGE_CODE }}">
+<meta name="description" content="Promoting innovation and entrepreneurship in Wearable Technology and Internet of Things around the globe.">
 
+<meta name="msapplication-TileColor" content="#1e699c">
+<meta name="theme-color" content="#1e699c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- Open Graph -->
+<head prefix="og: http://ogp.me/ns#">
+<meta property="og:description" content="WearHacks promotes innovation and entrepreneurship in Wearable Technology and Internet of Things all over the world. We empower hackers* all over the world with tools, resources and connections, so they can build anything they can imagine - from a tweeting lamp to a Wearables startup.">
+<meta property="og:title" content="WearHacks Montreal: Innovation in Wearables and IoT">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="{% static "/images/meta/shared.jpg" %}">
+<meta property="og:image:type" content="image/jpeg">
 {% block extra_meta %}{% endblock %}

@@ -163,7 +163,7 @@ class Registration(models.Model):
         ('ER', _('Early Bird Ticket')),
         ('ES', _('Early Bird Student Ticket')),
         )
-    ticket_description = models.CharField(default='No ticket yet', 
+    ticket_description = models.CharField(default=TICKET_DESCRIPTION_CHOICES[0][0], 
         choices=TICKET_DESCRIPTION_CHOICES, max_length=2)
     ticket_file = models.FileField(upload_to=get_ticket_filename, blank=True)
     qrcode_file = models.FileField(upload_to=get_qrcode_filename, blank=True, storage=OverwriteStorage())

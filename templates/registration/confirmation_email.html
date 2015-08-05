@@ -202,14 +202,14 @@
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 {% if r.ticket_file %}
                                 <strong>{% trans "Don't forget to print and bring your ticket!" %}</a></strong> 
-                                {% trans "Open the email attachment or " %}<a style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}{{r.ticket_file.url}}">{% trans "download it here" %}</a>.</br>
+                                {% trans "Open the email attachment or " %}<a target="_blank" style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}{{r.ticket_file.url}}">{% trans "download it here" %}</a>.</br>
                                 {% else %}
                                 <strong>{% trans "Don't forget to print and bring this email!" %}</a></strong> 
                                 {% endif %}
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 {% trans "We will update you with more details closer to the event." %}
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
-                                {% trans "In the meantime, take a look at " %}<a style="color:#337ab7; text-decoration: none;" href="{{http}}wearhacks.eleyine.com/#faq">{% trans "our FAQ" %}</a>{% trans " and let others know you're going via " %}<a style="color:#337ab7; text-decoration: none;" href="#">Twitter</a>{% trans " or " %}<a style="color:#337ab7; text-decoration: none;" href="#">Facebook</a>.</br>
+                                {% trans "In the meantime, take a look at " %}<a target="_blank" style="color:#337ab7; text-decoration: none;" href="{{http}}wearhacks.eleyine.com/#faq">{% trans "our FAQ" %}</a>{% trans " and let others know you're going via " %}<a target="_blank" style="color:#337ab7; text-decoration: none;" href="https://twitter.com/intent/tweet?text={{"Join me at #WearHacksMTL to see and create the most jaw-dropping hacks in #WearableTech!"|urlencode}}&url={{"http://www.montreal.wearhacks.com"|urlencode}}&via=WearHacks">Twitter</a>{% trans " or " %}<a style="color:#337ab7; text-decoration: none;" target="_blank" href="https://www.facebook.com/wearhacks" >Facebook</a>.</br>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 {% trans "Love," %}
@@ -320,7 +320,7 @@
                                         </tr>
                                         <tr>
                                             <td align="left" style="padding: 0px 0 10px 0px; font-size: 15px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; width: 100%;">
-                                            {% trans "October 2-4 2015" %} (<a style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}/{{r.preferred_language}}/#schedule">{% trans "Detailed Schedule" %}</a>)
+                                            {% trans "October 2-4 2015" %} (<a target="_blank" style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}/{{r.preferred_language}}/#schedule">{% trans "Detailed Schedule" %}</a>)
                                             </td>
                                         </tr>
                                     </table>

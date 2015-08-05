@@ -27,7 +27,7 @@
     }
     function langSetup() {
         $("a.lang").on("click", function(e){
-            var curLang = $(this).closest('.dropdown').children('a.dropdown-toggle').attr('id');
+            var curLang = $('html').attr('lang');
             var nextLang = $(this).attr('id');
             $.ajax({
                 url: "/i18n/setlang/",

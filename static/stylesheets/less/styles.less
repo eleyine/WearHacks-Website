@@ -42,6 +42,7 @@ header {
         margin: 10px 0;
     }
     .header-content {
+        margin-top: 50px;
         padding-top: 20px;
         // opacity: 0.8;
         z-index: 100;
@@ -272,9 +273,81 @@ header {
     }
 }
 
+
+// NAV
+.navbar {
+    &.affix .social-btns > * > *,
+    &.affix .social-btns > * > *:first-child {
+       color: #3a3a3c;
+    }
+
+    .social-btns {
+        white-space: nowrap;
+        z-index: 2;
+        margin: 17px 10px;
+        @media (max-width: 768px) {
+            margin-top: 10px;
+        }
+    }
+    .social-btns a:hover {
+        text-decoration: none;
+    }
+    .social-btns > * {
+        display: inline-block;
+        margin-left: 15px;
+        font-size: 16px;
+        font-weight: normal;
+        color: #fff;
+        width: 16px;
+        height: 16px;
+        overflow: hidden;
+        text-align: center;
+        @media (max-width: 768px) {
+          color: #3a3a3c;
+        }
+    }
+    .social-btns > *:first-child {
+        margin-left: 0;
+    }
+    .social-btns > * > * {
+        display: block;
+        position: relative;
+        top: 0;
+        -webkit-transition: 0.25s top;
+        -moz-transition: 0.25s top;
+        -o-transition: 0.25s top;
+        transition: 0.25s top;
+    }
+    .social-btns > * > *:first-child {
+        color: #fff;
+        opacity: 0.8;
+        @media (max-width: 768px) {
+          color: #3a3a3c;
+        }
+    }
+    .social-btns > *:hover > * {
+        top: -100%;
+    }
+}
+
 #about {
     img {
         margin-bottom: 20px;
+    }
+}
+
+#social {
+    padding: 40px 0;
+    .section-heading {
+        margin-bottom: 30px;
+        margin-top: 10px;
+    }
+    a.fa {
+        color: #666;
+        &:hover {
+            color: #ddd;
+            text-decoration: none;
+        }
     }
 }
 

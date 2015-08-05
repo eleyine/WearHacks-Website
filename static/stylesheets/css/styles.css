@@ -34,6 +34,7 @@ header a.btn {
   margin: 10px 0;
 }
 header .header-content {
+  margin-top: 50px;
   padding-top: 20px;
   z-index: 100;
 }
@@ -202,8 +203,79 @@ header .header-content-inner .what .col.text p {
 header .header-content-inner .how button {
   margin: 10px 0;
 }
+.navbar.affix .social-btns > * > *,
+.navbar.affix .social-btns > * > *:first-child {
+  color: #3a3a3c;
+}
+.navbar .social-btns {
+  white-space: nowrap;
+  z-index: 2;
+  margin: 17px 10px;
+}
+@media (max-width: 768px) {
+  .navbar .social-btns {
+    margin-top: 10px;
+  }
+}
+.navbar .social-btns a:hover {
+  text-decoration: none;
+}
+.navbar .social-btns > * {
+  display: inline-block;
+  margin-left: 15px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .navbar .social-btns > * {
+    color: #3a3a3c;
+  }
+}
+.navbar .social-btns > *:first-child {
+  margin-left: 0;
+}
+.navbar .social-btns > * > * {
+  display: block;
+  position: relative;
+  top: 0;
+  -webkit-transition: 0.25s top;
+  -moz-transition: 0.25s top;
+  -o-transition: 0.25s top;
+  transition: 0.25s top;
+}
+.navbar .social-btns > * > *:first-child {
+  color: #fff;
+  opacity: 0.8;
+}
+@media (max-width: 768px) {
+  .navbar .social-btns > * > *:first-child {
+    color: #3a3a3c;
+  }
+}
+.navbar .social-btns > *:hover > * {
+  top: -100%;
+}
 #about img {
   margin-bottom: 20px;
+}
+#social {
+  padding: 40px 0;
+}
+#social .section-heading {
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+#social a.fa {
+  color: #666;
+}
+#social a.fa:hover {
+  color: #ddd;
+  text-decoration: none;
 }
 #faq .panel {
   margin-bottom: 0;

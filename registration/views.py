@@ -214,6 +214,7 @@ class SubmitRegistrationView(generic.View):
 
         # attempt charge only if registration information is valid
         if registration_success and amount:
+            order_id = Registration.generate_order_id()
             token_id = request.POST.get('token_id', None)
 
             if not token_id:
@@ -263,13 +264,15 @@ class SubmitRegistrationView(generic.View):
                           amount=amount,
                           currency="cad",
                           source=token_id, # obtained with Stripe.js
-                          description="Charge for %s" % (email),
+                          description="Charge for %s" % (hacker_name),
+                          receipt_email=email,
                           statement_descriptor="WearHacks Mtl 2015",
                           capture=False,
                           metadata = {
                           'Name': hacker_name,
-                          'charge_attempt_id': charge_attempt.pk,
-                          'charge_attempt_link': charge_attempt_link }
+                          'Charge Attempt ID': charge_attempt.pk,
+                          'Charge Attempt Link': charge_attempt_link,
+                          'Order ID': order_id }
                         )
                         failure_message = charge.failure_message
                         failure_code = charge.failure_code
@@ -388,7 +391,7 @@ class SubmitRegistrationView(generic.View):
                 new_registration.ticket_description = ticket_description
                 new_registration.ticket_price = ticket_price
 
-                new_registration.order_id = Registration.generate_order_id()
+                new_registration.order_id = order_id
                 
                 new_registration.charge = charge_attempt
                 new_registration.save()

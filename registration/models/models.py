@@ -173,8 +173,9 @@ class Registration(models.Model):
     order_id = models.CharField(default='xxx', max_length=ORDER_ID_MAX_LENGTH)
 
     has_attended = models.BooleanField(default=False)
-    staff_comments = models.TextField(max_length=100, default="",
-        help_text='Log anything to do with this registration here.')
+    staff_comments = models.TextField(max_length=100, default="No comments",
+        help_text='Log anything to do with this registration here.'
+        blank=True)
 
     @property
     def has_submitted_waiver(self):

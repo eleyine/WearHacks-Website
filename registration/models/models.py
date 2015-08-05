@@ -174,7 +174,7 @@ class Registration(models.Model):
 
     has_attended = models.BooleanField(default=False)
     staff_comments = models.TextField(max_length=100, default="No comments",
-        help_text='Log anything to do with this registration here.'
+        help_text='Log anything to do with this registration here.',
         blank=True)
 
     @property

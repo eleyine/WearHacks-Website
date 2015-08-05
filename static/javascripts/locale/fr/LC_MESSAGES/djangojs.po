@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 13:13-0400\n"
+"POT-Creation-Date: 2015-08-05 16:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,9 +93,8 @@ msgid "Ticket "
 msgstr "Billet"
 
 #: register.js:35
-msgctxt "Discount text"
-msgid "%i%% Off"
-msgstr "Remise de %i%%"
+msgid "%(percent)s% Off"
+msgstr "Remise de %(percent)s%"
 
 #: register.js:36
 msgctxt "Name that appears on Stripe popout"
@@ -125,17 +124,11 @@ msgid "Ticket"
 msgstr "Billet"
 
 #: register.js:42
-#, fuzzy
-#| msgctxt "Make sure you keep the trailing space"
-#| msgid "Early Bird Ticket "
 msgctxt "Ticket Description"
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt"
 
 #: register.js:43
-#, fuzzy
-#| msgctxt "Make sure you keep the trailing space"
-#| msgid "Student "
 msgctxt "Ticket Description"
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
@@ -152,4 +145,4 @@ msgstr "La connection avec Stripe a échoué"
 #: register.js:46
 #, javascript-format
 msgid "Great! You have a 50%% discount."
-msgstr "Génial! T'as une remise de 50%%"
+msgstr "Génial! T'as une remise de 50%%."

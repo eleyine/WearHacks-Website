@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 13:13-0400\n"
+"POT-Creation-Date: 2015-08-05 16:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -329,17 +329,6 @@ msgstr ""
 "Est-ce que je peux commencer à travailler sur mon projet avant WearHacks?"
 
 #: templates/faq.html:168
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                  The short answer is no. The long answer is that you can "
-#| "create projects and discuss your ideas on the WearHacks SparkBoard. We do "
-#| "not encourage participants to work on pre-existing projects as this goes "
-#| "against the spirit of hackathons. However, you can definitely familiarize "
-#| "yourself with the APIs, libraries and kits that you want to work on. "
-#| "We'll also be providing more info about the APIs that our sponsors will "
-#| "be providing, so stay tuned!\n"
-#| "                "
 msgid ""
 "\n"
 "                  The short answer is no. We do not encourage participants "
@@ -386,8 +375,6 @@ msgstr ""
 "                "
 
 #: templates/faq.html:196
-#, fuzzy
-#| msgid "I have a question that is not listed here."
 msgid "I have a question that is not listed here. How can I contact you?"
 msgstr "J'ai une question mais elle n'est pas incluse ici."
 

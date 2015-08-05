@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 13:13-0400\n"
+"POT-Creation-Date: 2015-08-05 16:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,8 +23,6 @@ msgid "Staff Actions"
 msgstr ""
 
 #: forms/forms.py:48
-#, fuzzy
-#| msgid "General Information"
 msgid "Attendee Information"
 msgstr "Informations Générales"
 
@@ -33,8 +31,12 @@ msgid "Resume"
 msgstr "CV"
 
 #: forms/forms.py:83
-msgid "Waiver"
-msgstr "Renonciation"
+msgid ""
+"Not required but this might reach our sponsors for targeted employment "
+"opportunities."
+msgstr ""
+"N'est pas obligatoire mais pourrait atteindre nos parrains pour des "
+"opportunités d'emploi ciblées."
 
 #: forms/forms.py:98
 msgid "General Information"
@@ -125,10 +127,8 @@ msgid "Confirm"
 msgstr "Confirmer"
 
 #: forms/helpers.py:121
-#, fuzzy
-#| msgid "Checkout Failure Message"
 msgid "Checkin Failure Message"
-msgstr "Paiement échoué"
+msgstr "Checkin échoué"
 
 #: models/helpers.py:38
 msgid "This field must be checked"
@@ -220,24 +220,28 @@ msgstr "J'ai bien lu le <a href=\"#\" target=\"_blank\">Code de Conduite.</a>"
 msgid "waiver"
 msgstr "Renonciation"
 
+#: models/models.py:146
+msgid "I have read the <a href=\"#\" target=\"_blank\">Waiver.</a>"
+msgstr "J'ai bien lu la <a href=\"#\" target=\"_blank\"> Dérogation.</a>"
+
 #. Translators: Ticket descriptions
-#: models/models.py:160
+#: models/models.py:163
 msgid "No ticket yet"
 msgstr "Pas de billet encore"
 
-#: models/models.py:161
+#: models/models.py:164
 msgid "Regular Ticket"
 msgstr "Billet Régulier"
 
-#: models/models.py:162
+#: models/models.py:165
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
 
-#: models/models.py:163
+#: models/models.py:166
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt Étudiant"
 
-#: models/models.py:164
+#: models/models.py:167
 msgid "Early Bird Student Ticket"
 msgstr "Billet Lève-Tôt"
 
@@ -265,43 +269,41 @@ msgstr "Veuillez corriger vos infos avant de soumettre"
 msgid "</br>r u trying to hack us? u wot m8"
 msgstr "</br>Tu te crois malin(e)?"
 
-#: views.py:222
-#, fuzzy
-#| msgid "General Information"
+#: views.py:223
 msgid "Registration Information Valid"
-msgstr "Informations Générales"
+msgstr "Infos d'inscription valides"
 
-#: views.py:299
+#: views.py:302
 msgid "Network communication with Stripe failed. Please reload the page."
 msgstr ""
 "La communication avec Stripe a échoué. Essaie de rafraîchir la page pour "
 "tenter une nouvelle fois."
 
-#: views.py:304
+#: views.py:307
 msgid "Something went wrong on Stripe's end."
 msgstr "Stripe éprouve des difficultés"
 
-#: views.py:364
+#: views.py:367
 msgid "Something went wrong on Stripe's end. </br>"
 msgstr "Stripe éprouve des difficultés. </br>"
 
-#: views.py:369
+#: views.py:372
 msgid "Please refresh and try again."
 msgstr "Essaie de rafraîchir la page pour tenter une nouvelle fois."
 
-#: views.py:372 views.py:476
+#: views.py:375 views.py:479
 msgid "</br><strong>Don't worry, you haven't been charged.</strong>"
 msgstr "</br><strong>Ne t'inquiète pas, tu n'as pas été facturé. </strong>"
 
-#: views.py:399
+#: views.py:402
 msgid "Your registration could not be saved."
 msgstr "Ton inscription n'a pas pu être sauvegardée."
 
-#: views.py:415
+#: views.py:418
 msgid "We could not charge you."
 msgstr "On n'a pas pu te facturer."
 
-#: views.py:431
+#: views.py:434
 msgid ""
 "Your confirmation email cannot be sent at the moment. </"
 "strong><small>Everything else went smoothly and your payment went through. "
@@ -313,11 +315,11 @@ msgstr ""
 "administrateurs ont été notifiés et vont t'envoyer un courriel de "
 "confirmation dans les plus brefs délais. </small><strong>"
 
-#: views.py:440
+#: views.py:443
 msgid "A confirmation email will be sent shortly."
 msgstr "Un courriel de confirmation sera envoyé bientôt."
 
-#: views.py:471
+#: views.py:474
 msgid ""
 "Oops, something went wrong on our end.</br>Please refresh and try again. If "
 "the problem persists, please contact our support team. </br>"
@@ -326,23 +328,26 @@ msgstr ""
 "rafraîchir la page et tenter de nouveau. Si le problème persiste, n'hésite "
 "pas à contacter  notre équipe de soutien </br>"
 
-#: views.py:513
+#: views.py:516
 msgid "Thanks for signing up!"
 msgstr "Hâte de te voir à WearHacks"
 
-#: views.py:516
+#: views.py:519
 msgid "WearHacks Montreal Team <montreal@wearhacks.com>"
 msgstr "Équipe WearHacks à Montréal <montreal@wearhacks.com>"
 
-#: views.py:582 views.py:643
+#: views.py:585 views.py:646
 #, python-format
 msgid "We had some errors<pre>%s</pre>"
 msgstr "Nous éprouvons des difficultés<pre>%s</pre>"
 
-#: views.py:597
+#: views.py:600
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: views.py:656 views.py:708
+#: views.py:659 views.py:711
 msgid "Invalid arguments"
 msgstr "Arguments invalides"
+
+#~ msgid "Waiver"
+#~ msgstr "Renonciation"

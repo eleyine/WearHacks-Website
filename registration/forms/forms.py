@@ -41,19 +41,23 @@ class ConfirmRegistrationForm(forms.ModelForm):
             HTML(get_confirm_button_html()),
             Fieldset(
                 _('Staff Actions'),
-                'has_attended',
+                Field('has_attended', 
+                    data_off_text='No', data_on_text='Yes'),
                 css_class = 'staff-actions'
             ),
             Fieldset(
                 _('Attendee Information'),
                 'first_name',
                 'last_name',
-                'is_student',
+                Field('is_student', 
+                    data_off_text='No', data_on_text='Yes', data_size='mini'),
                 'school',
                 Field('food_restrictions', rows=1),
                 'tshirt_size',
-                'is_returning',
-                'is_first_time_hacker',
+                Field('is_returning', 
+                    data_off_text='No', data_on_text='Yes', data_size='mini'),
+                Field('is_first_time_hacker', 
+                    data_off_text='No', data_on_text='Yes', data_size='mini'),
                 css_class="attendee-info"
             ),
         )

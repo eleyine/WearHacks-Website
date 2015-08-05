@@ -156,7 +156,15 @@ class Registration(models.Model):
 
     TICKET_FULL_PRICE = 2000 # in cents
     ticket_price = models.SmallIntegerField(default=0)
-    ticket_description = models.CharField(default='No ticket yet', max_length=100)
+    TICKET_DESCRIPTION_CHOICES = (
+        # Translators: Ticket descriptions
+        ('R', _('Regular Ticket')),
+        ('S', _('Student Ticket')),
+        ('ER', _('Early Bird Ticket')),
+        ('ES', _('Early Bird Student Ticket')),
+        )
+    ticket_description = models.CharField(default='No ticket yet', 
+        choices=TICKET_DESCRIPTION_CHOICES, max_length=2)
     ticket_file = models.FileField(upload_to=get_ticket_filename, blank=True)
     qrcode_file = models.FileField(upload_to=get_qrcode_filename, blank=True, storage=OverwriteStorage())
 
@@ -190,18 +198,10 @@ class Registration(models.Model):
         price = full_price * ratio_to_pay
 
         # ticket description
-        description = ''
-        if is_student:
-            if is_early_bird:
-                description = __('Ticket Description', 'Early Bird Student Ticket')
-            else:
-                description = __('Ticket Description', 'Student Ticket')
-        else:
-            if is_early_bird:
-                description = __('Ticket Description', 'Early Bird Ticket')
-            else:
-                description = __('Ticket Description', 'Ticket')
-
+        choices = dict(Registration.TICKET_DESCRIPTION_CHOICES)
+        key = 'E' if is_early_bird else ''
+        key += 'S' if is_student else 'R'
+        description = choices[key]
         return (description, price)
 
     @staticmethod

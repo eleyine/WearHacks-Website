@@ -5,7 +5,6 @@
 
         // ajaxSetup();
         displayCorrectButtons();
-        $("#div_id_is_student .controls").append('<div class="controls col-lg-6 hide" id="hint_id_is_student"><p class="help-block message-success"><i class="fa fa-check"></i><strong> Great! You have a 50% discount.</strong></p></div>');
         stylisticTweaks();
 
         $(document).on('click', '.register-action', function (e) {
@@ -43,6 +42,17 @@
     var strTicketEarlyBirdDescription = pgettext('Ticket Description', 'Early Bird Ticket');
     var strTicketStudentDescription = pgettext('Ticket Description', 'Student Ticket');
     var strTicketStudentEarlyBirdDescription = pgettext('Ticket Description', 'Early Bird Student Ticket');
+    var strCannotConnectToStripe = _('We could not connect to Stripe');
+    var strGreatYouHaveADiscount = _('Great! You have a 50%% discount.');
+
+    function makeDiscountHintElement() {
+        console.log(strGreatYouHaveADiscount);
+        var elemYouHaveADiscount = '<div class="controls col-lg-6 hide"' +
+        ' id="hint_id_is_student"><p class="help-block message-success"><i class="fa ' +
+        'fa-check"></i><strong> ' + strGreatYouHaveADiscount + '</strong></p></div>';
+        elemYouHaveADiscount = elemYouHaveADiscount.replace('%%', '%');
+        $("#div_id_is_student .controls").append(elemYouHaveADiscount);
+    }
 
     function enabledFormControls(isEnabled) {
       $('input').attr('readOnly', !isEnabled);
@@ -146,14 +156,16 @@
                     registrationError(data["registration_message"]);
                 } else {
                     var handler = getCheckoutHandler(formData, amount);
-                    options.success(handler, formData, amount);
-                    $(window).on('popstate', function() {
-                        handler.close();
-                    });
+                    if (handler) {
+                      options.success(handler, formData, amount);
+                      $(window).on('popstate', function() {
+                          handler.close();
+                      });
+                    }
                 }
             },
             error: function (data) {
-                displayServerError();
+                displayServerError(null, data);
             }
         });
     }
@@ -200,7 +212,8 @@
           if (state && $(is_first_time_hacker).val()) {
             $(is_first_time_hacker).bootstrapSwitch('state', false);
           }
-        });     
+        });
+        makeDiscountHintElement();
     }
 
     function displaySorryButton() {
@@ -222,7 +235,7 @@
         }
       }, 2000);
     }
-    function displayServerError(message) {
+    function displayServerError(message, data) {
       displaySorryButton();
       $('.message').addClass('hide');
       $('#server-error').removeClass('hide');
@@ -230,6 +243,9 @@
         $('#server-error').html(message);
       } else {
         $('#server-error').html(strServerError);
+      }
+      if (data) {
+        console.log(data);
       }
     }
 
@@ -256,12 +272,19 @@
       $('#checkout.mobile .fa').addClass('hide');
       $('#checkout.mobile .fa-lock').removeClass('hide');
       var handler = getCheckoutHandler(formData, amount);
-      $('#checkout.mobile').one("click", function() {
-        openCheckhoutHandler(handler, amount, formData["email"]);
-      });
+      if (handler) {
+        $('#checkout.mobile').one("click", function() {
+          openCheckhoutHandler(handler, amount, formData["email"]);
+        });
+      }
     }
 
     function getCheckoutHandler(formData, amount){
+      if (typeof StripeCheckout == 'undefined') {
+        displayServerError(strCannotConnectToStripe);
+        return;
+      }
+
       var handler = StripeCheckout.configure({
             key: window.stripe_pk,
             image: '/static/images/logo.png',
@@ -303,7 +326,7 @@
                     }
                   },
                   error: function(data) {
-                    displayServerError();
+                    displayServerError(null, data);
                   }
                 }); // end ajax call
             }

@@ -26,6 +26,9 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template import Context
 from django.template.loader import render_to_string
 
+from django.utils.translation import ugettext as _
+from django.utils.translation import pgettext as __
+
 class ConfirmRegistrationView(generic.DetailView):
     template_name = 'registration/confirm-form.html'
     model = Registration
@@ -92,7 +95,7 @@ class ConfirmRegistrationView(generic.DetailView):
             if form.is_valid():
                 checkin_success = True
             else:
-                checkin_message = "Could not validate form"
+                checkin_message = _("Could not validate form")
 
         registration = None
         if checkin_success:
@@ -101,7 +104,7 @@ class ConfirmRegistrationView(generic.DetailView):
                 registration.save()
             except Exception, e:
                 server_error = True
-                server_message_client = "We had trouble saving registration"
+                server_message_client = _("We had trouble saving your new information")
                 self._save_server_message_to_charge_attempt(registration, 
                     [server_message_client], e)
 
@@ -113,7 +116,7 @@ class ConfirmRegistrationView(generic.DetailView):
             'checkin_success': checkin_success,
             'checkin_message': checkin_message,
             'success': checkin_success and not server_error,
-            "success_message": "Confirmed attendee details"
+            "success_message": _("Confirmed attendee details")
         }
 
         d = ConfirmRegistrationView.get_extra_context(registration)
@@ -157,7 +160,7 @@ class SubmitRegistrationView(generic.View):
         charge_attempt = None
         checkout_success = False
         success_message = ''
-        checkout_message = 'Checkout not attempted yet.'
+        checkout_message = _('Checkout not attempted yet.')
         fraud_attempt = False
         error_message = ''
         email = None
@@ -189,7 +192,7 @@ class SubmitRegistrationView(generic.View):
             registration_success = True
             email = form.cleaned_data['email']
         else:
-            registration_message= ('Please correct your registration information'
+            registration_message= _('Please correct your registration information'
                 ' before proceeding.')
 
         form_html = render_crispy_form(form)
@@ -199,13 +202,13 @@ class SubmitRegistrationView(generic.View):
         is_valid_amount = False
         if amount:
             is_student = request.POST.get('is_student', False)
-            _, _, ticket_price = self.get_ticket_info(is_student)
+            ___, ___, ticket_price = self.get_ticket_info(is_student)
             is_valid_amount = amount == ticket_price
         if amount and not is_valid_amount:
             checkout_message = ''
             checkout_success = False
 
-            error_message = '</br>r u trying to hack us? u wot m8'
+            error_message = _('</br>r u trying to hack us? u wot m8')
             fraud_attempt = True
             server_messages.append("Fraud attempt: amount entered was %.2f$" % (amount * 0.01))
 
@@ -216,7 +219,7 @@ class SubmitRegistrationView(generic.View):
             if not token_id:
                 # no token id is sent during form prevalidation
                 # this is normal
-                registration_message = 'Registration Information Valid'
+                registration_message = _('Registration Information Valid')
                 checkout_message = ''
             else:
                 # Default charge attempt fields
@@ -293,11 +296,12 @@ class SubmitRegistrationView(generic.View):
                 except stripe.error.APIConnectionError, e:
                     # Authentication with Stripe's API failed
                     # (maybe you changed API keys recently)
-                    checkout_message = 'Network communication with Stripe failed. Please reload the page.'
+                    checkout_message = _('Network communication with Stripe '
+                        'failed. Please reload the page.')
                     checkout_success = False
 
                 except stripe.error.StripeError, e:
-                    checkout_message = "Something went wrong on Stripe's end."
+                    checkout_message = _("Something went wrong on Stripe's end.")
                     checkout_success = False
 
                 except Exception, e:
@@ -357,15 +361,15 @@ class SubmitRegistrationView(generic.View):
 
                 if not server_error and not checkout_success:
                     if not fraud_attempt:
-                        checkout_message = "Something went wrong on Stripe's end. </br>"
+                        checkout_message = _("Something went wrong on Stripe's end. </br>")
                     if charge and hasattr(charge, 'failure_message') and failure_message is not None:
                         checkout_message += failure_message
                     if error_message:
                         checkout_message += '<strong>%s </strong> </br>' % (error_message)
-                    checkout_message += "Please refresh and try again."
+                    checkout_message += _("Please refresh and try again.")
 
                 if not checkout_success and not is_captured:
-                    checkout_message += "</br><strong>Don't worry, you haven't been charged.</strong>"
+                    checkout_message += _("</br><strong>Don't worry, you haven't been charged.</strong>")
 
         new_registration = None
         if registration_success and checkout_success and not server_error:
@@ -391,7 +395,8 @@ class SubmitRegistrationView(generic.View):
             except Exception, e:
                 server_error = True
                 checkout_success = False
-                server_message_client = self._get_server_error_message('Your registration could not be saved.')
+                server_message_client = self._get_server_error_message(
+                    _('Your registration could not be saved.'))
                 server_messages.append('Failed while saving registration form.')
                 self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
 
@@ -407,7 +412,7 @@ class SubmitRegistrationView(generic.View):
                 except Exception, e:
                     server_error = True
                     server_message_client = self._get_server_error_message(
-                        'We could not charge you.', 
+                        _('We could not charge you.'), 
                         dont_worry=False)
                     server_messages.append('Failed while capturing charge.')
                     self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
@@ -422,18 +427,17 @@ class SubmitRegistrationView(generic.View):
                 except Exception, e:
                     server_error = True
                     checkout_success = False
-                    server_message_client = self._get_server_error_message(
+                    server_message_client = self._get_server_error_message(_(
                         'Your confirmation email cannot be sent at the moment. '
-                        '</strong><small>Everything else went smoothly and your payment went through. '
-                        'Admins have been notified and will send you a confirmation email shortly.</small><strong>',
-                        dont_worry=False,
-                        default_header=False
-                        )
+                        '</strong><small>Everything else went smoothly and your '
+                        'payment went through. Admins have been notified and '
+                        'will send you a confirmation email shortly.</small>'
+                        '<strong>'), dont_worry=False, default_header=False )
                     server_messages.append('Failed while sending confirmation email (order #%s).' % (new_registration.order_id))
                     self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
 
             if not server_error:
-                success_message = 'A confirmation email will be sent shortly.'
+                success_message = _('A confirmation email will be sent shortly.')
                 try:
                     new_registration.is_email_sent = True
                     new_registration.save()
@@ -464,11 +468,12 @@ class SubmitRegistrationView(generic.View):
     def _get_server_error_message(self, inner_message, dont_worry=True, default_header=True):
         message = ''
         if default_header:
-            message += "Oops, something went wrong on our end.</br>Please refresh and try again. "
-            message += "If the problem persists, please contact our support team. </br>"
+            message += _('Oops, something went wrong on our end.</br>Please '
+                'refresh and try again. If the problem persists, please contact'
+                ' our support team. </br>')
         message += "<strong>%s</strong>"
         if dont_worry:
-            message += "</br><strong>Don't worry, you haven't been charged.</strong>"
+            message += _("</br><strong>Don't worry, you haven't been charged.</strong>")
         message = message % (inner_message)
         return message
 
@@ -505,10 +510,10 @@ class SubmitRegistrationView(generic.View):
         msg_html      = render_to_string('registration/confirmation_email.html', c)
 
         # email settings
-        subject = 'Thanks for signing up!'
+        subject = _('Thanks for signing up!')
         from_email = "WearHacks Montreal <%s>" % settings.DEFAULT_FROM_EMAIL
         to = [registration.email]
-        headers = {'Reply-To': "WearHacks Montreal Team <montreal@wearhacks.com>"}
+        headers = {'Reply-To': _("WearHacks Montreal Team <montreal@wearhacks.com>")}
 
         # mandrill settings
         tags = ['registration confirmation']
@@ -522,8 +527,6 @@ class SubmitRegistrationView(generic.View):
 
         # ticket
         ticket_file_path = os.path.join(settings.SITE_ROOT, registration.ticket_file.path)
-
-        print "Files all validated..."
 
         # try:
         #     fn = ''
@@ -550,7 +553,13 @@ class SubmitRegistrationView(generic.View):
         msg.attach_file(ticket_file_path)
         msg.tags = tags
         msg.metadata = metadata
-        msg.send()
+
+        if not settings.DEBUG and not ( 
+            hasattr(settings, 'FAKE_SEND_EMAIL') and settings.FAKE_SEND_EMAIL):
+            msg.send()
+        else:
+            print 'Registration email at: %s ' % (
+                reverse('confirmation_email', kwargs={'order_id' : registration.order_id}))
 
     def generate_pdf_ticket(self):
         import cStringIO as StringIO
@@ -570,7 +579,7 @@ class SubmitRegistrationView(generic.View):
             pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
             if not pdf.err:
                 return HttpResponse(result.getvalue(), content_type='application/pdf')
-            return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+            return HttpResponse(_('We had some errors<pre>%s</pre>') % escape(html))
 
 
 class ConfirmationEmailView(generic.DetailView):
@@ -585,7 +594,7 @@ class ConfirmationEmailView(generic.DetailView):
         if registration.tshirt_size:
             tshirt_size = tshirt_size_choices[registration.tshirt_size]
         else:
-            tshirt_size = 'Unknown'
+            tshirt_size = _('Unknown')
 
         if registration.qrcode_file:
             qrcode_file = registration.qrcode_file.url
@@ -629,7 +638,7 @@ class TicketView(ConfirmationEmailView):
         pdf, result, html = TicketView.generate_pdf_ticket(context=context)
         if not pdf.err:
             return HttpResponse(result, content_type='application/pdf')
-        return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+        return HttpResponse(_('We had some errors<pre>%s</pre>') % escape(html))
 
     @staticmethod
     def generate_pdf_ticket(registration=None, context=None, encoding='utf-8'):
@@ -642,7 +651,7 @@ class TicketView(ConfirmationEmailView):
         from django.core.files import File
 
         if not registration and not context:
-            raise Http404("Invalid arguments")
+            raise Http404(_("Invalid arguments"))
 
         if not context:
             d = ConfirmationEmailView.get_extra_context(registration)
@@ -694,7 +703,7 @@ class QRCodeView(ConfirmationEmailView):
         import qrcode
 
         if not registration and not context:
-            raise Http404("Invalid arguments")
+            raise Http404(_("Invalid arguments"))
 
         if not context:
             d = ConfirmationEmailView.get_extra_context(registration)

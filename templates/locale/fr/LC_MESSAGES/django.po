@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-02 11:27+0000\n"
+"POT-Creation-Date: 2015-08-05 06:59-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgstr ""
 
 #: templates/about.html:19
 msgid "Organization Website"
-msgstr "Site web de l'organization"
+msgstr "Site web de l'organisation"
 
 #: templates/about.html:29
 msgid "What you get"
@@ -501,7 +501,8 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/header.html:26 templates/registration/form.html:31
+#: templates/header.html:26 templates/registration/confirmation_email.html:144
+#: templates/registration/form.html:32
 msgid "The Biggest Wearable Hackathon in North-America"
 msgstr ""
 "Le plus grand <a href=\"#\" data-placement=\"bottom\" data-toggle=\"tooltip"
@@ -561,9 +562,172 @@ msgstr "Équipe"
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/registration/form.html:43
+#: templates/registration/confirmation_email.html:8
+msgid "Registration Confirmation"
+msgstr "Formulaire d'inscription"
+
+#: templates/registration/confirmation_email.html:171
+msgid "You're going to WearHacks Montreal 2015!"
+msgstr "Tu t'en vas à WearHacks Montréal 2015!"
+
+#: templates/registration/confirmation_email.html:193
+msgid "Hi"
+msgstr "Salut"
+
+#: templates/registration/confirmation_email.html:196
+msgid ""
+"We're glad you're joining us! We can't wait to see all the awesome stuff "
+"you'll build."
+msgstr ""
+"Il nous fait grand plaisir de t'accueillir à WearHacks Montréal! On a hâte "
+"de voir les projets déjantés que vous allez tous nous concocter."
+
+#: templates/registration/confirmation_email.html:199
+msgid "Don't forget to print and bring your ticket!"
+msgstr "N'oublie pas d'imprimer et de ramener ton billet!"
+
+#: templates/registration/confirmation_email.html:200
+msgid "Open the email attachment or "
+msgstr "Ouvre le billet attaché à ce courriel ou "
+
+#: templates/registration/confirmation_email.html:200
+msgid "download it here"
+msgstr "télécharge-le ici"
+
+#: templates/registration/confirmation_email.html:202
+msgid "Don't forget to print and bring this email!"
+msgstr "N'oublie pas d'imprimer et de ramener ce courriel avec toi!"
+
+#: templates/registration/confirmation_email.html:205
+msgid "We will update you with more details closer to the event."
+msgstr ""
+"On va vous donner davantage de détails lorsqu'on se rapprochera de "
+"l'évènement."
+
+#: templates/registration/confirmation_email.html:207
+msgid "In the meantime, take a look at "
+msgstr "Entre temps, jette un coup d'oeil à "
+
+#: templates/registration/confirmation_email.html:207
+msgid "our FAQ"
+msgstr "nos questions fréquentes"
+
+#: templates/registration/confirmation_email.html:207
+msgid " and let others know you're going via "
+msgstr " et informe les autres que tu viens à WearHacks via "
+
+#: templates/registration/confirmation_email.html:207
+msgid " or "
+msgstr " ou "
+
+#: templates/registration/confirmation_email.html:210
+msgid "Love,"
+msgstr "Bien à toi,"
+
+#: templates/registration/confirmation_email.html:212
+msgid "WearHacks Montreal Team"
+msgstr "Équipe WearHacks Montréal"
+
+#: templates/registration/confirmation_email.html:226
+msgid "Event Website"
+msgstr "Site web de l'évènement"
+
+#: templates/registration/confirmation_email.html:253
+msgid "Order Summary"
+msgstr "Bilan"
+
+#: templates/registration/confirmation_email.html:258
+msgid "Order"
+msgstr "Ordre"
+
+#: templates/registration/confirmation_email.html:269
+msgid "Attendee"
+msgstr "Invité"
+
+#: templates/registration/confirmation_email.html:270
+msgid "Ticket"
+msgstr "Billet"
+
+#: templates/registration/confirmation_email.html:313
+msgid "When"
+msgstr "Quand"
+
+#: templates/registration/confirmation_email.html:318
+msgid "October 2-4 2015"
+msgstr "2-4 Octobre 2014"
+
+#: templates/registration/confirmation_email.html:318
+msgid "Detailed Schedule"
+msgstr "Horaire Détaillé"
+
+#: templates/registration/confirmation_email.html:346
+msgid "Where"
+msgstr "Où"
+
+#: templates/registration/confirmation_email.html:351
+msgid "We will send you an email update with the venue."
+msgstr ""
+"On vous enverra un courriel pour vous tenir au courant du l'emplacement."
+
+#: templates/registration/confirmation_email.html:379
+msgid "Attendee info"
+msgstr "Infos de l'Invité"
+
+#: templates/registration/confirmation_email.html:384
+msgid "Email"
+msgstr "Courriel"
+
+#: templates/registration/confirmation_email.html:392
+msgid "T-Shirt Size"
+msgstr "Taille du T-Shirt"
+
+#: templates/registration/confirmation_email.html:400
+msgid "Payment status"
+msgstr "Status du Paiement"
+
+#: templates/registration/confirmation_email.html:404
+msgid "Paid"
+msgstr "Payé"
+
+#: templates/registration/confirmation_email.html:406
+msgid "Not paid"
+msgstr "Non payé"
+
+#: templates/registration/confirmation_email.html:413
+msgid "Food allergies and Restrictions"
+msgstr "Allergies et restrictions alimentaires"
+
+#: templates/registration/confirmation_email.html:439
+msgid "For general inquiries"
+msgstr "Pour plus d'infos"
+
+#: templates/registration/confirmation_email.html:440
+msgid "View this email in your browser"
+msgstr "Voir ce courriel sur ton navigateur"
+
+#: templates/registration/form.html:44
 msgid "Registration Form"
 msgstr "Formulaire d'inscription"
+
+#: templates/registration/ticket.html:10
+msgid "WearHacks Montreal 2015 Ticket"
+msgstr "Billet WearHacks Montreal 2015"
+
+#: templates/registration/ticket.html:43
+msgid "WearHacks Montreal"
+msgstr "WearHacks Montreal"
+
+#: templates/registration/ticket.html:46
+msgid "Oct 2-4 2015"
+msgstr "2-4 Octobre 2015"
+
+#: templates/registration/ticket.html:49
+msgid "Venue TBD"
+msgstr "Lieu a determiner"
+
+#: templates/registration/ticket.html:96
+msgid "Order Info"
+msgstr "Details de l'ordre"
 
 #: templates/schedule.html:9
 msgid "We will post the finalized schedule as soon as it's done. Stay tuned!"
@@ -579,6 +743,11 @@ msgid ""
 "year's  schedule</a>.\n"
 "                "
 msgstr ""
+" \n"
+"                Si t'aimerais avoir une idée sur ce qu'on a de prévu, jette "
+"un coup d'oeil à <a class=\"text-primary\" href=\"http://montreal.wearhacks."
+"com/#schedule\">l'horaire de l'année dernière</a>.\n"
+"                "
 
 #~ msgid "What kind of hardware will you guys have?"
 #~ msgstr "Quel type de hardware avez-vous?"

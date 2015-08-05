@@ -27,15 +27,19 @@
     }
     function langSetup() {
         $("a.lang").on("click", function(e){
-            var lang = $(this).attr('id')
+            var curLang = $(this).closest('.dropdown').children('a.dropdown-toggle').attr('id');
+            var nextLang = $(this).attr('id');
             $.ajax({
                 url: "/i18n/setlang/",
                 type: "POST",
                 data: {
-                    language: lang
+                    language: nextLang
                 },
                 success: function () {
                     console.log("Language properly set");
+                    var newUrl = window.location.href.replace(
+                        '/' + curLang + '/', '/' + nextLang + '/');
+                    window.location.replace(newUrl);
 
                 },
                 error: function (data) {

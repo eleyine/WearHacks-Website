@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
 <head>
-<title>Registration Confirmation</title>
+<title>{% trans "Registration Confirmation" %}</title>
 <!--
 
     An email present from your friends at Litmus (@litmusapp)
@@ -168,7 +168,7 @@
                                     <!-- COPY -->
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="center" style="font-size: 22px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; padding-top: 15px; font-weight: 200;" class="padding-copy">You're going to WearHacks Montreal 2015!</td>
+                                            <td align="center" style="font-size: 22px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; padding-top: 15px; font-weight: 200;" class="padding-copy">{% trans "You're going to WearHacks Montreal 2015!" %}</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -190,26 +190,26 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td align="left" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px; line-height: 20px;" class="padding-copy">
-                                Hi {{r.first_name}},</br>
+                                {% trans "Hi" %} {{r.first_name}},</br>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
-                                We're glad you're joining us! We can't wait to see all the awesome stuff you'll build.</br>
+                                {% trans "We're glad you're joining us! We can't wait to see all the awesome stuff you'll build." %}</br>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 {% if r.ticket_file %}
-                                <strong>Don't forget to print and bring your ticket!</a></strong> 
-                                Open the email attachment or <a style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}{{r.ticket_file.url}}">download it here</a>.</br>
+                                <strong>{% trans "Don't forget to print and bring your ticket!" %}</a></strong> 
+                                {% trans "Open the email attachment or " %}<a style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}{{r.ticket_file.url}}">{% trans "download it here" %}</a>.</br>
                                 {% else %}
-                                <strong>Don't forget to print and bring this email!</a></strong> 
+                                <strong>{% trans "Don't forget to print and bring this email!" %}</a></strong> 
                                 {% endif %}
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
-                                We will update you with more details closer to the event.
+                                {% trans "We will update you with more details closer to the event." %}
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
-                                In the meantime, take a look at <a style="color:#337ab7; text-decoration: none;" href="{{http}}wearhacks.eleyine.com/#faq">our FAQ</a> and let others know you're going via <a style="color:#337ab7; text-decoration: none;" href="#">Twitter</a> or <a style="color:#337ab7; text-decoration: none;" href="#">Facebook</a>.</br>
+                                {% trans "In the meantime, take a look at " %}<a style="color:#337ab7; text-decoration: none;" href="{{http}}wearhacks.eleyine.com/#faq">{% trans "our FAQ" %}</a>{% trans " and let others know you're going via " %}<a style="color:#337ab7; text-decoration: none;" href="#">Twitter</a>{% trans " or " %}<a style="color:#337ab7; text-decoration: none;" href="#">Facebook</a>.</br>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
-                                Love,
+                                {% trans "Love," %}
                                 <span style="display:inline-block; padding: 0; margin: 0; height: 0px; width: 100%;"></span>
-                                WearHacks Montreal Team
+                                {% trans "WearHacks Montreal Team" %}
                                 </td>
                             </tr>
                         </table>
@@ -223,7 +223,7 @@
                                 <td align="center" style="padding: 25px 0 0 0;" class="padding-copy">
                                     <table border="0" cellspacing="0" cellpadding="0" class="responsive-table">
                                         <tr>
-                                            <td align="center"><a href="{{http}}{{site_root}}/{{r.preferred_language}}" target="_blank" style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #ffffff; text-decoration: none; background-color: #256F9C; border-top: 15px solid #256F9C; border-bottom: 15px solid #256F9C; border-left: 25px solid #256F9C; border-right: 25px solid #256F9C; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;" class="mobile-button">Event Website</a></td>
+                                            <td align="center"><a href="{{http}}{{site_root}}/{{r.preferred_language}}" target="_blank" style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #ffffff; text-decoration: none; background-color: #256F9C; border-top: 15px solid #256F9C; border-bottom: 15px solid #256F9C; border-left: 25px solid #256F9C; border-right: 25px solid #256F9C; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;" class="mobile-button">{% trans "Event Website" %}</a></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -250,12 +250,12 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td align="left" style="padding: 20px 0 5px 0px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #333333; width: 100%; text-transform: uppercase;">
-                                            Order Summary
+                                            {% trans "Order Summary" %}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="left" style="padding: 0px 0 10px 0px; font-size: 15px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; width: 100%;">
-                                            Order #{{ r.order_id }} on {{ r.updated_at|date:"jS F Y H:i" }}
+                                            {% trans "Order" %} #{{ r.order_id }} @ {{ r.updated_at|date:"jS F Y H:i" }}
                                             </td>
                                         </tr>
                                     </table>
@@ -266,8 +266,8 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="responsive-table">
                                         <thead>
                                             <tr style="font-family: Helvetica, Arial, sans-serif; color: #333333;">
-                                                <th style="text-align:left">Attendee</th>
-                                                <th style="text-align:left">Ticket</th>
+                                                <th style="text-align:left">{% trans "Attendee" %}</th>
+                                                <th style="text-align:left">{% trans "Ticket" %}</th>
                                                 <!-- <th style="text-align:center">Price</th>
                                                 <th style="text-align:right">Quantity</th> -->
                                                 <th style="text-align:right">Total</th>
@@ -310,12 +310,12 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td align="left" style="padding: 20px 0 5px 0px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #333333; width: 100%; text-transform: uppercase;">
-                                            When
+                                            {% trans "When" %}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="left" style="padding: 0px 0 10px 0px; font-size: 15px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; width: 100%;">
-                                            October 2-4 2015 10:00 am - 5:00 pm (<a style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}/{{r.preferred_language}}/#schedule">Detailed Schedule</a>)
+                                            {% trans "October 2-4 2015" %} (<a style="color:#337ab7; text-decoration: none;" href="{{http}}{{site_root}}/{{r.preferred_language}}/#schedule">{% trans "Detailed Schedule" %}</a>)
                                             </td>
                                         </tr>
                                     </table>
@@ -343,12 +343,12 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td align="left" style="padding: 20px 0 5px 0px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #333333; width: 100%; text-transform: uppercase;">
-                                            Where
+                                            {% trans "Where" %}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="left" style="padding: 0px 0 10px 0px; font-size: 15px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; width: 100%;">
-                                            We will send you an email update with the venue.
+                                            {% trans "We will send you an email update with the venue." %}
                                             </td>
                                         </tr>
                                     </table>
@@ -376,12 +376,12 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr style="padding-bottom: 5px;">
                                             <td align="left" style="padding: 20px 0 5px 0px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #333333; width: 100%; text-transform: uppercase;">
-                                            Attendee info
+                                            {% trans "Attendee info" %}
                                             </td>
                                         </tr>
                                         <tr style="padding-bottom: 5px;">
                                             <td align="left" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
-                                            Email
+                                            {% trans "Email" %}
                                             </td>
                                             <td align="right" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
                                             {{r.email}}
@@ -389,7 +389,7 @@
                                         </tr>
                                         <tr style="padding-bottom: 5px;">
                                             <td align="left" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
-                                            T-Shirt Size
+                                            {% trans "T-Shirt Size" %}
                                             </td>
                                             <td align="right" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
                                             {{tshirt_size}}
@@ -397,20 +397,20 @@
                                         </tr>
                                         <tr style="padding-bottom: 5px;">
                                             <td align="left" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
-                                            Payment status
+                                            {% trans "Payment status" %}
                                             </td>
                                             <td align="right" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
                                             {% if r.charge and r.charge.is_paid %}
-                                                Paid
+                                                {% trans "Paid" %}
                                             {% else %}
-                                                Not paid
+                                                {% trans "Not paid" %}
                                             {% endif %}
                                             </td>
                                         </tr>
                                         {% if r.food_restrictions %}
                                         <tr style="padding-bottom: 5px;">
                                             <td align="left" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
-                                            Food allergies and Restrictions
+                                            {% trans "Food allergies and Restrictions" %}
                                             </td>
                                             <td align="right" style="font-size: 15px; padding-bottom: 5px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666;">
                                             {{ r.food_restrictions }}
@@ -436,8 +436,8 @@
             <table width="500" border="0" cellspacing="0" cellpadding="0" align="center" class="responsive-table">
                 <tr>
                     <td align="center" valign="middle" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
-                        <span class="appleFooter" style="color:#666666;">For general inquiries, <a href="mailto:info@wearhacks.com">info@wearhacks.com</a></span><br>
-                        <a style="color: #666666; text-decoration: underline;" href="{{http}}{{site_root}}/{{r.preferred_language}}/register/confirmation/{{r.order_id}}/">View this email in your browser</a>
+                        <span class="appleFooter" style="color:#666666;">{% trans "For general inquiries" %}, <a href="mailto:info@wearhacks.com">info@wearhacks.com</a></span><br>
+                        <a style="color: #666666; text-decoration: underline;" href="{{http}}{{site_root}}/{{r.preferred_language}}/register/confirmation/{{r.order_id}}/">{% trans "View this email in your browser" %}</a>
                     </td>
                 </tr>
             </table>

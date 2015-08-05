@@ -5,6 +5,10 @@
     vertical-align: middle;
 }
 
+.form-wrapper {
+  margin-top: 50px;
+}
+
 #hint_id_is_student {
   display: block;
   width: 100%;
@@ -15,7 +19,7 @@
   padding: 10px 0 0 0;
 }
 #confirmation-form-container {
-margin-top: 10px;
+  margin-top: 10px;
 }
 #confirmation-form .checkbox label,
 #about-you .checkbox label {

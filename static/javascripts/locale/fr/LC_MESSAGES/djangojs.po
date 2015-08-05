@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-02 11:27+0000\n"
+"POT-Creation-Date: 2015-08-05 06:59-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,40 +18,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: register.js:18
+#: check-in.js:15 register.js:30
+msgid "Sorry"
+msgstr "On est désolé"
+
+#: check-in.js:16 register.js:31
+msgid "Thank you"
+msgstr "Merci"
+
+#: check-in.js:17
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: check-in.js:20
+msgctxt "AJAX error"
+msgid "There is a temporary problem with our server. Please refresh."
+msgstr ""
+"Notre serveur éprouve des difficultés d'ordre temporaire. Veuillez "
+"rafraîchir."
+
+#: check-in.js:21
+msgid "Confirming details"
+msgstr "On confirme tes détails"
+
+#: register.js:8
+#, javascript-format
+msgid "Great! You have a 50%% discount."
+msgstr "Génial! T'as une remise de 50%%"
+
+#: register.js:23
 msgid "Checkout"
-msgstr "Soummettre"
+msgstr "Soumettre"
 
-#: register.js:19 register.js:32
+#: register.js:24 register.js:37
 msgid "Checking out"
-msgstr "En cours de soummission"
+msgstr "En cours de soumission"
 
-#: register.js:20
+#: register.js:25
 msgid "Proceed to checkout"
 msgstr "Procéder au payement"
 
-#: register.js:21
+#: register.js:26
 msgctxt "Appears when user has form validation error and needs to resubmit"
 msgid "Gotcha"
 msgstr "Compris"
 
-#: register.js:23
+#: register.js:28
 msgid "Validating your info"
 msgstr "Validation de ton info"
 
-#: register.js:24
+#: register.js:29
 msgid "Valid Registration"
 msgstr "Inscription Valide"
 
-#: register.js:25
-msgid "Sorry"
-msgstr "On est désolé"
-
-#: register.js:26
-msgid "Thank you"
-msgstr "Merci"
-
-#: register.js:29
+#: register.js:34
 msgctxt "AJAX error"
 msgid ""
 "There is a temporary problem with our server. Please refresh.</br>If the "
@@ -62,57 +82,54 @@ msgstr ""
 "problème persiste, veuillez contactez notre équipe de soutien.</"
 "br><strong>Ne vous inquiétez pas, nous ne vous avons pas facturé.</strong>"
 
-#: register.js:33
+#: register.js:38
 msgctxt "Make sure you keep the trailing space"
 msgid "Early Bird Ticket "
 msgstr "Billet Lève-Tôt"
 
-#: register.js:34
+#: register.js:39
 msgctxt "Make sure you keep the trailing space"
 msgid "Student "
 msgstr "Billet Étudiant"
 
-#: register.js:35
-#, fuzzy
-#| msgctxt "Ticket Description"
-#| msgid "Ticket"
+#: register.js:40
 msgctxt "Regular ticket, make sure to keep trailing space"
 msgid "Ticket "
 msgstr "Billet"
 
-#: register.js:36
+#: register.js:41
 msgctxt "Discount text"
 msgid "%i%% Off"
 msgstr "Remise de %i%%"
 
-#: register.js:37
+#: register.js:42
 msgctxt "Name that appears on Stripe popout"
 msgid "WearHacks Montreal 2015"
 msgstr "WearHacks Montreal 2015"
 
-#: register.js:38
+#: register.js:43
 msgid "Stripe doing its magic"
 msgstr "Stripe prend les manettes"
 
-#: register.js:39
+#: register.js:44
 msgid "Completing registration"
 msgstr "On complète votre inscription"
 
-#: register.js:40
+#: register.js:45
 msgid "This may take a while..."
 msgstr "Encore un petit moment.."
 
-#: register.js:41
+#: register.js:46
 msgctxt "Appears to entertain user when registration validation takes too long"
 msgid "So you want to be a hacker eh?"
 msgstr "Alors comme ça, t'aimerais devenir hacker?"
 
-#: register.js:42
+#: register.js:47
 msgctxt "Ticket Description"
 msgid "Ticket"
 msgstr "Billet"
 
-#: register.js:43
+#: register.js:48
 #, fuzzy
 #| msgctxt "Make sure you keep the trailing space"
 #| msgid "Early Bird Ticket "
@@ -120,7 +137,7 @@ msgctxt "Ticket Description"
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt"
 
-#: register.js:44
+#: register.js:49
 #, fuzzy
 #| msgctxt "Make sure you keep the trailing space"
 #| msgid "Student "
@@ -128,10 +145,11 @@ msgctxt "Ticket Description"
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
 
-#: register.js:45
-#, fuzzy
-#| msgctxt "Make sure you keep the trailing space"
-#| msgid "Early Bird Ticket "
+#: register.js:50
 msgctxt "Ticket Description"
 msgid "Early Bird Student Ticket"
 msgstr "Billet Lève-Tôt Étudiant"
+
+#: register.js:51
+msgid "We could not connect to Stripe"
+msgstr "La connection avec Stripe a échoué"

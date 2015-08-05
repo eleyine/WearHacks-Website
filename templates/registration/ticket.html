@@ -1,11 +1,13 @@
 {% load staticfiles %}
 {% load i18n %}
+{% load registration_extras %}
+
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
 <head>
-<title>Registration Confirmation</title>
+<title>{% trans "WearHacks Montreal 2015 Ticket"%}</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -38,13 +40,13 @@
                                     <td width="300px"><!-- Ticket header event info -->
                                         <table>
                                             <tr style="font-size: 20px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
-                                                <td>WearHacks Montreal</td>
+                                                <td>{% trans "WearHacks Montreal" %}</td>
                                             </tr>
                                             <tr style="font-size: 13px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
-                                                <td>Oct 2-4 2015</td>
+                                                <td>{% trans "Oct 2-4 2015" %}</td>
                                             </tr>
                                             <tr style="font-size: 13px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
-                                                <td>Venue TBD </td>
+                                                <td>{% trans "Venue TBD" %} </td>
                                             </tr>
                                         </table>
                                     </td>
@@ -80,10 +82,10 @@
                             <!-- Ticket footer left panel -->
                             <table width="400px">
                                 <tr style="font-size: 18px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
-                                    <td>{{r.first_name}} {{r.last_name}}</td>
+                                    <td>{{r.first_name|stripaccents}} {{r.last_name|stripaccents}}</td>
                                 </tr>
                                 <tr style="font-size: 14px; font-family: 'Helvetica Neue', 'Helvetica', sans-serif;">
-                                    <td>{{r.ticket_description}}</td>
+                                    <td>{{r.ticket_description|stripaccents}} </td>
                                 </tr>
                             </table>
                         </td>
@@ -91,10 +93,10 @@
                             <!-- Ticket header right panel -->
                             <table align="right">
                                 <tr>
-                                    <td>Order Info</td>
+                                    <td>{% trans "Order Info" %}</td>
                                 </tr>
                                 <tr>
-                                    <td>#{{r.order_id}} @ {{ r.updated_at|date:"jS F Y H:i" }}</td>
+                                    <td>#{{r.order_id}} @ {{ r.updated_at|date:"jS F Y H:i"|stripaccents}}</td>
                                 </tr>
                             </table>
                         </td></td>

@@ -32,17 +32,19 @@ try:
         DEPLOYMENT_MODES,
         DEPLOYMENT_PRIVATE_FILES,
         DEPLOYMENT_HOSTS,
-        DEFAULT_BRANCH)
+        DEFAULT_BRANCH,
+        DJANGO_PASS)
 except ImportError, e:
     print e
     print 'Please update fab_config.py, see fab_config_example.py'
     sys.exit()
 
-print """
+"""
 Default settings: 
    - Deploying to %s host %s with mode %s. 
    - Using private file %s.
    - Using branch %s
+   - Django pass %s
 
 For a list of commands use: fab -l
 """ % (
@@ -51,7 +53,8 @@ For a list of commands use: fab -l
     DEFAULT_MODE,
     os.path.join(LOCAL_DJANGO_PATH, 'wearhacks_website',
             'settings', DEPLOYMENT_PRIVATE_FILES[DEFAULT_DEPLOY_TO] + '.py'),
-    DEFAULT_BRANCH)
+    DEFAULT_BRANCH,
+    DJANGO_PASS)
 
 ########### DJANGO SETTINGS
 DJANGO_SETTINGS_MODULE = 'wearhacks_website.settings'
@@ -193,10 +196,10 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
 def compile_messages(mode=DEFAULT_MODE):
     env_variables = _get_env_variables(mode=mode) 
     with shell_env(**env_variables):
-        with cd(DJANGO_PROJECT_PATH):
-            run('django-admin makemessages -x js -l fr')
-        with cd(os.path.join(DJANGO_PROJECT_PATH, 'static', 'javascripts')):
-            run('django-admin makemessages -d djangojs -l fr')
+        # with cd(DJANGO_PROJECT_PATH):
+        #     run('django-admin makemessages -x js -l fr')
+        # with cd(os.path.join(DJANGO_PROJECT_PATH, 'static', 'javascripts')):
+        #     run('django-admin makemessages -d djangojs -l fr')
         with cd(DJANGO_PROJECT_PATH):
             run('django-admin compilemessages')
 
@@ -227,6 +230,8 @@ def _update_permissions(debug=False, setup=False, only_static=False):
 
             if not only_static:
                 sudo("chmod -R 500 .") # r-x --- --- : django can only read and execute files by default
+                with settings(warn_only=True):
+                    sudo("chmod -R 700 registration/migrations") # rwx --- --- : django can write new migrations
             
             sudo("chmod -R 644 assets") # rw- r-- r-- : assets can be read by nginx (var-www) as well as everyone else
             sudo("chmod -R 644 media") # rw- r-- r--
@@ -309,6 +314,12 @@ def test_models(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
             print '> Generate random registrations'
             run('python manage.py generate_registrations 10 --reset')
 
+def _get_private_settings(deploy_to=DEFAULT_DEPLOY_TO):
+    private_file = _get_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO, local=True)
+    import imp
+    private = imp.load_source('', private_file)
+    return private
+
 def reset_db(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO):
     """
     Delete database and perform migrations (see migrate).
@@ -341,37 +352,51 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
     if not env_variables:
         env_variables = _get_env_variables(mode=mode)
 
-    print '\nMigrating database'
-    
-    with shell_env(**env_variables):
+    print '\nMigrating database as user django'
 
+    with shell_env(**env_variables):
         with cd(DJANGO_PROJECT_PATH):
+            env.user = 'django'
+            env.password = DJANGO_PASS
+
             print '> Checking database backend'
             run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
-            
-            if reset_db:
-                print '> Deleting database'
-                if mode == 'dev':
-                    run('rm -rf wearhacks_website/db.sqlite3')
-                else:
-                    with settings(warn_only=True):
-                        run('rm -rf registration/migrations')
-                    run('python manage.py sqlclear registration | python manage.py dbshell ')
 
+            # get django database pass, this is kind of hacky but wtv
+            private_settings = _get_private_settings(deploy_to=deploy_to)
+            django_db_pass = private_settings.DB_PASS
+            with settings(prompts={
+                "Password for user django: ": django_db_pass}):
+                if reset_db:
+                    print '> Deleting database'
+                    if mode == 'dev':
+                        run('rm -rf wearhacks_website/db.sqlite3')
+                    else:
+                        with settings(warn_only=True):
+                            run('rm -rf registration/migrations')
+                        run('python manage.py sqlclear registration | python manage.py dbshell ')
+
+                run('python manage.py makemigrations')
+                if setup:
+                    run('python manage.py migrate') 
+                    run('python manage.py makemigrations registration')
+                    run('python manage.py migrate registration') 
+                elif reset_db:
+                    run('python manage.py migrate --fake')                
+                    run('python manage.py makemigrations registration')
+                    run('python manage.py migrate --fake-initial')
+                    run('python manage.py migrate')
+                else:
+                    run('python manage.py migrate')
+            if mode == 'dev' or reset_db:
+                if generate_dummy_data or reset_db:
+                    run('python manage.py generate_registrations 3 --reset')
+            env.user = 'root'
+            
             if mode == 'prod':
                 print '> Checking postgresql status'
                 run('service postgresql status')
                 run('sudo netstat -nl | grep postgres')
-
-            run('python manage.py makemigrations')
-            if setup or reset_db:
-                run('python manage.py migrate --fake-initial')
-            else:
-                run('python manage.py migrate')
-
-            if mode == 'dev':
-                if generate_dummy_data:
-                    run('python manage.py generate_registrations 3 --reset')
             
             print '> Creating super user with login admin/pass'
             with settings(warn_only=True):
@@ -409,8 +434,7 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     _update_private_settings_file(deploy_to=deploy_to)
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
-        sudo("git config core.filemode false")
-        if True or branch == 'stable':
+        if branch == 'stable':
             run('git fetch --all')
             run('git reset --hard origin/%s' % (branch))
         else:

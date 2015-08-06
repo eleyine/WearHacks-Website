@@ -1,17 +1,144 @@
 {% load i18n %}
 
-<section class="bg-primary" id="schedule">
+<section id="schedule" class="bg-primary">
     <div class="container">
         <div class="row">
-            <div class="col-xs-10 col-xs-offset-1 col-sm-8 text-left">
-                <h2 class="section-heading">{% trans "Schedule" %}</h2>
-                <!-- <hr class="light"> -->
-                <p class="text-faded">{% trans "We will post the finalized schedule as soon as it's done. Stay tuned!" %}</p>
-                <p class="text-faded">
-                <!-- {% blocktrans %} 
-                If you'd like to get an idea of what to expect, check out <a class="text-primary" href="http://montreal.wearhacks.com/#schedule">last year's  schedule</a>.
-                {% endblocktrans %}  -->
-                </p>
+            <div class="col-sm-10 col-sm-offset-1 text-center">
+                <h2 class="section-heading">Schedule</h2>
+                <hr class="bg-white">
+            </div>
+
+            <div class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 text-center">
+                <h4 class="service-heading"><span>{% trans "Friday, Oct 2nd" %}</span></h4>
+                <div style="text-align:left; max-width:600px; margin:auto;">
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>05:00 PM</strong></p>
+                                <p class="activity">
+                                    {% trans "Doors Open and Registration Mixer" %}
+                                </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>07:00 PM</strong></p>
+                                <p class="activity">
+                                    {% trans "Opening Ceremony" %}
+                                </p>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>08:00 PM</strong></p>
+                                <p class="activity">
+                                    {% trans "1-Minute Pitches & Team Formation"|escape             %}
+                                </p>
+                        </div>
+                    </div>
+
+                     <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>09:30 PM</strong></p>
+                                <p class="activity">
+                                <strong>
+                                    {% trans "Hacking Begins" %}
+                                </strong>
+                                </p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 text-center">
+                <h4 class="service-heading"><span>{% trans "Saturday, Oct 3rd" %}</span></h4>
+                <div style="text-align:left; max-width:600px; margin:auto;">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <p><emph>Hack all day, food is provided.</emph></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>08:00 AM</strong></p>
+                                <p class="activity">
+                                    {% trans "Breakfast" %}
+                                </p>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>12:00 AM</strong></p>
+                                <p class="activity">
+                                    {% trans "Lunch" %}
+                                </p>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>06:00 PM</strong></p>
+                                <p class="activity">
+                                    {% trans "Dinner"%}
+                                </p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 text-center">
+                <h4 class="service-heading"><span>{% trans "Sunday, Oct 4th" %}</span></h4>
+                <div style="text-align:left; max-width:600px; margin:auto;">
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>08:00 AM</strong></p>
+                                <p class="activity">
+                                    {% trans "Breakfast" %}
+                                </p>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>12:00 AM</strong></p>
+                                <p class="activity">
+                                    {% trans "Lunch" %}
+                                </p>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>01:00 PM</strong></p>
+                                <p class="activity">
+                                <strong>
+                                    {% trans "Hacking Stops"%}
+                                </strong>
+                                </p>
+                            </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>02:00 PM</strong></p>
+                                <p class="activity">
+                                    {% trans "Judging Round 1"%}
+                                </p>
+                            </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>04:00 PM</strong></p>
+                                <p class="activity">
+                                    {% trans "Judging Round 2"%}
+                                </p>
+                            </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0">
+                            <p class="time"><strong>07:00 PM</strong></p>
+                                <p class="activity">
+                                    {% trans "Awards and Closing Ceremony"%}
+                                </p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-10 col-sm-offset-1 text-center">
+                <p><emph>{% trans "Midnight Snacks Available Every Day" %}</emph></p>
             </div>
         </div>
     </div>

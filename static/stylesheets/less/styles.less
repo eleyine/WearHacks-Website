@@ -11,6 +11,14 @@ section {
     padding: 50px 0;
 }
 
+.bg-white {
+    background: #fff;
+}
+
+hr.bg-white {
+    border-color: #fff;
+}
+
 // HEADER
 
 @header-logo-height: 100px;
@@ -366,6 +374,52 @@ header {
 }
 
 #schedule {
+
+    hr {
+        opacity: 0.6;
+    }
+    p {
+
+        &.time, &.activity {
+            display: block;
+            float: left;
+            width: 70%;
+        }
+
+        &.time {
+            // color: #94C7E5;
+            opacity: 0.6;
+            width: 30%;
+        }
+        &.activity {
+            width: 70%;
+            strong {
+                border-bottom: 2px solid white;
+            }
+        }
+
+        emph {
+            font-style:italic;
+            font-weight: 100;
+            letter-spacing: 1px;
+        }
+    }
+
+    h4 {
+        padding: 10px 0;
+        font-weight: 400;
+        margin: 20px 0 40px 0;
+        // font-weight: 600;
+        font-size: 23px;
+        font-family: "Raleway", 'Helvetica Neue', Arial, sans-serif;
+
+        span {
+            border: 3px solid white;
+            padding: 10px 20px;
+            // background: rgb(164, 195, 216);
+        }
+    }
+    
     a {
         color: white;
         font-weight: bold;

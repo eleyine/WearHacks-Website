@@ -4,6 +4,12 @@ p {
 section {
   padding: 50px 0;
 }
+.bg-white {
+  background: #fff;
+}
+hr.bg-white {
+  border-color: #fff;
+}
 header {
   background-color: #2a223e;
   background: -webkit-gradient(linear, left top, left bottom, from(#2a223e), to(#000000));
@@ -285,6 +291,41 @@ header .header-content-inner .how button {
 }
 #faq .panel p {
   margin-bottom: 0;
+}
+#schedule hr {
+  opacity: 0.6;
+}
+#schedule p.time,
+#schedule p.activity {
+  display: block;
+  float: left;
+  width: 70%;
+}
+#schedule p.time {
+  opacity: 0.6;
+  width: 30%;
+}
+#schedule p.activity {
+  width: 70%;
+}
+#schedule p.activity strong {
+  border-bottom: 2px solid white;
+}
+#schedule p emph {
+  font-style: italic;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+#schedule h4 {
+  padding: 10px 0;
+  font-weight: 400;
+  margin: 20px 0 40px 0;
+  font-size: 23px;
+  font-family: "Raleway", 'Helvetica Neue', Arial, sans-serif;
+}
+#schedule h4 span {
+  border: 3px solid white;
+  padding: 10px 20px;
 }
 #schedule a {
   color: white;

@@ -290,6 +290,13 @@ header .header-content-inner .how button {
 #about img {
   margin-bottom: 20px;
 }
+#hardware li {
+  list-style: none;
+  margin-bottom: 0;
+}
+#hardware li p {
+  margin-bottom: 0;
+}
 #social {
   padding: 40px 0;
 }

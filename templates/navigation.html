@@ -56,12 +56,20 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="pull-right language-selection">
-                  {% if lang.code == 'en' %}
-                    <a href="#" id="fr" class="lang">FR</a>
-                  {% else %}
-                    <a href="#" id="en" class="lang">EN</a>                  
-                  {% endif %}
+                  <form action="/i18n/setlang/" method="post">
+                    {% csrf_token %}
+                    {% if lang.code == 'en' %}
+                    <input type="hidden" name="language" value="fr">
+                    <input type="hidden" name="next" value="/fr/">
+                    <input class="btn btn-link" type="submit" value="FR"/>
+                    {% else %}
+                    <input type="hidden" name="language" value="en">
+                    <input type="hidden" name="next" value="/en/">
+                    <input class="btn btn-link" type="submit" value="EN"/>
+                    {% endif %}
+                  </form>
                 </li>
+
                 {% comment %}
                 <li class="pull-right dropdown language-selection-dropdown">
                   <a href="#" id="{{lang.code}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ lang.name_local }} <span class="caret"></span></a>

@@ -209,9 +209,30 @@ header .header-content-inner .what .col.text p {
 header .header-content-inner .how button {
   margin: 10px 0;
 }
+.navbar.affix .language-selection .btn-link,
 .navbar.affix .social-btns > * > *,
 .navbar.affix .social-btns > * > *:first-child {
   color: #3a3a3c;
+}
+.navbar .language-selection {
+  margin-top: 10px;
+  color: #fff;
+}
+.navbar .language-selection .btn-link {
+  color: #fff;
+  opacity: 0.8;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 1px;
+}
+.navbar .language-selection .btn-link:hover {
+  text-decoration: none;
+  opacity: 1;
+}
+@media (max-width: 768px) {
+  .navbar .language-selection .btn-link {
+    color: #3a3a3c;
+    margin-top: -5px;
+  }
 }
 .navbar .social-btns {
   white-space: nowrap;

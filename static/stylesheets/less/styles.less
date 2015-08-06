@@ -284,9 +284,31 @@ header {
 
 // NAV
 .navbar {
-    &.affix .social-btns > * > *,
-    &.affix .social-btns > * > *:first-child {
-       color: #3a3a3c;
+    &.affix {
+        .language-selection .btn-link,
+        .social-btns > * > *,
+        .social-btns > * > *:first-child, {
+            color: #3a3a3c;
+        }
+    }
+
+    .language-selection {
+        margin-top:10px;
+        color: #fff;
+        .btn-link{
+            color: #fff;
+            opacity: 0.8;
+            .sans-serif-font;
+            letter-spacing: 1px;
+            &:hover {
+                text-decoration: none;
+                opacity: 1;
+            }
+            @media (max-width: 768px) {
+                color: #3a3a3c;
+                margin-top: -5px;
+            }
+        }
     }
 
     .social-btns {

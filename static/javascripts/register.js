@@ -423,4 +423,4 @@
       $('#checkout .text').text(strCheckout);
       $('.message').addClass('hide');
     }
-})(jQuery, Date, gettext, pgettext, interpolate); // End of use strict
+})($, Date, gettext, pgettext, interpolate); // End of use strict

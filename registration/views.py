@@ -491,8 +491,9 @@ class SubmitRegistrationView(generic.View):
             charge_attempt.save_server_message(messages, exception=e)
 
     def get_ticket_info(self, is_student):
-        early_bird_deadline = datetime.strptime('Sep 1 2015', '%b %d %Y')
-        is_early_bird = datetime.now() < early_bird_deadline
+        # early_bird_deadline = datetime.strptime('Sep 1 2015', '%b %d %Y')
+        # is_early_bird = datetime.now() < early_bird_deadline
+        is_early_bird = False
 
         ticket_description, ticket_price = Registration.get_ticket_info(
                 is_student=is_student,

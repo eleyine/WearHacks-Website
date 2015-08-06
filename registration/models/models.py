@@ -222,14 +222,17 @@ class Registration(models.Model):
             is_student = registration.is_student
 
         # ticket price
-        full_price = Registration.TICKET_FULL_PRICE
-        ratio_to_pay = 0.5 if is_early_bird else 1
-        ratio_to_pay = ratio_to_pay * 0.5 if is_student else ratio_to_pay
-        price = full_price * ratio_to_pay
+        # full_price = Registration.TICKET_FULL_PRICE
+        # ratio_to_pay = 0.5 if is_early_bird else 1
+        # ratio_to_pay = ratio_to_pay * 0.5 if is_student else ratio_to_pay
+        # price = full_price * ratio_to_pay
+        
+        price = 15 if is_student else 25
+        price = price * 100 # in cents
 
         # ticket description
         choices = dict(Registration.TICKET_DESCRIPTION_CHOICES)
-        description = 'E' if is_early_bird else ''
+        description = '' #'E' if is_early_bird else ''
         description += 'S' if is_student else 'R'
         return (description, price)
 

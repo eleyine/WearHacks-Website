@@ -32,7 +32,8 @@
     var strEarlyBird = pgettext("Make sure you keep the trailing space", 'Early Bird Ticket ');
     var strStudent = pgettext("Make sure you keep the trailing space", "Student ");
     var strRegular = pgettext('Regular ticket, make sure to keep trailing space', 'Ticket ');
-    var strDiscount = _('%(percent)s% Off');
+    var strPercentDiscount = _('%(percent)s% Off');
+    var strDiscount = _('$%(amount)s Discount');
     var strOrgName = pgettext('Name that appears on Stripe popout', 'WearHacks Montreal 2015');
     var strStripeInAction = _('Stripe doing its magic');
     var strCompletingRegistration = _('Completing registration');
@@ -43,7 +44,7 @@
     var strTicketStudentDescription = pgettext('Ticket Description', 'Student Ticket');
     var strTicketStudentEarlyBirdDescription = pgettext('Ticket Description', 'Early Bird Student Ticket');
     var strCannotConnectToStripe = _('We could not connect to Stripe');
-    var strGreatYouHaveADiscount = _('Great! You have a 50%% discount.');
+    var strGreatYouHaveADiscount = _('Great! You have a 10$ discount.');
 
     function makeDiscountHintElement() {
         var elemYouHaveADiscount = '<div class="controls col-lg-6 hide"' +
@@ -345,30 +346,36 @@
     }
 
     function getChargeAmount() {
-      var amount = isStudent()? 10: 20;
-      amount = isEarlyBird()? amount * 0.5: amount;
+      var amount = isStudent()? 15: 25;
+      // amount = isEarlyBird()? amount * 0.5: amount;
       // in cents
       return amount * 100;
     }
 
     function getPercentDiscount() {
-      var percent = isEarlyBird()? 0.5: 1;
-      percent = isStudent()? percent * 0.5: percent;
-      return (1 - percent) * 100;
+      // var ratio = isEarlyBird()? 0.5: 1;
+      var ratio = 1;
+      ratio = isStudent()? ratio * 0.5: ratio;
+      return (1 - ratio) * 100;
+    }
+
+    function getDiscount() {
+      // var ratio = isEarlyBird()? 0.5: 1;
+      var discount = isStudent()? 10: 0;
+      return discount;
     }
 
     function openCheckhoutHandler(handler, amount, email) {
-      var isBird = isEarlyBird();
+      var isBird = false; //isEarlyBird();
       var description = "";
       if (!isStudent()) {
         description = isBird? strTicketEarlyBirdDescription: strTicketDescription;
       } else {
         description = isBird? strTicketStudentEarlyBirdDescription: strTicketStudentDescription;
       } 
-      var p = getPercentDiscount();
-      var description = (p > 0)? description + ' (' + interpolate(strDiscount, {'percent': p}, true) + ')': description;
-      console.log(p);
-      console.log(interpolate(strDiscount, p));
+      var d = getDiscount();
+      // var description = (d > 0)? description + ' (' + interpolate(strPercentDiscount, {'percent': d}, true) + ')': description;
+      var description = (d > 0)? description + ' (' + interpolate(strDiscount, {'amount': d}, true) + ')': description;
       handler.open({
         name: strOrgName,
         description: description,

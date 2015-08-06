@@ -23,9 +23,11 @@
 
 <!-- Startbootstrap Creative 1.0.1 -->
 <script src="{% static 'javascripts/startbootstrap-creative/js/creative.js' %}"></script>
-{% endcompress %}
 
 <!-- Internationalization -->
 <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+{% endcompress %}
 
-<script type="text/javascript" src="{% static 'javascripts/common.js' %}?v=0001"></script>
+{% compress js %}
+<script type="text/javascript" src="{% static 'javascripts/common.js' %}{% if debug %}?v=00001{% endif %}"></script>
+{% endcompress %}

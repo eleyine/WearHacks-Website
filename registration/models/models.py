@@ -64,16 +64,26 @@ class ChargeAttempt(models.Model):
             print 'ERROR: Could not save server message %s to charge attempt %s (%s)' % (
                     self.server_message, self, str(e))
 
+    @property
+    def registration(self):
+        qs = Registration.objects.filter(charge=self)
+        if qs.exists():
+            return qs.first()
+        else:
+            return None    
+
     class Meta:
         ordering = ('-created_at',)
 
     def __unicode__(self):
-        if self.pk:
-            return '[{2}] Attempt #{3} by {0} [{1}]'.format(
-                self.email, self.charge_id, self.status, self.pk)
-        else:            
-            return '[{2}] Attempt (unsaved) by {0} [{1}]'.format(
-                self.email, self.charge_id, self.status)
+        if self.registration and self.pk:
+            return 'Attempt #%i by %s %s' % (self.pk, self.registration.first_name,
+                self.registration.last_name)
+        else:
+            if self.pk:
+                return 'Attempt #%i by %s' % (self.pk, self.hacker)
+            else:            
+                return 'Attempt by %s' % (self.hacker)
 
 class Registration(models.Model):
     import re
@@ -186,6 +196,22 @@ class Registration(models.Model):
         print bool(self.waiver)
         print 'name', self.waiver.name
         return bool(self.waiver)
+
+    def full_name(self):
+        return '%s %s' % (self.first_name, self.last_name)
+
+    full_name.admin_order_field = 'last_name'
+
+    def needs_to_be_checked(self):
+        result = False
+        if self.is_email_sent and self.charge and \
+            not self.charge.is_captured:
+            result = True
+        return result
+
+
+    def is_charged(self):
+        return bool(self.charge) and self.charge.is_captured
     
     @staticmethod
     def get_ticket_info(registration=None, is_early_bird=False, is_student=False):
@@ -236,8 +262,9 @@ class Registration(models.Model):
     def get_absolute_url(self):
         return reverse("confirmation_email", kwargs={'order_id': str(self.order_id)})
 
+
     class Meta:
-        ordering = ('last_name', 'first_name')
+        ordering = ('-updated_at', 'last_name', 'first_name',)
 
     def __unicode__(self):
         if self.pk:

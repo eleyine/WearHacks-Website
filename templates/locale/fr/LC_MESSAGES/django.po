@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 17:00-0400\n"
+"POT-Creation-Date: 2015-08-06 17:27-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -643,6 +643,10 @@ msgstr "Équipe"
 msgid "Contact"
 msgstr "Contact"
 
+#: templates/navigation.html:112
+msgid "Register"
+msgstr "Inscrivez-vous"
+
 #: templates/registration/confirmation_email.html:8
 msgid "Registration Confirmation"
 msgstr "Formulaire d'inscription"
@@ -734,8 +738,8 @@ msgid "When"
 msgstr "Quand"
 
 #: templates/registration/confirmation_email.html:323
-msgid "October 2-4 2015"
-msgstr "2-4 Octobre 2014"
+msgid "October 2nd 05:00 PM to October 4th 09:00 PM"
+msgstr "2 Octobre à 17h au 4 Octobre à 21h"
 
 #: templates/registration/confirmation_email.html:323
 msgid "Detailed Schedule"
@@ -828,11 +832,22 @@ msgstr "Présentations-Éclairs d'une Minute et Formation des Équipes"
 
 #: templates/schedule.html:44
 msgid "Hacking Begins"
-msgstr "Début du Marathon de Programmation"
+msgstr ""
+"Début du <a href=\"#\" data-placement=\"bottom\" data-toggle=\"tooltip\" "
+"data-html=\"true\" data-original-title=\"En anglais, on utilise le terme "
+"<emph>hackathon</emph>.\">Marathon de Programmation</a>"
 
 #: templates/schedule.html:52
 msgid "Saturday, Oct 3rd"
 msgstr "Samedi 3 Octobre"
+
+#: templates/schedule.html:56
+msgid "Hack all day, food is provided."
+msgstr ""
+"<a href=\"#\" data-placement=\"bottom\" data-toggle=\"tooltip\" data-html="
+"\"true\" data-original-title=\"En anglais, on utilise le terme <emph>hacker</"
+"emph>.\">Bidouiller</a> toute la journée, nourriture et boissons seront "
+"servies."
 
 #: templates/schedule.html:63 templates/schedule.html.py:92
 msgid "Breakfast"
@@ -852,7 +867,10 @@ msgstr "Dimanche 4 Octobre"
 
 #: templates/schedule.html:109
 msgid "Hacking Stops"
-msgstr "Fin du Marathon de Programmation"
+msgstr ""
+"Fin du <a href=\"#\" data-placement=\"bottom\" data-toggle=\"tooltip\" data-"
+"html=\"true\" data-original-title=\"En anglais, on utilise le terme "
+"<emph>hackathon</emph>.\">Marathon de Programmation</a>"
 
 #: templates/schedule.html:118
 msgid "Judging Round 1"
@@ -876,6 +894,9 @@ msgid ""
 msgstr ""
 "Plus d'activités à venir (Présentations, Ateliers, etc.). On vous tiendra au "
 "courant!"
+
+#~ msgid "October 2-4 2015"
+#~ msgstr "2-4 Octobre 2014"
 
 #~ msgid ""
 #~ "We will post the finalized schedule as soon as it's done. Stay tuned!"

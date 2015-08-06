@@ -748,7 +748,7 @@ msgstr "Où"
 #: templates/registration/confirmation_email.html:356
 msgid "We will send you an email update with the venue."
 msgstr ""
-"On vous enverra un courriel pour vous tenir au courant du l'emplacement."
+"On vous enverra un courriel pour vous tenir au courant de l'emplacement."
 
 #: templates/registration/confirmation_email.html:384
 msgid "Attendee info"

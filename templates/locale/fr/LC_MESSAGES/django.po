@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 16:18-0400\n"
+"POT-Creation-Date: 2015-08-06 16:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,13 +96,22 @@ msgid "Strong track record"
 msgstr "Un bilan solide"
 
 #: templates/about.html:62
+#, fuzzy
+#| msgid ""
+#| " \n"
+#| "                            Our Montreal 2014 hackathon was a "
+#| "<strong>resounding success</strong> featuring 47+ projects. Some of the "
+#| "winners are being mentored by <strong>Founder Fuel</strong> and "
+#| "<strong>Real Ventures</strong>. <a href=\"http://www.wearhacks.com/"
+#| "#pastevent\">Learn more</a>\n"
+#| "                            "
 msgid ""
 " \n"
 "                            Our Montreal 2014 hackathon was a "
 "<strong>resounding success</strong> featuring 47+ projects. Some of the "
-"winners are being mentored by <strong>Founder Fuel</strong> and <strong>Real "
-"Ventures</strong>. <a href=\"http://www.wearhacks.com/#pastevent\">Learn "
-"more</a>\n"
+"winners are being mentored by <strong>Founder Fuel</strong> and "
+"<strong>District 3</strong>. <a href=\"http://www.wearhacks.com/#pastevent"
+"\">Learn more</a>\n"
 "                            "
 msgstr ""
 " \n"
@@ -195,39 +204,30 @@ msgid "How much will WearHacks cost me?"
 msgstr "Combien va me coûter WearHacks?"
 
 #: templates/faq.html:58
-#, python-format
 msgid ""
 "\n"
-"                  Students attend at a 75%% discount before September 1 - "
-"only $5!<br>\n"
-"                  Starting September 1, students get a 50%% discount - only "
-"$10!<br>\n"
-"                  Non-student hackers who want to attend are welcome and get "
-"a 50%% discount before September 1 - only $10!<br>\n"
-"                  Starting September 1,  non-student hackers can attend for "
-"only $20. <br>\n"
+"                  The first 50 students and 50 non-students who can solve "
+"our little puzzle can attend for free. <br>\n"
+"                  Otherwise, tickets are starting at only $15 for students "
+"and $25 for non-students.  <br>\n"
 "                  <strong>This covers all costs of attending - food will be "
 "provided.</strong> See you there! :)\n"
 "                "
 msgstr ""
 "\n"
-"                  Les étudiants ont une remise de 75%% avant le 1er "
-"Septembre - seulement $5!<br>\n"
-" À partir du 1er September, les étudiants auront une remise de 50%% - "
-"seulement $10!<br>\n"
-"Les non-étudiants sont aussi les bienvenus et auront une remise de 50%% "
-"avant le 1er Septembre.<br>\n"
-"À partir du 1er Septembre, les non-étudiants peuvent assister pour seulement "
-"20$.<br>\n"
+"                  Les premiers 50 étudiants et 50 non-étudiants qui pourront "
+"résoudre notre petit casse-tête recevront des billets gratuits. <br>\n"
+"                  Sinon, les billets sont à partir de seulement $15 pour les "
+"étudiants et $25 pour les non-étudiants. <br>\n"
 "<strong>Tout est compris dans les frais d'inscriptions y compris la "
 "nourriture.</strong> Au plaisir de vous voir! :)\n"
 "                "
 
-#: templates/faq.html:73
+#: templates/faq.html:71
 msgid "What about food?"
 msgstr "Et qu'en est-il de la nourriture?"
 
-#: templates/faq.html:79
+#: templates/faq.html:77
 msgid ""
 "\n"
 "                  We've got that covered. Breakfast, lunch, dinner, snacks "
@@ -239,35 +239,35 @@ msgstr ""
 "souper, grignotines et boissons seront servis. Approvisionnés localement.\n"
 "                "
 
-#: templates/faq.html:90
+#: templates/faq.html:88
 msgid "What should I know before coming to the event?"
 msgstr "Que devrais-je savoir avant mon arrivée à l'événement?"
 
-#: templates/faq.html:96
+#: templates/faq.html:94
 msgid "Code of Conduct"
 msgstr "Code de Conduite"
 
-#: templates/faq.html:96
+#: templates/faq.html:94
 msgid "and"
 msgstr "et"
 
-#: templates/faq.html:96
+#: templates/faq.html:94
 msgid "Reporting procedures"
 msgstr "les Procédures de Déclaration des Incidents"
 
-#: templates/faq.html:97
+#: templates/faq.html:95
 msgid "Terms and conditions </a> for the event"
 msgstr "Conditions Générales</a> de l'évènement"
 
-#: templates/faq.html:98
+#: templates/faq.html:96
 msgid "Resume Collection and Privacy Policy"
 msgstr "Utilisation et Politique de Confidentialité des curriculum vitaes"
 
-#: templates/faq.html:107
+#: templates/faq.html:105
 msgid "I don’t have a team or an idea!"
 msgstr "Je n'ai pas d'équipe ou d'idée!"
 
-#: templates/faq.html:113
+#: templates/faq.html:111
 msgid ""
 "\n"
 "                  Not a problem. You can join projects if you don't have an "
@@ -283,11 +283,11 @@ msgstr ""
 "former les équipes. Dans tous les cas, tu n'as pas de soucis à te faire!\n"
 "                "
 
-#: templates/faq.html:128
+#: templates/faq.html:126
 msgid "How many people can be on my team?"
 msgstr "Combien de personnes peuvent être dans mon équipe?"
 
-#: templates/faq.html:134
+#: templates/faq.html:132
 msgid ""
 "\n"
 "                  We do not have any specific requirements for team sizes, "
@@ -302,11 +302,11 @@ msgstr ""
 "encourageons la diversité.\n"
 "                "
 
-#: templates/faq.html:145
+#: templates/faq.html:143
 msgid "What should I bring?"
 msgstr "Qu'est-ce que je dois ramener?"
 
-#: templates/faq.html:151
+#: templates/faq.html:149
 msgid ""
 "\n"
 "                  A laptop and cables/chargers are the essentials. If you "
@@ -323,12 +323,12 @@ msgstr ""
 "de couchage et accessoires de toilette.\n"
 "                "
 
-#: templates/faq.html:162
+#: templates/faq.html:160
 msgid "Can I start working on my project before WearHacks?"
 msgstr ""
 "Est-ce que je peux commencer à travailler sur mon projet avant WearHacks?"
 
-#: templates/faq.html:168
+#: templates/faq.html:166
 msgid ""
 "\n"
 "                  The short answer is no. We do not encourage participants "
@@ -347,11 +347,11 @@ msgstr ""
 "APIs que nos sponsors nous ont offerts, alors restez à l'écoute!\n"
 "                "
 
-#: templates/faq.html:179
+#: templates/faq.html:177
 msgid "How does judging work?"
 msgstr "Comment marche la procédure de séléction?"
 
-#: templates/faq.html:185
+#: templates/faq.html:183
 msgid ""
 "\n"
 "                  A group of judges will rate the hacks based on creativity, "
@@ -374,11 +374,11 @@ msgstr ""
 "l'arbitrage plus tard, ainsi que les prix octroyés.\n"
 "                "
 
-#: templates/faq.html:196
+#: templates/faq.html:194
 msgid "I have a question that is not listed here. How can I contact you?"
 msgstr "J'ai une question mais elle n'est pas incluse ici."
 
-#: templates/faq.html:202
+#: templates/faq.html:200
 msgid ""
 "\n"
 "                Feel free to reach out to us on <a href=\"//twitter.com/"
@@ -419,30 +419,50 @@ msgstr ""
 #: templates/hardware.html:37
 msgid ""
 "\n"
-"                                    Oculus Rift\n"
+"                                    Muse\n"
 "                                "
 msgstr ""
 
 #: templates/hardware.html:42
 msgid ""
 "\n"
-"                                    The Rift uses state of the art displays "
-"and optics designed specifically for VR. Its high refresh rate and low-"
-"persistence display work together with its custom optics system to provide "
-"incredible visual fidelity and an immersive, wide field of view. \n"
+"                                    Muse is the first tool in the world that "
+"can give you accurate, real-time feedback on what’s happening in your brain "
+"when you meditate. \n"
+"                                    It provides motivational challenges and "
+"rewards to encourage you to build a regular practice. \n"
 "                                "
 msgstr ""
 "\n"
 "                "
 
-#: templates/hardware.html:56
+#: templates/hardware.html:57
+msgid ""
+"\n"
+"                                    Kinect\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:62
+msgid ""
+"\n"
+"                                    The latest Kinect sensor and its free "
+"software development kit (SDK) 2.0 provide developers with the foundation "
+"needed to create and deploy interactive applications that respond to "
+"peoples’ natural movements, gestures, and voice commands.\n"
+"                                "
+msgstr ""
+"\n"
+"                "
+
+#: templates/hardware.html:76
 msgid ""
 "\n"
 "                                    Nod Ring\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:61
+#: templates/hardware.html:81
 msgid ""
 "\n"
 "                                    Nod seamlessly transforms your movements "
@@ -454,14 +474,69 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/hardware.html:75
+#: templates/hardware.html:95
+msgid ""
+"\n"
+"                                    Oculus Rift\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:100
+msgid ""
+"\n"
+"                                    The Rift uses state of the art displays "
+"and optics designed specifically for VR. Its high refresh rate and low-"
+"persistence display work together with its custom optics system to provide "
+"incredible visual fidelity and an immersive, wide field of view. \n"
+"                                "
+msgstr ""
+"\n"
+"                "
+
+#: templates/hardware.html:114
+msgid ""
+"\n"
+"                                    Estimote\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:119
+msgid ""
+"\n"
+"                                    Stick our tiny beacons in any location "
+"or to any object \n"
+"to create new, contextually rich mobile experiences.\n"
+msgstr ""
+"\n"
+"                                    \n"
+
+#: templates/hardware.html:134
+msgid ""
+"\n"
+"                                    Pebble\n"
+"                                "
+msgstr ""
+
+#: templates/hardware.html:139
+msgid ""
+"\n"
+"                                    Pebble is a customizable watch that "
+"conveniently and subtly delivers the information that you want directly to "
+"your wrist. Pebble connects to your iOS or Android smartphone via Bluetooth "
+"and has a rechargeable battery that lasts for 5-7 days per charge.\n"
+"                                "
+msgstr ""
+"\n"
+"                "
+
+#: templates/hardware.html:153
 msgid ""
 "\n"
 "                                    MetaWear\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:80
+#: templates/hardware.html:158
 msgid ""
 "\n"
 "                                    The MetaWear SDK is a low-cost solution "
@@ -472,38 +547,36 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/hardware.html:94
+#: templates/hardware.html:172
 msgid ""
 "\n"
-"                                    Estimote\n"
+"                                    Particle.io Kits\n"
 "                                "
 msgstr ""
 
-#: templates/hardware.html:99
+#: templates/hardware.html:177
 msgid ""
 "\n"
-"                                    Stick our tiny beacons in any location "
-"or to any object \n"
-"to create new, contextually rich mobile experiences.\n"
-msgstr ""
-"\n"
-"                                    \n"
-
-#: templates/hardware.html:114
-msgid ""
-"\n"
-"                                    Muse\n"
-"                                "
-msgstr ""
-
-#: templates/hardware.html:119
-msgid ""
-"\n"
-"                                    Muse is the first tool in the world that "
-"can give you accurate, real-time feedback on what’s happening in your brain "
-"when you meditate. \n"
-"                                    It provides motivational challenges and "
-"rewards to encourage you to build a regular practice. \n"
+"                                    <ul>\n"
+"                                    <li>\n"
+"                                        <p>\n"
+"                                            <small>\n"
+"                                            The Photon (displayed) is a $19 "
+"tiny Wi-Fi development kit for creating cloud-connected projects and "
+"products for the Internet of Things.\n"
+"                                            </small>\n"
+"                                        </p>\n"
+"                                    </li>\n"
+"                                    <li>\n"
+"                                        <p>\n"
+"                                            <small>\n"
+"                                            The Electron is a tiny "
+"development kit for creating cellular-connected electronics projects and "
+"products. It comes with a SIM card and an affordable data plan for low-"
+"bandwidth things. \n"
+"                                            </small>\n"
+"                                        </p>\n"
+"                                    </li>\n"
 "                                "
 msgstr ""
 "\n"
@@ -522,11 +595,11 @@ msgstr ""
 msgid "Innovate with"
 msgstr "Innovez avec"
 
-#: templates/header.html:58
+#: templates/header.html:57
 msgid "Join"
 msgstr "S'inscrire"
 
-#: templates/header.html:61
+#: templates/header.html:60
 msgid "Sponsor Us"
 msgstr "Parrainez-nous"
 
@@ -554,7 +627,7 @@ msgstr "Juges"
 msgid "Mentors"
 msgstr "Mentors"
 
-#: templates/navigation.html:44 templates/schedule.html:7
+#: templates/navigation.html:44
 msgid "Schedule"
 msgstr "Horaire"
 
@@ -737,25 +810,91 @@ msgstr "Lieu a determiner"
 msgid "Order Info"
 msgstr "Details de l'ordre"
 
-#: templates/schedule.html:9
-msgid "We will post the finalized schedule as soon as it's done. Stay tuned!"
-msgstr ""
-"Nous mettrons à jour l'horaire final aussitôt qu'il sera prêt. Restez à "
-"l'écoute!"
+#: templates/schedule.html:12
+msgid "Friday, Oct 2nd"
+msgstr "Vendredi 2 Octobre"
 
-#: templates/schedule.html:11
+#: templates/schedule.html:18
+msgid "Doors Open and Registration Mixer"
+msgstr "Ouverture des portes et Mixer d'inscription"
+
+#: templates/schedule.html:26
+msgid "Opening Ceremony"
+msgstr "Cérémonie d'Ouverture"
+
+#: templates/schedule.html:34
+msgid "1-Minute Pitches & Team Formation"
+msgstr "Présentations-Éclairs d'une Minute et Formation des Équipes"
+
+#: templates/schedule.html:44
+msgid "Hacking Begins"
+msgstr "Début du Marathon de Programmation"
+
+#: templates/schedule.html:52
+msgid "Saturday, Oct 3rd"
+msgstr "Samedi 3 Octobre"
+
+#: templates/schedule.html:63 templates/schedule.html.py:92
+msgid "Breakfast"
+msgstr "Déjeuner"
+
+#: templates/schedule.html:71 templates/schedule.html.py:100
+msgid "Lunch"
+msgstr "Dîner"
+
+#: templates/schedule.html:79
+msgid "Dinner"
+msgstr "Souper"
+
+#: templates/schedule.html:86
+msgid "Sunday, Oct 4th"
+msgstr "Dimanche 4 Octobre"
+
+#: templates/schedule.html:109
+msgid "Hacking Stops"
+msgstr "Fin du Marathon de Programmation"
+
+#: templates/schedule.html:118
+msgid "Judging Round 1"
+msgstr "Procédure de Sélection: Premier Ronde"
+
+#: templates/schedule.html:126
+msgid "Judging Round 2"
+msgstr "Procédure de Sélection: Deuxième Ronde"
+
+#: templates/schedule.html:134
+msgid "Awards and Closing Ceremony"
+msgstr "Prix et Cérémonie de Fermeture"
+
+#: templates/schedule.html:141
+msgid "Midnight Snacks Available Every Day"
+msgstr "Des grignotines seront servies aux alentours de minuit tous les jours."
+
+#: templates/schedule.html:144
 msgid ""
-" \n"
-"                If you'd like to get an idea of what to expect, check out <a "
-"class=\"text-primary\" href=\"http://montreal.wearhacks.com/#schedule\">last "
-"year's  schedule</a>.\n"
-"                "
+"MORE EXCITING THINGS TO HAPPEN (Presentations, Workshops, etc.). Stay tuned! "
 msgstr ""
-" \n"
-"                Si t'aimerais avoir une idée sur ce qu'on a de prévu, jette "
-"un coup d'oeil à <a class=\"text-primary\" href=\"http://montreal.wearhacks."
-"com/#schedule\">l'horaire de l'année dernière</a>.\n"
-"                "
+"Plus d'activités à venir (Présentations, Ateliers, etc.). On vous tiendra au "
+"courant!"
+
+#~ msgid ""
+#~ "We will post the finalized schedule as soon as it's done. Stay tuned!"
+#~ msgstr ""
+#~ "Nous mettrons à jour l'horaire final aussitôt qu'il sera prêt. Restez à "
+#~ "l'écoute!"
+
+#~ msgid ""
+#~ " \n"
+#~ "                If you'd like to get an idea of what to expect, check out "
+#~ "<a class=\"text-primary\" href=\"http://montreal.wearhacks.com/#schedule"
+#~ "\">last year's  schedule</a>.\n"
+#~ "                "
+#~ msgstr ""
+#~ " \n"
+#~ "                Si t'aimerais avoir une idée sur ce qu'on a de prévu, "
+#~ "jette un coup d'oeil à <a class=\"text-primary\" href=\"http://montreal."
+#~ "wearhacks.com/#schedule\">l'horaire de l'année dernière</a>.\n"
+#~ "                "
 
 #~ msgid "What kind of hardware will you guys have?"
 #~ msgstr "Quel type de hardware avez-vous?"

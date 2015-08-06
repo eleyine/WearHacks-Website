@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 16:18-0400\n"
+"POT-Creation-Date: 2015-08-06 16:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,52 +97,55 @@ msgid "%(percent)s% Off"
 msgstr "Remise de %(percent)s%"
 
 #: register.js:36
+msgid "$%(amount)s Discount"
+msgstr "Remise de $%(amount)s"
+
+#: register.js:37
 msgctxt "Name that appears on Stripe popout"
 msgid "WearHacks Montreal 2015"
 msgstr "WearHacks Montreal 2015"
 
-#: register.js:37
+#: register.js:38
 msgid "Stripe doing its magic"
 msgstr "Stripe prend les manettes"
 
-#: register.js:38
+#: register.js:39
 msgid "Completing registration"
 msgstr "On complète votre inscription"
 
-#: register.js:39
+#: register.js:40
 msgid "This may take a while..."
 msgstr "Encore un petit moment.."
 
-#: register.js:40
+#: register.js:41
 msgctxt "Appears to entertain user when registration validation takes too long"
 msgid "So you want to be a hacker eh?"
 msgstr "Alors comme ça, t'aimerais devenir hacker?"
 
-#: register.js:41
+#: register.js:42
 msgctxt "Ticket Description"
 msgid "Ticket"
 msgstr "Billet"
 
-#: register.js:42
+#: register.js:43
 msgctxt "Ticket Description"
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt"
 
-#: register.js:43
+#: register.js:44
 msgctxt "Ticket Description"
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
 
-#: register.js:44
+#: register.js:45
 msgctxt "Ticket Description"
 msgid "Early Bird Student Ticket"
 msgstr "Billet Lève-Tôt Étudiant"
 
-#: register.js:45
+#: register.js:46
 msgid "We could not connect to Stripe"
 msgstr "La connection avec Stripe a échoué"
 
-#: register.js:46
-#, javascript-format
-msgid "Great! You have a 50%% discount."
-msgstr "Génial! T'as une remise de 50%%."
+#: register.js:47
+msgid "Great! You have a 10$ discount."
+msgstr "Génial! T'as une remise de 10$."

@@ -327,17 +327,27 @@ header .header-content-inner .how button {
 #schedule p.activity {
   display: block;
   float: left;
-  width: 70%;
 }
 #schedule p.time {
   opacity: 0.6;
   width: 30%;
+  text-align: left;
+}
+@media (max-width: 768px) {
+  #schedule p.time {
+    width: 40%;
+  }
 }
 #schedule p.activity {
   width: 70%;
 }
 #schedule p.activity strong {
   border-bottom: 2px solid white;
+}
+@media (max-width: 768px) {
+  #schedule p.activity {
+    width: 60%;
+  }
 }
 #schedule p emph {
   font-style: italic;

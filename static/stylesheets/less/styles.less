@@ -415,18 +415,24 @@ header {
         &.time, &.activity {
             display: block;
             float: left;
-            width: 70%;
         }
 
         &.time {
             // color: #94C7E5;
             opacity: 0.6;
             width: 30%;
+            text-align: left;
+            @media (max-width: 768px) {
+                width: 40%;
+            }
         }
         &.activity {
             width: 70%;
             strong {
                 border-bottom: 2px solid white;
+            }
+            @media (max-width: 768px) {
+                width: 60%;
             }
         }
 

@@ -220,6 +220,12 @@ def _update_permissions(debug=False, setup=False, only_static=False):
                 sudo('adduser www-data staticusers')
                 sudo('adduser django staticusers')
 
+        if setup:
+            with cd(DJANGO_PROJECT_PATH):
+                run('mkdir -p media')
+                run('mkdir -p assets')
+                run('mkdir -p registration/migrations')
+
         # change permissions to static files
         sudo('chown -R django %s' % (DJANGO_PROJECT_PATH))
         sudo('chgrp -R staticusers %s' % (os.path.join(DJANGO_PROJECT_PATH, 'assets')))
@@ -227,7 +233,6 @@ def _update_permissions(debug=False, setup=False, only_static=False):
 
         with cd(DJANGO_PROJECT_PATH):    
             # all files under the project dir are owned by django (gunicorn's uid) is the owner
-
             if not only_static:
                 sudo("chmod -R 500 .") # r-x --- --- : django can only read and execute files by default
                 with settings(warn_only=True):
@@ -356,6 +361,12 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
 
     with shell_env(**env_variables):
         with cd(DJANGO_PROJECT_PATH):
+            if reset_db:
+                with settings(warn_only=True):
+                    run('rm -rf registration/migrations')
+                with settings(warn_only=True):
+                    sudo("chmod -R 700 registration") # rwx --- --- : django can write new migrations
+
             env.user = 'django'
             env.password = DJANGO_PASS
 
@@ -378,11 +389,11 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
 
                 run('python manage.py makemigrations')
                 if setup:
-                    run('python manage.py migrate') 
+                    run('python manage.py migrate --fake-initial') 
                     run('python manage.py makemigrations registration')
                     run('python manage.py migrate registration') 
                 elif reset_db:
-                    run('python manage.py migrate --fake')                
+                    run('python manage.py migrate --fake')     
                     run('python manage.py makemigrations registration')
                     run('python manage.py migrate --fake-initial')
                     run('python manage.py migrate')
@@ -434,10 +445,12 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     _update_private_settings_file(deploy_to=deploy_to)
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
+        run('git config --global core.filemode false')
         if branch == 'stable':
             run('git fetch --all')
             run('git reset --hard origin/%s' % (branch))
         else:
+            run('git checkout .') # discard changes in working directory
             run('git pull origin %s' % (branch))
             run('git checkout %s' % (branch))
         update_requirements()

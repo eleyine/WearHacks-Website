@@ -79,14 +79,16 @@ CACHES = {
 FILE_UPLOAD_PERMISSIONS = 0o644
 
 ########## CELERY
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
-CELERY_CACHE_BACKEND='djcelery.backends.cache:CacheBackend',
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_CACHE_BACKEND='djcelery.backends.cache:CacheBackend'
+
+from datetime import timedelta
 CELERYBEAT_SCHEDULE = {
     'backup-every-30-seconds': {
         'task': 'registration.tasks.main.dropbox_backup',
         'schedule': timedelta(seconds=30)
     },
-},
+}
 # Where to chdir at start.
 CELERYD_CHDIR = SITE_ROOT
 # Absolute or relative path to the 'celery' command:

@@ -43,7 +43,7 @@ except ImportError, e:
     print 'Please update fab_config.py, see fab_config_example.py'
     sys.exit()
 
-"""
+print """
 Default settings: 
    - Deploying to %s host %s with mode %s. 
    - Using private file %s.
@@ -69,7 +69,7 @@ AUTO_ANSWER_PROMPTS = True
 if AUTO_ANSWER_PROMPTS:
     prompts = {
         'Do you want to continue [Y/n]? ': 'Y',
-        '? May bower anonymously report usage statistics to improve the tool over time? (Y/n)': 'Y',
+        '? May bower anonymously report usage statistics to improve the tool over time? (Y/n) ': 'Y',
         "Type 'yes' to continue, or 'no' to cancel: ": 'yes',
         'Would you like to create one now? (yes/no): ': 'no'
         }
@@ -319,7 +319,7 @@ def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO, restart=True):
     print 'Modifying celerybeat config'
     _write_file('celeryd', '/etc/init.d/celeryd', {})
     _write_file('celerybeat', '/etc/init.d/celerybeat', {})
-    _write_file('celeryd.conf', '/etc/init.d/celerybeat', {
+    _write_file('celeryd.conf', '/etc/init/celery.conf', {
             'DJANGO_PROJECT_DIR': DJANGO_PROJECT_DIR,
         })
 

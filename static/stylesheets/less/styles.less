@@ -51,6 +51,7 @@ header {
     }
     .header-content {
         margin-top: 50px;
+        margin-bottom: 20px;
         padding-top: 20px;
         // opacity: 0.8;
         z-index: 100;
@@ -177,9 +178,10 @@ header {
             }
         }
         .what {
-            @header-what-height: @header-logo-height * 3;
+            @header-what-height: 200px; //@header-logo-height * 3;
             display: block;
             min-height: @header-what-height;
+            margin: 20px 0;
             // border: 1px solid black;
 
             .hardware img {
@@ -188,11 +190,13 @@ header {
 
             img {
                 width: 100%;
-                &.nuance,
+                
                 &.nod,
                 &.myo-white {
-                  max-width: 350px;  
+                  max-width: 320px;  
                 }
+                
+                &.nuance,
                 &.kinect {
                   max-width: 300px;  
                 }

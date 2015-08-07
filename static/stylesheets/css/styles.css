@@ -41,6 +41,7 @@ header a.btn {
 }
 header .header-content {
   margin-top: 50px;
+  margin-bottom: 20px;
   padding-top: 20px;
   z-index: 100;
 }
@@ -144,7 +145,8 @@ header .header-content-inner .who .info p.small {
 }
 header .header-content-inner .what {
   display: block;
-  min-height: 300px;
+  min-height: 200px;
+  margin: 20px 0;
 }
 header .header-content-inner .what .hardware img {
   opacity: 1;
@@ -152,11 +154,11 @@ header .header-content-inner .what .hardware img {
 header .header-content-inner .what img {
   width: 100%;
 }
-header .header-content-inner .what img.nuance,
 header .header-content-inner .what img.nod,
 header .header-content-inner .what img.myo-white {
-  max-width: 350px;
+  max-width: 320px;
 }
+header .header-content-inner .what img.nuance,
 header .header-content-inner .what img.kinect {
   max-width: 300px;
 }
@@ -172,15 +174,15 @@ header .header-content-inner .what img.intel {
   }
 }
 header .header-content-inner .what .col {
-  min-height: 300px;
-  height: 300px;
-  max-height: 300px;
+  min-height: 200px;
+  height: 200px;
+  max-height: 200px;
 }
 header .header-content-inner .what .col.text {
   display: table;
-  min-height: 300px;
-  height: 300px;
-  max-height: 300px;
+  min-height: 200px;
+  height: 200px;
+  max-height: 200px;
 }
 header .header-content-inner .what .col.text p {
   display: table-cell;

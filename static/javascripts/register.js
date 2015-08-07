@@ -155,12 +155,23 @@
                     options.error(formData, amount);
                     registrationError(data["registration_message"]);
                 } else {
+                    if (hasSolvedChallenge()) {
+                      console.log(data);
+                      if (data["server_error"]) {
+                        displaySorryButton(data["server_message"]);
+                      } else {
+                        console.log(data["success_message"]);
+                        displayCorrectButtons();
+                        displayThankYouButton(data["success_message"]);
+                      }
+                    } else {
                     var handler = getCheckoutHandler(formData, amount);
-                    if (handler) {
-                      options.success(handler, formData, amount);
-                      $(window).on('popstate', function() {
-                          handler.close();
-                      });
+                      if (handler) {
+                        options.success(handler, formData, amount);
+                        $(window).on('popstate', function() {
+                            handler.close();
+                        });
+                      }
                     }
                 }
             },
@@ -236,7 +247,7 @@
         if (message) {
           $('#success-message').removeClass('hide').text(message);
         }
-      }, 2000);
+      }, 500);
     }
     function displayServerError(message, data) {
       displaySorryButton();
@@ -337,6 +348,13 @@
       return handler;
     }
 
+    // function onCheckoutSuccess() {
+
+    // }
+    function hasSolvedChallenge() {
+      return $('#id_has_solved_challenge').attr('value') == 'True';
+    }
+
     function isStudent() {
       return $("#div_id_is_student .checkboxinput").prop("checked");
     }
@@ -347,6 +365,7 @@
 
     function getChargeAmount() {
       var amount = isStudent()? 15: 25;
+      amount = hasSolvedChallenge()? 0: amount;
       // amount = isEarlyBird()? amount * 0.5: amount;
       // in cents
       return amount * 100;
@@ -367,11 +386,17 @@
 
     function openCheckhoutHandler(handler, amount, email) {
       var isBird = false; //isEarlyBird();
+      var isCryptoWhizz = hasSolvedChallenge();
       var description = "";
+      // if (!isStudent()) {
+      //   description = isBird? strTicketEarlyBirdDescription: strTicketDescription;
+      // } else {
+      //   description = isBird? strTicketStudentEarlyBirdDescription: strTicketStudentDescription;
+      // } 
       if (!isStudent()) {
-        description = isBird? strTicketEarlyBirdDescription: strTicketDescription;
+        description = isCryptoWhizz? strTicketEarlyBirdDescription: strTicketDescription;
       } else {
-        description = isBird? strTicketStudentEarlyBirdDescription: strTicketStudentDescription;
+        description = isCryptoWhizz? strTicketStudentEarlyBirdDescription: strTicketStudentDescription;
       } 
       var d = getDiscount();
       // var description = (d > 0)? description + ' (' + interpolate(strPercentDiscount, {'percent': d}, true) + ')': description;

@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from random import randint
-from registration.models import Registration, ChargeAttempt
+from registration.models import Registration, ChargeAttempt, Challenge
 
 from loremipsum import get_sentence, get_paragraph
 
@@ -29,7 +29,7 @@ class Command(BaseCommand):
             Registration.objects.all().delete()
 
         numRegistrations = args[0]
-
+        Command.generate_challenges(100)
         # try:
         Command.generate_registrations(int(numRegistrations))
         # except ValueError:
@@ -55,6 +55,14 @@ class Command(BaseCommand):
                 )
         for i in range(n):
             Registration.objects.create(**Command.generate_registration_data(**kwargs))
+
+    @staticmethod
+    def generate_challenges(n, **kwargs):
+        for i in range(n):
+            Challenge.objects.create(
+                encrypted_message = get_sentence(),
+                decrypted_message = get_sentence(),
+            )
 
     @staticmethod
     def generate_registration_data(max_length=300):

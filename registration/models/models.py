@@ -144,16 +144,18 @@ class Registration(models.Model):
         verbose_name = _('resume'),
         help_text = __("Help text for resume field", RESUME_HELP_TEXT),
     )
-    has_read_code_of_conduct = models.BooleanField(default=False, 
-        verbose_name = _('I have read the <a href="#" target="_blank">Code of Conduct.</a>'),
-        validators = [validate_true])
-    WAIVER_HELP_TEXT = "Not required but it will save us some time during registration."
-    waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
-        help_text = __("Help text for waiver field", WAIVER_HELP_TEXT),
-        verbose_name = _('waiver'),
-    )
-    has_read_waiver = models.BooleanField(default=False, 
-        verbose_name = _('I have read the <a href="#" target="_blank">Waiver.</a>'),
+    # has_read_code_of_conduct = models.BooleanField(default=False, 
+    #     verbose_name = _('I have read the <a href="#" target="_blank">Code of Conduct.</a>'),
+    #     validators = [validate_true])
+    # WAIVER_HELP_TEXT = "Not required but it will save us some time during registration."
+    # waiver = models.FileField(upload_to=get_waiver_filename, blank=True,
+    #     help_text = __("Help text for waiver field", WAIVER_HELP_TEXT),
+    #     verbose_name = _('waiver'),
+    # )
+    # has_read_waiver = models.BooleanField(default=False, 
+    #     verbose_name = _('I have read the <a href="#" target="_blank">Waiver.</a>'),
+    #     validators = [validate_true])
+    has_read_conditions = models.BooleanField(default=False, 
         validators = [validate_true])
 
     is_email_sent = models.BooleanField(
@@ -171,6 +173,8 @@ class Registration(models.Model):
     TICKET_DESCRIPTION_CHOICES = (
         # Translators: Ticket descriptions
         ('N', _('No ticket yet')),
+        ('CR', _('Turing Ticket')),
+        ('CS', _('Turing Student Ticket')),
         ('R', _('Regular Ticket')),
         ('S', _('Student Ticket')),
         ('ER', _('Early Bird Ticket')),
@@ -189,6 +193,10 @@ class Registration(models.Model):
     staff_comments = models.TextField(max_length=100, default="No comments",
         help_text='Log anything to do with this registration here.',
         blank=True)
+
+    # Challenge
+    has_solved_challenge = models.BooleanField(default=False)
+    solved_challenge = models.ForeignKey('Challenge', null=True)
 
     @property
     def has_submitted_waiver(self):
@@ -214,12 +222,14 @@ class Registration(models.Model):
         return bool(self.charge) and self.charge.is_captured
     
     @staticmethod
-    def get_ticket_info(registration=None, is_early_bird=False, is_student=False):
+    def get_ticket_info(registration=None, is_early_bird=False, is_student=False,
+        has_solved_challenge=False):
         from datetime import datetime
 
         if registration:
             is_early_bird = registration.is_early_bird
             is_student = registration.is_student
+            has_solved_challenge = registration.has_solved_challenge
 
         # ticket price
         # full_price = Registration.TICKET_FULL_PRICE
@@ -227,12 +237,16 @@ class Registration(models.Model):
         # ratio_to_pay = ratio_to_pay * 0.5 if is_student else ratio_to_pay
         # price = full_price * ratio_to_pay
         
-        price = 15 if is_student else 25
+        if has_solved_challenge:
+            price = 0
+        else:
+            price = 15 if is_student else 25
         price = price * 100 # in cents
 
         # ticket description
         choices = dict(Registration.TICKET_DESCRIPTION_CHOICES)
         description = '' #'E' if is_early_bird else ''
+        description += 'C' if has_solved_challenge else ''
         description += 'S' if is_student else 'R'
         return (description, price)
 
@@ -274,3 +288,34 @@ class Registration(models.Model):
             return '{0} {1} (#{2})'.format(self.first_name, self.last_name, self.pk)
         else:
             return '{0} {1} (Not saved)'.format(self.first_name, self.last_name)
+
+class Challenge(models.Model):
+    encrypted_message = models.CharField(max_length=200)
+    decrypted_message = models.CharField(max_length=200)
+    solved = models.BooleanField(default=False)
+
+    MAX_NUM_STUDENT = 50
+    MAX_NUM_NON_STUDENT = 50
+
+    @staticmethod
+    def get_unsolved_challenge():
+        return Challenge.objects.filter(solved=False).first()
+
+    @staticmethod
+    def unsolved_puzzles_left(student=True):
+        max_num_puzzles = Challenge.MAX_NUM_STUDENT if student else Challenge.MAX_NUM_NON_STUDENT
+        # get number of solved puzzles in a given category
+        solved_puzzles = Registration.objects.filter(has_solved_challenge=True, is_student=student).count()
+        return max_num_puzzles - solved_puzzles
+
+    def __unicode__(self):
+        if self.pk:
+            return '[{1}] {0} (#{2})'.format(self.decrypted_message, 
+                'Solved' if self.solved else 'Unsolved', self.pk)
+        else:
+            return '[{1}] {0})'.format(self.decrypted_message, 
+                'Solved' if self.solved else 'Unsolved')
+
+
+
+

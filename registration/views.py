@@ -169,6 +169,8 @@ class SubmitRegistrationView(generic.View):
         server_messages = []
         is_captured = False
 
+        has_solved_challenge = False
+
         if settings.DEBUG:
             # auto fill some fields
             defaults = (
@@ -182,6 +184,7 @@ class SubmitRegistrationView(generic.View):
                 if not request.POST[k]:
                     request.POST[k] = v
             request.POST['has_read_code_of_conduct'] = True
+            request.POST['has_read_waiver'] = True
 
         # check registration information
         registration_success= False
@@ -191,30 +194,39 @@ class SubmitRegistrationView(generic.View):
         if form.is_valid():
             registration_success = True
             email = form.cleaned_data['email']
+            has_solved_challenge = form.cleaned_data['has_solved_challenge']
         else:
             registration_message= _('Please correct your registration information'
                 ' before proceeding.')
 
         form_html = render_crispy_form(form)
 
+        if has_solved_challenge:
+            success_message += _('Congrats, you have a free ticket! ')
+            checkout_success = True
+
         # check amount is valid
         amount = int(request.POST.get('amount', 0))
         is_valid_amount = False
-        if amount:
-            is_student = request.POST.get('is_student', False)
-            ___, ___, ticket_price = self.get_ticket_info(is_student)
-            is_valid_amount = amount == ticket_price
-        if amount and not is_valid_amount:
-            checkout_message = ''
-            checkout_success = False
+        if not has_solved_challenge:
+            if amount:
+                is_student = request.POST.get('is_student', False)
+                ___, ___, ticket_price = self.get_ticket_info(is_student)
+                is_valid_amount = amount == ticket_price
+            if amount and not is_valid_amount:
+                checkout_message = ''
+                checkout_success = False
 
-            error_message = _('</br>r u trying to hack us? u wot m8')
-            fraud_attempt = True
-            server_messages.append("Fraud attempt: amount entered was %.2f$" % (amount * 0.01))
+                error_message = _('</br>r u trying to hack us? u wot m8')
+                fraud_attempt = True
+                server_messages.append("Fraud attempt: amount entered was %.2f$" % (amount * 0.01))
 
         # attempt charge only if registration information is valid
-        if registration_success and amount:
+        order_id = 'xxx'
+        if registration_success and (not fraud_attempt or has_solved_challenge):
             order_id = Registration.generate_order_id()
+
+        if registration_success and is_valid_amount and not has_solved_challenge:
             token_id = request.POST.get('token_id', None)
 
             if not token_id:
@@ -379,13 +391,19 @@ class SubmitRegistrationView(generic.View):
             try:
                 # Save registration
                 new_registration = form.save()
+                if has_solved_challenge:
+                    challenge = form.cleaned_data['solved_challenge']
+                    challenge.solved = True
+                    challenge.save()
+                    new_registration.challenge = challenge
+                    new_registration.has_solved_challenge = True
 
                 # Add additional fields to form
                 new_registration.preferred_language = language
 
                 is_student = request.POST.get('is_student', False)
                 is_early_bird, ticket_description, ticket_price = self.get_ticket_info(
-                    is_student)
+                    is_student, has_solved_challenge=has_solved_challenge)
 
                 new_registration.is_early_bird = is_early_bird
                 new_registration.ticket_description = ticket_description
@@ -405,7 +423,7 @@ class SubmitRegistrationView(generic.View):
 
             # Charge user
             is_captured = False
-            if not server_error:
+            if not server_error and not has_solved_challenge:
                 try:
                     charge = stripe.Charge.retrieve(charge.id)
                     charge.capture()
@@ -440,7 +458,7 @@ class SubmitRegistrationView(generic.View):
                     self._save_server_message_to_charge_attempt(charge_attempt, server_messages, e)
 
             if not server_error:
-                success_message = _('A confirmation email will be sent shortly.')
+                success_message += _('A confirmation email will be sent shortly.')
                 try:
                     new_registration.is_email_sent = True
                     new_registration.save()
@@ -450,6 +468,7 @@ class SubmitRegistrationView(generic.View):
 
         elif charge_attempt and len(server_messages) > 0:
             self._save_server_message_to_charge_attempt(charge_attempt, server_messages, None)
+        # success_message += _('Thanks for signing up you crypto whizz')
 
         response = {
             'server_message': server_message_client,
@@ -490,14 +509,15 @@ class SubmitRegistrationView(generic.View):
         if charge_attempt:
             charge_attempt.save_server_message(messages, exception=e)
 
-    def get_ticket_info(self, is_student):
+    def get_ticket_info(self, is_student, has_solved_challenge=False):
         # early_bird_deadline = datetime.strptime('Sep 1 2015', '%b %d %Y')
         # is_early_bird = datetime.now() < early_bird_deadline
         is_early_bird = False
 
         ticket_description, ticket_price = Registration.get_ticket_info(
                 is_student=is_student,
-                is_early_bird=is_early_bird
+                is_early_bird=is_early_bird,
+                has_solved_challenge=has_solved_challenge
             )
         return (is_early_bird, ticket_description, ticket_price)
 

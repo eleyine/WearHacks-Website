@@ -198,7 +198,6 @@ DJANGO_APPS = (
     'crispy_forms',
     # 'djstripe'
     'djrill',
-    'kombu.transport.django',
     'djcelery',
 )
 

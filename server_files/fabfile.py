@@ -241,6 +241,11 @@ def _update_permissions(debug=False, setup=False, only_static=False):
                 sudo('groupadd staticusers')
                 sudo('adduser www-data staticusers')
                 sudo('adduser django staticusers')
+                with cd(DJANGO_PROJECT_PATH):
+                    run('mkdir -p media')
+                    run('mkdir -p assets')
+                    run('mkdir -p registration/fixtures')
+                    run('mkdir -p registration/migrations')
 
         # change permissions to static files
         sudo('chown -R django %s' % (DJANGO_PROJECT_PATH))
@@ -390,8 +395,9 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
             env.user = 'django'
             env.password = DJANGO_PASS
 
-            print '> Dumping fixtures'
-            run('python manage.py dumpdata registration --indent 2 --output registration/fixtures/initial.json')
+            if not setup and not reset_db:
+                print '> Dumping fixtures'
+                run('python manage.py dumpdata registration --indent 2 --output registration/fixtures/initial.json')
 
             print '> Checking database backend'
             run('echo "from django.db import connection; connection.vendor" | python manage.py shell')
@@ -468,6 +474,7 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     _update_private_settings_file(deploy_to=deploy_to)
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
+        run('git config --global core.filemode false')
         if branch == 'stable':
             run('git fetch --all')
             run('git reset --hard origin/%s' % (branch))

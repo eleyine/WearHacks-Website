@@ -24,6 +24,9 @@ static/images/carousel/src/
 */migrations*
 migrate.sh
 
+# Fixtures
+*/fixtures
+
 # Deployment settings
 wearhacks_website/settings/*_private.py
 wearhacks_website/settings/private.py
@@ -31,8 +34,12 @@ wearhacks_website/settings/archive/
 server_files/logs/
 server_files/fab_config.py
 server_files/tmp.txt
+server_files/dropbox
 
 # Internationalization
 *.mo
 
+# Celery
+celerybeat.pid
+celerybeat-schedule.db
 tmp/

@@ -50,6 +50,11 @@ CACHES = {
 }
 ########## END CACHE CONFIGURATION
 
+########## CELERY
+# run celery task synchronous
+CELERY_ALWAYS_EAGER = True
+########## END CELERY
+
 ########## TOOLBAR CONFIGURATION
 # See: http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup
 DJANGO_APPS = (

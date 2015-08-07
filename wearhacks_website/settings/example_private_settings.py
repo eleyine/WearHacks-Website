@@ -72,6 +72,24 @@ IS_STRIPE_LIVE = False
 # }
 # ########## END DATABASE CONFIGURATION
 
+########## CELERY
+RABBIT_MQ_USER = 'guest'
+RABBIT_MQ_PASS = 'guest'
+RABBIT_MQ_VHOST = ''
+
+BROKER_URL = 'amqp://%s:%s@locahlost:5672//%s' % (
+    RABBIT_MQ_USER,
+    RABBIT_MQ_PASS,
+    RABBIT_MQ_VHOST,
+    )
+########## END CELERY
+
+########## DROPBOX
+ENABLE_DROPBOX_SYNC = True
+DROPBOX_APP_KEY = 'your_dropbox_api_key'
+DROPBOX_APP_SECRET = 'your_dropbox_api_secret'
+########## END DROPBOX
+
 ########## EMAIL / MANDRILL
 MANDRILL_API_KEY = "your_mandrill_api_key"
 EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend' 

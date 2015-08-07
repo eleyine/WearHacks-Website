@@ -33,7 +33,11 @@ try:
         DEPLOYMENT_PRIVATE_FILES,
         DEPLOYMENT_HOSTS,
         DEFAULT_BRANCH,
-        DJANGO_PASS)
+        DJANGO_PASS,
+        RABBIT_MQ_USER,
+        RABBIT_MQ_PASS,
+        RABBIT_MQ_VHOST,
+        )
 except ImportError, e:
     print e
     print 'Please update fab_config.py, see fab_config_example.py'
@@ -161,7 +165,8 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
                 'gunicorn',
                 'sqlite3',
                 'node-less',
-                'gettext'
+                'gettext',
+                'rabbitmq-server',
             ])
 
         try:
@@ -203,6 +208,23 @@ def compile_messages(mode=DEFAULT_MODE):
         with cd(DJANGO_PROJECT_PATH):
             run('django-admin compilemessages')
 
+def rabbit_mq_setup(deploy_to=DEFAULT_DEPLOY_TO):
+    print 'Setting Up Rabbit MQ'
+    with cd(DJANGO_PROJECT_PATH):
+        with settings(warn_only=True):
+            django_settings = _get_private_settings(deploy_to=deploy_to)
+            sudo('rabbitmqctl add_user %s %s' % (
+                settings.RABBIT_MQ_USER, 
+                settings.RABBIT_MQ_PASS)
+            )
+            sudo('rabbitmqctl add_vhost %s' % (
+                settings.RABBIT_MQ_VHOST)
+            )
+            sudo('rabbitmqctl set_permissions -p %s %s ".*" ".*" ".*"' % (
+                settings.RABBIT_MQ_VHOST,
+                settings.RABBIT_MQ_USER)
+            )
+
 def _update_permissions(debug=False, setup=False, only_static=False):
     """
     An exhaustive fail-proof permission setup. I tried to give the least possible 
@@ -232,6 +254,7 @@ def _update_permissions(debug=False, setup=False, only_static=False):
                 sudo("chmod -R 500 .") # r-x --- --- : django can only read and execute files by default
                 with settings(warn_only=True):
                     sudo("chmod -R 700 registration/migrations") # rwx --- --- : django can write new migrations
+                    sudo("chmod -R 700 registration/fixtures") # rwx --- --- : django can write new fixtures
             
             sudo("chmod -R 644 assets") # rw- r-- r-- : assets can be read by nginx (var-www) as well as everyone else
             sudo("chmod -R 644 media") # rw- r-- r--
@@ -292,6 +315,14 @@ def update_conf_files(deploy_to=DEFAULT_DEPLOY_TO, restart=True):
             'DJANGO_PROJECT_NAME': DJANGO_PROJECT_NAME,
             'DJANGO_APP_NAME': DJANGO_APP_NAME
         })
+
+    print 'Modifying celerybeat config'
+    _write_file('celeryd', '/etc/init.d/celeryd', {})
+    _write_file('celerybeat', '/etc/init.d/celerybeat', {})
+    _write_file('celeryd.conf', '/etc/init.d/celerybeat', {
+            'DJANGO_PROJECT_DIR': DJANGO_PROJECT_DIR,
+        })
+
     if restart:
         print 'Restarting nginx'
         sudo('nginx -t')
@@ -355,9 +386,12 @@ def migrate(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
     print '\nMigrating database as user django'
 
     with shell_env(**env_variables):
-        with cd(DJANGO_PROJECT_PATH):
+        with cd(DJANGO_PROJECT_PATH):            
             env.user = 'django'
             env.password = DJANGO_PASS
+
+            print '> Dumping fixtures'
+            run('python manage.py dumpdata registration --indent 2 --output registration/fixtures/initial.json')
 
             print '> Checking database backend'
             run('echo "from django.db import connection; connection.vendor" | python manage.py shell')

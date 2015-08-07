@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 import sys
 
-from .common import SITE_NAME, DJANGO_ROOT
+from .common import SITE_NAME, DJANGO_ROOT, SITE_ROOT
 import os
 
 ########## DEBUG CONFIGURATION
@@ -77,3 +77,28 @@ CACHES = {
 ########## END CACHE CONFIGURATION
 
 FILE_UPLOAD_PERMISSIONS = 0o644
+
+########## CELERY
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
+CELERY_CACHE_BACKEND='djcelery.backends.cache:CacheBackend',
+CELERYBEAT_SCHEDULE = {
+    'backup-every-30-seconds': {
+        'task': 'registration.tasks.main.dropbox_backup',
+        'schedule': timedelta(seconds=30)
+    },
+},
+# Where to chdir at start.
+CELERYD_CHDIR = SITE_ROOT
+# Absolute or relative path to the 'celery' command:
+CELERY_BIN="/usr/local/bin/celery"
+#CELERY_BIN="/virtualenvs/def/bin/celery"
+
+# App instance to use
+# comment out this line if you don't use an app
+CELERY_APP="wearhacks_website"
+# or fully qualified:
+#CELERY_APP="proj.tasks:app"
+
+# Extra arguments to celerybeat
+CELERYBEAT_OPTS="--schedule=/var/run/celery/celerybeat-schedule"
+########## END CELERY

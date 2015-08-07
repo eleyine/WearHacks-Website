@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-07 03:59-0400\n"
+"POT-Creation-Date: 2015-08-07 04:21-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -738,8 +738,8 @@ msgid "When"
 msgstr "Quand"
 
 #: templates/registration/confirmation_email.html:323
-msgid "October 2nd 05:00 PM to October 4th 09:00 PM"
-msgstr "2 Octobre à 17h au 4 Octobre à 21h"
+msgid "October 2nd 05:00 PM to October 4th 07:00 PM"
+msgstr "2 Octobre à 17h au 4 Octobre à 19h"
 
 #: templates/registration/confirmation_email.html:323
 msgid "Detailed Schedule"

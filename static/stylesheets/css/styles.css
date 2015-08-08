@@ -45,6 +45,11 @@ header .header-content {
   padding-top: 20px;
   z-index: 100;
 }
+@media (max-width: 992px) {
+  header .header-content {
+    margin-bottom: 0;
+  }
+}
 header .header-content-inner h3 {
   line-height: 1.3em;
   font-family: "Helvetica Neue", "Helvetica", sans-serif;
@@ -163,7 +168,7 @@ header .header-content-inner .what img.kinect {
   max-width: 300px;
 }
 header .header-content-inner .what img.oculus {
-  max-width: 250px;
+  max-width: 230px;
 }
 header .header-content-inner .what img.intel {
   max-width: 200px;

@@ -427,7 +427,8 @@ def update_requirements(branch=DEFAULT_BRANCH):
         print 'Installing bower requirements..'
         run('bower install --allow-root')
 
-def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH):
+def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH,
+    collectstatic=False):
     """
     Update conf files, pull changes from repo and update requirements.
 
@@ -454,6 +455,11 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
             run('git pull origin %s' % (branch))
             run('git checkout %s' % (branch))
         update_requirements()
+
+    if collectstatic:
+        compile_messages(mode=mode)
+        collect_staticfiles(mode=mode, deploy_to=deploy_to)
+        restart_gunicorn()
 
 def _update_private_settings_file(deploy_to=DEFAULT_DEPLOY_TO):
     print '\nUpdating private settings'
@@ -504,6 +510,19 @@ def restart_nginx():
     print 'Restarting nginx'
     sudo('nginx -t')
     sudo('service nginx restart')
+
+def collect_staticfiles(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO,
+        env_variables=None):
+    if not env_variables:
+        env_variables = _get_env_variables(mode=mode, deploy_to=deploy_to)
+
+    with cd(DJANGO_PROJECT_PATH):
+        with shell_env(**env_variables):
+            with settings(prompts=prompts):
+                compile_messages(mode=mode)
+                run('python manage.py collectstatic')
+        _update_permissions(only_static=True, setup=setup)
+        restart_nginx()
 
 def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None, 
     setup=False, reset_db=False, branch=DEFAULT_BRANCH):

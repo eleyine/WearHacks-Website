@@ -51,7 +51,7 @@ class PDFField(forms.FileField):
 
 def get_registration_button_html(hide_checkout_hint=True):
     html = """
-    <div class="row"><div class="col-xs-12 col-sm-8 col-sm-offset-2 text-center checkout-wrapper">
+    <div class="row"><div class="col-sm-12 col-md-7 col-md-offset-3 text-center checkout-wrapper">
         <span id="registration-error" class="help-block hide message message-error">
             <strong>%(registration_failure_message)s</strong>
         </span>

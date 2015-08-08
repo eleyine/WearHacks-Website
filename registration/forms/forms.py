@@ -146,7 +146,7 @@ class RegistrationForm(forms.ModelForm):
                 initial = self.challenge.encrypted_message,
                 widget=forms.widgets.Textarea,
                 help_text = _(
-                    _('Try to decrypt this message for a chance to win a free ticket.\n'
+                    _('Try to decrypt this message to win a free ticket.\n'
                     '%(num_tickets_student)i tickets left for students and %(num_tickets_non_student)i '
                     ' tickets left for non-students.') % {
                         'num_tickets_student': Challenge.unsolved_puzzles_left(student=True),

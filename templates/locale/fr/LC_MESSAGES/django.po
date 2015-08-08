@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-08 08:40-0400\n"
+"POT-Creation-Date: 2015-08-08 12:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,15 +137,15 @@ msgstr "Restons en contact!"
 msgid "For any questions and inquiries, feel free to contact us!"
 msgstr "Pour toute question ou demande, n'hésitez pas à nous contacter!"
 
-#: templates/faq.html:7 templates/navigation.html:32
+#: templates/faq.html:9 templates/navigation.html:32
 msgid "FAQ"
 msgstr "Questions Fréquentes"
 
-#: templates/faq.html:17
+#: templates/faq.html:19
 msgid "What is WearHacks?"
 msgstr "Qu'est-ce que WearHacks?"
 
-#: templates/faq.html:23
+#: templates/faq.html:25
 msgid ""
 "\n"
 "                  WearHacks is an international Montreal-based nonprofit "
@@ -174,11 +174,11 @@ msgstr ""
 "ainsi que l'investissement de départ pour eux.\n"
 "                "
 
-#: templates/faq.html:35
+#: templates/faq.html:37
 msgid "What if I'm new to all of this?"
 msgstr "Et si je suis un débutant?"
 
-#: templates/faq.html:41
+#: templates/faq.html:43
 msgid ""
 "\n"
 "                  No worries. It's definitely a plus to have prior coding or "
@@ -199,11 +199,11 @@ msgstr ""
 "incroyables, et surtout, soit prêt à construire!\n"
 "                "
 
-#: templates/faq.html:52
+#: templates/faq.html:54
 msgid "How much will WearHacks cost me?"
 msgstr "Combien va me coûter WearHacks?"
 
-#: templates/faq.html:58
+#: templates/faq.html:60
 msgid ""
 "\n"
 "                  The first 50 students and 50 non-students who can solve "
@@ -223,11 +223,11 @@ msgstr ""
 "boissons et matériel.</strong> Au plaisir de vous voir! :)\n"
 "                "
 
-#: templates/faq.html:71
+#: templates/faq.html:73
 msgid "What about food?"
 msgstr "Et qu'en est-il de la nourriture?"
 
-#: templates/faq.html:77
+#: templates/faq.html:79
 msgid ""
 "\n"
 "                  We've got that covered. Breakfast, lunch, dinner, snacks "
@@ -239,35 +239,35 @@ msgstr ""
 "souper, grignotines et boissons seront servis. Approvisionnés localement.\n"
 "                "
 
-#: templates/faq.html:88
+#: templates/faq.html:90
 msgid "What should I know before coming to the event?"
 msgstr "Que devrais-je savoir avant mon arrivée à l'événement?"
 
-#: templates/faq.html:94
+#: templates/faq.html:96
 msgid "Code of Conduct"
 msgstr "Code de Conduite"
 
-#: templates/faq.html:94
+#: templates/faq.html:96
 msgid "and"
 msgstr "et"
 
-#: templates/faq.html:94
+#: templates/faq.html:96
 msgid "Reporting procedures"
 msgstr "les Procédures de Déclaration des Incidents"
 
-#: templates/faq.html:95
+#: templates/faq.html:97
 msgid "Terms and conditions </a> for the event"
 msgstr "Conditions Générales</a> de l'évènement"
 
-#: templates/faq.html:96
+#: templates/faq.html:98
 msgid "Resume Collection and Privacy Policy"
 msgstr "Utilisation et Politique de Confidentialité des curriculum vitaes"
 
-#: templates/faq.html:105
+#: templates/faq.html:107
 msgid "I don’t have a team or an idea!"
 msgstr "Je n'ai pas d'équipe ou d'idée!"
 
-#: templates/faq.html:111
+#: templates/faq.html:113
 msgid ""
 "\n"
 "                  Not a problem. You can join projects if you don't have an "
@@ -283,11 +283,11 @@ msgstr ""
 "former les équipes. Dans tous les cas, tu n'as pas de soucis à te faire!\n"
 "                "
 
-#: templates/faq.html:126
+#: templates/faq.html:128
 msgid "How many people can be on my team?"
 msgstr "Combien de personnes peuvent être dans mon équipe?"
 
-#: templates/faq.html:132
+#: templates/faq.html:134
 msgid ""
 "\n"
 "                  We do not have any specific requirements for team sizes, "
@@ -302,11 +302,11 @@ msgstr ""
 "encourageons la diversité.\n"
 "                "
 
-#: templates/faq.html:143
+#: templates/faq.html:145
 msgid "What should I bring?"
 msgstr "Qu'est-ce que je dois ramener?"
 
-#: templates/faq.html:149
+#: templates/faq.html:151
 msgid ""
 "\n"
 "                  A laptop and cables/chargers are the essentials. If you "
@@ -323,12 +323,12 @@ msgstr ""
 "de couchage et accessoires de toilette.\n"
 "                "
 
-#: templates/faq.html:160
+#: templates/faq.html:162
 msgid "Can I start working on my project before WearHacks?"
 msgstr ""
 "Est-ce que je peux commencer à travailler sur mon projet avant WearHacks?"
 
-#: templates/faq.html:166
+#: templates/faq.html:168
 msgid ""
 "\n"
 "                  The short answer is no. We do not encourage participants "
@@ -347,11 +347,11 @@ msgstr ""
 "APIs que nos sponsors nous ont offerts, alors restez à l'écoute!\n"
 "                "
 
-#: templates/faq.html:177
+#: templates/faq.html:179
 msgid "How does judging work?"
 msgstr "Comment marche la procédure de séléction?"
 
-#: templates/faq.html:183
+#: templates/faq.html:185
 msgid ""
 "\n"
 "                  A group of judges will rate the hacks based on creativity, "
@@ -374,11 +374,11 @@ msgstr ""
 "l'arbitrage plus tard, ainsi que les prix octroyés.\n"
 "                "
 
-#: templates/faq.html:194
+#: templates/faq.html:196
 msgid "I have a question that is not listed here. How can I contact you?"
 msgstr "J'ai une question mais elle n'est pas incluse ici."
 
-#: templates/faq.html:200
+#: templates/faq.html:202
 msgid ""
 "\n"
 "                Feel free to reach out to us on <a href=\"//twitter.com/"

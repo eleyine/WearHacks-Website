@@ -22,6 +22,7 @@
   margin-top: 10px;
 }
 #confirmation-form .checkbox label,
+#bonus .checkbox label,
 #about-you .checkbox label {
   padding-left: 0;
 }

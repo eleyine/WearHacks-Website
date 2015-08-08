@@ -60,6 +60,9 @@ window.terms = "{% static 'documents/terms.pdf' %}";
 window.waiver = "{% static 'documents/waiver.pdf' %}";
 window.code_of_conduct = "{% static 'documents/conduct.pdf' %}";
 window.stripe_pk = "{{ stripe_public_key }}";
+{% if challenge_id %}
+window.challenge_id = {{challenge_id}};
+{% endif %}
 </script>
 <script type="text/javascript" src="{% static 'bower_components/datejs/build/production/date-en-CA.min.js' %}"></script>
 {% endcompress %}

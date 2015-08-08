@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import translation
 from django.utils.decorators import method_decorator
 
-from registration.models import Registration, ChargeAttempt
+from registration.models import Registration, ChargeAttempt, Challenge
 from registration.forms import RegistrationForm, ConfirmRegistrationForm
 
 from crispy_forms.utils import render_crispy_form
@@ -128,6 +128,7 @@ class ConfirmRegistrationView(generic.DetailView):
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
     form_class = RegistrationForm
+    challenge = None
 
     def get_stripe_secret_key(self):
         if settings.IS_STRIPE_LIVE:
@@ -146,9 +147,11 @@ class SubmitRegistrationView(generic.View):
     def get(self, request, *args, **kwargs):
         # request, language = self.get_language(request)
         language=request.LANGUAGE_CODE
+        self.challenge = Challenge.get_unsolved_challenge(language=language)
         context = {
-            'form': RegistrationForm(language),
-            'stripe_public_key': self.get_stripe_public_key()
+            'form': RegistrationForm(challenge=self.challenge),
+            'stripe_public_key': self.get_stripe_public_key(),
+            'challenge_id': self.challenge.id if self.challenge else None
         }
         return render(request, self.template_name, context)
 
@@ -194,7 +197,13 @@ class SubmitRegistrationView(generic.View):
         # check registration information
         registration_success= False
         registration_message = ''
-        form = self.form_class(language, request.POST, request.FILES)
+        challenge_id = request.POST.get('challenge_id', None)
+        if challenge_id:
+            try:
+                self.challenge = Challenge.objects.get(id=challenge_id)
+            except Exception, e:
+                self.challenge = None
+        form = self.form_class(request.POST, request.FILES, challenge=self.challenge)
 
         if form.is_valid():
             registration_success = True

@@ -87,7 +87,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     )
     list_display = (
             'updated_at',
-            'solver',
+            'solvers',
             'solved',
             'language',
             'decrypted_message',

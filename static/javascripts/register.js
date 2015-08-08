@@ -140,6 +140,9 @@
         var formData = new FormData($(form)[0]);
         var lang = document.documentElement.lang;
         formData.append("lang", lang);
+        if (window.challenge_id) {
+          formData.append("challenge_id", window.challenge_id);
+        }
         $.ajax({
             processData: false,
             contentType: false,
@@ -322,6 +325,9 @@
                 }
                 formData.append('token_id', token.id);
                 formData.append('amount', amount);
+                if (window.challenge_id) {
+                  formData.append("challenge_id", window.challenge_id);
+                }
                 // formData.append("lang", lang);
                 var lang = document.documentElement.lang;
                 $.ajax({

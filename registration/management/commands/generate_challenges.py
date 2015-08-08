@@ -67,10 +67,7 @@ class Command(BaseCommand):
             self.stdout.write('Failed to generate {0} challenges'.format(failed))
 
     def clean_message(self, m):
-        m = m.decode('utf-8') # str to unicode
-        m = unidecode(unicode(m)) # convert accent characters to closest match
-        regex = re.compile(r'[^\w\-,\.!?"\' ]+')
-        return regex.sub('', m)
+        return Challenge.clean_message(m)
 
     def generate_challenges_from_csv(self, data, **kwargs):
         obj_data = []

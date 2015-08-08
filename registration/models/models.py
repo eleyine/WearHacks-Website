@@ -11,6 +11,9 @@ from django.db.models import permalink
 
 from registration.models.helpers import *
 
+import re
+from unidecode import unidecode
+
 class ChargeAttempt(models.Model):
     email = models.EmailField()
     charge_id = models.CharField(max_length=27)
@@ -300,22 +303,38 @@ class Challenge(models.Model):
 
     MAX_NUM_STUDENT = 50
     MAX_NUM_NON_STUDENT = 50
+    DISCOUNT_SOLVED_CHALLENGES = False
 
     @property
-    def solver(self):
-        qs = Registration.objects.filter(solved_challenge__id=self.id)
-        print qs
+    def solvers(self):
+        qs = Registration.objects.filter(solved_challenge=self)
         if qs.exists():
-            return qs.first().full_name
+            return ', '.join([r.full_name for r in qs])
         else:
             return 'No one yet'
 
     @staticmethod
+    def clean_message(m):
+        m = m.strip()
+        if type(m) == str:
+            m = m.decode('utf-8') # str to unicode
+        m = unidecode(unicode(m)) # convert accent characters to closest match
+        m = ' '.join(m.split()) # remove extra space
+        regex = re.compile(r'[^\w\-,\.!?"\' :]+')
+        return regex.sub('', m)
+
+    @staticmethod
     def get_unsolved_challenge(language=language):
-        print "Language is", language
-        qs = Challenge.objects.filter(solved=False, language=language)
+        from random import randint
+        qs = Challenge.objects.filter(language=language)
         if qs.exists():
-            return qs.first()
+            if Challenge.DISCOUNT_SOLVED_CHALLENGES:
+                qs = qs.filter(solved=False)
+                if qs.exists():
+                    return qs.first()
+            else:
+                num_available_challenges = qs.count()
+                return qs[randint(0, num_available_challenges-1)]
         else:
             return None
 

@@ -98,8 +98,18 @@ class RegistrationForm(forms.ModelForm):
         self.cleaned_data['has_solved_challenge'] = False
         if 'challenge_do_attempt' in self.cleaned_data and \
             self.cleaned_data["challenge_do_attempt"]:
-            user_solution = self.cleaned_data["challenge_question"]
-            if user_solution.lower().strip() == self.challenge.decrypted_message.lower().strip():
+            if self.cleaned_data['reset_question']:
+                self.data['reset_question'] = False
+                self.data['challenge_question'] = self.challenge.encrypted_message
+
+            # clean strings to minimise errors due to weird characters, spacing, capitalization etc.
+            user_solution = self.cleaned_data["challenge_question"].lower().strip()
+            user_solution = Challenge.clean_message(user_solution)
+            valid_solution = self.challenge.decrypted_message.lower().strip()
+            valid_solution = Challenge.clean_message(valid_solution)
+            print valid_solution
+            
+            if user_solution == valid_solution:
                 self.cleaned_data['has_solved_challenge'] = True
                 # Make sure there are challenges left in this category
                 if 'is_student' in self.cleaned_data:
@@ -122,24 +132,32 @@ class RegistrationForm(forms.ModelForm):
         self.data['has_solved_challenge'] = self.cleaned_data['has_solved_challenge']        
         return self.cleaned_data
 
-    def __init__(self, language, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        if 'challenge' in kwargs:
+            self.challenge = kwargs.pop('challenge')
+        else:
+            self.challenge = None
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
         # Add challenge field
-        self.challenge = Challenge.get_unsolved_challenge(language=language)
         if self.challenge:
             self.fields['challenge_question'] = forms.CharField(required=False, 
                 label = _('Challenge Question'),
-                initial = self.challenge.decrypted_message,
+                initial = self.challenge.encrypted_message,
                 widget=forms.widgets.Textarea,
                 help_text = _(
-                    'Try to decrypt this message for a chance to win a free ticket.\n'
+                    _('Try to decrypt this message for a chance to win a free ticket.\n'
                     '%(num_tickets_student)i tickets left for students and %(num_tickets_non_student)i '
-                    ' tickets left for non-students.' % {
+                    ' tickets left for non-students.') % {
                         'num_tickets_student': Challenge.unsolved_puzzles_left(student=True),
                         'num_tickets_non_student': Challenge.unsolved_puzzles_left(student=False),
                         })
                 )
+            self.fields['reset_question'] = forms.BooleanField(required=False, 
+                label = _('Reset my question'),
+                help_text = _('Check this if you lost track of the original encrypted text. '
+                    'Be sure to save your progress though!'),
+                initial=False) 
             self.fields['challenge_do_attempt'] = forms.BooleanField(required=False, 
                 label = _('Submit my solution to the challenge question'),
                 initial=True) 
@@ -195,6 +213,8 @@ class RegistrationForm(forms.ModelForm):
                     _('Bonus'),
                     'has_solved_challenge',
                     Field('challenge_question', rows=3),
+                    Field('reset_question', 
+                        data_off_text='No', data_on_text='Yes', data_size='mini'),
                     Field('challenge_do_attempt', 
                         data_off_text='No', data_on_text='Yes', data_size='mini'),
                     css_id='bonus'

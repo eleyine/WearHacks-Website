@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-08 04:52-0400\n"
+"POT-Creation-Date: 2015-08-08 08:40-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Conditions de l'évènement</a>, le <a class=\"conduct\" href=\"#\"> Code de "
 "Conduite </a> et la <a class=\"waiver\" href=\"#\"> Dérogation</a>."
 
-#: forms/forms.py:109
+#: forms/forms.py:119
 msgid ""
 "There are no spots left for your category. Please uncheck this box to "
 "proceed."
@@ -56,7 +56,7 @@ msgstr ""
 "Il n'y a plus de place disponible pour ta catégorie malheureusement. "
 "Déselectionne cete case pour continuer."
 
-#: forms/forms.py:116
+#: forms/forms.py:126
 msgid ""
 "Someone who solved the puzzle already registered with your email. Please "
 "uncheck this box to proceed."
@@ -64,19 +64,19 @@ msgstr ""
 "Quelqu'un qui a résolu le casse-tête s'est déjà inscrit avec ton adresse "
 "courriel. Déselectionne cette case pour continuer."
 
-#: forms/forms.py:119
+#: forms/forms.py:129
 msgid "No luck :( Try again?"
 msgstr "Pas de bol :( Essaie encore?"
 
-#: forms/forms.py:120
+#: forms/forms.py:130
 msgid "Uncheck this if you'd like to proceed without a solution."
 msgstr "Déselectionne ça si tu voudrais continuer sans soumettre de solution"
 
-#: forms/forms.py:132
+#: forms/forms.py:145
 msgid "Challenge Question"
 msgstr "Question Défi"
 
-#: forms/forms.py:136
+#: forms/forms.py:149
 #, python-format
 msgid ""
 "Try to decrypt this message for a chance to win a free ticket.\n"
@@ -84,30 +84,46 @@ msgid ""
 "%(num_tickets_non_student)i  tickets left for non-students."
 msgstr ""
 "Essaie de décrypter ce message pour gagner un billet gratuit.\n"
-"Il reste %(num_tickets_student)i billets gratuits pour étudiants et reste "
+"Il reste %(num_tickets_student)i billets gratuits pour étudiants et "
 "%(num_tickets_non_student)i billets gratuits pour non-étudiants."
 
-#: forms/forms.py:144
+#: forms/forms.py:152
+msgid "num_tickets_student"
+msgstr ""
+
+#: forms/forms.py:157
+msgid "Reset my question"
+msgstr "Réinitialiser ma question défi"
+
+#: forms/forms.py:158
+msgid ""
+"Check this if you lost track of the original encrypted text. Be sure to save "
+"your progress though!"
+msgstr ""
+"Coche ça si tu as perdu le contenu original (encrypté) de la question défi. "
+"N'oublie pas de sauvegarder ta tentative dans un éditeur externe!"
+
+#: forms/forms.py:162
 msgid "Submit my solution to the challenge question"
 msgstr "Soumettre ma solution à la question défi"
 
-#: forms/forms.py:161
+#: forms/forms.py:179
 msgid "General Information"
 msgstr "Informations Générales"
 
-#: forms/forms.py:168
+#: forms/forms.py:186
 msgid "Tell us a bit about yourself."
 msgstr "À propos de vous"
 
-#: forms/forms.py:181
+#: forms/forms.py:199
 msgid "Experience"
 msgstr "Expérience"
 
-#: forms/forms.py:187
+#: forms/forms.py:205
 msgid "Misc."
 msgstr "Divers"
 
-#: forms/forms.py:195
+#: forms/forms.py:213
 msgid "Bonus"
 msgstr "Bonus"
 
@@ -191,110 +207,110 @@ msgstr "Checkin échoué"
 msgid "This field must be checked"
 msgstr "Cette case doit être cochée"
 
-#: models/models.py:90
+#: models/models.py:93
 msgid "Only letters are allowed."
 msgstr "Seules les lettres sont autorisées."
 
-#: models/models.py:93
+#: models/models.py:96
 msgid "first name"
 msgstr "Prénom"
 
-#: models/models.py:95
+#: models/models.py:98
 msgid "last name"
 msgstr "Nom de famille"
 
-#: models/models.py:97
+#: models/models.py:100
 msgid "Male"
 msgstr "Masculin"
 
-#: models/models.py:98
+#: models/models.py:101
 msgid "Female"
 msgstr "Féminin"
 
 #. Translators: Gender information
-#: models/models.py:100
+#: models/models.py:103
 msgid "Other / I prefer not to disclose"
 msgstr "Autre / Je préfère ne pas le signaler"
 
-#: models/models.py:105
+#: models/models.py:108
 msgid "gender"
 msgstr "Sexe"
 
-#: models/models.py:112
+#: models/models.py:115
 msgid "Are you a student?"
 msgstr "Êtes-vous étudiant?"
 
-#: models/models.py:114
+#: models/models.py:117
 msgid "Where do/did you go to school?"
 msgstr "Nom du collège / de l'université"
 
-#: models/models.py:117
+#: models/models.py:120
 msgid "email"
 msgstr "courriel"
 
-#: models/models.py:123
+#: models/models.py:126
 msgid "Do you have any allergies or food restrictions?"
 msgstr "Avez-vous des allergies ou des restrictions alimentaires?"
 
 #. Translators: T-shirt sizes
-#: models/models.py:126
+#: models/models.py:129
 msgid "Small"
 msgstr "Petit"
 
-#: models/models.py:127
+#: models/models.py:130
 msgid "Medium"
 msgstr "Moyen"
 
-#: models/models.py:128
+#: models/models.py:131
 msgid "Large"
 msgstr "Grand"
 
-#: models/models.py:129
+#: models/models.py:132
 msgid "X-Large"
 msgstr "Très Grand"
 
-#: models/models.py:133
+#: models/models.py:136
 msgid "T-Shirt size"
 msgstr "Taille de T-shirt"
 
-#: models/models.py:135
+#: models/models.py:138
 msgid "Did you attend last year's event?"
 msgstr "Avez-vous assisté au hackathon de l'année dernière?"
 
-#: models/models.py:136
+#: models/models.py:139
 msgid "Is this your first hackathon?"
 msgstr "Est-ce votre premier hackathon?"
 
-#: models/models.py:144
+#: models/models.py:147
 msgid "resume"
 msgstr "CV"
 
 #. Translators: Ticket descriptions
-#: models/models.py:175
+#: models/models.py:178
 msgid "No ticket yet"
 msgstr "Pas de billet encore"
 
-#: models/models.py:176
+#: models/models.py:179
 msgid "Turing Ticket"
 msgstr "Billet Turing"
 
-#: models/models.py:177
+#: models/models.py:180
 msgid "Turing Student Ticket"
 msgstr "Billet Turing Étudiant"
 
-#: models/models.py:178
+#: models/models.py:181
 msgid "Regular Ticket"
 msgstr "Billet Régulier"
 
-#: models/models.py:179
+#: models/models.py:182
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
 
-#: models/models.py:180
+#: models/models.py:183
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt Étudiant"
 
-#: models/models.py:181
+#: models/models.py:184
 msgid "Early Bird Student Ticket"
 msgstr "Billet Lève-Tôt"
 
@@ -310,57 +326,57 @@ msgstr "On a eu du mal à sauvegarder ton information"
 msgid "Confirmed attendee details"
 msgstr "Les détails de l'invité ont été confirmés"
 
-#: views.py:168
+#: views.py:171
 msgid "Checkout not attempted yet."
 msgstr "La soumission n'a pas encore été tentée"
 
-#: views.py:204
+#: views.py:213
 msgid "Please correct your registration information before proceeding."
 msgstr "Veuillez corriger vos infos avant de soumettre"
 
-#: views.py:210
+#: views.py:219
 msgid "Congrats, you have a free ticket! "
-msgstr ""
+msgstr "Félicitations, t'as eu un billet gratos! "
 
-#: views.py:225
+#: views.py:234
 msgid "</br>r u trying to hack us? u wot m8"
 msgstr "</br>Tu te crois malin(e)?"
 
-#: views.py:240
+#: views.py:249
 msgid "Registration Information Valid"
 msgstr "Infos d'inscription valides"
 
-#: views.py:319
+#: views.py:328
 msgid "Network communication with Stripe failed. Please reload the page."
 msgstr ""
 "La communication avec Stripe a échoué. Essaie de rafraîchir la page pour "
 "tenter une nouvelle fois."
 
-#: views.py:324
+#: views.py:333
 msgid "Something went wrong on Stripe's end."
 msgstr "Stripe éprouve des difficultés"
 
-#: views.py:384
+#: views.py:393
 msgid "Something went wrong on Stripe's end. </br>"
 msgstr "Stripe éprouve des difficultés. </br>"
 
-#: views.py:389
+#: views.py:398
 msgid "Please refresh and try again."
 msgstr "Essaie de rafraîchir la page pour tenter une nouvelle fois."
 
-#: views.py:392 views.py:503
+#: views.py:401 views.py:512
 msgid "</br><strong>Don't worry, you haven't been charged.</strong>"
 msgstr "</br><strong>Ne t'inquiète pas, tu n'as pas été facturé. </strong>"
 
-#: views.py:425
+#: views.py:434
 msgid "Your registration could not be saved."
 msgstr "Ton inscription n'a pas pu être sauvegardée."
 
-#: views.py:441
+#: views.py:450
 msgid "We could not charge you."
 msgstr "On n'a pas pu te facturer."
 
-#: views.py:457
+#: views.py:466
 msgid ""
 "Your confirmation email cannot be sent at the moment. </"
 "strong><small>Everything else went smoothly and your payment went through. "
@@ -372,11 +388,11 @@ msgstr ""
 "administrateurs ont été notifiés et vont t'envoyer un courriel de "
 "confirmation dans les plus brefs délais. </small><strong>"
 
-#: views.py:466
+#: views.py:475
 msgid "A confirmation email will be sent shortly."
 msgstr "Un courriel de confirmation sera envoyé bientôt."
 
-#: views.py:498
+#: views.py:507
 msgid ""
 "Oops, something went wrong on our end.</br>Please refresh and try again. If "
 "the problem persists, please contact our support team. </br>"
@@ -385,24 +401,24 @@ msgstr ""
 "rafraîchir la page et tenter de nouveau. Si le problème persiste, n'hésite "
 "pas à contacter  notre équipe de soutien </br>"
 
-#: views.py:537
+#: views.py:546
 msgid "Thanks for signing up!"
 msgstr "Hâte de te voir à WearHacks"
 
-#: views.py:540
+#: views.py:549
 msgid "WearHacks Montreal Team <montreal@wearhacks.com>"
 msgstr "Équipe WearHacks à Montréal <montreal@wearhacks.com>"
 
-#: views.py:606 views.py:667
+#: views.py:615 views.py:676
 #, python-format
 msgid "We had some errors<pre>%s</pre>"
 msgstr "Nous éprouvons des difficultés<pre>%s</pre>"
 
-#: views.py:621
+#: views.py:630
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: views.py:680 views.py:732
+#: views.py:689 views.py:741
 msgid "Invalid arguments"
 msgstr "Arguments invalides"
 

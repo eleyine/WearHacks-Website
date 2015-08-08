@@ -87,9 +87,9 @@ class RegistrationForm(forms.ModelForm):
     has_read_conditions = forms.BooleanField(required=False, 
         label = _(
             'I have read and I agree with '
-            'the <a class="terms" href="#" target="_blank">Terms and Conditions</a>, '
-            'the <a class="conduct" href="#" target="_blank">Code of Conduct</a> '
-            'and the <a class="waiver" href="#" target="_blank">Waiver</a>.'
+            'the <a class="terms" href="#"> Terms and Conditions</a>, '
+            'the <a class="conduct" href="#"> Code of Conduct</a> '
+            'and the <a class="waiver" href="#"> Waiver</a>.'
             ))
 
     def clean(self):

@@ -56,6 +56,7 @@
 {% compress js %}
 <!-- ?v=00001 ensures it doesn't get cached. Should remove this in production. -->
 <script type="text/javascript" >
+window.terms = "{% static 'documents/terms.pdf' %}";
 window.waiver = "{% static 'documents/waiver.pdf' %}";
 window.code_of_conduct = "{% static 'documents/conduct.pdf' %}";
 window.stripe_pk = "{{ stripe_public_key }}";

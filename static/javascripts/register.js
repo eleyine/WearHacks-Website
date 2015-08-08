@@ -201,11 +201,14 @@
     }
 
     function stylisticTweaks() {
-        $(".conduct ~ a")
+        $("a.conduct")
           .attr("href", window.code_of_conduct)
           .attr("target", "_blank");
-        $(".waiver ~ a")
+        $("a.waiver")
           .attr("href", window.waiver)
+          .attr("target", "_blank");
+        $("a.terms")
+          .attr("href", window.terms)
           .attr("target", "_blank");
         $("#about-you .checkboxinput").bootstrapSwitch();
         $("#bonus .checkboxinput").bootstrapSwitch();

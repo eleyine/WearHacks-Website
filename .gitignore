@@ -43,3 +43,6 @@ server_files/dropbox
 celerybeat.pid
 celerybeat-schedule.db
 tmp/
+
+# Challenges
+registration/management/commands/encrypter.py

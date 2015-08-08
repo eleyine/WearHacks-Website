@@ -594,6 +594,20 @@ def generate_registrations(n=3, mode=DEFAULT_MODE):
             print 'Generating %i random registration...' % (n)
             run('python manage.py generate_registrations %i' % (n))
 
+def update_challenge_questions(deploy_to=DEFAULT_DEPLOY_TO, reset=False, mode=DEFAULT_MODE):
+    # update csv in tmp
+    _write_file('../tmp/crypto_texts,csv', os.path.join(
+        DJANGO_PROJECT_PATH, 'tmp/crypto_texts.csv'), {})
+    _write_file('../registration/management/encrypter.py', os.path.join(
+        DJANGO_PROJECT_PATH, 'tmp/crypto_texts.csv'), {})
+    env_variables = _get_env_variables(mode=mode) 
+    with cd(DJANGO_PROJECT_PATH):
+        with shell_env(**env_variables):
+            if reset:
+                run('python manage.py generate_challenges tmp/crypto_texts.csv --reset')
+            else:
+                run('python manage.py generate_challenges tmp/crypto_texts.csv')                
+
 def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     """
     Copy django, nginx and gunicorn log files from remote to server_files/logs

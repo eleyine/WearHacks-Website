@@ -291,7 +291,7 @@ class Registration(models.Model):
 
 class Challenge(models.Model):
     encrypted_message = models.CharField(max_length=200)
-    decrypted_message = models.CharField(max_length=200)
+    decrypted_message = models.CharField(max_length=200, unique=True)
     solved = models.BooleanField(default=False)
     language = models.CharField(max_length=2, 
         choices=settings.LANGUAGES, 
@@ -331,10 +331,10 @@ class Challenge(models.Model):
 
     def __unicode__(self):
         if self.pk:
-            return '[{1}] {0} (#{2})'.format(self.decrypted_message, 
+            return '[{1}] "{0}..." (#{2})'.format(self.decrypted_message[:20], 
                 'Solved' if self.solved else 'Unsolved', self.pk)
         else:
-            return '[{1}] {0})'.format(self.decrypted_message, 
+            return '[{1}] "{0}...")'.format(self.decrypted_message[:20], 
                 'Solved' if self.solved else 'Unsolved')
 
 

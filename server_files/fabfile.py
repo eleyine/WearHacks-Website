@@ -596,10 +596,15 @@ def generate_registrations(n=3, mode=DEFAULT_MODE):
 
 def update_challenge_questions(deploy_to=DEFAULT_DEPLOY_TO, reset=False, mode=DEFAULT_MODE):
     # update csv in tmp
-    _write_file('../tmp/crypto_texts,csv', os.path.join(
-        DJANGO_PROJECT_PATH, 'tmp/crypto_texts.csv'), {})
-    _write_file('../registration/management/encrypter.py', os.path.join(
-        DJANGO_PROJECT_PATH, 'tmp/crypto_texts.csv'), {})
+    print os.path.join(LOCAL_DJANGO_PATH, 'tmp/crypto_texts.csv')
+    with cd(DJANGO_PROJECT_PATH):
+        run('mkdir -p tmp')
+    _write_file(
+        os.path.join(LOCAL_DJANGO_PATH, 'tmp/crypto_texts.csv'), 
+        os.path.join(DJANGO_PROJECT_PATH, 'tmp/crypto_texts.csv'), {})
+    _write_file(
+        os.path.join(LOCAL_DJANGO_PATH, 'registration/management/commands/encrypter.py'), 
+        os.path.join(DJANGO_PROJECT_PATH, 'registration/management/commands/encrypter.py'), {})
     env_variables = _get_env_variables(mode=mode) 
     with cd(DJANGO_PROJECT_PATH):
         with shell_env(**env_variables):

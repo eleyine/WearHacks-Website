@@ -293,8 +293,8 @@ class Registration(models.Model):
             return '{0} {1} (Not saved)'.format(self.first_name, self.last_name)
 
 class Challenge(models.Model):
-    encrypted_message = models.CharField(max_length=200)
-    decrypted_message = models.CharField(max_length=200, unique=True)
+    encrypted_message = models.CharField(max_length=300)
+    decrypted_message = models.CharField(max_length=300, unique=True)
     solved = models.BooleanField(default=False)
     language = models.CharField(max_length=2, 
         choices=settings.LANGUAGES, 

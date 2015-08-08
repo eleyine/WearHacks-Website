@@ -309,7 +309,7 @@ class Challenge(models.Model):
     def solvers(self):
         qs = Registration.objects.filter(solved_challenge=self)
         if qs.exists():
-            return ', '.join([r.full_name for r in qs])
+            return ', '.join([r.full_name() for r in qs])
         else:
             return 'No one yet'
 

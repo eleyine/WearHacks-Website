@@ -39,7 +39,7 @@ except ImportError, e:
     print 'Please update fab_config.py, see fab_config_example.py'
     sys.exit()
 
-"""
+print """
 Default settings: 
    - Deploying to %s host %s with mode %s. 
    - Using private file %s.
@@ -191,7 +191,7 @@ def setup(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_BRANCH)
 
         run("git config --global core.filemode false")
         update_conf_files(deploy_to=deploy_to)
-        update_permissions()
+        update_permissions(setup=True)
 
 def compile_messages(mode=DEFAULT_MODE):
     env_variables = _get_env_variables(mode=mode) 
@@ -446,7 +446,7 @@ def pull_changes(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, branch=DEFAULT_
     with cd(DJANGO_PROJECT_PATH):
         print '\nPulling changes from %s repo' % (branch)
         run('git config --global core.filemode false')
-        if branch == 'stable':
+        if False: #branch == 'stable':
             run('git fetch --all')
             run('git reset --hard origin/%s' % (branch))
         else:
@@ -550,7 +550,7 @@ def reboot(mode=DEFAULT_MODE, deploy_to=DEFAULT_DEPLOY_TO, env_variables=None,
             with settings(prompts=prompts):
                 compile_messages(mode=mode)
                 run('python manage.py collectstatic')
-        _update_permissions(only_static=True)
+        _update_permissions(only_static=True, setup=setup)
         
         restart_nginx()
 

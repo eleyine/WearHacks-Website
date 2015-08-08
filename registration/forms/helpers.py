@@ -49,7 +49,7 @@ class PDFField(forms.FileField):
             raise forms.ValidationError(self.error_messages['sever_error'])
         return data
 
-def get_registration_button_html():
+def get_registration_button_html(hide_checkout_hint=True):
     html = """
     <div class="row"><div class="col-xs-12 col-sm-8 col-sm-offset-2 text-center checkout-wrapper">
         <span id="registration-error" class="help-block hide message message-error">
@@ -74,11 +74,10 @@ def get_registration_button_html():
             <i class="fa fa-lock"></i><i class="fa fa-paper-plane hide"></i><i class="fa fa-spinner fa-pulse hide"></i><i class="fa fa-check hide"></i> 
             <span class="text">%(checkout)s</span>
         </a>
-        <p id="hint_checkout" class="has-info help-block">%(payment_handled_by_stripe)s</p>
+        <p id="hint_checkout" class="%(hide_checkout_hint)s has-info help-block">%(payment_handled_by_stripe)s</p>
     </div>
     </div>
     """
-
     html = html % {
         'registration_failure_message': _('Registration Failure Message'),
         'register': _('Register'),
@@ -86,7 +85,9 @@ def get_registration_button_html():
         'checkout_failure_message': _('Checkout Failure Message'),
         'success_message': _('Success'),
         'checkout': _('Checkout'),
-        'payment_handled_by_stripe': _('Payment is handled by <a target="_blank" href="https://stripe.com/ca">Stripe</a>. We do not have acces to your card information.')
+        'payment_handled_by_stripe': _('Payment is handled by <a target="_blank" href="https://stripe.com/ca">Stripe</a>.'
+            ' We do not have acces to your card information.'),
+        'hide_checkout_hint': 'hide' if hide_checkout_hint else ''
         }
     # __('Placeholder value'
 

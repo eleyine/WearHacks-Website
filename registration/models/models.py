@@ -293,13 +293,31 @@ class Challenge(models.Model):
     encrypted_message = models.CharField(max_length=200)
     decrypted_message = models.CharField(max_length=200)
     solved = models.BooleanField(default=False)
+    language = models.CharField(max_length=2, 
+        choices=settings.LANGUAGES, 
+        default=settings.LANGUAGE_CODE)
+    updated_at = models.DateTimeField(auto_now=True)
 
     MAX_NUM_STUDENT = 50
     MAX_NUM_NON_STUDENT = 50
 
+    @property
+    def solver(self):
+        qs = Registration.objects.filter(solved_challenge__id=self.id)
+        print qs
+        if qs.exists():
+            return qs.first().full_name
+        else:
+            return 'No one yet'
+
     @staticmethod
-    def get_unsolved_challenge():
-        return Challenge.objects.filter(solved=False).first()
+    def get_unsolved_challenge(language=language):
+        print "Language is", language
+        qs = Challenge.objects.filter(solved=False, language=language)
+        if qs.exists():
+            return qs.first()
+        else:
+            return None
 
     @staticmethod
     def unsolved_puzzles_left(student=True):
@@ -307,6 +325,9 @@ class Challenge(models.Model):
         # get number of solved puzzles in a given category
         solved_puzzles = Registration.objects.filter(has_solved_challenge=True, is_student=student).count()
         return max_num_puzzles - solved_puzzles
+
+    class Meta:
+        ordering = ('-updated_at', 'solved', )
 
     def __unicode__(self):
         if self.pk:

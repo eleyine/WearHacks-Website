@@ -42,7 +42,7 @@ class RegistrationAdmin(admin.ModelAdmin):
         ('Legal Info', {
             'classes': ('collapse',),
             'fields': (
-                ('has_read_code_of_conduct', 'has_read_waiver'),
+                ('has_read_conditions',),
                 )
         }),
         (None, {
@@ -69,7 +69,36 @@ class RegistrationAdmin(admin.ModelAdmin):
     list_filter = ('has_solved_challenge', 'charge__is_captured', 'is_student', 'has_attended', 'is_email_sent', )
     list_display_links = ('order_id',)
 
+class ChallengeAdmin(admin.ModelAdmin):
+    date_hierarchy = 'updated_at'
+    fieldsets = (
+        ('Challenge Strings', {
+            'fields': (
+                'encrypted_message',
+                'decrypted_message'
+                )
+        }),
+        (None,{
+            'fields': (
+                'solved',
+                'language'
+                )
+        }),
+    )
+    list_display = (
+            'updated_at',
+            'solver',
+            'solved',
+            'language',
+            'decrypted_message',
+            'encrypted_message',
+        )
+    # list_editable = ('staff_comments',)
+    search_fields = ['decrypted_message']
+    list_filter = ('solved', 'language', )
+    list_display_links = ('decrypted_message',)
+
 admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(ChargeAttempt)
-admin.site.register(Challenge)
+admin.site.register(Challenge, ChallengeAdmin)
 

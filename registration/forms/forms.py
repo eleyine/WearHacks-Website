@@ -92,31 +92,23 @@ class RegistrationForm(forms.ModelForm):
             'and the <a class="waiver" href="#" target="_blank">Waiver</a>.'
             ))
 
-    challenge = Challenge.get_unsolved_challenge()
-    challenge_question = forms.CharField(required=False, label = _('Challenge Question'),
-        initial = challenge.decrypted_message,
-        help_text = _(
-            'Try to decrypt this message for a chance to win a free ticket.\n'
-            '%i tickets left for students and %i tickets left for non-students.' % (
-                Challenge.unsolved_puzzles_left(student=True),
-                Challenge.unsolved_puzzles_left(student=False),
-                ))
-        )
-    challenge_do_attempt = forms.BooleanField(required=False, label = _('Submit my solution to the challenge question'),
-        initial=True) 
-    has_solved_challenge = forms.BooleanField(required=False,
-        widget=forms.widgets.HiddenInput,
-        initial=False) 
-
     def clean(self):
         self.cleaned_data = super(RegistrationForm, self).clean()
         self.cleaned_data['solved_challenge'] = self.challenge
         self.cleaned_data['has_solved_challenge'] = False
-        if self.cleaned_data["challenge_do_attempt"]:
+        if 'challenge_do_attempt' in self.cleaned_data and \
+            self.cleaned_data["challenge_do_attempt"]:
             user_solution = self.cleaned_data["challenge_question"]
             if user_solution.lower().strip() == self.challenge.decrypted_message.lower().strip():
                 self.cleaned_data['has_solved_challenge'] = True
-                # avoid the same person solving challenges
+                # Make sure there are challenges left in this category
+                if 'is_student' in self.cleaned_data:
+                    spots_left = Challenge.unsolved_puzzles_left(student=self.cleaned_data["is_student"])
+                    if spots_left == 0:
+                        self.add_error('challenge_do_attempt', 
+                            _("There are no spots left for your category. "
+                              "Please uncheck this box to proceed."))
+                # Avoid the same person solving challenges
                 if self.cleaned_data["email"]:
                     n = Registration.objects.filter(email=self.cleaned_data["email"]).count()
                     if n > 0:
@@ -130,8 +122,31 @@ class RegistrationForm(forms.ModelForm):
         self.data['has_solved_challenge'] = self.cleaned_data['has_solved_challenge']        
         return self.cleaned_data
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, language, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
+
+        # Add challenge field
+        self.challenge = Challenge.get_unsolved_challenge(language=language)
+        if self.challenge:
+            self.fields['challenge_question'] = forms.CharField(required=False, 
+                label = _('Challenge Question'),
+                initial = self.challenge.decrypted_message,
+                widget=forms.widgets.Textarea,
+                help_text = _(
+                    'Try to decrypt this message for a chance to win a free ticket.\n'
+                    '%(num_tickets_student)i tickets left for students and %(num_tickets_non_student)i '
+                    ' tickets left for non-students.' % {
+                        'num_tickets_student': Challenge.unsolved_puzzles_left(student=True),
+                        'num_tickets_non_student': Challenge.unsolved_puzzles_left(student=False),
+                        })
+                )
+            self.fields['challenge_do_attempt'] = forms.BooleanField(required=False, 
+                label = _('Submit my solution to the challenge question'),
+                initial=True) 
+            self.fields['has_solved_challenge'] = forms.BooleanField(required=False,
+                widget=forms.widgets.HiddenInput,
+                initial=False) 
+
         self.helper = FormHelper()
         self.helper.form_id = 'registration-form'
         self.helper.form_method = 'post'
@@ -173,13 +188,21 @@ class RegistrationForm(forms.ModelForm):
                 'tshirt_size',
                 Field('food_restrictions', rows=2),
             ),
-            Fieldset(
-                _('Bonus'),
-                'has_solved_challenge',
-                'challenge_question',
-                'challenge_do_attempt',
-            ),
+        )
+        if self.challenge:
+            self.helper.layout.extend((
+                Fieldset(
+                    _('Bonus'),
+                    'has_solved_challenge',
+                    Field('challenge_question', rows=3),
+                    Field('challenge_do_attempt', 
+                        data_off_text='No', data_on_text='Yes', data_size='mini'),
+                    css_id='bonus'
+                ),
+            ))
+        hide_checkout_hint = self.challenge is not None
+        self.helper.layout.extend((
             # Field('has_read_waiver', css_class="waiver"),
             Field('has_read_conditions', css_class="conditions"),
-            HTML(get_registration_button_html())
-        )
+            HTML(get_registration_button_html(hide_checkout_hint=hide_checkout_hint)),
+        ))

@@ -144,18 +144,23 @@ class SubmitRegistrationView(generic.View):
         return stripe_pk
 
     def get(self, request, *args, **kwargs):
+        # request, language = self.get_language(request)
+        language=request.LANGUAGE_CODE
         context = {
-            'form': RegistrationForm(),
+            'form': RegistrationForm(language),
             'stripe_public_key': self.get_stripe_public_key()
         }
         return render(request, self.template_name, context)
 
-    @json_view
-    def post(self, request, *args, **kwargs):
-
+    def get_language(self, request):
         language = request.POST.get('lang', settings.LANGUAGE_CODE)
         translation.activate(language)
         request.LANGUAGE_CODE = language
+        return (request, language)
+
+    @json_view
+    def post(self, request, *args, **kwargs):
+        request, language = self.get_language(request)
         
         charge_attempt = None
         checkout_success = False
@@ -189,7 +194,7 @@ class SubmitRegistrationView(generic.View):
         # check registration information
         registration_success= False
         registration_message = ''
-        form = self.form_class(request.POST, request.FILES)
+        form = self.form_class(language, request.POST, request.FILES)
 
         if form.is_valid():
             registration_success = True
@@ -395,7 +400,7 @@ class SubmitRegistrationView(generic.View):
                     challenge = form.cleaned_data['solved_challenge']
                     challenge.solved = True
                     challenge.save()
-                    new_registration.challenge = challenge
+                    new_registration.solved_challenge = form.challenge
                     new_registration.has_solved_challenge = True
 
                 # Add additional fields to form
@@ -498,11 +503,6 @@ class SubmitRegistrationView(generic.View):
             message += _("</br><strong>Don't worry, you haven't been charged.</strong>")
         message = message % (inner_message)
         return message
-
-    def get_context_data(self, **kwargs):
-        context = super(SubmitRegistrationView, self).get_context_data(**kwargs)
-        context['form'] = RegistrationForm()
-        return context
 
     def _save_server_message_to_charge_attempt(self, charge_attempt, messages, e):
         print e

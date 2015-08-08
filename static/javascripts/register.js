@@ -208,13 +208,24 @@
           .attr("href", window.waiver)
           .attr("target", "_blank");
         $("#about-you .checkboxinput").bootstrapSwitch();
+        $("#bonus .checkboxinput").bootstrapSwitch();
+
+        // Remove payment info if student attempts to submit challenge
+        $("#div_id_challenge_do_attempt .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
+          if (state) {
+            $("#hint_checkout").addClass("hide");
+          } else {
+            $("#hint_checkout").removeClass("hide");            
+          }
+        }); 
+
         $("#div_id_is_student .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
           if (state) {
             $("#hint_id_is_student").removeClass("hide");
           } else {
             $("#hint_id_is_student").addClass("hide");            
           }
-        });     
+        });
         $("#div_id_is_first_time_hacker .checkboxinput").on('switchChange.bootstrapSwitch', function(event, state) {
           var is_returning = "#div_id_is_returning .checkboxinput";
           if (state && $(is_returning).val()) {

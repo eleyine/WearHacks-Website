@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load staticfiles %}
+
 
 <section id="faq">
   <div class="container">
@@ -91,9 +93,9 @@
             <div id="collapseWhatShouldIKnow" class="accordion-body collapse">
               <div class="accordion-inner">
                 <ul>
-                  <li><a href="#">{% trans "Code of Conduct" %} </a> {% trans "and" %} <a href="#"> {% trans "Reporting procedures" %} </a></li>
-                  <li><a href="#">{% trans "Terms and conditions </a> for the event" %} </li>
-                  <li><a href="#">{% trans "Resume Collection and Privacy Policy" %} </a> </li>
+                  <li><a target="_blank" href="{% static "documents/conduct.pdf" %}">{% trans "Code of Conduct" %}  {% trans "and" %} {% trans "Reporting procedures" %} </a></li>
+                  <li><a target="_blank" href="{% static "documents/terms.pdf" %}">{% trans "Terms and conditions </a> for the event" %} </li>
+                  <!-- <li><a href="{% static "documents/waiver.pdf" %}">{% trans "Resume Collection and Privacy Policy" %} </a> </li> -->
                 </ul>
               </div>
             </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-08 12:33-0400\n"
+"POT-Creation-Date: 2015-08-09 03:13-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,37 +26,46 @@ msgstr "À propos de WearHacks"
 #: templates/about.html:14
 msgid ""
 "\n"
-"                    We bring together developers, designers, project "
-"managers, students, and engineers with an entrepreneurial and creative mind. "
-"For an intensive 48 hours, you will learn new tools, meet industry experts, "
-"collaborate with other talented students and young professionals and build "
-"new wearable and connected technology. \n"
+"                    Wearhacks promotes innovation, entrepreneurship, and "
+"education in the Internet of Things and Wearables space.<br>\n"
+"\n"
+"                    Our fundamental goal is to bridge the knowledge gap that "
+"exists in the IoT industry amongst technology enthusiasts from all "
+"backgrounds through hackathons.<br>\n"
+"\n"
+"                    We strive to make hardware education accessible, "
+"approachable, and affordable. <br>\n"
+"\n"
+"                    For an intensive 48 hours, you will learn new tools, "
+"meet industry experts, collaborate with other talented students and young "
+"professionals and build new wearable and connected technology. \n"
 "                    "
 msgstr ""
 "\n"
 "Événement multidisciplinaire, nous réunissons développeurs, designers, "
 "graphistes, chefs de projets, étudiants, ingénieurs, artistes, architectes, "
 "créateurs et toutes autres personnes qui ont le goût de l'entrepreneuriat et "
-"l'esprit créatif. Durant 48 heures, vous utiliserez de nouveaux outils et  "
-"matériels, accompagnés d'experts dans le domaine de la technologie. Vous "
-"aurez ainsi l'opportunité de collaborer avec des étudiants et jeunes "
-"professionels talentueux pour développer un projet dans les domaines de "
-"l'informatique vestimentaire et de l'Internet des objets. \n"
+"l'esprit créatif. <br>\n"
+" Durant 48 heures, vous utiliserez de nouveaux outils et  matériels, "
+"accompagnés d'experts dans le domaine de la technologie. Vous aurez ainsi "
+"l'opportunité de collaborer avec des étudiants et jeunes professionels "
+"talentueux pour développer un projet dans les domaines de l'informatique "
+"vestimentaire et de l'Internet des objets. \n"
 "                    "
 
-#: templates/about.html:19
+#: templates/about.html:25
 msgid "Organization Website"
 msgstr "Site web de l'organisation"
 
-#: templates/about.html:29
+#: templates/about.html:35
 msgid "What you get"
 msgstr "Atouts"
 
-#: templates/about.html:39
+#: templates/about.html:45
 msgid "Batteries included"
 msgstr "Tout compris"
 
-#: templates/about.html:40
+#: templates/about.html:46
 msgid ""
 "We'll give you a wearable kit, great food and lots of coffee. You build "
 "something <strong>awesome</strong>."
@@ -64,11 +73,11 @@ msgstr ""
 "Nous vous donnerons un \"wearable kit\", de la bonne nourriture et plein de "
 "café. Vous contruirez quelque chose d'<strong>époustouflant</strong>!"
 
-#: templates/about.html:46
+#: templates/about.html:52
 msgid "All backgrounds"
 msgstr "Tous bienvenus"
 
-#: templates/about.html:47
+#: templates/about.html:53
 msgid ""
 "We welcome all kinds of <strong>innovators</strong> and industry experts, "
 "<strong>students and non-students</strong> alike, developers, engineers, "
@@ -79,11 +88,11 @@ msgstr ""
 "de la technologie ou non. Ce qui compte le plus c'est qu'ils aient un "
 "<strong>esprit curieux.</strong>"
 
-#: templates/about.html:54
+#: templates/about.html:60
 msgid "Mentorship and Promotion"
 msgstr "Mentorat et Promotion"
 
-#: templates/about.html:55
+#: templates/about.html:61
 msgid ""
 "We follow-up with the teams and <strong>help promote</strong> the best "
 "projects. We organize demos, talks, etc."
@@ -91,11 +100,11 @@ msgstr ""
 "Nous suivons des équipes et faisons la promotion des meilleurs projets. Nous "
 "organisons des démos, des présentations, etc."
 
-#: templates/about.html:61
+#: templates/about.html:67
 msgid "Strong track record"
 msgstr "Un bilan solide"
 
-#: templates/about.html:62
+#: templates/about.html:68
 #, fuzzy
 #| msgid ""
 #| " \n"

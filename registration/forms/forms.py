@@ -9,7 +9,11 @@ from registration.forms.helpers import PDFField
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as __
-from registration.forms.helpers import get_registration_button_html, get_confirm_button_html
+from registration.forms.helpers import (
+    get_registration_button_html, 
+    get_confirm_button_html,
+    get_challenge_question_header,
+)
 
 class ConfirmRegistrationForm(forms.ModelForm):
     class Meta:
@@ -98,9 +102,6 @@ class RegistrationForm(forms.ModelForm):
         self.cleaned_data['has_solved_challenge'] = False
         if 'challenge_do_attempt' in self.cleaned_data and \
             self.cleaned_data["challenge_do_attempt"]:
-            if self.cleaned_data['reset_question']:
-                self.data['reset_question'] = False
-                self.data['challenge_question'] = self.challenge.encrypted_message
 
             # clean strings to minimise errors due to weird characters, spacing, capitalization etc.
             user_solution = self.cleaned_data["challenge_question"].lower().strip()
@@ -142,22 +143,11 @@ class RegistrationForm(forms.ModelForm):
         # Add challenge field
         if self.challenge:
             self.fields['challenge_question'] = forms.CharField(required=False, 
-                label = _('Challenge Question'),
-                initial = self.challenge.encrypted_message,
+                label = _('Solution'), #_('Challenge Question'),
                 widget=forms.widgets.Textarea,
-                help_text = _(
-                    _('Try to decrypt this message to win a free ticket.\n'
-                    '%(num_tickets_student)i tickets left for students and %(num_tickets_non_student)i '
-                    ' tickets left for non-students.') % {
-                        'num_tickets_student': Challenge.unsolved_puzzles_left(student=True),
-                        'num_tickets_non_student': Challenge.unsolved_puzzles_left(student=False),
-                        })
+                help_text = _('Unlimited number of trials as long as '
+                    '"submit my solution" is checked.')
                 )
-            self.fields['reset_question'] = forms.BooleanField(required=False, 
-                label = _('Reset my question'),
-                help_text = _('Check this if you lost track of the original encrypted text. '
-                    'Be sure to save your progress though!'),
-                initial=False) 
             self.fields['challenge_do_attempt'] = forms.BooleanField(required=False, 
                 label = _('Submit my solution to the challenge question'),
                 initial=True) 
@@ -211,10 +201,9 @@ class RegistrationForm(forms.ModelForm):
             self.helper.layout.extend((
                 Fieldset(
                     _('Bonus'),
+                    HTML(get_challenge_question_header(self.challenge.encrypted_message)),
                     'has_solved_challenge',
-                    Field('challenge_question', rows=3),
-                    Field('reset_question', 
-                        data_off_text='No', data_on_text='Yes', data_size='mini'),
+                    Field('challenge_question', rows=3, placeholder=_('Easy, the answer is...')),
                     Field('challenge_do_attempt', 
                         data_off_text='No', data_on_text='Yes', data_size='mini'),
                     css_id='bonus'

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-09 03:13-0400\n"
+"POT-Creation-Date: 2015-08-12 07:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "                \n"
 
-#: templates/about.html:11
+#: templates/about.html:12
 msgid "About WearHacks"
 msgstr "À propos de WearHacks"
 
-#: templates/about.html:14
+#: templates/about.html:15
 msgid ""
 "\n"
 "                    Wearhacks promotes innovation, entrepreneurship, and "
@@ -53,19 +53,19 @@ msgstr ""
 "vestimentaire et de l'Internet des objets. \n"
 "                    "
 
-#: templates/about.html:25
+#: templates/about.html:26
 msgid "Organization Website"
 msgstr "Site web de l'organisation"
 
-#: templates/about.html:35
+#: templates/about.html:36
 msgid "What you get"
 msgstr "Atouts"
 
-#: templates/about.html:45
+#: templates/about.html:46
 msgid "Batteries included"
 msgstr "Tout compris"
 
-#: templates/about.html:46
+#: templates/about.html:47
 msgid ""
 "We'll give you a wearable kit, great food and lots of coffee. You build "
 "something <strong>awesome</strong>."
@@ -73,11 +73,11 @@ msgstr ""
 "Nous vous donnerons un \"wearable kit\", de la bonne nourriture et plein de "
 "café. Vous contruirez quelque chose d'<strong>époustouflant</strong>!"
 
-#: templates/about.html:52
+#: templates/about.html:53
 msgid "All backgrounds"
 msgstr "Tous bienvenus"
 
-#: templates/about.html:53
+#: templates/about.html:54
 msgid ""
 "We welcome all kinds of <strong>innovators</strong> and industry experts, "
 "<strong>students and non-students</strong> alike, developers, engineers, "
@@ -88,11 +88,11 @@ msgstr ""
 "de la technologie ou non. Ce qui compte le plus c'est qu'ils aient un "
 "<strong>esprit curieux.</strong>"
 
-#: templates/about.html:60
+#: templates/about.html:61
 msgid "Mentorship and Promotion"
 msgstr "Mentorat et Promotion"
 
-#: templates/about.html:61
+#: templates/about.html:62
 msgid ""
 "We follow-up with the teams and <strong>help promote</strong> the best "
 "projects. We organize demos, talks, etc."
@@ -100,11 +100,11 @@ msgstr ""
 "Nous suivons des équipes et faisons la promotion des meilleurs projets. Nous "
 "organisons des démos, des présentations, etc."
 
-#: templates/about.html:67
+#: templates/about.html:68
 msgid "Strong track record"
 msgstr "Un bilan solide"
 
-#: templates/about.html:68
+#: templates/about.html:69
 #, fuzzy
 #| msgid ""
 #| " \n"
@@ -591,7 +591,7 @@ msgstr ""
 "\n"
 "                "
 
-#: templates/header.html:26 templates/registration/confirmation_email.html:149
+#: templates/header.html:28 templates/registration/confirmation_email.html:149
 #: templates/registration/form.html:32
 msgid "The Biggest Wearable Hackathon in North-America"
 msgstr ""
@@ -600,15 +600,15 @@ msgstr ""
 "<emph>hackathon</emph>.\">marathon de programmation</a> d'objets connectés "
 "en Amérique du Nord"
 
-#: templates/header.html:31
+#: templates/header.html:33
 msgid "Innovate with"
 msgstr "Innovez avec"
 
-#: templates/header.html:57
+#: templates/header.html:59
 msgid "Join"
 msgstr "S'inscrire"
 
-#: templates/header.html:60
+#: templates/header.html:62
 msgid "Sponsor Us"
 msgstr "Parrainez-nous"
 

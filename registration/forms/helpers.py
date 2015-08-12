@@ -2,6 +2,8 @@ from django import forms
 from django.utils.translation import ugettext as _
 from django.utils.translation import pgettext_lazy as __
 from django.forms.utils import ValidationError
+
+from registration.models import Challenge
     
 class PDFField(forms.FileField):
     """
@@ -92,6 +94,32 @@ def get_registration_button_html(hide_checkout_hint=True):
     # __('Placeholder value'
 
     return html
+
+def get_challenge_question_header(encrypted_message):
+    help_text = _(
+        _('Try to decrypt this message to win a free ticket.\n'
+        '%(num_tickets_student)i tickets left for students and %(num_tickets_non_student)i '
+        ' tickets left for non-students.') % {
+            'num_tickets_student': Challenge.unsolved_puzzles_left(student=True),
+            'num_tickets_non_student': Challenge.unsolved_puzzles_left(student=False),
+        })
+    template = """
+    <div id="div_id_challenge_question" class="form-group">
+        <label for="id_challenge_question_encrypted" class="control-label col-lg-3">
+                %(challenge_question_label)s
+        </label>
+        <div class="controls col-lg-7">
+            <p class="help-block">%(help_text)s.</p>
+            <p>%(encrypted_message)s</p>
+
+        </div>
+    </div>
+    """
+    return template % {
+        'encrypted_message': encrypted_message,
+        'help_text': help_text,
+        'challenge_question_label': _('Challenge Question')
+        }
 
 def get_confirm_button_html():
     html = """

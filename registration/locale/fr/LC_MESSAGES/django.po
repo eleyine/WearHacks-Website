@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-09 03:13-0400\n"
+"POT-Creation-Date: 2015-08-12 07:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms/forms.py:43
+#: forms/forms.py:47
 msgid "Staff Actions"
 msgstr ""
 
-#: forms/forms.py:49
+#: forms/forms.py:53
 msgid "Attendee Information"
 msgstr "Informations Générales"
 
-#: forms/forms.py:85
+#: forms/forms.py:89
 msgid "Resume"
 msgstr "CV"
 
-#: forms/forms.py:86
+#: forms/forms.py:90
 msgid ""
 "Not required but this might reach our sponsors for targeted employment "
 "opportunities."
@@ -38,7 +38,7 @@ msgstr ""
 "N'est pas obligatoire mais pourrait atteindre nos parrains pour des "
 "opportunités d'emploi ciblées."
 
-#: forms/forms.py:89
+#: forms/forms.py:93
 msgid ""
 "I have read and I agree with the <a class=\"terms\" href=\"#\"> Terms and "
 "Conditions</a>, the <a class=\"conduct\" href=\"#\"> Code of Conduct</a> and "
@@ -48,7 +48,7 @@ msgstr ""
 "Conditions de l'évènement</a>, le <a class=\"conduct\" href=\"#\"> Code de "
 "Conduite </a> et la <a class=\"waiver\" href=\"#\"> Dérogation</a>."
 
-#: forms/forms.py:119
+#: forms/forms.py:120
 msgid ""
 "There are no spots left for your category. Please uncheck this box to "
 "proceed."
@@ -56,7 +56,7 @@ msgstr ""
 "Il n'y a plus de place disponible pour ta catégorie malheureusement. "
 "Déselectionne cete case pour continuer."
 
-#: forms/forms.py:126
+#: forms/forms.py:127
 msgid ""
 "Someone who solved the puzzle already registered with your email. Please "
 "uncheck this box to proceed."
@@ -64,19 +64,120 @@ msgstr ""
 "Quelqu'un qui a résolu le casse-tête s'est déjà inscrit avec ton adresse "
 "courriel. Déselectionne cette case pour continuer."
 
-#: forms/forms.py:129
+#: forms/forms.py:130
 msgid "No luck :( Try again?"
 msgstr "Pas de bol :( Essaie encore?"
 
-#: forms/forms.py:130
+#: forms/forms.py:131
 msgid "Uncheck this if you'd like to proceed without a solution."
 msgstr "Déselectionne ça si tu voudrais continuer sans soumettre de solution"
 
-#: forms/forms.py:145
-msgid "Challenge Question"
-msgstr "Question Défi"
+#: forms/forms.py:146
+msgid "Solution"
+msgstr "Solution"
 
-#: forms/forms.py:149
+#: forms/forms.py:148
+msgid ""
+"Unlimited number of trials as long as \"submit my solution\" is checked."
+msgstr ""
+"Le nombre de tentatives est illimité tant que la case \"Soumettre ma solution"
+"\" est cochée."
+
+#: forms/forms.py:152
+msgid "Submit my solution to the challenge question"
+msgstr "Soumettre ma solution à la question défi"
+
+#: forms/forms.py:169
+msgid "General Information"
+msgstr "Informations Générales"
+
+#: forms/forms.py:176
+msgid "Tell us a bit about yourself."
+msgstr "À propos de vous"
+
+#: forms/forms.py:189
+msgid "Experience"
+msgstr "Expérience"
+
+#: forms/forms.py:195
+msgid "Misc."
+msgstr "Divers"
+
+#: forms/forms.py:203
+msgid "Bonus"
+msgstr "Bonus"
+
+#: forms/forms.py:206
+msgid "Easy, the answer is..."
+msgstr "Facile, la réponse est..."
+
+#: forms/helpers.py:13 forms/helpers.py:14
+msgid "No file was submitted."
+msgstr "Aucun fichier n'a été soumis."
+
+#: forms/helpers.py:15
+msgid "The submitted file is empty."
+msgstr "Le fichier qui a été soumis est vide."
+
+#: forms/helpers.py:16
+msgid "Upload a valid document. The file you uploaded appears to be corrupted."
+msgstr ""
+"Veuillez soumettre un document valide. Le document que vous avez soumis "
+"semble être corrompu."
+
+#: forms/helpers.py:17
+msgid "Not a PDF file."
+msgstr "Ceci n'est pas un fichier PDF."
+
+#: forms/helpers.py:18
+#, python-format
+msgid ""
+"Please keep file size under %(max_file_size)s. Current filesize "
+"%(current_file_size)s"
+msgstr ""
+"Veuillez soumettre un fichier plus petit que %(max_file_size)s. La taille du "
+"fichier est actuellement %(current_file_size)s"
+
+#: forms/helpers.py:19
+msgid "There was an issue uploading your file. Try to submit again."
+msgstr ""
+"Nous n'avons pas pu recevoir votre fichier. Veuillez essayer de le soumettre "
+"une nouvelle fois."
+
+#: forms/helpers.py:84
+msgid "Registration Failure Message"
+msgstr "Inscription échouée"
+
+#: forms/helpers.py:85
+msgid "Register"
+msgstr "S'inscrire"
+
+#: forms/helpers.py:86 forms/helpers.py:149
+msgid "Temporary problem with our server"
+msgstr "Difficultés temporaires avec notre serveur"
+
+#: forms/helpers.py:87
+msgid "Checkout Failure Message"
+msgstr "Paiement échoué"
+
+#: forms/helpers.py:88 forms/helpers.py:151
+msgid "Success"
+msgstr "Succès"
+
+#: forms/helpers.py:89
+msgid "Checkout"
+msgstr "Procéder au paiement"
+
+#: forms/helpers.py:90
+msgid ""
+"Payment is handled by <a target=\"_blank\" href=\"https://stripe.com/ca"
+"\">Stripe</a>. We do not have acces to your card information."
+msgstr ""
+"Le paiement est pris en charge par <a target=\"_blank\"  href=\"https://"
+"stripe.com/ca\">Stripe</a>. Nous n'avons pas accès aux informations de votre "
+"carte de crédit."
+
+#: forms/helpers.py:100
 #, python-format
 msgid ""
 "Try to decrypt this message to win a free ticket.\n"
@@ -87,119 +188,23 @@ msgstr ""
 "Il reste %(num_tickets_student)i billets gratuits pour étudiants et "
 "%(num_tickets_non_student)i billets gratuits pour non-étudiants."
 
-#: forms/forms.py:152
+#: forms/helpers.py:103
 msgid "num_tickets_student"
 msgstr ""
 
-#: forms/forms.py:157
-msgid "Reset my question"
-msgstr "Réinitialiser ma question défi"
+#: forms/helpers.py:121
+msgid "Challenge Question"
+msgstr "Question Défi"
 
-#: forms/forms.py:158
-msgid ""
-"Check this if you lost track of the original encrypted text. Be sure to save "
-"your progress though!"
-msgstr ""
-"Coche ça si tu as perdu le contenu original (encrypté) de la question défi. "
-"N'oublie pas de sauvegarder ta tentative dans un éditeur externe!"
-
-#: forms/forms.py:162
-msgid "Submit my solution to the challenge question"
-msgstr "Soumettre ma solution à la question défi"
-
-#: forms/forms.py:179
-msgid "General Information"
-msgstr "Informations Générales"
-
-#: forms/forms.py:186
-msgid "Tell us a bit about yourself."
-msgstr "À propos de vous"
-
-#: forms/forms.py:199
-msgid "Experience"
-msgstr "Expérience"
-
-#: forms/forms.py:205
-msgid "Misc."
-msgstr "Divers"
-
-#: forms/forms.py:213
-msgid "Bonus"
-msgstr "Bonus"
-
-#: forms/helpers.py:11 forms/helpers.py:12
-msgid "No file was submitted."
-msgstr "Aucun fichier n'a été soumis."
-
-#: forms/helpers.py:13
-msgid "The submitted file is empty."
-msgstr "Le fichier qui a été soumis est vide."
-
-#: forms/helpers.py:14
-msgid "Upload a valid document. The file you uploaded appears to be corrupted."
-msgstr "Veuillez soumettre "
-
-#: forms/helpers.py:15
-msgid "Not a PDF file."
-msgstr "Ceci n'est pas un fichier PDF."
-
-#: forms/helpers.py:16
-#, python-format
-msgid ""
-"Please keep file size under %(max_file_size)s. Current filesize "
-"%(current_file_size)s"
-msgstr ""
-"Veuillez soumettre un fichier plus petit que %(max_file_size)s. La taille du "
-"fichier est actuellement %(current_file_size)s"
-
-#: forms/helpers.py:17
-msgid "There was an issue uploading your file. Try to submit again."
-msgstr ""
-"Nous n'avons pas pu recevoir votre fichier. Veuillez essayer de le soumettre "
-"une nouvelle fois."
-
-#: forms/helpers.py:82
-msgid "Registration Failure Message"
-msgstr "Inscription échouée"
-
-#: forms/helpers.py:83
-msgid "Register"
-msgstr "S'inscrire"
-
-#: forms/helpers.py:84 forms/helpers.py:121
-msgid "Temporary problem with our server"
-msgstr "Difficultés temporaires avec notre serveur"
-
-#: forms/helpers.py:85
-msgid "Checkout Failure Message"
-msgstr "Paiement échoué"
-
-#: forms/helpers.py:86 forms/helpers.py:123
-msgid "Success"
-msgstr "Succès"
-
-#: forms/helpers.py:87
-msgid "Checkout"
-msgstr "Procéder au paiement"
-
-#: forms/helpers.py:88
-msgid ""
-"Payment is handled by <a target=\"_blank\" href=\"https://stripe.com/ca"
-"\">Stripe</a>. We do not have acces to your card information."
-msgstr ""
-"Le paiement est pris en charge par <a target=\"_blank\"  href=\"https://"
-"stripe.com/ca\">Stripe</a>. Nous n'avons pas accès aux informations de votre "
-"carte de crédit."
-
-#: forms/helpers.py:119
+#: forms/helpers.py:147
 msgid "Confirmation Failure Message"
 msgstr "Inscription échouée"
 
-#: forms/helpers.py:120
+#: forms/helpers.py:148
 msgid "Confirm"
 msgstr "Confirmer"
 
-#: forms/helpers.py:122
+#: forms/helpers.py:150
 msgid "Checkin Failure Message"
 msgstr "Checkin échoué"
 
@@ -421,16 +426,3 @@ msgstr "Inconnu"
 #: views.py:689 views.py:741
 msgid "Invalid arguments"
 msgstr "Arguments invalides"
-
-#~ msgid "I have read the <a href=\"#\" target=\"_blank\">Code of Conduct.</a>"
-#~ msgstr ""
-#~ "J'ai bien lu le <a href=\"#\" target=\"_blank\">Code de Conduite.</a>"
-
-#~ msgid "waiver"
-#~ msgstr "Renonciation"
-
-#~ msgid "I have read the <a href=\"#\" target=\"_blank\">Waiver.</a>"
-#~ msgstr "J'ai bien lu la <a href=\"#\" target=\"_blank\"> Dérogation.</a>"
-
-#~ msgid "Waiver"
-#~ msgstr "Renonciation"

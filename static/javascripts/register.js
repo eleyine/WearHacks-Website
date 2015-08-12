@@ -207,9 +207,9 @@
         $("a.conduct")
           .attr("href", window.code_of_conduct)
           .attr("target", "_blank");
-        $("a.waiver")
-          .attr("href", window.waiver)
-          .attr("target", "_blank");
+        // $("a.waiver")
+        //   .attr("href", window.waiver)
+        //   .attr("target", "_blank");
         $("a.terms")
           .attr("href", window.terms)
           .attr("target", "_blank");

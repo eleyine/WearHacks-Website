@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-12 07:51-0400\n"
+"POT-Creation-Date: 2015-08-12 11:36-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,16 +39,21 @@ msgstr ""
 "opportunités d'emploi ciblées."
 
 #: forms/forms.py:93
+#, fuzzy
+#| msgid ""
+#| "I have read and I agree with the <a class=\"terms\" href=\"#\"> Terms and "
+#| "Conditions</a>, the <a class=\"conduct\" href=\"#\"> Code of Conduct</a> "
+#| "and the <a class=\"waiver\" href=\"#\"> Waiver</a>."
 msgid ""
 "I have read and I agree with the <a class=\"terms\" href=\"#\"> Terms and "
-"Conditions</a>, the <a class=\"conduct\" href=\"#\"> Code of Conduct</a> and "
-"the <a class=\"waiver\" href=\"#\"> Waiver</a>."
+"Conditions</a> and the the <a class=\"conduct\" href=\"#\"> Code of Conduct</"
+"a> "
 msgstr ""
 "J'ai bien lu et j'accepte les <a class=\"terms\" href=\"#\"> Termes et "
-"Conditions de l'évènement</a>, le <a class=\"conduct\" href=\"#\"> Code de "
-"Conduite </a> et la <a class=\"waiver\" href=\"#\"> Dérogation</a>."
+"Conditions de l'évènement</a> et le <a class=\"conduct\" href=\"#\"> Code de "
+"Conduite </a>"
 
-#: forms/forms.py:120
+#: forms/forms.py:119
 msgid ""
 "There are no spots left for your category. Please uncheck this box to "
 "proceed."
@@ -56,7 +61,7 @@ msgstr ""
 "Il n'y a plus de place disponible pour ta catégorie malheureusement. "
 "Déselectionne cete case pour continuer."
 
-#: forms/forms.py:127
+#: forms/forms.py:126
 msgid ""
 "Someone who solved the puzzle already registered with your email. Please "
 "uncheck this box to proceed."
@@ -64,50 +69,50 @@ msgstr ""
 "Quelqu'un qui a résolu le casse-tête s'est déjà inscrit avec ton adresse "
 "courriel. Déselectionne cette case pour continuer."
 
-#: forms/forms.py:130
+#: forms/forms.py:129
 msgid "No luck :( Try again?"
 msgstr "Pas de bol :( Essaie encore?"
 
-#: forms/forms.py:131
+#: forms/forms.py:130
 msgid "Uncheck this if you'd like to proceed without a solution."
 msgstr "Déselectionne ça si tu voudrais continuer sans soumettre de solution"
 
-#: forms/forms.py:146
+#: forms/forms.py:145
 msgid "Solution"
 msgstr "Solution"
 
-#: forms/forms.py:148
+#: forms/forms.py:147
 msgid ""
 "Unlimited number of trials as long as \"submit my solution\" is checked."
 msgstr ""
 "Le nombre de tentatives est illimité tant que la case \"Soumettre ma solution"
 "\" est cochée."
 
-#: forms/forms.py:152
+#: forms/forms.py:151
 msgid "Submit my solution to the challenge question"
 msgstr "Soumettre ma solution à la question défi"
 
-#: forms/forms.py:169
+#: forms/forms.py:168
 msgid "General Information"
 msgstr "Informations Générales"
 
-#: forms/forms.py:176
+#: forms/forms.py:175
 msgid "Tell us a bit about yourself."
 msgstr "À propos de vous"
 
-#: forms/forms.py:189
+#: forms/forms.py:188
 msgid "Experience"
 msgstr "Expérience"
 
-#: forms/forms.py:195
+#: forms/forms.py:194
 msgid "Misc."
 msgstr "Divers"
 
-#: forms/forms.py:203
+#: forms/forms.py:202
 msgid "Bonus"
 msgstr "Bonus"
 
-#: forms/forms.py:206
+#: forms/forms.py:205
 msgid "Easy, the answer is..."
 msgstr "Facile, la réponse est..."
 

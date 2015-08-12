@@ -109,7 +109,7 @@ def get_challenge_question_header(encrypted_message):
                 %(challenge_question_label)s
         </label>
         <div class="controls col-lg-7">
-            <p class="help-block">%(help_text)s.</p>
+            <p class="help-block">%(help_text)s</p>
             <p>%(encrypted_message)s</p>
 
         </div>

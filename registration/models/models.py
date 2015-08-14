@@ -208,6 +208,9 @@ class Registration(models.Model):
         print 'name', self.waiver.name
         return bool(self.waiver)
 
+    def has_submitted_resume(self):
+        return bool(self.resume)
+
     def full_name(self):
         return '%s %s' % (self.first_name, self.last_name)
 

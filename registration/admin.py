@@ -60,8 +60,9 @@ class RegistrationAdmin(admin.ModelAdmin):
             'is_email_sent',
             'is_student',
             'has_solved_challenge',
+            'has_submitted_resume',
+            'gender',
             'solved_challenge',
-            'needs_to_be_checked',
             'staff_comments',
         )
     # list_editable = ('staff_comments',)

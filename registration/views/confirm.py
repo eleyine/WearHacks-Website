@@ -40,7 +40,7 @@ class ConfirmRegistrationView(generic.DetailView):
     def get_extra_context(registration):
         if registration:
             d = {
-                 'has_submitted_waiver': registration.has_submitted_waiver,
+                 # 'has_submitted_waiver': registration.has_submitted_waiver,
                  'order_id': registration.order_id,
                  'has_attended': registration.has_attended
             }

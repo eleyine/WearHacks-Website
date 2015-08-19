@@ -1,129 +1,27 @@
-from django.http import HttpResponseRedirect, Http404, HttpResponse
-from django.core.urlresolvers import reverse
-from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
-from django.contrib.admin.views.decorators import staff_member_required
-
-from django.contrib import messages
 from django.views import generic
-from django.shortcuts import render, get_object_or_404
 
-from django.utils import translation
-from django.utils.decorators import method_decorator
-
-from registration.models import Registration, ChargeAttempt, Challenge
-from registration.forms import RegistrationForm, ConfirmRegistrationForm
-
-from crispy_forms.utils import render_crispy_form
-from jsonview.decorators import json_view
-
-from django.conf import settings
-
-import stripe
-from datetime import datetime
-
-from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMultiAlternatives
+from django.core.urlresolvers import reverse
+from django.shortcuts import render
 
 from django.template import Context
 from django.template.loader import render_to_string
+from django.conf import settings
 
+from django.utils import translation
 from django.utils.translation import ugettext as _
 from django.utils.translation import pgettext as __
 
-class ConfirmRegistrationView(generic.DetailView):
-    template_name = 'registration/confirm-form.html'
-    model = Registration
-    form_class = ConfirmRegistrationForm
+from registration.models import Registration, ChargeAttempt, Challenge
+from registration.forms import RegistrationForm
 
-    @method_decorator(staff_member_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ConfirmRegistrationView, self).dispatch(request, *args, **kwargs)
+from registration.views.email import QRCodeView, TicketView, ConfirmationEmailView
 
-    def get_object(self, queryset=None):
-        # obj = get_object_or_404(Registration, order_id=self.kwargs['order_id'])
-        obj = Registration.objects.filter(order_id=self.kwargs['order_id']).first()
-        return obj
+from crispy_forms.utils import render_crispy_form
+from jsonview.decorators import json_view
+import stripe
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(generic.DetailView, self).get_context_data(**kwargs)
-        context['form'] = ConfirmRegistrationForm(instance=context['registration'])
-        d = ConfirmRegistrationView.get_extra_context(context["registration"])
-        context.update(d)
-        return context
-
-    @staticmethod
-    def get_extra_context(registration):
-        if registration:
-            d = {
-                 'has_submitted_waiver': registration.has_submitted_waiver,
-                 'order_id': registration.order_id,
-                 'has_attended': registration.has_attended
-            }
-        else:
-            d = {}
-        return d
-
-    def _save_server_message_to_charge_attempt(self, registration, messages, e):
-        print e
-        if registration and registration.charge:
-            registration.charge.save_server_message(messages, exception=e)
-
-    # @staff_member_required
-    @json_view
-    def post(self, request, *args, **kwargs):
-        checkin_success = False
-        checkin_message = ''
-        server_error = False
-        server_message_client = ''
-
-        instance = None
-        try:
-            order_id = request.POST.get("order_id", None)
-            instance = Registration.objects.filter(order_id=order_id).first()
-        except Exception, e:
-            server_error = True
-            server_message_client = "Invalid POST request"
-            if order_id:
-                message = "Missing params in post request"
-            else:
-                message = "Invalid order_id %s" % (order_id)
-            self._save_server_message_to_charge_attempt(instance, [message], e)
-        
-        form = self.form_class(request.POST, request.FILES, instance=instance)
-
-        if not server_error:
-            if form.is_valid():
-                checkin_success = True
-            else:
-                checkin_message = _("Could not validate form")
-
-        registration = None
-        if checkin_success:
-            try:
-                registration = form.save()
-                registration.save()
-            except Exception, e:
-                server_error = True
-                server_message_client = _("We had trouble saving your new information")
-                self._save_server_message_to_charge_attempt(registration, 
-                    [server_message_client], e)
-
-        form_html = render_crispy_form(form)
-
-        response = {
-            'server_message': server_message_client,
-            'server_error': server_error,
-            'checkin_success': checkin_success,
-            'checkin_message': checkin_message,
-            'success': checkin_success and not server_error,
-            "success_message": _("Confirmed attendee details")
-        }
-
-        d = ConfirmRegistrationView.get_extra_context(registration)
-        response.update(d)
-
-        response['form_html'] = form_html
-        return response
+# from datetime import datetime # used in early_bird stuff
 
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
@@ -614,153 +512,3 @@ class SubmitRegistrationView(generic.View):
                 return HttpResponse(result.getvalue(), content_type='application/pdf')
             return HttpResponse(_('We had some errors<pre>%s</pre>') % escape(html))
 
-
-class ConfirmationEmailView(generic.DetailView):
-    template_name = 'registration/confirmation_email.html'
-    model = Registration
-    context_object_name = 'r'
-
-    @staticmethod
-    def get_extra_context(registration):
-        ticket_price = registration.ticket_price / float(100) if registration.ticket_price else 0
-        tshirt_size_choices = dict(Registration.TSHIRT_SIZE_CHOICES)
-        if registration.tshirt_size:
-            tshirt_size = tshirt_size_choices[registration.tshirt_size]
-        else:
-            tshirt_size = _('Unknown')
-
-        if registration.qrcode_file:
-            qrcode_file = registration.qrcode_file.url
-        else:
-            qrcode_file = ''
-
-        site_root = settings.HOSTS[0]
-        http = settings.HTTP_PREFIX
-        d = {
-            'ticket_price_in_dollars': ticket_price,
-            'tshirt_size': tshirt_size,
-            'site_root': site_root,
-            'r': registration,
-            'http': http,
-            'qrcode_file': qrcode_file
-        }
-        return d
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(generic.DetailView, self).get_context_data(**kwargs)
-        d = ConfirmationEmailView.get_extra_context(context['object'])
-        context.update(d)
-        # Regenerate ticket
-        TicketView.generate_pdf_ticket(registration=context['object'], context=context)
-        return context
-
-    def get_object(self, queryset=None):
-        # obj = get_object_or_404(Registration, order_id=self.kwargs['order_id'])
-        obj = Registration.objects.filter(order_id=self.kwargs['order_id']).first()
-        return obj
-
-class TicketView(ConfirmationEmailView):
-    template_name = 'registration/ticket.html'
-
-    def get_object(self, queryset=None):
-        obj = super(TicketView, self).get_object(queryset=queryset) 
-        return obj
-
-    def render_to_response(self, context, **response_kwargs):
-        from cgi import escape
-        QRCodeView.generate_qr_code(registration=context["r"])
-        pdf, result, html = TicketView.generate_pdf_ticket(context=context)
-        if not pdf.err:
-            return HttpResponse(result, content_type='application/pdf')
-        return HttpResponse(_('We had some errors<pre>%s</pre>') % escape(html))
-
-    @staticmethod
-    def generate_pdf_ticket(registration=None, context=None, encoding='utf-8'):
-        from django.template.loader import get_template
-        from django.template import Context
-        import ho.pisa as pisa
-        import cStringIO as StringIO
-        from django.utils.six import BytesIO
-        from tempfile import TemporaryFile
-        from django.core.files import File
-
-        if not registration and not context:
-            raise Http404(_("Invalid arguments"))
-
-        if not context:
-            d = ConfirmationEmailView.get_extra_context(registration)
-            context = Context(d)
-        template = get_template('registration/ticket.html')
-        html  = template.render(context)
-
-        if not registration:
-            registration = context['r']
-
-        result = StringIO.StringIO()
-        pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
-        result = result.getvalue()
-
-        try:
-            file = TemporaryFile()
-            file.write(result)
-            registration.ticket_file = File(file)
-            registration.save()
-            file.close()
-        except Exception, e:
-            charge = registration.charge
-            if charge:
-                charge.save_server_message(
-                    ['Failed while saving ticket file'], exception=e)
-
-        return (pdf, result, html)
-
-class QRCodeView(ConfirmationEmailView):
-    template_name = 'registration/qrcode.html'
-
-    def get_object(self, queryset=None):
-        obj = super(QRCodeView, self).get_object(queryset=queryset) 
-        return obj
-
-    def render_to_response(self, context, **response_kwargs):
-        registration = context["r"]
-        QRCodeView.generate_qr_code(registration=registration)
-        if 'qrcode_file' in context.keys() and not context['qrcode_file'] \
-            and registration.qrcode_file:
-            context["qrcode_file"] = registration.qrcode_file.url
-        return super(QRCodeView, self).render_to_response(context, **response_kwargs)
-
-    @staticmethod
-    def generate_qr_code(registration=None, context=None):
-        from django.core.files.uploadedfile import InMemoryUploadedFile
-        from django.core.files import File
-        import StringIO
-        import qrcode
-
-        if not registration and not context:
-            raise Http404(_("Invalid arguments"))
-
-        if not context:
-            d = ConfirmationEmailView.get_extra_context(registration)
-            context = Context(d)
-        if not registration:
-            registration = context['r']
-
-        img = qrcode.make(data=registration.get_confirmation_url(), version=3)
-        img_io = StringIO.StringIO()
-        img.save(img_io)
-
-        img_file = InMemoryUploadedFile(img_io, None, 'tmp.png','image/png',img_io.len, None)
-        # img_file = File(img_io)
-        registration.qrcode_file = img_file
-        registration.save()
-
-# # Internationalization support
-# from django.views.decorators.http import last_modified
-# from django.views.i18n import javascript_catalog
-
-# last_modified_date = timezone.now()
-
-# @last_modified(lambda req, **kw: last_modified_date)
-# def cached_javascript_catalog(request, domain='djangojs', packages=None):
-#     return javascript_catalog(request, domain, packages)

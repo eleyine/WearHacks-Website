@@ -3,6 +3,8 @@ from django.views import generic
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.core.files import File
+from django.core.files.storage import default_storage
+
 from django.shortcuts import render, get_object_or_404
 
 from django.template import Context
@@ -20,7 +22,9 @@ from registration.views.email import QRCodeView, TicketView, ConfirmationEmailVi
 
 from crispy_forms.utils import render_crispy_form
 from jsonview.decorators import json_view
+
 from tempfile import TemporaryFile
+import os
 import stripe
 
 # from datetime import datetime # used in early_bird stuff
@@ -97,10 +101,6 @@ class SubmitRegistrationView(generic.View):
                     request.POST[k] = v
             request.POST['has_read_conditions'] = True
 
-        # save resume to temporary file if submitted
-        if 'resume' in request.FILES:
-            self.save_resume(request.FILES['resume'], order_id)
-
         # check registration information
         registration_success= False
         registration_message = ''
@@ -115,6 +115,10 @@ class SubmitRegistrationView(generic.View):
         else:
             registration_message= _('Please correct your registration information'
                 ' before proceeding.')
+
+        # save resume to temporary file if submitted
+        if 'resume' in request.FILES and 'resume' in form.cleaned_data:
+            self.save_resume(form.cleaned_data['resume'], order_id)
 
         form_html = render_crispy_form(form)
 
@@ -262,7 +266,7 @@ class SubmitRegistrationView(generic.View):
 
                     if hasattr(e, 'http_status'):
                         charge_attempt_fields['error_http_status'] = e.http_status
-                        
+
                 # add more information to client-side messages
                 if not checkout_success:
                     if charge and hasattr(charge, 'failure_message') and charge.failure_message is not None:
@@ -285,7 +289,7 @@ class SubmitRegistrationView(generic.View):
 
                 # if the form does not have a resume, attempt to retrieve it
                 if not bool(new_registration.resume):
-                    new_registration.resume = self.retrieve_resume(order_id)
+                    self.retrieve_resume(new_registration, order_id)
 
                 if has_solved_challenge:
                     challenge = form.cleaned_data['solved_challenge']
@@ -424,13 +428,25 @@ class SubmitRegistrationView(generic.View):
         return (is_early_bird, ticket_description, ticket_price)
 
 
-    def save_resume(self, file, order_id):
-        print file
+    def _get_resume_path(self, order_id):
+        path = os.path.join(default_storage.location,
+            'resumes/tmp/%s.pdf' % (order_id))
+        return path
 
-    def retrieve_resume(self, order_id):
-        file = TemporaryFile()
-        # file.write(result)
-        return File(file)
+    def save_resume(self, file, order_id):
+        path = self._get_resume_path(order_id)
+        # overwrite if file already exists
+        if default_storage.exists(path):
+            default_storage.delete(path)
+        default_storage.save(path, file)
+
+    def retrieve_resume(self, registration, order_id):
+        path = self._get_resume_path(order_id)
+        if default_storage.exists(path):
+            file = File(default_storage.open(path))
+            registration.resume.save('default.pdf', file, save=False)
+            return True
+        return False
 
     def send_confirmation_email(self, registration):
         import os

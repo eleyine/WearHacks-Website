@@ -15,6 +15,7 @@ import re
 from unidecode import unidecode
 
 class ChargeAttempt(models.Model):
+    # Required fields
     email = models.EmailField()
     charge_id = models.CharField(max_length=27)
     amount = models.IntegerField()
@@ -45,16 +46,16 @@ class ChargeAttempt(models.Model):
     error_message = models.CharField(default='None', max_length=300,
         help_text='A human-readable message giving more details about the error.', blank=True)
     SERVER_MESSAGE_MAX_LENGTH = 300
-    server_message = models.TextField(default='None', max_length=SERVER_MESSAGE_MAX_LENGTH,
+    server_message = models.TextField(default='', max_length=SERVER_MESSAGE_MAX_LENGTH,
         help_text='Message detailing internal server errors for debugging purposes', blank=True)
 
 
     def save_server_message(self, messages, exception=None):
         try:
-            print 'Saving message to server...'
-            server_message = ''
             if self.server_message:
                 messages = [self.server_message] + list(messages)
+            else:
+                messages[0] = '> ' + messages[0] # preprend '>' for consistency
             if exception:
                 server_message = '%s (%s)' % ('\n> '.join(messages), str(exception)[:100])
             else:
@@ -62,6 +63,9 @@ class ChargeAttempt(models.Model):
             n = ChargeAttempt.SERVER_MESSAGE_MAX_LENGTH
             if len(server_message) > n:
                 self.server_message = "...%s" % (server_message[-(n-3):])
+            else:
+                self.server_message = server_message
+            print self.server_message
             self.save()
         except Exception, e:
             print 'ERROR: Could not save server message %s to charge attempt %s (%s)' % (

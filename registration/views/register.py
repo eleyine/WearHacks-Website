@@ -2,7 +2,8 @@ from django.views import generic
 
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
-from django.shortcuts import render
+from django.core.files import File
+from django.shortcuts import render, get_object_or_404
 
 from django.template import Context
 from django.template.loader import render_to_string
@@ -19,6 +20,7 @@ from registration.views.email import QRCodeView, TicketView, ConfirmationEmailVi
 
 from crispy_forms.utils import render_crispy_form
 from jsonview.decorators import json_view
+from tempfile import TemporaryFile
 import stripe
 
 # from datetime import datetime # used in early_bird stuff
@@ -26,7 +28,6 @@ import stripe
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
     form_class = RegistrationForm
-    challenge = None
 
     def get_stripe_secret_key(self):
         if settings.IS_STRIPE_LIVE:
@@ -43,14 +44,17 @@ class SubmitRegistrationView(generic.View):
         return stripe_pk
 
     def get(self, request, *args, **kwargs):
-        # request, language = self.get_language(request)
-        language=request.LANGUAGE_CODE
-        self.challenge = Challenge.get_unsolved_challenge(language=language)
+        language = request.LANGUAGE_CODE
+        challenge = Challenge.get_unsolved_challenge(language=language)
+        challenge_id = challenge.id if challenge else None
+        order_id = Registration.generate_order_id()
         context = {
-            'form': RegistrationForm(challenge=self.challenge),
+            'order_id': order_id,
+            'form': RegistrationForm(challenge=challenge),
             'stripe_public_key': self.get_stripe_public_key(),
-            'challenge_id': self.challenge.id if self.challenge else None
+            'challenge_id': challenge_id
         }
+        print 'GET ====== ' 
         return render(request, self.template_name, context)
 
     def get_language(self, request):
@@ -61,7 +65,9 @@ class SubmitRegistrationView(generic.View):
 
     @json_view
     def post(self, request, *args, **kwargs):
+        print '*' * 100
         request, language = self.get_language(request)
+        order_id = request.POST.get('order_id', 'xxx')
         
         charge_attempt = None
         checkout_success = False
@@ -89,19 +95,18 @@ class SubmitRegistrationView(generic.View):
             for k, v in defaults:
                 if not request.POST[k]:
                     request.POST[k] = v
-            request.POST['has_read_code_of_conduct'] = True
-            request.POST['has_read_waiver'] = True
+            request.POST['has_read_conditions'] = True
+
+        # save resume to temporary file if submitted
+        if 'resume' in request.FILES:
+            self.save_resume(request.FILES['resume'], order_id)
 
         # check registration information
         registration_success= False
         registration_message = ''
         challenge_id = request.POST.get('challenge_id', None)
-        if challenge_id:
-            try:
-                self.challenge = Challenge.objects.get(id=challenge_id)
-            except Exception, e:
-                self.challenge = None
-        form = self.form_class(request.POST, request.FILES, challenge=self.challenge)
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        form = self.form_class(request.POST, request.FILES, challenge=challenge)
 
         if form.is_valid():
             registration_success = True
@@ -126,20 +131,21 @@ class SubmitRegistrationView(generic.View):
                 ___, ___, ticket_price = self.get_ticket_info(is_student)
                 is_valid_amount = amount == ticket_price
             if amount and not is_valid_amount:
-                checkout_message = ''
                 checkout_success = False
+                checkout_message = '<strong>%s </strong> </br>' % (
+                    _('</br>r u trying to hack us? u wot m8'))
 
-                error_message = _('</br>r u trying to hack us? u wot m8')
                 fraud_attempt = True
                 server_messages.append("Fraud attempt: amount entered was %.2f$" % (amount * 0.01))
 
         # attempt charge only if registration information is valid
-        order_id = 'xxx'
-        if registration_success and (not fraud_attempt or has_solved_challenge):
-            order_id = Registration.generate_order_id()
-
         if registration_success and is_valid_amount and not has_solved_challenge:
             token_id = request.POST.get('token_id', None)
+            charge = None
+            charge_attempt = None
+            e = None # Exception variable
+
+            print 'Registration success'
 
             if not token_id:
                 # no token id is sent during form prevalidation
@@ -147,35 +153,20 @@ class SubmitRegistrationView(generic.View):
                 registration_message = _('Registration Information Valid')
                 checkout_message = ''
             else:
-                # Default charge attempt fields
-                charge = None
-                charge_id = 'xxx'
-                is_livemode = False
-                is_paid = False
-                status = 'Unknown'
-                source_id = 'xxx'
-                is_captured = False
-                failure_message = 'Unknown'
-                failure_code = 'Unknown'
-                error_http_status = '200'
-                error_type = 'None'
-                error_code = 'None'
-                error_param = 'None'
-                e = None
-
                 try:
                     hacker_name = "%s %s" % (
                         form.cleaned_data["first_name"],
                         form.cleaned_data["last_name"])
 
-                    charge_attempt = ChargeAttempt.objects.create(
-                        hacker = hacker_name,
-                        email = email,
-                        charge_id = charge_id,
-                        status = status,
-                        amount = amount,
-                        source_id = token_id
-                    )
+                    charge_attempt_fields = {
+                        'hacker': hacker_name,
+                        'charge_id': 'xxx',
+                        'email': email,
+                        'amount': amount,
+                        'source_id': token_id
+                    }
+
+                    charge_attempt = ChargeAttempt.objects.create(**charge_attempt_fields)
                     charge_attempt.save()
 
                     charge_attempt_link = 'http://%s/admin/registration/chargeattempt/%i/' % (
@@ -193,116 +184,109 @@ class SubmitRegistrationView(generic.View):
                           statement_descriptor="WearHacks Mtl 2015",
                           capture=False,
                           metadata = {
-                          'Name': hacker_name,
-                          'Charge Attempt ID': charge_attempt.pk,
-                          'Charge Attempt Link': charge_attempt_link,
-                          'Order ID': order_id }
+                              'Name': hacker_name,
+                              'Charge Attempt ID': charge_attempt.pk,
+                              'Charge Attempt Link': charge_attempt_link,
+                              'Order ID': order_id 
+                          }
                         )
-                        failure_message = charge.failure_message
-                        failure_code = charge.failure_code
-                        checkout_success = True
 
+                        # update charge attempt fields with Stripe charge fields
+                        if charge:
+                            update_fields = {
+                                'charge_id': charge.id,
+                                'is_livemode': charge.livemode,
+                                'is_paid': charge.paid,
+                                'status': charge.status,
+                                'amount': charge.amount,
+                                'source_id': charge.source.id,
+                                'is_captured': charge.captured,
+                                'failure_message': charge.failure_message or '',
+                                'failure_code': charge.failure_code or ''
+                            }
+                            charge_attempt_fields.update(update_fields)
+
+                        checkout_success = True
                 except stripe.error.CardError, e:
                     # Since it's a decline, stripe.error.CardError will be caught
                     body = e.json_body
                     err  = body['error']
                     error_http_status = e.http_status
-                    checkout_message = err["message"]
+                    checkout_message = _("Something went wrong on Stripe's end. </br>")
                     checkout_success = False
+                    self._save_server_message_to_charge_attempt(charge_attempt, 
+                        ['Stripe Card Error'], e)
 
                 except (stripe.error.InvalidRequestError,
-                    stripe.error.AuthenticationError,
-                    stripe.error.StripeError), e:
+                    stripe.error.AuthenticationError), e:
                     # invalid_request: Invalid parameters were supplied to Stripe's API OR
                     # authetication_error: Authentication with Stripe's API failed
                     # (maybe you changed API keys recently) OR
-                    checkout_message = ''
+                    checkout_message = _('Something went wrong on our end. </br>')
                     server_error = True
                     checkout_success = False
+                    self._save_server_message_to_charge_attempt(charge_attempt, 
+                        ['Stripe Request Error'], e)
 
                 except stripe.error.APIConnectionError, e:
                     # Authentication with Stripe's API failed
                     # (maybe you changed API keys recently)
                     checkout_message = _('Network communication with Stripe '
-                        'failed. Please reload the page.')
+                        'failed. </br>')
                     checkout_success = False
+                    self._save_server_message_to_charge_attempt(charge_attempt, 
+                        ['API Connection Error'], e)
 
                 except stripe.error.StripeError, e:
-                    checkout_message = _("Something went wrong on Stripe's end.")
+                    checkout_message = _("Something went wrong on Stripe's end. </br>")
                     checkout_success = False
+                    self._save_server_message_to_charge_attempt(charge_attempt, 
+                        ['Stripe Error'], e)
 
                 except Exception, e:
                     checkout_message = ''
                     server_error = True
                     checkout_success = False
+                    self._save_server_message_to_charge_attempt(charge_attempt, 
+                        ['Error while creating Stripe charge'], e)
 
-                if charge:
-                    charge_id = charge.id
-                    is_livemode = charge.livemode,
-                    is_paid = charge.paid
-                    status = charge.status
-                    amount = charge.amount
-                    source_id = charge.source.id
-                    is_captured = charge.captured
-                    failure_message = charge.failure_message
-                    failure_code = charge.failure_code
-                else:
-                    checkout_success = False
-                    if not fraud_attempt:
-                        server_messages.append('Charge object does not exist. ')
+                # if charge creation returns errors, log them to charge attempt 
+                if e:
+                    if hasattr(e, 'json_body') and 'error' in e.json_body:
+                        err = e.json_body['error']
+                        err_fields = ('type', 'code', 'param', 'message')
+                        for f in err_fields:
+                            if f in err:
+                                charge_attempt_fields['error_' + f] = err[f]
+                        checkout_message += '<strong>%s</strong> </br>' % (err["message"])
 
-                if e and hasattr(e, 'json_body') and 'error' in e.json_body:
-                    err = e.json_body['error']
-                    error_type = err["type"]
-                    if 'code' in err:
-                        error_code = err["code"]
-                    if 'param' in err:
-                        error_param = err["param"]
-                    if 'message' in err:
-                        error_message = err["message"]
-
-                if e and hasattr(e, 'http_status'):
-                    error_http_status = e.http_status
-
-                # Log charge attempt
-                if charge_attempt:
-                    print charge_attempt
-                    qs = ChargeAttempt.objects.filter(pk=charge_attempt.pk)
-                    qs.update(
-                        charge_id = charge_id,
-                        is_livemode = is_livemode,
-                        is_paid = is_paid,
-                        status = status,
-                        amount = amount,
-                        source_id = source_id,
-                        is_captured = is_captured,
-                        failure_message = failure_message or '',
-                        failure_code = failure_code or '',
-                        server_message = ' / '.join(server_messages),
-                        error_type = error_type or '',
-                        error_code = error_code or '',
-                        error_param = error_param or '',
-                        error_message = error_message or '',
-                    )
-                    charge_attempt = qs[0]
-
-                if not server_error and not checkout_success:
-                    if not fraud_attempt:
-                        checkout_message = _("Something went wrong on Stripe's end. </br>")
-                    if charge and hasattr(charge, 'failure_message') and failure_message is not None:
-                        checkout_message += failure_message
-                    if error_message:
-                        checkout_message += '<strong>%s </strong> </br>' % (error_message)
+                    if hasattr(e, 'http_status'):
+                        charge_attempt_fields['error_http_status'] = e.http_status
+                        
+                # add more information to client-side messages
+                if not checkout_success:
+                    if charge and hasattr(charge, 'failure_message') and charge.failure_message is not None:
+                        checkout_message += charge.failure_message
                     checkout_message += _("Please refresh and try again.")
+                    if not checkout_success and not is_captured:
+                        checkout_message += _("</br><strong>Don't worry, you haven't been charged.</strong>")
 
-                if not checkout_success and not is_captured:
-                    checkout_message += _("</br><strong>Don't worry, you haven't been charged.</strong>")
+                # save charge attempt
+                if charge_attempt:
+                    for k, v in charge_attempt_fields.iteritems():
+                        setattr(charge_attempt, k, v)
+                    charge_attempt.save()
 
         new_registration = None
         if registration_success and checkout_success and not server_error:
             try:
                 # Save registration
                 new_registration = form.save()
+
+                # if the form does not have a resume, attempt to retrieve it
+                if not bool(new_registration.resume):
+                    new_registration.resume = self.retrieve_resume(order_id)
+
                 if has_solved_challenge:
                     challenge = form.cleaned_data['solved_challenge']
                     challenge.solved = True
@@ -399,6 +383,18 @@ class SubmitRegistrationView(generic.View):
 
         return response
 
+    def _get_checkout_error_message(self, inner_message, dont_worry=True, default_header=True):
+        message = ''
+        if default_header:
+            message += _('Oops, something went wrong on our end.</br>Please '
+                'refresh and try again. If the problem persists, please contact'
+                ' our support team. </br>')
+        message += "<strong>%s</strong>"
+        if dont_worry:
+            message += _("</br><strong>Don't worry, you haven't been charged.</strong>")
+        message = message % (inner_message)
+        return message
+
     def _get_server_error_message(self, inner_message, dont_worry=True, default_header=True):
         message = ''
         if default_header:
@@ -412,7 +408,6 @@ class SubmitRegistrationView(generic.View):
         return message
 
     def _save_server_message_to_charge_attempt(self, charge_attempt, messages, e):
-        print e
         if charge_attempt:
             charge_attempt.save_server_message(messages, exception=e)
 
@@ -428,6 +423,14 @@ class SubmitRegistrationView(generic.View):
             )
         return (is_early_bird, ticket_description, ticket_price)
 
+
+    def save_resume(self, file, order_id):
+        print file
+
+    def retrieve_resume(self, order_id):
+        file = TemporaryFile()
+        # file.write(result)
+        return File(file)
 
     def send_confirmation_email(self, registration):
         import os

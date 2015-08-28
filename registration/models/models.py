@@ -216,7 +216,8 @@ class Registration(models.Model):
         return bool(self.resume)
 
     def full_name(self):
-        return '%s %s' % (self.first_name, self.last_name)
+        return '%s %s' % (self.first_name.encode('utf-8'), 
+            self.last_name.encode('utf-8'))
 
     full_name.admin_order_field = 'last_name'
 
@@ -295,9 +296,9 @@ class Registration(models.Model):
 
     def __unicode__(self):
         if self.pk:
-            return '{0} {1} (#{2})'.format(self.first_name, self.last_name, self.pk)
+            return '{0} (#{1})'.format(self.full_name(), self.pk)
         else:
-            return '{0} {1} (Not saved)'.format(self.first_name, self.last_name)
+            return '{0} (Not saved)'.format(self.full_name())
 
 class Challenge(models.Model):
     encrypted_message = models.CharField(max_length=300)

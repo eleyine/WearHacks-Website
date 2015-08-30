@@ -7,6 +7,9 @@ section {
 .bg-white {
   background: #fff;
 }
+.bg-light-gray {
+  background-color: #f7f7f7;
+}
 hr.bg-white {
   border-color: #fff;
 }
@@ -310,6 +313,23 @@ header .header-content-inner .how button {
 }
 #hardware li p {
   margin-bottom: 0;
+}
+@media (max-width: 768px) {
+  #judges .name {
+    text-align: center;
+  }
+}
+.portrait.img-circle {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+  border: 7px solid white;
+}
+.portrait.img-circle img {
+  -webkit-transform: translate(-50%);
+  margin-left: 100px;
 }
 #social {
   padding: 40px 0;

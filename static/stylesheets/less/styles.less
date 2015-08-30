@@ -15,6 +15,10 @@ section {
     background: #fff;
 }
 
+.bg-light-gray {
+  background-color:#f7f7f7;
+}
+
 hr.bg-white {
     border-color: #fff;
 }
@@ -388,6 +392,31 @@ header {
         p {
             margin-bottom: 0;
         }
+    }
+}
+
+#judges {
+   .name {
+        @media (max-width: 768px) {
+            text-align: center;
+        }
+   }
+}
+
+@portrait-dim: 200px;
+.portrait {
+    &.img-circle{
+        height:@portrait-dim;
+        width:@portrait-dim;
+        overflow:hidden;
+        border-radius:50%;
+        margin: auto;
+        border: 7px solid white;
+    }
+
+    &.img-circle img {
+        -webkit-transform:translate(-50%);
+        margin-left:@portrait-dim * 0.5;
     }
 }
 

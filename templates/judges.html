@@ -1,0 +1,43 @@
+{% load staticfiles %}
+
+{% if judges %}
+
+<section id="judges" class="bg-light-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Judges</h2>
+                <hr class="primary">
+            </div>
+        </div>
+        {% for judge in judges %}
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-1">
+                <div class="portrait img-circle hor">
+                    <img src="{{ judge.profile_pic.url }}" alt="{{judge.first_name}} {{judge.last_name}}" height="200px">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-0">
+                <div class="name">
+                {% if judge.website %}
+                    <h3><a href="{{judge.website}}" target="_blank">{{judge.first_name}} {{judge.last_name}}</a></h3>
+                {% else %}
+                    <h3>{{judge.first_name}} {{judge.last_name}} </h3>
+                {% endif %}
+                {% if judge.role %}<p class="text-muted">{{ judge.role }}</p>{% endif %}
+                </div>
+                {% if judge.biography %}<p class="biography">{{ judge.biography }}</p>{% endif %}
+                <ul class="list-inline social-buttons">
+                    {% if judge.twitter %}<li><a href="{{judge.twitter}}"><i class="fa fa-twitter"></i></a></li>{% endif %}
+                    {% if judge.website %}<li><a href="{{judge.website}}"><i class="fa fa-globe"></i></a></li>{% endif %}
+                    {% if judge.linkedin %}<li><a href="{{judge.linkedin}}"><i class="fa fa-linkedin"></i></a></li>{% endif %}
+                    {% if judge.facebook %}<li><a href="{{judge.facebook}}"><i class="fa fa-facebook"></i></a></li>{% endif %}
+                    {% if judge.github %}<li><a href="{{judge.github}}"><i class="fa fa-github"></i></a></li>{% endif %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endif %}

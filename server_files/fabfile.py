@@ -635,17 +635,19 @@ def update_challenge_questions(deploy_to=DEFAULT_DEPLOY_TO, reset=False, mode=DE
 def get_fixtures(deploy_to=DEFAULT_DEPLOY_TO, mode=DEFAULT_MODE):
     from datetime import datetime
     env_variables = _get_env_variables(mode=mode) 
-    fixture_path = 'registration/fixtures/registration-data-%s.json' % (
-        datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
-    with shell_env(**env_variables):
-        with cd(DJANGO_PROJECT_PATH):
-            run('mkdir -p registration/fixtures')
-            run('python manage.py dumpdata --format=json --indent=2 registration > %s' % (fixture_path))
-    log_dir = os.path.join(LOCAL_DJANGO_PATH, 'server_files', 'fixtures', deploy_to)
-    if not os.path.exists(log_dir):
-        local('mkdir -p %s' % (log_dir))
-    with settings(hide('warnings')): 
-        get(remote_path="%s/%s" % (DJANGO_PROJECT_PATH, fixture_path), local_path="%s" % (log_dir))
+    apps = ('registration', 'event')
+    for app in apps:
+        fixture_path = '%s/fixtures/%s-data-%s.json' % (
+            app, app, datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+        with shell_env(**env_variables):
+            with cd(DJANGO_PROJECT_PATH):
+                run('mkdir -p %s/fixtures' % (app))
+                run('python manage.py dumpdata --format=json --indent=2 %s > %s' % (app, fixture_path))
+        log_dir = os.path.join(LOCAL_DJANGO_PATH, 'server_files', 'fixtures', deploy_to)
+        if not os.path.exists(log_dir):
+            local('mkdir -p %s' % (log_dir))
+        with settings(hide('warnings')): 
+            get(remote_path="%s/%s" % (DJANGO_PROJECT_PATH, fixture_path), local_path="%s" % (log_dir))
 
 def get_logs(deploy_to=DEFAULT_DEPLOY_TO):
     """

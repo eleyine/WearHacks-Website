@@ -1,0 +1,59 @@
+from django.contrib import admin
+from event.models import Person
+
+class PersonAdmin(admin.ModelAdmin):
+    date_hierarchy = 'updated_at'
+    fieldsets = (
+        ('General Info', {
+            'fields': (
+                ('first_name', 'last_name'),
+                'category',
+                'company',
+                'gender', 
+                )
+        }),
+        ('About', {
+            'fields': (
+                'profile_pic',
+                'role',
+                'biography',
+                )
+        }),
+        ('Contact Info', {
+            'fields': (
+                'email',
+                'telephone',
+                )
+        }),
+        ('Social Media', {
+            'fields': (
+                'linkedin',
+                'website',
+                'twitter',
+                'github',
+                'facebook',
+                )
+        }),
+        )
+    list_display = (
+            'updated_at',
+            'category',
+            'profile_pic',
+            'full_name',
+            'company',
+            'role',
+            'email', 
+            'has_telephone',
+            'has_linkedin',
+            'has_website',
+            'has_twitter',
+            'has_github',
+            'has_facebook',           
+        )
+    # list_editable = ('staff_comments',)
+    search_fields = ['category', 'company', 'email', 'first_name', 'last_name']
+    list_filter = ('category', 'company', 'gender')
+    list_display_links = ('full_name',)
+
+admin.site.register(Person, PersonAdmin)
+

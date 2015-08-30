@@ -10,6 +10,7 @@ class PersonAdmin(admin.ModelAdmin):
                 'category',
                 'company',
                 'gender', 
+                'rank',
                 )
         }),
         ('About', {
@@ -38,6 +39,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = (
             'updated_at',
             'category',
+            'rank',
             'profile_pic',
             'full_name',
             'company',

@@ -47,7 +47,7 @@ class Person(models.Model):
 
     rank = models.IntegerField(
         default=999, 
-        help_text=_('For internal use.'
+        help_text=_('For internal use. '
             'Determines the order in which this person appears on the website.')
         )
     created_at = models.DateTimeField(auto_now_add=True)

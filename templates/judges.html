@@ -26,7 +26,7 @@
                 {% endif %}
                 {% if judge.role %}<p class="text-muted">{{ judge.role }}</p>{% endif %}
                 </div>
-                {% if judge.biography %}<p class="biography">{{ judge.biography }}</p>{% endif %}
+                {% if judge.biography %}<p class="biography">{{ judge.biography | safe }}</p>{% endif %}
                 <ul class="list-inline social-buttons">
                     {% if judge.twitter %}<li><a href="{{judge.twitter}}"><i class="fa fa-twitter"></i></a></li>{% endif %}
                     {% if judge.website %}<li><a href="{{judge.website}}"><i class="fa fa-globe"></i></a></li>{% endif %}

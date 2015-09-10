@@ -1,4 +1,5 @@
 from django.views import generic
+from django.http import HttpResponse
 from django.template import Context, loader
 from django.core.files import File
 from django.core.files.uploadedfile import InMemoryUploadedFile

@@ -281,7 +281,10 @@
                                         <tbody>
                                             <tr style="font-size: 14px;font-family: Helvetica, Arial, sans-serif; color: #333333;">
                                                 <td style="text-align:left;padding:8px 0">{{r.first_name}} {{r.last_name}}</td>
-                                                <td style="text-align:left;padding:8px 0">{{r.get_ticket_description_display}} </td>
+                                                <td style="text-align:left;padding:8px 0">{{r.get_ticket_description_display}} 
+                                                {% if r.discount_code %} 
+                                                    (Discount: {{r.discount_code.code}})
+                                                {% endif %} </td>
                                                 <!-- <td style="text-align:center;padding:8px 0">Free</td>
                                                 <td style="text-align:right;padding:8px 0">1</td> -->
                                                 <td style="text-align:right;padding:8px 0">${{ticket_price_in_dollars|floatformat:2}}</td>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from registration.models import Registration, ChargeAttempt, Challenge
+from registration.models import Registration, ChargeAttempt, Challenge, DiscountCode
 
 class RegistrationAdmin(admin.ModelAdmin):
     date_hierarchy = 'updated_at'
@@ -17,6 +17,7 @@ class RegistrationAdmin(admin.ModelAdmin):
                 'ticket_description',
                 ('ticket_file', 'qrcode_file'),
                 'is_email_sent',
+                'discount_code',
                 )
         }),
         ('Sponsor Info', {
@@ -59,6 +60,7 @@ class RegistrationAdmin(admin.ModelAdmin):
             'has_attended',
             'is_email_sent',
             'is_student',
+            'has_discount',
             'has_solved_challenge',
             'has_submitted_resume',
             'gender',
@@ -103,4 +105,5 @@ class ChallengeAdmin(admin.ModelAdmin):
 admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(ChargeAttempt)
 admin.site.register(Challenge, ChallengeAdmin)
+admin.site.register(DiscountCode)
 

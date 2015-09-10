@@ -106,12 +106,15 @@ class SubmitRegistrationView(generic.View):
         registration_message = ''
         challenge_id = request.POST.get('challenge_id', None)
         challenge = get_object_or_404(Challenge, id=challenge_id)
+        discount_code = None
+        ticket_price = Registration.TICKET_FULL_PRICE
         form = self.form_class(request.POST, request.FILES, challenge=challenge)
 
         if form.is_valid():
             registration_success = True
             email = form.cleaned_data['email']
             has_solved_challenge = form.cleaned_data['has_solved_challenge']
+            discount_code = form.discount_code
         else:
             registration_message= _('Please correct your registration information'
                 ' before proceeding.')
@@ -122,7 +125,13 @@ class SubmitRegistrationView(generic.View):
 
         form_html = render_crispy_form(form)
 
-        if has_solved_challenge:
+        # get pricing info
+        discount = {'percentage': 0, 'amount': 0}
+        if registration_success:
+            is_student = form.cleaned_data['is_student']
+            ___, ___, ticket_price, discount = self.get_ticket_info(is_student, discount_code=discount_code)
+
+        if has_solved_challenge or ticket_price == 0:
             success_message += _('Congrats, you have a free ticket! ')
             checkout_success = True
 
@@ -132,7 +141,7 @@ class SubmitRegistrationView(generic.View):
         if not has_solved_challenge:
             if amount:
                 is_student = request.POST.get('is_student', False)
-                ___, ___, ticket_price = self.get_ticket_info(is_student)
+                ___, ___, ticket_price, __ = self.get_ticket_info(is_student, discount_code=discount_code)
                 is_valid_amount = amount == ticket_price
             if amount and not is_valid_amount:
                 checkout_success = False
@@ -143,13 +152,11 @@ class SubmitRegistrationView(generic.View):
                 server_messages.append("Fraud attempt: amount entered was %.2f$" % (amount * 0.01))
 
         # attempt charge only if registration information is valid
-        if registration_success and is_valid_amount and not has_solved_challenge:
+        if registration_success and is_valid_amount and not has_solved_challenge and ticket_price > 0:
             token_id = request.POST.get('token_id', None)
             charge = None
             charge_attempt = None
             e = None # Exception variable
-
-            print 'Registration success'
 
             if not token_id:
                 # no token id is sent during form prevalidation
@@ -297,13 +304,15 @@ class SubmitRegistrationView(generic.View):
                     challenge.save()
                     new_registration.solved_challenge = form.challenge
                     new_registration.has_solved_challenge = True
+                if form.discount_code:
+                    new_registration.discount_code = form.discount_code
 
                 # Add additional fields to form
                 new_registration.preferred_language = language
 
                 is_student = request.POST.get('is_student', False)
-                is_early_bird, ticket_description, ticket_price = self.get_ticket_info(
-                    is_student, has_solved_challenge=has_solved_challenge)
+                is_early_bird, ticket_description, ticket_price, discount = self.get_ticket_info(
+                    is_student, has_solved_challenge=has_solved_challenge, discount_code=discount_code)
 
                 new_registration.is_early_bird = is_early_bird
                 new_registration.ticket_description = ticket_description
@@ -323,7 +332,7 @@ class SubmitRegistrationView(generic.View):
 
             # Charge user
             is_captured = False
-            if not server_error and not has_solved_challenge:
+            if not server_error and not has_solved_challenge and ticket_price > 0:
                 try:
                     charge = stripe.Charge.retrieve(charge.id)
                     charge.capture()
@@ -379,7 +388,10 @@ class SubmitRegistrationView(generic.View):
             'checkout_message': checkout_message,
             'success': registration_success and checkout_success,
             'success_message': success_message,
-            'stripe_public_key': self.get_stripe_public_key()
+            'stripe_public_key': self.get_stripe_public_key(),
+            'charge_amount': ticket_price,
+            'discount_percentage': discount['percentage'],
+            'discount_amount': discount['amount']
         }
         if server_messages:
             print ' / '.join(server_messages)
@@ -415,17 +427,18 @@ class SubmitRegistrationView(generic.View):
         if charge_attempt:
             charge_attempt.save_server_message(messages, exception=e)
 
-    def get_ticket_info(self, is_student, has_solved_challenge=False):
+    def get_ticket_info(self, is_student, discount_code=None, has_solved_challenge=False):
         # early_bird_deadline = datetime.strptime('Sep 1 2015', '%b %d %Y')
         # is_early_bird = datetime.now() < early_bird_deadline
         is_early_bird = False
 
-        ticket_description, ticket_price = Registration.get_ticket_info(
+        ticket_description, ticket_price, discount = Registration.get_ticket_info(
                 is_student=is_student,
                 is_early_bird=is_early_bird,
-                has_solved_challenge=has_solved_challenge
+                has_solved_challenge=has_solved_challenge,
+                discount_code=discount_code
             )
-        return (is_early_bird, ticket_description, ticket_price)
+        return (is_early_bird, ticket_description, ticket_price, discount)
 
 
     def _get_resume_path(self, order_id):

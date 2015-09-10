@@ -4,7 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, Field, HTML, MultiField
 from crispy_forms.bootstrap import FormActions, StrictButton
 
-from registration.models import Registration, Challenge
+from registration.models import Registration, Challenge, DiscountCode
 from registration.forms.helpers import PDFField
 
 from django.utils.translation import ugettext_lazy as _
@@ -94,11 +94,14 @@ class RegistrationForm(forms.ModelForm):
             'the <a class="terms" href="#"> Terms and Conditions</a> and the '
             'the <a class="conduct" href="#"> Code of Conduct</a> '
             ))
+    has_discount_code = False
+    discount_code = None
 
     def clean(self):
         self.cleaned_data = super(RegistrationForm, self).clean()
         self.cleaned_data['solved_challenge'] = self.challenge
         self.cleaned_data['has_solved_challenge'] = False
+
         if 'challenge_do_attempt' in self.cleaned_data and \
             self.cleaned_data["challenge_do_attempt"]:
 
@@ -107,7 +110,6 @@ class RegistrationForm(forms.ModelForm):
             user_solution = Challenge.clean_message(user_solution)
             valid_solution = self.challenge.decrypted_message.lower().strip()
             valid_solution = Challenge.clean_message(valid_solution)
-            print valid_solution
             
             if user_solution == valid_solution:
                 self.cleaned_data['has_solved_challenge'] = True
@@ -130,6 +132,25 @@ class RegistrationForm(forms.ModelForm):
                 self.add_error('challenge_do_attempt', _("Uncheck this if you'd like to proceed without a solution."))
         
         self.data['has_solved_challenge'] = self.cleaned_data['has_solved_challenge']        
+        if 'discount_code_code' in self.cleaned_data and \
+            self.cleaned_data["discount_code_code"]:
+            # check that discount code exists
+            code = self.cleaned_data["discount_code_code"]
+            self.has_discount_code = False
+            self.discount_code = None
+            discount_code_exists = DiscountCode.objects.filter(code=code).exists()
+            if discount_code_exists:
+                discount_code = DiscountCode.objects.get(code=code)
+                if not discount_code.is_active:
+                    self.add_error('discount_code_code', _("Sorry, this discount code is inactive."))
+                elif Registration.objects.filter(discount_code=discount_code).count() >= discount_code.max_coupons:
+                    self.add_error('discount_code_code', _("Sorry, we ran out of coupons for this discount code."))
+                else:
+                    self.has_discount_code = True
+                    self.discount_code = discount_code
+            else:
+                self.add_error('discount_code_code', _("Sorry, this discount code doesn't exist."))
+
         return self.cleaned_data
 
     def __init__(self, *args, **kwargs):
@@ -137,6 +158,7 @@ class RegistrationForm(forms.ModelForm):
             self.challenge = kwargs.pop('challenge')
         else:
             self.challenge = None
+        self.discount_code = None
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
         # Add challenge field
@@ -153,6 +175,11 @@ class RegistrationForm(forms.ModelForm):
             self.fields['has_solved_challenge'] = forms.BooleanField(required=False,
                 widget=forms.widgets.HiddenInput,
                 initial=False) 
+
+        # Discount Code
+        self.fields['discount_code_code'] = forms.CharField(required=False, 
+            label = _('Discount Code'),
+            )
 
         self.helper = FormHelper()
         self.helper.form_id = 'registration-form'
@@ -207,6 +234,13 @@ class RegistrationForm(forms.ModelForm):
                         data_off_text='No', data_on_text='Yes', data_size='mini'),
                     css_id='bonus'
                 ),
+            ))
+        self.helper.layout.extend((
+                Fieldset(
+                    _('Payment Options'),
+                    Field('discount_code_code', placeholder='CODE'),
+                    css_id='payment'
+                )
             ))
         hide_checkout_hint = self.challenge is not None
         self.helper.layout.extend((

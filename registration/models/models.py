@@ -175,7 +175,8 @@ class Registration(models.Model):
 
     is_early_bird = models.BooleanField(default=False)
 
-    TICKET_FULL_PRICE = 2000 # in cents
+    TICKET_FULL_PRICE = 2500 # in cents
+    TICKET_STUDENT_PRICE = 1500 # in cents
     ticket_price = models.SmallIntegerField(default=0)
     TICKET_DESCRIPTION_CHOICES = (
         # Translators: Ticket descriptions
@@ -191,6 +192,7 @@ class Registration(models.Model):
         choices=TICKET_DESCRIPTION_CHOICES, max_length=2)
     ticket_file = models.FileField(upload_to=get_ticket_filename, blank=True)
     qrcode_file = models.FileField(upload_to=get_qrcode_filename, blank=True, storage=OverwriteStorage())
+    discount_code = models.ForeignKey('DiscountCode', null=True, blank=True)
 
     # Logistics
     ORDER_ID_MAX_LENGTH = 6
@@ -215,6 +217,9 @@ class Registration(models.Model):
     def has_submitted_resume(self):
         return bool(self.resume)
 
+    def has_discount(self):
+        return bool(self.discount_code)
+
     def full_name(self):
         return '%s %s' % (self.first_name.encode('utf-8'), 
             self.last_name.encode('utf-8'))
@@ -234,7 +239,7 @@ class Registration(models.Model):
     
     @staticmethod
     def get_ticket_info(registration=None, is_early_bird=False, is_student=False,
-        has_solved_challenge=False):
+        has_solved_challenge=False, discount_code=None):
         from datetime import datetime
 
         if registration:
@@ -247,19 +252,35 @@ class Registration(models.Model):
         # ratio_to_pay = 0.5 if is_early_bird else 1
         # ratio_to_pay = ratio_to_pay * 0.5 if is_student else ratio_to_pay
         # price = full_price * ratio_to_pay
-        
+
         if has_solved_challenge:
             price = 0
         else:
-            price = 15 if is_student else 25
-        price = price * 100 # in cents
+            price = Registration.TICKET_STUDENT_PRICE if is_student else Registration.TICKET_FULL_PRICE
 
+        # discount info
+        if not discount_code and registration and registration.discount_code:
+            discount_code = registration.discount_code
+
+        if discount_code:
+            if discount_code.is_percentage:
+                price = price * (100 - discount_code.amount)
+            else:
+                price = price - discount_code.amount
+
+
+        discount_percentage = (1 - price / float(Registration.TICKET_FULL_PRICE)) * 100
+        discount_amount = Registration.TICKET_FULL_PRICE - price
+        discount = {
+            'percentage': discount_percentage,
+            'amount': discount_amount
+        }
         # ticket description
         choices = dict(Registration.TICKET_DESCRIPTION_CHOICES)
         description = '' #'E' if is_early_bird else ''
         description += 'C' if has_solved_challenge else ''
         description += 'S' if is_student else 'R'
-        return (description, price)
+        return (description, price, discount)
 
     @staticmethod
     def generate_order_id():
@@ -364,6 +385,14 @@ class Challenge(models.Model):
             return '[{1}] "{0}...")'.format(self.decrypted_message[:20], 
                 'Solved' if self.solved else 'Unsolved')
 
+class DiscountCode(models.Model):
+    code = models.CharField(max_length=20, help_text='Max char 20', unique=True)
+    amount = models. IntegerField(default=100, 
+        help_text='Amount (in cents) or percentage discounted')
+    is_percentage = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+    max_coupons = models.IntegerField(default=999, 
+        help_text='Change this to limit the number of redeemable coupons for this particular code') 
 
-
-
+    def __unicode__(self):
+        return self.code

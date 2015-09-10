@@ -100,10 +100,10 @@
       // code for desktop
       if (!isMobile) {
         validateRegistration('#registration-form', isMobile, {
-          success: function(checkoutHandler, formData, amount) {
+          success: function(checkoutHandler, formData, amount, discount) {
             displayCorrectButtons(isMobile, true);
             enabledFormControls(false);
-            desktopCheckout(checkoutHandler, formData, amount);
+            desktopCheckout(checkoutHandler, formData, amount, discount);
           },
           error: function(formData, amount){
             displayCorrectButtons(isMobile, false);
@@ -111,10 +111,10 @@
         });
       } else {
         validateRegistration('#registration-form', isMobile, {
-          success: function(checkoutHandler, formData, amount) {
+          success: function(checkoutHandler, formData, amount, discount) {
             enabledFormControls(false);
             displayCorrectButtons(isMobile, true);
-            mobileCheckout(checkoutHandler, formData, amount);
+            mobileCheckout(checkoutHandler, formData, amount, discount);
           },
           error: function(formData, amount){
             displayCorrectButtons(isMobile, false);
@@ -161,25 +161,30 @@
             success: function(data) {
                 $(form).replaceWith(data['form_html']);
                 stylisticTweaks();
-                var amount = getChargeAmount();
+                var amount = data['charge_amount'];
+                var discount = {
+                  'amount': data['discount_amount'],
+                  'percentage': data['discount_percentage']
+                }
 
                 if (!data['registration_success']) {
-                    options.error(formData, amount);
+                    options.error(formData, amount, discount);
                     registrationError(data["registration_message"]);
                 } else {
-                    if (hasSolvedChallenge()) {
+                    if (hasSolvedChallenge() || amount == 0) {
                       console.log(data);
                       if (data["server_error"]) {
                         displaySorryButton(data["server_message"]);
                       } else {
-                        console.log(data["success_message"]);
                         displayCorrectButtons();
                         displayThankYouButton(data["success_message"]);
                       }
                     } else {
-                    var handler = getCheckoutHandler(formData, amount);
+
+                    var handler = getCheckoutHandler(formData, amount, discount);
+
                       if (handler) {
-                        options.success(handler, formData, amount);
+                        options.success(handler, formData, amount, discount);
                         $(window).on('popstate', function() {
                             handler.close();
                         });
@@ -307,14 +312,14 @@
       $('#checkout .text').text(strCheckoutInProgress);
     }
 
-    function mobileCheckout(handler, formData, amount) {
+    function mobileCheckout(handler, formData, amount, discount) {
       $('#checkout.mobile .text').text(strCheckoutProceed);
       $('#checkout.mobile .fa').addClass('hide');
       $('#checkout.mobile .fa-lock').removeClass('hide');
       var handler = getCheckoutHandler(formData, amount);
       if (handler) {
         $('#checkout.mobile').one("click", function() {
-          openCheckhoutHandler(handler, amount, formData["email"]);
+          openCheckhoutHandler(handler, amount, formData["email"], discount);
         });
       }
     }
@@ -413,7 +418,7 @@
       return discount;
     }
 
-    function openCheckhoutHandler(handler, amount, email) {
+    function openCheckhoutHandler(handler, amount, email, discount) {
       var isBird = false; //isEarlyBird();
       var isCryptoWhizz = hasSolvedChallenge();
       var description = "";
@@ -429,7 +434,7 @@
       } 
       var d = getDiscount();
       // var description = (d > 0)? description + ' (' + interpolate(strPercentDiscount, {'percent': d}, true) + ')': description;
-      var description = (d > 0)? description + ' (' + interpolate(strDiscount, {'amount': d}, true) + ')': description;
+      var description = (d > 0)? description + ' (' + interpolate(strDiscount, {'amount': discount['discount_amount']}, true) + ')': description;
       handler.open({
         name: strOrgName,
         description: description,
@@ -465,9 +470,9 @@
       });
     }
 
-    function desktopCheckout(handler, formData, amount) {
+    function desktopCheckout(handler, formData, amount, discount) {
         displayIsCheckingOut();
-        openCheckhoutHandler(handler, amount, formData['email']);
+        openCheckhoutHandler(handler, amount, formData['email'], discount);
     }
 
     function restoreCheckoutButton() {

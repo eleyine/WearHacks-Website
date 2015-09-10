@@ -393,6 +393,7 @@ class SubmitRegistrationView(generic.View):
             'discount_percentage': discount['percentage'],
             'discount_amount': discount['amount']
         }
+        print response
         if server_messages:
             print ' / '.join(server_messages)
         response['form_html'] = form_html

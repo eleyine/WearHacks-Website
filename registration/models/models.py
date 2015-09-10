@@ -264,7 +264,7 @@ class Registration(models.Model):
 
         if discount_code:
             if discount_code.is_percentage:
-                price = price * (100 - discount_code.amount)
+                price = price * (100 - discount_code.amount) / 100.0
             else:
                 price = price - discount_code.amount
 

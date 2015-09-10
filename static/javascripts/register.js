@@ -432,9 +432,12 @@
       } else {
         description = isCryptoWhizz? strTicketStudentEarlyBirdDescription: strTicketStudentDescription;
       } 
-      var d = getDiscount();
+      var discountAmount = discount['amount'] / 100.0;
+      console.log("Discount amount" + discountAmount);
+      console.log("Amount" + amount);
+      console.log(interpolate(strDiscount, {'amount': discountAmount}, true));
       // var description = (d > 0)? description + ' (' + interpolate(strPercentDiscount, {'percent': d}, true) + ')': description;
-      var description = (d > 0)? description + ' (' + interpolate(strDiscount, {'amount': discount['discount_amount']}, true) + ')': description;
+      var description = (discountAmount > 0)? description + ' (' + interpolate(strDiscount, {'amount': discountAmount}, true) + ')': description;
       handler.open({
         name: strOrgName,
         description: description,

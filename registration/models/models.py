@@ -394,5 +394,20 @@ class DiscountCode(models.Model):
     max_coupons = models.IntegerField(default=999, 
         help_text='Change this to limit the number of redeemable coupons for this particular code') 
 
+    def discount(self):
+        if self.is_percentage:
+            return '%i%% Off' % (self.amount)
+        else:
+            return '$%.2f Off' % (self.amount * 0.01)
+
+    def coupons_used(self):
+        return self.registration_set.count()
+
+    def coupons_left(self):
+        return self.max_coupons - self.coupons_used()
+
+    def redeemed_by(self):
+        return ', '.join([r.full_name() for r in self.registration_set.all()])
+
     def __unicode__(self):
         return self.code

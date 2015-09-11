@@ -102,8 +102,21 @@ class ChallengeAdmin(admin.ModelAdmin):
     list_filter = ('solved', 'language', )
     list_display_links = ('decrypted_message',)
 
+class DiscountCodeAdmin(admin.ModelAdmin):
+
+    list_display = (
+            'code',
+            'is_active',
+            'discount',
+            'coupons_left',
+            'max_coupons',
+            'redeemed_by',
+        )
+    search_fields = ['code']
+    list_filter = ('is_active',)
+
 admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(ChargeAttempt)
 admin.site.register(Challenge, ChallengeAdmin)
-admin.site.register(DiscountCode)
+admin.site.register(DiscountCode, DiscountCodeAdmin)
 

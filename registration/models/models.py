@@ -267,7 +267,7 @@ class Registration(models.Model):
                 price = price * (100 - discount_code.amount) / 100.0
             else:
                 price = price - discount_code.amount
-
+            price = 0 if price < 0 else price
 
         discount_percentage = (1 - price / float(Registration.TICKET_FULL_PRICE)) * 100
         discount_amount = Registration.TICKET_FULL_PRICE - price

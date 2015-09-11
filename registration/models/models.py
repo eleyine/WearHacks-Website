@@ -175,7 +175,7 @@ class Registration(models.Model):
 
     is_early_bird = models.BooleanField(default=False)
 
-    TICKET_FULL_PRICE = 2500 # in cents
+    TICKET_FULL_PRICE = 2000 # in cents
     TICKET_STUDENT_PRICE = 1500 # in cents
     ticket_price = models.SmallIntegerField(default=0)
     TICKET_DESCRIPTION_CHOICES = (

@@ -121,7 +121,7 @@ class RegistrationForm(forms.ModelForm):
                             _("There are no spots left for your category. "
                               "Please uncheck this box to proceed."))
                 # Avoid the same person solving challenges
-                if self.cleaned_data["email"]:
+                if 'email' in self.cleaned_data and self.cleaned_data["email"]:
                     n = Registration.objects.filter(email=self.cleaned_data["email"]).count()
                     if n > 0:
                         self.add_error('challenge_do_attempt', 

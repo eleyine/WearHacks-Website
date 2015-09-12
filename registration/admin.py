@@ -107,7 +107,8 @@ class DiscountCodeAdmin(admin.ModelAdmin):
     list_display = (
             'code',
             'is_active',
-            'discount',
+            'is_fixed_discount',
+            'description',
             'coupons_left',
             'max_coupons',
             'redeemed_by',

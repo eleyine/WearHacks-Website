@@ -263,7 +263,9 @@ class Registration(models.Model):
             discount_code = registration.discount_code
 
         if discount_code:
-            if discount_code.is_percentage:
+            if discount_code.is_fixed_discount:
+                price = discount_code.amount
+            elif discount_code.is_percentage:
                 price = price * (100 - discount_code.amount) / 100.0
             else:
                 price = price - discount_code.amount
@@ -389,13 +391,18 @@ class DiscountCode(models.Model):
     code = models.CharField(max_length=20, help_text='Max char 20', unique=True)
     amount = models. IntegerField(default=100, 
         help_text='Amount (in cents) or percentage discounted')
+    is_fixed_discount = models.BooleanField(default=False,
+        help_text='Set the price of the ticket (in cents) no matter the student '
+        'status. This field trumps "is_percentage".')
     is_percentage = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     max_coupons = models.IntegerField(default=999, 
         help_text='Change this to limit the number of redeemable coupons for this particular code') 
 
-    def discount(self):
-        if self.is_percentage:
+    def description(self):
+        if self.is_fixed_discount:
+            return '$%.2f' % (self.amount * 0.01)
+        elif self.is_percentage:
             return '%i%% Off' % (self.amount)
         else:
             return '$%.2f Off' % (self.amount * 0.01)

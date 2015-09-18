@@ -20,7 +20,7 @@ class EventStats(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(EventStats, self).get_context_data(**kwargs)
 
-        context['revenue'] = sum([c.amount for c in ChargeAttempt.objects.all()])
+        context['revenue'] = sum([c.amount for c in ChargeAttempt.objects.all()]) / 100.0
         context['paid_tickets_num'] = sum([1 for r in Registration.objects.all() if r.charge is not None])
 
         context['food_restrictions'] = [r.food_restrictions for r in \

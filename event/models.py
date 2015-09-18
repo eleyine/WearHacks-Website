@@ -4,10 +4,35 @@ from django.utils.translation import pgettext_lazy as __
 
 import re
 from django.core.validators import RegexValidator
-from event.helpers import get_profile_pic_filename
+from event.helpers import get_profile_pic_filename, get_image_filename
+
+class Sponsor(models.Model):
+    CATEGORIES = (
+        ('B', _('Bronze')),
+        ('S', _('Silver')),
+        ('G', _('Gold')),
+        ('P', _('Platinum')),
+
+    )
+    name = models.CharField(max_length=100)
+    category = models.CharField(max_length=20, 
+        choices=CATEGORIES, 
+        default=CATEGORIES[0][0],
+        )
+    IMAGE_FOLDER = 'sponsors'
+    image = models.ImageField(
+        upload_to=get_image_filename,
+        help_text="Please make sure it's a transparent image (png).")
+    url = models.URLField(blank=True)
+
+    def get_verbose_category(self):
+        return dict(CATEGORIES)[self.category]
+        
+    def __unicode__(self):
+        return self.name
 
 class Person(models.Model):
-    PERSON_CATEGORIES = (
+    CATEGORIES = (
         ('O', _('Other')),
         ('J', _('Judge')),
         ('M', _('Mentor')),
@@ -17,8 +42,8 @@ class Person(models.Model):
     numeric = RegexValidator(regex=re.compile(r'^[\d]*$', flags=re.UNICODE), message=_('Only numbers are allowed.'))
 
     category = models.CharField(max_length=20, 
-        choices=PERSON_CATEGORIES, 
-        default=PERSON_CATEGORIES[0][0],
+        choices=CATEGORIES, 
+        default=CATEGORIES[0][0],
         )
 
     first_name = models.CharField(max_length=30, validators=[alpha])

@@ -314,6 +314,32 @@ header .header-content-inner .how button {
 #hardware li p {
   margin-bottom: 0;
 }
+#sponsors .sponsor-logos-container {
+  text-align: center;
+}
+#sponsors .sponsor-logos-container img {
+  display: inline-block;
+  margin: 0 50px !important;
+  margin-bottom: 20px !important;
+}
+#sponsors .sponsor-logos-container.logos-plat a img {
+  height: 200px;
+}
+#sponsors .sponsor-logos-container.logos-gold a img {
+  height: 140px;
+}
+#sponsors .sponsor-logos-container.logos-silver a img {
+  height: 70px;
+}
+#sponsors .sponsor-logos-container.logos-bronze a img {
+  height: 25px;
+}
+#sponsors .sponsor-item {
+  text-align: center;
+  font-size: 17px;
+  line-height: 25px;
+  color: #999999;
+}
 @media (max-width: 768px) {
   #judges .name {
     text-align: center;

@@ -1,0 +1,77 @@
+{% load staticfiles %}
+
+{% if sponsors %}
+<section id="sponsors">
+  <div class="container">
+    <div class="row col-lg-12 text-center">
+      <div class="section-heading">
+          <h1>Sponsors</h1>
+          <hr class="primary">
+      </div>
+    </div>
+
+      <!-- platinum sponsors (2/row)-->
+      {% if sponsors.platinum %}
+          <div class="row col-sm-offset-1 col-sm-10 text-center">
+            {% for sponsor in sponsors.platinum %}
+            {% if forloop.counter0 == 0 or forloop.counter0|divisibleby:"2" %}
+            <div class="sponsor-logos-container logos-plat">
+            {% endif %}
+                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
+            {% if forloop.counter|divisibleby:"2" or forloop.last %}
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+      {% endif %}
+
+      <!-- gold sponsors (3/row)-->
+      {% if sponsors.gold %}
+          <div class="row col-sm-offset-1 col-sm-10 text-center">
+            {% for sponsor in sponsors.gold %}
+            {% if forloop.counter0 == 0 or forloop.counter0|divisibleby:"3" %}
+            <div class="sponsor-logos-container logos-plat">
+            {% endif %}
+                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
+            {% if forloop.counter|divisibleby:"3" or forloop.last %}
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+      {% endif %}
+
+      <!-- silver sponsors (4/row)-->
+      {% if sponsors.silver %}
+          <div class="row col-sm-offset-1 col-sm-10 text-center">
+            {% for sponsor in sponsors.silver %}
+            {% if forloop.counter0 == 0 or forloop.counter0|divisibleby:"4" %}
+            <div class="sponsor-logos-container logos-plat">
+            {% endif %}
+                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
+            {% if forloop.counter|divisibleby:"4" or forloop.last %}
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+      {% endif %}
+
+      <!-- bronze sponsors (5/row)-->
+      {% if sponsors.bronze %}
+          <div class="row col-sm-offset-1 col-sm-10 text-center">
+            {% for sponsor in sponsors.bronze %}
+            {% if forloop.counter0 == 0 or forloop.counter0|divisibleby:"5" %}
+            <div class="sponsor-logos-container logos-plat">
+            {% endif %}
+                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
+            {% if forloop.counter|divisibleby:"5" or forloop.last %}
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+      {% endif %}
+    <div class="row col-lg-12 text-center">
+      <h4>Interested in sponsoring? E-mail us at <a href="mailto:montreal@wearhacks.com">montreal@wearhacks.com</a>!
+    </div>
+  </div>
+</section>
+{% endif %}

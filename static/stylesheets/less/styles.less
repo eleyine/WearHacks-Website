@@ -403,23 +403,52 @@ header {
 section.sponsors {
     .sponsor-logos-container {
         text-align: center;
-        margin: 0 15px;
+        margin: 10px 15px;
+        display: inline-block;
+        vertical-align: middle;
         img {
             display: inline-block;
-            margin: 0 50px !important;
-            margin-bottom: 20px !important;
+            vertical-align: middle;
         }
-        &.logos-premium a img {
-            max-height: 150px;
-            width: auto;
+        &.logos-premium {
+            height: 120px;
+            a {
+                white-space: nowrap;
+                height: 100px;
+                margin: 0;
+                padding: 0;
+                .helper {
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                }
+                img {
+                    max-height: 100px;
+                    vertical-align: middle;
+                }
+            } 
         }
-        &.logos-standard a img {
-            max-height: 70px;
-            width: auto;
+        &.logos-standard {
+            height: 90px;
+            a {
+                white-space: nowrap;
+                height: 70px;
+                margin: 0;
+                padding: 0;
+                .helper {
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                }
+                img {
+                    max-height: 70px;
+                    vertical-align: middle;
+                }
+            } 
         }
         /* Special cases */
         &.softlayer a img {
-            max-width: 400px;
+            max-width: 500px;
         }
     }
     .sponsor-item {

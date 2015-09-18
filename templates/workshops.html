@@ -18,7 +18,10 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-0">
-                <h2 class="title">{{workshop.title}}</h2>
+                <div class="info">
+                    <p> {{workshop.human_readable_time_slot}} {% if workshop.location %}@ {{workshop.location}}{% endif %}</p>
+                </div>
+                <h3 class="title">{{workshop.title}}</h3>
                 <div class="description">
                     <p>{{workshop.description|safe}}</p>
                 </div>

@@ -490,12 +490,19 @@ section.sponsors .sponsor-item {
   text-decoration: none;
   border-bottom: 1px solid white;
 }
-#workshops .moderated-by {
+#workshops .title {
+  margin-top: 10px;
+}
+#workshops .moderated-by,
+#workshops .info p {
   font-size: 11px;
   text-transform: uppercase;
   color: #999;
   font-weight: bold;
   letter-spacing: 1px;
+}
+#workshops .info p {
+  margin-bottom: 0px;
 }
 #workshops .moderators .name {
   margin-bottom: 2px;

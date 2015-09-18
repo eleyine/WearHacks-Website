@@ -332,8 +332,8 @@ class Challenge(models.Model):
         default=settings.LANGUAGE_CODE)
     updated_at = models.DateTimeField(auto_now=True)
 
-    MAX_NUM_STUDENT = 100
-    MAX_NUM_NON_STUDENT = 50
+    MAX_NUM_STUDENT = 150
+    MAX_NUM_NON_STUDENT = 100
     DISCOUNT_SOLVED_CHALLENGES = False
 
     @property

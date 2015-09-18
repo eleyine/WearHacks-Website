@@ -98,10 +98,13 @@ def get_registration_button_html(hide_checkout_hint=True):
 def get_challenge_question_header(encrypted_message):
     help_text = _(
         _('Try to decrypt this message to win a free ticket.\n'
-        '%(num_tickets_student)i tickets left for students and %(num_tickets_non_student)i '
+        '%(num_tickets_student)i tickets left out of %(total_num_tickets_student)i '
+        'for students and %(num_tickets_non_student)i out of %(total_num_tickets_non_student)i'
         ' tickets left for non-students.') % {
             'num_tickets_student': Challenge.unsolved_puzzles_left(student=True),
+            'total_num_tickets_student': Challenge.MAX_NUM_STUDENT,
             'num_tickets_non_student': Challenge.unsolved_puzzles_left(student=False),
+            'total_num_tickets_non_student': Challenge.MAX_NUM_NON_STUDENT,
         })
     template = """
     <div id="div_id_challenge_question" class="form-group">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-12 11:36-0400\n"
+"POT-Creation-Date: 2015-09-18 01:54-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms/forms.py:47
+#: event/models.py:11
+msgid "Local Standard"
+msgstr ""
+
+#: event/models.py:12
+msgid "Local Premium"
+msgstr ""
+
+#: event/models.py:13
+msgid "Global Standard"
+msgstr ""
+
+#: event/models.py:14
+msgid "Global Premium"
+msgstr ""
+
+#: event/models.py:35
+msgid "Other"
+msgstr ""
+
+#: event/models.py:36
+msgid "Judge"
+msgstr ""
+
+#: event/models.py:37
+msgid "Mentor"
+msgstr ""
+
+#: event/models.py:40 registration/models/models.py:97
+msgid "Only letters are allowed."
+msgstr "Seules les lettres sont autorisées."
+
+#: event/models.py:41
+#, fuzzy
+#| msgid "Only letters are allowed."
+msgid "Only numbers are allowed."
+msgstr "Seules les lettres sont autorisées."
+
+#: event/models.py:52 registration/models/models.py:104
+msgid "Male"
+msgstr "Masculin"
+
+#: event/models.py:53 registration/models/models.py:105
+msgid "Female"
+msgstr "Féminin"
+
+#. Translators: Gender information
+#: event/models.py:55 registration/models/models.py:107
+msgid "Other / I prefer not to disclose"
+msgstr "Autre / Je préfère ne pas le signaler"
+
+#: event/models.py:60 registration/models/models.py:112
+msgid "gender"
+msgstr "Sexe"
+
+#: event/models.py:74
+msgid ""
+"For internal use. Determines the order in which this person appears on the "
+"website."
+msgstr ""
+
+#: registration/forms/forms.py:47
 msgid "Staff Actions"
 msgstr ""
 
-#: forms/forms.py:53
+#: registration/forms/forms.py:53
 msgid "Attendee Information"
 msgstr "Informations Générales"
 
-#: forms/forms.py:89
+#: registration/forms/forms.py:89
 msgid "Resume"
 msgstr "CV"
 
-#: forms/forms.py:90
+#: registration/forms/forms.py:90
 msgid ""
 "Not required but this might reach our sponsors for targeted employment "
 "opportunities."
@@ -38,7 +99,7 @@ msgstr ""
 "N'est pas obligatoire mais pourrait atteindre nos parrains pour des "
 "opportunités d'emploi ciblées."
 
-#: forms/forms.py:93
+#: registration/forms/forms.py:93
 #, fuzzy
 #| msgid ""
 #| "I have read and I agree with the <a class=\"terms\" href=\"#\"> Terms and "
@@ -53,7 +114,7 @@ msgstr ""
 "Conditions de l'évènement</a> et le <a class=\"conduct\" href=\"#\"> Code de "
 "Conduite </a>"
 
-#: forms/forms.py:119
+#: registration/forms/forms.py:121
 msgid ""
 "There are no spots left for your category. Please uncheck this box to "
 "proceed."
@@ -61,7 +122,7 @@ msgstr ""
 "Il n'y a plus de place disponible pour ta catégorie malheureusement. "
 "Déselectionne cete case pour continuer."
 
-#: forms/forms.py:126
+#: registration/forms/forms.py:128
 msgid ""
 "Someone who solved the puzzle already registered with your email. Please "
 "uncheck this box to proceed."
@@ -69,72 +130,92 @@ msgstr ""
 "Quelqu'un qui a résolu le casse-tête s'est déjà inscrit avec ton adresse "
 "courriel. Déselectionne cette case pour continuer."
 
-#: forms/forms.py:129
+#: registration/forms/forms.py:131
 msgid "No luck :( Try again?"
 msgstr "Pas de bol :( Essaie encore?"
 
-#: forms/forms.py:130
+#: registration/forms/forms.py:132
 msgid "Uncheck this if you'd like to proceed without a solution."
 msgstr "Déselectionne ça si tu voudrais continuer sans soumettre de solution"
 
-#: forms/forms.py:145
+#: registration/forms/forms.py:145
+msgid "Sorry, this discount code is inactive."
+msgstr ""
+
+#: registration/forms/forms.py:147
+msgid "Sorry, we ran out of coupons for this discount code."
+msgstr ""
+
+#: registration/forms/forms.py:152
+msgid "Sorry, this discount code doesn't exist."
+msgstr ""
+
+#: registration/forms/forms.py:167
 msgid "Solution"
 msgstr "Solution"
 
-#: forms/forms.py:147
+#: registration/forms/forms.py:169
 msgid ""
 "Unlimited number of trials as long as \"submit my solution\" is checked."
 msgstr ""
 "Le nombre de tentatives est illimité tant que la case \"Soumettre ma solution"
 "\" est cochée."
 
-#: forms/forms.py:151
+#: registration/forms/forms.py:173
 msgid "Submit my solution to the challenge question"
 msgstr "Soumettre ma solution à la question défi"
 
-#: forms/forms.py:168
+#: registration/forms/forms.py:181
+msgid "Discount Code"
+msgstr ""
+
+#: registration/forms/forms.py:195
 msgid "General Information"
 msgstr "Informations Générales"
 
-#: forms/forms.py:175
+#: registration/forms/forms.py:202
 msgid "Tell us a bit about yourself."
 msgstr "À propos de vous"
 
-#: forms/forms.py:188
+#: registration/forms/forms.py:215
 msgid "Experience"
 msgstr "Expérience"
 
-#: forms/forms.py:194
+#: registration/forms/forms.py:221
 msgid "Misc."
 msgstr "Divers"
 
-#: forms/forms.py:202
+#: registration/forms/forms.py:229
 msgid "Bonus"
 msgstr "Bonus"
 
-#: forms/forms.py:205
+#: registration/forms/forms.py:232
 msgid "Easy, the answer is..."
 msgstr "Facile, la réponse est..."
 
-#: forms/helpers.py:13 forms/helpers.py:14
+#: registration/forms/forms.py:240
+msgid "Payment Options"
+msgstr ""
+
+#: registration/forms/helpers.py:13 registration/forms/helpers.py:14
 msgid "No file was submitted."
 msgstr "Aucun fichier n'a été soumis."
 
-#: forms/helpers.py:15
+#: registration/forms/helpers.py:15
 msgid "The submitted file is empty."
 msgstr "Le fichier qui a été soumis est vide."
 
-#: forms/helpers.py:16
+#: registration/forms/helpers.py:16
 msgid "Upload a valid document. The file you uploaded appears to be corrupted."
 msgstr ""
 "Veuillez soumettre un document valide. Le document que vous avez soumis "
 "semble être corrompu."
 
-#: forms/helpers.py:17
+#: registration/forms/helpers.py:17
 msgid "Not a PDF file."
 msgstr "Ceci n'est pas un fichier PDF."
 
-#: forms/helpers.py:18
+#: registration/forms/helpers.py:18
 #, python-format
 msgid ""
 "Please keep file size under %(max_file_size)s. Current filesize "
@@ -143,37 +224,37 @@ msgstr ""
 "Veuillez soumettre un fichier plus petit que %(max_file_size)s. La taille du "
 "fichier est actuellement %(current_file_size)s"
 
-#: forms/helpers.py:19
+#: registration/forms/helpers.py:19
 msgid "There was an issue uploading your file. Try to submit again."
 msgstr ""
 "Nous n'avons pas pu recevoir votre fichier. Veuillez essayer de le soumettre "
 "une nouvelle fois."
 
-#: forms/helpers.py:84
+#: registration/forms/helpers.py:84
 msgid "Registration Failure Message"
 msgstr "Inscription échouée"
 
-#: forms/helpers.py:85
+#: registration/forms/helpers.py:85
 msgid "Register"
 msgstr "S'inscrire"
 
-#: forms/helpers.py:86 forms/helpers.py:149
+#: registration/forms/helpers.py:86 registration/forms/helpers.py:152
 msgid "Temporary problem with our server"
 msgstr "Difficultés temporaires avec notre serveur"
 
-#: forms/helpers.py:87
+#: registration/forms/helpers.py:87
 msgid "Checkout Failure Message"
 msgstr "Paiement échoué"
 
-#: forms/helpers.py:88 forms/helpers.py:151
+#: registration/forms/helpers.py:88 registration/forms/helpers.py:154
 msgid "Success"
 msgstr "Succès"
 
-#: forms/helpers.py:89
+#: registration/forms/helpers.py:89
 msgid "Checkout"
 msgstr "Procéder au paiement"
 
-#: forms/helpers.py:90
+#: registration/forms/helpers.py:90
 msgid ""
 "Payment is handled by <a target=\"_blank\" href=\"https://stripe.com/ca"
 "\">Stripe</a>. We do not have acces to your card information."
@@ -182,211 +263,208 @@ msgstr ""
 "stripe.com/ca\">Stripe</a>. Nous n'avons pas accès aux informations de votre "
 "carte de crédit."
 
-#: forms/helpers.py:100
-#, python-format
+#: registration/forms/helpers.py:100
 msgid ""
 "Try to decrypt this message to win a free ticket.\n"
-"%(num_tickets_student)i tickets left for students and "
-"%(num_tickets_non_student)i  tickets left for non-students."
+"%(num_tickets_student)i tickets left out of %(total_num_tickets_student)i "
+"for students and %(num_tickets_non_student)i out of "
+"%(total_num_tickets_non_student)i tickets left for non-students."
 msgstr ""
 "Essaie de décrypter ce message pour gagner un billet gratuit.\n"
-"Il reste %(num_tickets_student)i billets gratuits pour étudiants et "
-"%(num_tickets_non_student)i billets gratuits pour non-étudiants."
+"Il reste %(num_tickets_student)i billets gratuits sur %(total_num_tickets_student)i pour étudiants et "
+"%(num_tickets_non_student)i billets gratuits sur %(total_num_tickets_non_student)i  pour non-étudiants."
 
-#: forms/helpers.py:103
+#: registration/forms/helpers.py:104
 msgid "num_tickets_student"
 msgstr ""
 
-#: forms/helpers.py:121
+#: registration/forms/helpers.py:124
 msgid "Challenge Question"
 msgstr "Question Défi"
 
-#: forms/helpers.py:147
+#: registration/forms/helpers.py:150
 msgid "Confirmation Failure Message"
 msgstr "Inscription échouée"
 
-#: forms/helpers.py:148
+#: registration/forms/helpers.py:151
 msgid "Confirm"
 msgstr "Confirmer"
 
-#: forms/helpers.py:150
+#: registration/forms/helpers.py:153
 msgid "Checkin Failure Message"
 msgstr "Checkin échoué"
 
-#: models/helpers.py:38
+#: registration/models/helpers.py:38
 msgid "This field must be checked"
 msgstr "Cette case doit être cochée"
 
-#: models/models.py:93
-msgid "Only letters are allowed."
-msgstr "Seules les lettres sont autorisées."
-
-#: models/models.py:96
+#: registration/models/models.py:100
 msgid "first name"
 msgstr "Prénom"
 
-#: models/models.py:98
+#: registration/models/models.py:102
 msgid "last name"
 msgstr "Nom de famille"
 
-#: models/models.py:100
-msgid "Male"
-msgstr "Masculin"
-
-#: models/models.py:101
-msgid "Female"
-msgstr "Féminin"
-
-#. Translators: Gender information
-#: models/models.py:103
-msgid "Other / I prefer not to disclose"
-msgstr "Autre / Je préfère ne pas le signaler"
-
-#: models/models.py:108
-msgid "gender"
-msgstr "Sexe"
-
-#: models/models.py:115
+#: registration/models/models.py:119
 msgid "Are you a student?"
 msgstr "Êtes-vous étudiant?"
 
-#: models/models.py:117
+#: registration/models/models.py:121
 msgid "Where do/did you go to school?"
 msgstr "Nom du collège / de l'université"
 
-#: models/models.py:120
+#: registration/models/models.py:124
 msgid "email"
 msgstr "courriel"
 
-#: models/models.py:126
+#: registration/models/models.py:130
 msgid "Do you have any allergies or food restrictions?"
 msgstr "Avez-vous des allergies ou des restrictions alimentaires?"
 
 #. Translators: T-shirt sizes
-#: models/models.py:129
+#: registration/models/models.py:133
 msgid "Small"
 msgstr "Petit"
 
-#: models/models.py:130
+#: registration/models/models.py:134
 msgid "Medium"
 msgstr "Moyen"
 
-#: models/models.py:131
+#: registration/models/models.py:135
 msgid "Large"
 msgstr "Grand"
 
-#: models/models.py:132
+#: registration/models/models.py:136
 msgid "X-Large"
 msgstr "Très Grand"
 
-#: models/models.py:136
+#: registration/models/models.py:140
 msgid "T-Shirt size"
 msgstr "Taille de T-shirt"
 
-#: models/models.py:138
+#: registration/models/models.py:142
 msgid "Did you attend last year's event?"
 msgstr "Avez-vous assisté au hackathon de l'année dernière?"
 
-#: models/models.py:139
+#: registration/models/models.py:143
 msgid "Is this your first hackathon?"
 msgstr "Est-ce votre premier hackathon?"
 
-#: models/models.py:147
+#: registration/models/models.py:151
 msgid "resume"
 msgstr "CV"
 
 #. Translators: Ticket descriptions
-#: models/models.py:178
+#: registration/models/models.py:183
 msgid "No ticket yet"
 msgstr "Pas de billet encore"
 
-#: models/models.py:179
+#: registration/models/models.py:184
 msgid "Turing Ticket"
 msgstr "Billet Turing"
 
-#: models/models.py:180
+#: registration/models/models.py:185
 msgid "Turing Student Ticket"
 msgstr "Billet Turing Étudiant"
 
-#: models/models.py:181
+#: registration/models/models.py:186
 msgid "Regular Ticket"
 msgstr "Billet Régulier"
 
-#: models/models.py:182
+#: registration/models/models.py:187
 msgid "Student Ticket"
 msgstr "Billet Étudiant"
 
-#: models/models.py:183
+#: registration/models/models.py:188
 msgid "Early Bird Ticket"
 msgstr "Billet Lève-Tôt Étudiant"
 
-#: models/models.py:184
+#: registration/models/models.py:189
 msgid "Early Bird Student Ticket"
 msgstr "Billet Lève-Tôt"
 
-#: views.py:98
+#: registration/views/confirm.py:83
 msgid "Could not validate form"
 msgstr "On n'a pas pu valider ton formulaire"
 
-#: views.py:107
+#: registration/views/confirm.py:92
 msgid "We had trouble saving your new information"
 msgstr "On a eu du mal à sauvegarder ton information"
 
-#: views.py:119
+#: registration/views/confirm.py:104
 msgid "Confirmed attendee details"
 msgstr "Les détails de l'invité ont été confirmés"
 
-#: views.py:171
+#: registration/views/email.py:28
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: registration/views/email.py:74 registration/views/register.py:546
+#, python-format
+msgid "We had some errors<pre>%s</pre>"
+msgstr "Nous éprouvons des difficultés<pre>%s</pre>"
+
+#: registration/views/email.py:83 registration/views/email.py:133
+msgid "Invalid arguments"
+msgstr "Arguments invalides"
+
+#: registration/views/register.py:79
 msgid "Checkout not attempted yet."
 msgstr "La soumission n'a pas encore été tentée"
 
-#: views.py:213
+#: registration/views/register.py:119
 msgid "Please correct your registration information before proceeding."
 msgstr "Veuillez corriger vos infos avant de soumettre"
 
-#: views.py:219
+#: registration/views/register.py:135
 msgid "Congrats, you have a free ticket! "
 msgstr "Félicitations, t'as eu un billet gratos! "
 
-#: views.py:234
+#: registration/views/register.py:149
 msgid "</br>r u trying to hack us? u wot m8"
 msgstr "</br>Tu te crois malin(e)?"
 
-#: views.py:249
+#: registration/views/register.py:164
 msgid "Registration Information Valid"
 msgstr "Infos d'inscription valides"
 
-#: views.py:328
-msgid "Network communication with Stripe failed. Please reload the page."
+#: registration/views/register.py:226 registration/views/register.py:252
+msgid "Something went wrong on Stripe's end. </br>"
+msgstr "Stripe éprouve des difficultés. </br>"
+
+#: registration/views/register.py:236
+#, fuzzy
+#| msgid "Something went wrong on Stripe's end. </br>"
+msgid "Something went wrong on our end. </br>"
+msgstr "Stripe éprouve des difficultés. </br>"
+
+#: registration/views/register.py:245
+#, fuzzy
+#| msgid "Network communication with Stripe failed. Please reload the page."
+msgid "Network communication with Stripe failed. </br>"
 msgstr ""
 "La communication avec Stripe a échoué. Essaie de rafraîchir la page pour "
 "tenter une nouvelle fois."
 
-#: views.py:333
-msgid "Something went wrong on Stripe's end."
-msgstr "Stripe éprouve des difficultés"
-
-#: views.py:393
-msgid "Something went wrong on Stripe's end. </br>"
-msgstr "Stripe éprouve des difficultés. </br>"
-
-#: views.py:398
+#: registration/views/register.py:281
 msgid "Please refresh and try again."
 msgstr "Essaie de rafraîchir la page pour tenter une nouvelle fois."
 
-#: views.py:401 views.py:512
+#: registration/views/register.py:283 registration/views/register.py:411
+#: registration/views/register.py:423
 msgid "</br><strong>Don't worry, you haven't been charged.</strong>"
 msgstr "</br><strong>Ne t'inquiète pas, tu n'as pas été facturé. </strong>"
 
-#: views.py:434
+#: registration/views/register.py:329
 msgid "Your registration could not be saved."
 msgstr "Ton inscription n'a pas pu être sauvegardée."
 
-#: views.py:450
+#: registration/views/register.py:345
 msgid "We could not charge you."
 msgstr "On n'a pas pu te facturer."
 
-#: views.py:466
+#: registration/views/register.py:361
 msgid ""
 "Your confirmation email cannot be sent at the moment. </"
 "strong><small>Everything else went smoothly and your payment went through. "
@@ -398,11 +476,11 @@ msgstr ""
 "administrateurs ont été notifiés et vont t'envoyer un courriel de "
 "confirmation dans les plus brefs délais. </small><strong>"
 
-#: views.py:475
+#: registration/views/register.py:370
 msgid "A confirmation email will be sent shortly."
 msgstr "Un courriel de confirmation sera envoyé bientôt."
 
-#: views.py:507
+#: registration/views/register.py:406 registration/views/register.py:418
 msgid ""
 "Oops, something went wrong on our end.</br>Please refresh and try again. If "
 "the problem persists, please contact our support team. </br>"
@@ -411,23 +489,21 @@ msgstr ""
 "rafraîchir la page et tenter de nouveau. Si le problème persiste, n'hésite "
 "pas à contacter  notre équipe de soutien </br>"
 
-#: views.py:546
+#: registration/views/register.py:477
 msgid "Thanks for signing up!"
 msgstr "Hâte de te voir à WearHacks"
 
-#: views.py:549
+#: registration/views/register.py:480
 msgid "WearHacks Montreal Team <montreal@wearhacks.com>"
 msgstr "Équipe WearHacks à Montréal <montreal@wearhacks.com>"
 
-#: views.py:615 views.py:676
-#, python-format
-msgid "We had some errors<pre>%s</pre>"
-msgstr "Nous éprouvons des difficultés<pre>%s</pre>"
+#: wearhacks_website/settings/common.py:278
+msgid "English"
+msgstr ""
 
-#: views.py:630
-msgid "Unknown"
-msgstr "Inconnu"
+#: wearhacks_website/settings/common.py:279
+msgid "French"
+msgstr ""
 
-#: views.py:689 views.py:741
-msgid "Invalid arguments"
-msgstr "Arguments invalides"
+#~ msgid "Something went wrong on Stripe's end."
+#~ msgstr "Stripe éprouve des difficultés"

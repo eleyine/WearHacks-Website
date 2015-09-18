@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-12 11:36-0400\n"
+"POT-Creation-Date: 2015-09-18 01:54-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,7 +146,7 @@ msgstr "Restons en contact!"
 msgid "For any questions and inquiries, feel free to contact us!"
 msgstr "Pour toute question ou demande, n'hésitez pas à nous contacter!"
 
-#: templates/faq.html:9 templates/navigation.html:32
+#: templates/faq.html:9 templates/navigation.html:37
 msgid "FAQ"
 msgstr "Questions Fréquentes"
 
@@ -624,35 +624,35 @@ msgstr "À propos"
 msgid "Hardware"
 msgstr "Matériel"
 
-#: templates/navigation.html:35
-msgid "Sponsors"
-msgstr "Parrains"
-
-#: templates/navigation.html:38
+#: templates/navigation.html:33
 msgid "Judges"
 msgstr "Juges"
 
-#: templates/navigation.html:41
+#: templates/navigation.html:40
+msgid "Sponsors"
+msgstr "Parrains"
+
+#: templates/navigation.html:43
 msgid "Mentors"
 msgstr "Mentors"
 
-#: templates/navigation.html:44
+#: templates/navigation.html:46
 msgid "Schedule"
 msgstr "Horaire"
 
-#: templates/navigation.html:47
+#: templates/navigation.html:49
 msgid "Venue"
 msgstr "Lieu"
 
-#: templates/navigation.html:50
+#: templates/navigation.html:52
 msgid "Team"
 msgstr "Équipe"
 
-#: templates/navigation.html:53
+#: templates/navigation.html:55
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/navigation.html:112
+#: templates/navigation.html:114
 msgid "Register"
 msgstr "Inscrivez-vous"
 
@@ -742,60 +742,55 @@ msgstr "Invité"
 msgid "Ticket"
 msgstr "Billet"
 
-#: templates/registration/confirmation_email.html:318
+#: templates/registration/confirmation_email.html:321
 msgid "When"
 msgstr "Quand"
 
-#: templates/registration/confirmation_email.html:323
+#: templates/registration/confirmation_email.html:326
 msgid "October 2nd 05:00 PM to October 4th 07:00 PM"
 msgstr "2 Octobre à 17h au 4 Octobre à 19h"
 
-#: templates/registration/confirmation_email.html:323
+#: templates/registration/confirmation_email.html:326
 msgid "Detailed Schedule"
 msgstr "Horaire Détaillé"
 
-#: templates/registration/confirmation_email.html:351
+#: templates/registration/confirmation_email.html:354
 msgid "Where"
 msgstr "Où"
 
-#: templates/registration/confirmation_email.html:356
-msgid "We will send you an email update with the venue."
-msgstr ""
-"On vous enverra un courriel pour vous tenir au courant de l'emplacement."
-
-#: templates/registration/confirmation_email.html:384
+#: templates/registration/confirmation_email.html:387
 msgid "Attendee info"
 msgstr "Infos de l'Invité"
 
-#: templates/registration/confirmation_email.html:389
+#: templates/registration/confirmation_email.html:392
 msgid "Email"
 msgstr "Courriel"
 
-#: templates/registration/confirmation_email.html:397
+#: templates/registration/confirmation_email.html:400
 msgid "T-Shirt Size"
 msgstr "Taille du T-Shirt"
 
-#: templates/registration/confirmation_email.html:405
+#: templates/registration/confirmation_email.html:408
 msgid "Payment status"
 msgstr "Status du Paiement"
 
-#: templates/registration/confirmation_email.html:409
+#: templates/registration/confirmation_email.html:412
 msgid "Paid"
 msgstr "Payé"
 
-#: templates/registration/confirmation_email.html:411
+#: templates/registration/confirmation_email.html:414
 msgid "Not paid"
 msgstr "Non payé"
 
-#: templates/registration/confirmation_email.html:418
+#: templates/registration/confirmation_email.html:421
 msgid "Food allergies and Restrictions"
 msgstr "Allergies et restrictions alimentaires"
 
-#: templates/registration/confirmation_email.html:444
+#: templates/registration/confirmation_email.html:447
 msgid "For general inquiries"
 msgstr "Pour plus d'infos"
 
-#: templates/registration/confirmation_email.html:445
+#: templates/registration/confirmation_email.html:448
 msgid "View this email in your browser"
 msgstr "Voir ce courriel sur ton navigateur"
 
@@ -815,11 +810,7 @@ msgstr "WearHacks Montreal"
 msgid "Oct 2-4 2015"
 msgstr "2-4 Octobre 2015"
 
-#: templates/registration/ticket.html:49
-msgid "Venue TBD"
-msgstr "Lieu a determiner"
-
-#: templates/registration/ticket.html:96
+#: templates/registration/ticket.html:102
 msgid "Order Info"
 msgstr "Details de l'ordre"
 
@@ -903,6 +894,13 @@ msgid ""
 msgstr ""
 "Plus d'activités à venir (Présentations, Ateliers, etc.). On vous tiendra au "
 "courant!"
+
+#~ msgid "We will send you an email update with the venue."
+#~ msgstr ""
+#~ "On vous enverra un courriel pour vous tenir au courant de l'emplacement."
+
+#~ msgid "Venue TBD"
+#~ msgstr "Lieu a determiner"
 
 #~ msgid "October 2-4 2015"
 #~ msgstr "2-4 Octobre 2014"

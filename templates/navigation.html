@@ -27,21 +27,25 @@
                 </li>                              
                 <li>
                     <a class="page-scroll" href="#hardware">{% trans "Hardware" %}</a>
+                </li>               
+                {% if sponsors.global_premium or sponsors.global_standard %} 
+                <li>
+                    <a class="page-scroll" href="#sponsors">{% trans "Sponsors" %}</a>
+                </li>             
+                {% endif %}  
+                {% if mentors %} 
+                <li>
+                    <a class="page-scroll" href="#mentors">{% trans "Mentors" %}</a>
                 </li> 
+                {% endif %}  
                 {% if judges %} 
                 <li>
                     <a class="page-scroll" href="#judges">{% trans "Judges" %}</a>
                 </li>  
-                {% endif %}   
+                {% endif %}  
                 <li>
                     <a class="page-scroll" href="#faq">{% trans "FAQ" %}</a>
                 </li>                
-                <!-- <li>
-                    <a class="page-scroll" href="#sponsors">{% trans "Sponsors" %}</a>
-                </li>                           
-                <li>
-                    <a class="page-scroll" href="#mentors">{% trans "Mentors" %}</a>
-                </li>  -->               
                 <li>
                     <a class="page-scroll" href="#schedule">{% trans "Schedule" %}</a>
                 </li>                

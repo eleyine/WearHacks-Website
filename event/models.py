@@ -8,14 +8,13 @@ from event.helpers import get_profile_pic_filename, get_image_filename
 
 class Sponsor(models.Model):
     CATEGORIES = (
-        ('B', _('Bronze')),
-        ('S', _('Silver')),
-        ('G', _('Gold')),
-        ('P', _('Platinum')),
-
+        ('ST', _('Local Standard')),
+        ('PR', _('Local Premium')),
+        ('GS', _('Global Standard')),
+        ('GH', _('Global Premium')),
     )
     name = models.CharField(max_length=100)
-    category = models.CharField(max_length=20, 
+    category = models.CharField(max_length=2, 
         choices=CATEGORIES, 
         default=CATEGORIES[0][0],
         )
@@ -27,7 +26,7 @@ class Sponsor(models.Model):
 
     def get_verbose_category(self):
         return dict(CATEGORIES)[self.category]
-        
+
     def __unicode__(self):
         return self.name
 

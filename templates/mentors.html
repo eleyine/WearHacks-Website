@@ -1,0 +1,43 @@
+{% load staticfiles %}
+
+{% if mentors %}
+
+<section id="mentors" class="bg-light-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Mentors</h2>
+                <hr class="primary">
+            </div>
+        </div>
+        {% for mentor in mentors %}
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-1">
+                <div class="portrait img-circle hor">
+                    <img src="{{ mentor.profile_pic.url }}" alt="{{mentor.first_name}} {{mentor.last_name}}" height="200px">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-0">
+                <div class="name">
+                {% if mentor.website %}
+                    <h3><a href="{{mentor.website}}" target="_blank">{{mentor.first_name}} {{mentor.last_name}}</a></h3>
+                {% else %}
+                    <h3>{{mentor.first_name}} {{mentor.last_name}} </h3>
+                {% endif %}
+                {% if mentor.role %}<p class="text-muted">{{ mentor.role }}</p>{% endif %}
+                </div>
+                {% if mentor.biography %}<p class="biography">{{ mentor.biography | safe }}</p>{% endif %}
+                <ul class="list-inline social-buttons">
+                    {% if mentor.twitter %}<li><a href="{{mentor.twitter}}"><i class="fa fa-twitter"></i></a></li>{% endif %}
+                    {% if mentor.website %}<li><a href="{{mentor.website}}"><i class="fa fa-globe"></i></a></li>{% endif %}
+                    {% if mentor.linkedin %}<li><a href="{{mentor.linkedin}}"><i class="fa fa-linkedin"></i></a></li>{% endif %}
+                    {% if mentor.facebook %}<li><a href="{{mentor.facebook}}"><i class="fa fa-facebook"></i></a></li>{% endif %}
+                    {% if mentor.github %}<li><a href="{{mentor.github}}"><i class="fa fa-github"></i></a></li>{% endif %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endif %}

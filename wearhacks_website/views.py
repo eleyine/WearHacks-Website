@@ -16,8 +16,6 @@ class IndexView(generic.TemplateView):
         # Add sponsors
         context['sponsors'] = defaultdict(list)
         for sponsor in Sponsor.objects.all():
-            context['sponsors'][sponsor.get_category_display().lower()].append(
-                sponsor
-                )
-        print context
+            category = sponsor.get_category_display().lower().replace(' ', '_')
+            context['sponsors'][category].append(sponsor)
         return context

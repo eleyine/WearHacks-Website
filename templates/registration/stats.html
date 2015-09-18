@@ -1,0 +1,56 @@
+{% extends "_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<div id="registration-form-container" class="form-wrapper">
+<section>
+<div class="header-content">
+    <div class="header-content-inner">
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8 action-panel">
+                <div class="row who">
+                    <div class="col-xs-offset-1 col-xs-10 text-center">
+                    <img id="logo" src="{% static 'images/logo-text.png' %}"></img>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-offset-1 col-xs-10 text-center">
+                    <h3>{% trans "The Biggest Wearable Hackathon in North-America" %}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 text-center">
+                <h1>Event Stats</h1>
+            </div>
+            <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+                <h3>Ticket Sales</h3>
+                <p>Revenue from tickets: {{revenue}}.</p>
+                <p>Number of paid tickets: {{paid_tickets_num}}</p>
+
+                <h3>Food Restrictions</h3>
+                {% for fr in food_restrictions %}
+                    <p> {{fr}} </p>
+                {% endfor %}
+
+                <h3>T-Shirt Sizes</h3>
+                <p> 
+                {% for tshirt_size in tshirt_sizes %}
+                    {{tshirt_size.category}}: {{tshirt_size.number}}
+                    {% if forloop.last %}.{% else %},{% endif %}  
+                {% endfor %}    
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}
+

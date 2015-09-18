@@ -316,6 +316,8 @@ header .header-content-inner .how button {
 }
 section.sponsors .sponsor-logos-container {
   text-align: center;
+  margin: 0 15px;
+  /* Special cases */
 }
 section.sponsors .sponsor-logos-container img {
   display: inline-block;
@@ -323,12 +325,15 @@ section.sponsors .sponsor-logos-container img {
   margin-bottom: 20px !important;
 }
 section.sponsors .sponsor-logos-container.logos-premium a img {
-  height: 150px;
   max-height: 150px;
+  width: auto;
 }
 section.sponsors .sponsor-logos-container.logos-standard a img {
-  height: 70px;
   max-height: 70px;
+  width: auto;
+}
+section.sponsors .sponsor-logos-container.softlayer a img {
+  max-width: 400px;
 }
 section.sponsors .sponsor-item {
   text-align: center;

@@ -398,18 +398,23 @@ header {
 section.sponsors {
     .sponsor-logos-container {
         text-align: center;
+        margin: 0 15px;
         img {
             display: inline-block;
             margin: 0 50px !important;
             margin-bottom: 20px !important;
         }
         &.logos-premium a img {
-            height: 150px;
             max-height: 150px;
+            width: auto;
         }
         &.logos-standard a img {
-            height: 70px;
             max-height: 70px;
+            width: auto;
+        }
+        /* Special cases */
+        &.softlayer a img {
+            max-width: 400px;
         }
     }
     .sponsor-item {

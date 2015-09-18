@@ -1,8 +1,9 @@
 {% load staticfiles %}
 
-{% if sponsors.global_premium or sponsors.global_standard %}
+{% if sponsors.global_premium or sponsors.global_standard or sponsors.local_premium or sponsors.local_standard %}
 <section id="sponsors" class="sponsors">
   <div class="container">
+  {% if sponsors.global_premium or sponsors.global_standard %}
     <div class="row col-lg-12 text-center">
       <div class="section-heading">
           <h1>Global Sponsors</h1>
@@ -45,16 +46,9 @@
             </div>
           </div>
       {% endif %}
-    <div class="row col-lg-12 text-center">
-      <h4>Interested in sponsoring? E-mail us at <a href="mailto:montreal@wearhacks.com">montreal@wearhacks.com</a>!
-    </div>
-  </div>
-</section>
-{% endif %}
+  {% endif %}
 
-{% if sponsors.local_premium or sponsors.local_standard %}
-<section id="local-sponsors" class="sponsors">
-  <div class="container">
+  {% if sponsors.local_premium or sponsors.local_standard %}
     <div class="row col-lg-12 text-center">
       <div class="section-heading">
           <h1>Local Sponsors</h1>
@@ -97,8 +91,9 @@
             </div>
           </div>
       {% endif %}
+  {% endif %}
     <div class="row col-lg-12 text-center">
-      <h4>Interested in sponsoring? E-mail us at <a href="mailto:montreal@wearhacks.com">montreal@wearhacks.com</a>!
+        <h4>Interested in sponsoring? E-mail us at <a href="mailto:montreal@wearhacks.com">montreal@wearhacks.com</a>!
     </div>
   </div>
 </section>

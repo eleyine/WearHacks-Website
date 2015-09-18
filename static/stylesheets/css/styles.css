@@ -368,6 +368,11 @@ section.sponsors .sponsor-logos-container.logos-standard a img {
 section.sponsors .sponsor-logos-container.softlayer a img {
   max-width: 500px;
 }
+@media (max-width: 600px) {
+  section.sponsors .sponsor-logos-container.softlayer a img {
+    max-width: 350px;
+  }
+}
 section.sponsors .sponsor-item {
   text-align: center;
   font-size: 17px;

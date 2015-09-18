@@ -48,7 +48,12 @@
                 </li>                
                 <li>
                     <a class="page-scroll" href="#schedule">{% trans "Schedule" %}</a>
-                </li>                
+                </li>   
+                {% if workshops %} 
+                <li>
+                    <a class="page-scroll" href="#workshops">{% trans "Workshops" %}</a>
+                </li> 
+                {% endif %}              
                 <!-- <li>
                     <a class="page-scroll" href="#venue">{% trans "Venue" %}</a>
                 </li>                

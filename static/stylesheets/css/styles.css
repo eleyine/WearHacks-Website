@@ -323,10 +323,12 @@ section.sponsors .sponsor-logos-container img {
   margin-bottom: 20px !important;
 }
 section.sponsors .sponsor-logos-container.logos-premium a img {
-  height: 200px;
+  height: 150px;
+  max-height: 150px;
 }
 section.sponsors .sponsor-logos-container.logos-standard a img {
   height: 70px;
+  max-height: 70px;
 }
 section.sponsors .sponsor-item {
   text-align: center;

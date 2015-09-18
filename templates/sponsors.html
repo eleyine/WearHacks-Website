@@ -25,13 +25,11 @@
       {% if sponsors.global_standard %}
           <div class="row col-sm-offset-1 col-sm-10 text-center">
             {% for sponsor in sponsors.global_standard %}
-            {% if forloop.counter0 == 0 or forloop.counter0|divisibleby:"4" %}
-            <div class="sponsor-logos-container logos-standard">
-            {% endif %}
-                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
-            {% if forloop.counter|divisibleby:"4" or forloop.last %}
+            <div class="row col-sm-3">
+              <div class="sponsor-logos-container logos-standard">
+                  <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}" alt="{{sponsor.name}}"></a>                  
+              </div>
             </div>
-            {% endif %}
             {% endfor %}
           </div>
       {% endif %}
@@ -67,13 +65,11 @@
       {% if sponsors.local_standard %}
           <div class="row col-sm-offset-1 col-sm-10 text-center">
             {% for sponsor in sponsors.local_standard %}
-            {% if forloop.counter0 == 0 or forloop.counter0|divisibleby:"4" %}
-            <div class="sponsor-logos-container logos-standard">
-            {% endif %}
-                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
-            {% if forloop.counter|divisibleby:"4" or forloop.last %}
+            <div class="row col-sm-3">
+              <div class="sponsor-logos-container logos-standard">
+                  <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}" alt="{{sponsor.name}}"></a>                  
+              </div>
             </div>
-            {% endif %}
             {% endfor %}
           </div>
       {% endif %}

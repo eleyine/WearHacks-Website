@@ -330,11 +330,11 @@ section.sponsors .sponsor-logos-container img {
   vertical-align: middle;
 }
 section.sponsors .sponsor-logos-container.logos-premium {
-  height: 120px;
+  height: 140px;
 }
 section.sponsors .sponsor-logos-container.logos-premium a {
   white-space: nowrap;
-  height: 100px;
+  height: 120px;
   margin: 0;
   padding: 0;
 }
@@ -344,7 +344,7 @@ section.sponsors .sponsor-logos-container.logos-premium a .helper {
   vertical-align: middle;
 }
 section.sponsors .sponsor-logos-container.logos-premium a img {
-  max-height: 100px;
+  max-height: 120px;
   vertical-align: middle;
 }
 section.sponsors .sponsor-logos-container.logos-standard {

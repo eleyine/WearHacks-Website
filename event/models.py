@@ -6,6 +6,36 @@ import re
 from django.core.validators import RegexValidator
 from event.helpers import get_profile_pic_filename, get_image_filename
 
+class Workshop(models.Model):
+    moderators = models.ManyToManyField('Person')
+
+    title = models.CharField(max_length=300)
+    description = models.TextField(blank=True)
+
+    location = models.CharField(max_length=300, blank=True)
+    time = models.DateTimeField()
+    duration = models.IntegerField(default=60, 
+        help_text='In minutes.')
+
+    IMAGE_FOLDER = 'workshops'
+    showcase_image = models.ImageField(
+        upload_to=get_image_filename,
+        help_text="Please make sure it's a transparent image (png).",
+        blank=True)
+
+    @property
+    def all_moderators(self):
+        return self.moderators.all()
+        
+    def get_human_readable_date(self):
+        return 
+
+    class Meta:
+        ordering = ('time',)
+
+    def __unicode__(self):
+        return self.title
+
 class Sponsor(models.Model):
     CATEGORIES = (
         ('ST', _('Local Standard')),
@@ -117,4 +147,7 @@ class Person(models.Model):
 
     class Meta:
         ordering = ('-updated_at', 'category', 'last_name', 'rank',)
+
+    def __unicode__(self):
+        return self.full_name()
 

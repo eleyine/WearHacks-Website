@@ -1,5 +1,5 @@
 from django.views import generic
-from event.models import Person, Sponsor
+from event.models import Person, Sponsor, Workshop
 
 from collections import defaultdict
 
@@ -12,6 +12,8 @@ class IndexView(generic.TemplateView):
         # Add in a QuerySet of all persons
         context['judges'] = Person.objects.filter(category='J').all()
         context['mentors'] = Person.objects.filter(category='M').all()
+
+        context['workshops'] = Workshop.objects.all()
         
         # Add sponsors
         context['sponsors'] = defaultdict(list)

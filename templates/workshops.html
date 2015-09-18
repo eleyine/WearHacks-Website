@@ -1,0 +1,73 @@
+{% load staticfiles %}
+
+{% if workshops %}
+
+<section id="workshops" class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Workshops</h2>
+                <hr class="primary">
+            </div>
+        </div>
+        {% for workshop in workshops %}
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-1">
+                <div class="showcase">
+                    <img class="img-responsive" src="{% static workshop.showcase_image.url %}" alt="{{workshop.title}}" height="200px">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-0">
+                <h2 class="title">{{workshop.title}}</h2>
+                <div class="description">
+                    <p>{{workshop.description|safe}}</p>
+                </div>
+                <div class="moderators">
+                    <p class="moderated-by muted">Moderated by</p>
+                    <div class="row moderators">
+                    {% for moderator in workshop.all_moderators %}
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-12 text-center">
+                                <div class="portrait">
+                                    <img src="{% static moderator.profile_pic.url %}" alt="{{moderator.first_name}} {{moderator.last_name}}" class="img-responsive img-circle">
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-xs-12">
+                                <p class="name">{{moderator.first_name}} {{moderator.last_name}}</p>
+                                <ul class="list-inline social-buttons">
+                                    {% if moderator.twitter %}<li><a href="{{moderator.twitter}}"><i class="fa fa-twitter"></i></a></li>{% endif %}
+                                    {% if moderator.website %}<li><a href="{{moderator.website}}"><i class="fa fa-globe"></i></a></li>{% endif %}
+                                    {% if moderator.linkedin %}<li><a href="{{moderator.linkedin}}"><i class="fa fa-linkedin"></i></a></li>{% endif %}
+                                    {% if moderator.facebook %}<li><a href="{{moderator.facebook}}"><i class="fa fa-facebook"></i></a></li>{% endif %}
+                                    {% if moderator.github %}<li><a href="{{moderator.github}}"><i class="fa fa-github"></i></a></li>{% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="name">
+                {% if judge.website %}
+                    <h3><a href="{{judge.website}}" target="_blank">{{judge.first_name}} {{judge.last_name}}</a></h3>
+                {% else %}
+                    <h3>{{judge.first_name}} {{judge.last_name}} </h3>
+                {% endif %}
+                {% if judge.role %}<p class="text-muted">{{ judge.role }}</p>{% endif %}
+                </div>
+                {% if judge.biography %}<p class="biography">{{ judge.biography | safe }}</p>{% endif %}
+                <ul class="list-inline social-buttons">
+                    {% if judge.twitter %}<li><a href="{{judge.twitter}}"><i class="fa fa-twitter"></i></a></li>{% endif %}
+                    {% if judge.website %}<li><a href="{{judge.website}}"><i class="fa fa-globe"></i></a></li>{% endif %}
+                    {% if judge.linkedin %}<li><a href="{{judge.linkedin}}"><i class="fa fa-linkedin"></i></a></li>{% endif %}
+                    {% if judge.facebook %}<li><a href="{{judge.facebook}}"><i class="fa fa-facebook"></i></a></li>{% endif %}
+                    {% if judge.github %}<li><a href="{{judge.github}}"><i class="fa fa-github"></i></a></li>{% endif %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endif %}

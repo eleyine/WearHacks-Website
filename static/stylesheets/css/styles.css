@@ -490,6 +490,10 @@ section.sponsors .sponsor-item {
   text-decoration: none;
   border-bottom: 1px solid white;
 }
+#workshops .showcase {
+  padding: 0;
+  margin-bottom: 20px;
+}
 #workshops .title {
   margin-top: 10px;
 }

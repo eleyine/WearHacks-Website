@@ -13,9 +13,11 @@
       <!-- premium sponsors (1/row)-->
       {% if sponsors.global_premium %}
         {% for sponsor in sponsors.global_premium %}
-          <div class="row col-sm-offset-1 col-sm-10 text-center">
-            <div class="sponsor-logos-container logos-premium {{sponsor.name|slugify}}">
-                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 text-center">
+              <div class="sponsor-logos-container logos-premium {{sponsor.name|slugify}}">
+                  <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>           
+              </div>
             </div>
           </div>
         {% endfor %}
@@ -23,14 +25,18 @@
 
       <!-- standard sponsors (4/row)-->
       {% if sponsors.global_standard %}
-          <div class="row col-sm-offset-1 col-sm-10 text-center">
-            {% for sponsor in sponsors.global_standard %}
-            <div class="row col-sm-3">
-              <div class="sponsor-logos-container logos-standard {{sponsor.name|slugify}}">
-                  <a href="{% if sponsor.url %}{{sponsor.url}}{% else %}#{% endif %}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}" alt="{{sponsor.name}}"></a>                  
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 text-center">
+              <div class="row">
+                {% for sponsor in sponsors.global_standard %}
+                <div class="col-xs-6 col-md-3">
+                  <div class="sponsor-logos-container logos-standard {{sponsor.name|slugify}}">
+                      <a href="{% if sponsor.url %}{{sponsor.url}}{% else %}#{% endif %}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}" alt="{{sponsor.name}}"></a>
+                  </div>
+                </div>
+                {% endfor %}
               </div>
             </div>
-            {% endfor %}
           </div>
       {% endif %}
     <div class="row col-lg-12 text-center">
@@ -50,12 +56,14 @@
       </div>
     </div>
 
-      <!-- premium sponsors (2/row)-->
+      <!-- premium sponsors (1/row)-->
       {% if sponsors.local_premium %}
         {% for sponsor in sponsors.local_premium %}
-          <div class="row col-sm-offset-1 col-sm-10 text-center">
-            <div class="sponsor-logos-container logos-premium {{sponsor.name|slugify}}">
-                <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>                  
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 text-center">
+              <div class="sponsor-logos-container logos-premium {{sponsor.name|slugify}}">
+                  <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}"></a>           
+              </div>
             </div>
           </div>
         {% endfor %}
@@ -63,14 +71,18 @@
 
       <!-- standard sponsors (4/row)-->
       {% if sponsors.local_standard %}
-          <div class="row col-sm-offset-1 col-sm-10 text-center">
-            {% for sponsor in sponsors.local_standard %}
-            <div class="row col-sm-3">
-              <div class="sponsor-logos-container logos-standard {{sponsor.name|slugify}}">
-                  <a href="{{sponsor.url}}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}" alt="{{sponsor.name}}"></a>                  
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 text-center">
+              <div class="row">
+                {% for sponsor in sponsors.local_standard %}
+                <div class="col-xs-6 col-md-3">
+                  <div class="sponsor-logos-container logos-standard {{sponsor.name|slugify}}">
+                      <a href="{% if sponsor.url %}{{sponsor.url}}{% else %}#{% endif %}" target="_blank"><img class="img-responsive" src="{% static sponsor.image.url %}" alt="{{sponsor.name}}"></a>
+                  </div>
+                </div>
+                {% endfor %}
               </div>
             </div>
-            {% endfor %}
           </div>
       {% endif %}
     <div class="row col-lg-12 text-center">

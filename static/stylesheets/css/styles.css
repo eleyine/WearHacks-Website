@@ -13,6 +13,10 @@ section {
 hr.bg-white {
   border-color: #fff;
 }
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
 header {
   background-color: #2a223e;
   background: -webkit-gradient(linear, left top, left bottom, from(#2a223e), to(#000000));

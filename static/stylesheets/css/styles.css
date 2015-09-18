@@ -350,11 +350,22 @@ section.sponsors .sponsor-logos-container.logos-premium a img {
 section.sponsors .sponsor-logos-container.logos-standard {
   height: 90px;
 }
+@media (max-width: 600px) {
+  section.sponsors .sponsor-logos-container.logos-standard {
+    margin: 5px 10px;
+    height: 50px;
+  }
+}
 section.sponsors .sponsor-logos-container.logos-standard a {
   white-space: nowrap;
   height: 70px;
   margin: 0;
   padding: 0;
+}
+@media (max-width: 600px) {
+  section.sponsors .sponsor-logos-container.logos-standard a {
+    height: 40px;
+  }
 }
 section.sponsors .sponsor-logos-container.logos-standard a .helper {
   display: inline-block;
@@ -364,6 +375,11 @@ section.sponsors .sponsor-logos-container.logos-standard a .helper {
 section.sponsors .sponsor-logos-container.logos-standard a img {
   max-height: 70px;
   vertical-align: middle;
+}
+@media (max-width: 600px) {
+  section.sponsors .sponsor-logos-container.logos-standard a img {
+    max-height: 40px;
+  }
 }
 section.sponsors .sponsor-logos-container.softlayer a img {
   max-width: 500px;

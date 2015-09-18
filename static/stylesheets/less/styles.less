@@ -430,11 +430,18 @@ section.sponsors {
         }
         &.logos-standard {
             height: 90px;
+            @media (max-width: 600px) {
+                margin: 5px 10px;
+                height: 50px;
+            }
             a {
                 white-space: nowrap;
                 height: 70px;
                 margin: 0;
                 padding: 0;
+                @media (max-width: 600px) {
+                    height: 40px;
+                }
                 .helper {
                     display: inline-block;
                     height: 100%;
@@ -442,6 +449,9 @@ section.sponsors {
                 }
                 img {
                     max-height: 70px;
+                    @media (max-width: 600px) {
+                        max-height: 40px;
+                    }
                     vertical-align: middle;
                 }
             } 

@@ -66,5 +66,5 @@ def get_registration_timeseries(request, *args, **kwargs):
     dates = sorted(list(set(date_objects)))
     data = []
     for date in dates:
-        data.append([date, Registration.objects.filter(created_at=date).count()])
+        data.append([date, Registration.objects.filter(created_at__contains=date).count()])
     return data

@@ -311,6 +311,9 @@ header .header-content-inner .how button {
 #about img {
   margin-bottom: 20px;
 }
+#hardware .portfolio-box .portfolio-box-caption .portfolio-box-caption-content {
+  top: 10%;
+}
 #hardware li {
   list-style: none;
   margin-bottom: 0;

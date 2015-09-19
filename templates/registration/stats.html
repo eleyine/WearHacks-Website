@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% load compress %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -31,22 +32,38 @@
                 <h1>Event Stats</h1>
             </div>
             <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <p>Total number of registrations: {{number_of_registrations}}</p>
+                <h3>Demographics</h3>
+                <p>Number of first time hackers: {{first_time_hackers}}</p>
+                <p>Number of people who already attended a WearHacks hackathon: {{returning_wearhackers}}</p>
+
+                <p> F/M/Other: {{female}}/{{male}}/{{other}} </p>
+
                 <h3>Ticket Sales</h3>
                 <p>Revenue from tickets: ${{revenue}}.</p>
                 <p>Number of paid tickets: {{paid_tickets_num}}</p>
 
                 <h3>Food Restrictions</h3>
+                <ul>
                 {% for fr in food_restrictions %}
-                    <p> {{fr}} </p>
+                    <li> {{fr}} </li>
                 {% endfor %}
+                </ul>
 
                 <h3>T-Shirt Sizes</h3>
-                <p> 
-                {% for tshirt_size in tshirt_sizes %}
-                    {{tshirt_size.category}}: {{tshirt_size.number}}
-                    {% if forloop.last %}.{% else %},{% endif %}  
+                <ul class="list-inline"> 
+                {% for tshirt_sizes_by_gender in tshirt_sizes %}
+                    <li> {{tshirt_sizes_by_gender.gender}}
+                        <ul>
+                            {% for tshirt_sizes_by_category in tshirt_sizes_by_gender.categories %}
+                            <li>{{tshirt_sizes_by_category.category}}: {{tshirt_sizes_by_category.number}}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 {% endfor %}    
-                </p>
+                </ul>
             </div>
         </div>
     </div>
@@ -54,3 +71,71 @@
 </div>
 {% endblock %}
 
+{% block scripts %}
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+{% compress js %}
+<script type="text/javascript" >
+$(function () {
+    $.getJSON("{% url "registration-timeseries" %}", function (data) {
+
+        $('#container').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Number of registrations over time'
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'New registrations'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                type: 'area',
+                name: 'New Registrations',
+                data: data
+            }]
+        });
+    });
+});
+</script>
+{% endcompress %}
+{% endblock %}

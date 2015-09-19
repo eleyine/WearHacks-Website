@@ -77,7 +77,7 @@
 {% compress js %}
 <script type="text/javascript" >
 $(function () {
-    $.getJSON("{% url "registration-timeseries" %}", function (data) {
+    $.getJSON("{% url "registration-timeseries" %}", function (response) {
 
         $('#container').highcharts({
             chart: {
@@ -93,10 +93,18 @@ $(function () {
             xAxis: {
                 type: 'datetime'
             },
-            yAxis: {
+            yAxis: [{ // Primary yAxis
                 title: {
-                    text: 'New registrations'
-                }
+                        text: 'New Daily Registrations',
+                    },
+                opposite: true
+                }, { // Secondary yAxis
+                    title: {
+                        text: 'Cumulative Number of Registrations',
+                    }
+                }],
+            tooltip: {
+                shared: true
             },
             legend: {
                 enabled: false
@@ -129,9 +137,16 @@ $(function () {
             },
 
             series: [{
-                type: 'area',
+                type: 'column',
                 name: 'New Registrations',
-                data: data
+                data: response.data,
+                yAxis: 0
+            },
+            {
+                type: 'area',
+                name: 'Cumulative Number of Registrations',
+                data: response.cumdata,
+                yAxis: 1
             }]
         });
     });

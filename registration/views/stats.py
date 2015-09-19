@@ -59,12 +59,25 @@ class EventStats(generic.TemplateView):
 
 @json_view
 def get_registration_timeseries(request, *args, **kwargs):
-    import datetime
+    import datetime, time
     date_objects = [r.created_at.date() for r in Registration.objects.all()]
     date_objects.append(datetime.datetime.now().date())
     date_objects.append(datetime.datetime.now().date() + datetime.timedelta(-3, 0))
     dates = sorted(list(set(date_objects)))
     data = []
     for date in dates:
-        data.append([date, Registration.objects.filter(created_at__contains=date).count()])
-    return data
+        data.append((
+            # datetiem in milliseconds
+            int(time.mktime(date.timetuple())) * 1000, 
+            Registration.objects.filter(created_at__contains=date).count(),
+            ))
+    cumdata = []
+    cumcount = 0
+    for date, count in data:
+        cumcount += count
+        cumdata.append((date, cumcount))
+    response = {
+        'cumdata': cumdata,
+        'data': data
+    }
+    return response

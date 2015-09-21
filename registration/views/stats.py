@@ -32,7 +32,7 @@ class EventStats(generic.TemplateView):
         context['male'] = Registration.objects.filter(gender='M').count()
         context['other'] = Registration.objects.filter(gender='N').count()
 
-        school_dict = defaultdict(dict)
+        school_dict = defaultdict(int)
         for r in Registration.objects.all():
             if r.school:
                 school_dict[r.school] += 1

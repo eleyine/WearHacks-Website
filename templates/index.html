@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% load compress %}
 {% load staticfiles %}
 
 {% block content %}
@@ -13,9 +14,22 @@
     {% include "mentors.html" %}
     {% include "faq.html" %}
     {% include "schedule.html" %}
-    {% include "workshops.html" %}
     {% include "venue.html" %}
+    {% include "workshops.html" %}
     {% include "organizers.html" %}
     {% include "contact.html" %}
     {% include "footer.html" %}
+{% endblock %}
+
+{% block scripts %}
+{% if debug %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+{% else %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBharTysOWP_MeBrdlvzh3qFCYfoVkWCoQ&sensor=false"></script>
+{% endif %}
+
+{% compress js %}
+<script type="text/javascript" src="{% static 'javascripts/snazzy-map.js' %}{% if debug %}?v=00001{% endif %}"></script>
+{% endcompress %}
+
 {% endblock %}

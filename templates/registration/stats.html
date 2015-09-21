@@ -39,12 +39,20 @@
                 <p>Number of people who already attended a WearHacks hackathon: {{returning_wearhackers}}</p>
 
                 <p> F/M/Other: {{female}}/{{male}}/{{other}} </p>
+                {% if schools %}
+                <p> Schools </p>
+                <ul>
+                {% for school in schools %}
+                    <li> {{school.name}}: {{school.count}} </li>
+                {% endfor %}    
+                </ul>
+                {% endif %}
 
                 <h3>Ticket Sales</h3>
                 <p>Revenue from tickets (including Stripe's charge): ${{revenue}}.</p>
                 <p>Net Revenue (Estimate): ${{net_revenue}}.</br><small>Formula used per payment: amount x 0.97 - 0.30 </small></p>
                 <p>Number of paid tickets: {{paid_tickets_num}}</p>
-                <p>Average Ticket Price: {{avg_ticket_price}}</p>
+                <p>Average Ticket Price: ${{avg_ticket_price}}</p>
 
                 <h3>Food Restrictions</h3>
                 <ul>

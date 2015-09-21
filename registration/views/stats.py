@@ -15,6 +15,7 @@ from collections import defaultdict
 from registration.models import ChargeAttempt, Registration
 
 from jsonview.decorators import json_view
+from collections import defaultdict
 
 class EventStats(generic.TemplateView):
     template_name = 'registration/stats.html'
@@ -31,16 +32,29 @@ class EventStats(generic.TemplateView):
         context['male'] = Registration.objects.filter(gender='M').count()
         context['other'] = Registration.objects.filter(gender='N').count()
 
+        school_dict = defaultdict(dict)
+        for r in Registration.objects.all():
+            if r.school:
+                school_dict[r.school] += 1
+        schools = [{'name': n, 'count': c} for n, c in sorted(school_dict.iteritems())]
+
+        context['schools'] = schools
+
+
         context['revenue'] = sum([c.amount for c in ChargeAttempt.objects.all()]) / 100.0
 
         context['net_revenue'] = sum([c.amount * 0.97 - 30 for c in ChargeAttempt.objects.all()]) / 100.0
 
         context['revenue'] = sum([c.amount for c in ChargeAttempt.objects.all()]) / 100.0
         context['paid_tickets_num'] = sum([1 for r in Registration.objects.all() if r.charge is not None])
-        context['avg_ticket_price'] = context['revenue'] / float(context['paid_tickets_num'])
+        if context['paid_tickets_num'] > 0:
+            context['avg_ticket_price'] = context['revenue'] / float(context['paid_tickets_num'])
+        else:
+            context['avg_ticket_price'] = 0
 
         context['food_restrictions'] = [r.food_restrictions for r in \
             Registration.objects.all() if r.food_restrictions != 'None']
+
 
         context['tshirt_sizes'] = []
         for gender in ['F', 'M', 'N']:

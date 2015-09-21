@@ -37,6 +37,7 @@ class EventStats(generic.TemplateView):
 
         context['revenue'] = sum([c.amount for c in ChargeAttempt.objects.all()]) / 100.0
         context['paid_tickets_num'] = sum([1 for r in Registration.objects.all() if r.charge is not None])
+        context['avg_ticket_price'] = context['revenue'] / float(context['paid_tickets_num'])
 
         context['food_restrictions'] = [r.food_restrictions for r in \
             Registration.objects.all() if r.food_restrictions != 'None']

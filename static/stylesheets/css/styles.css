@@ -493,6 +493,10 @@ section.sponsors .sponsor-item {
   text-decoration: none;
   border-bottom: 1px solid white;
 }
+#venue {
+  margin: 0;
+  padding: 0;
+}
 #venue #map {
   width: 100%;
   height: 500px;
@@ -503,6 +507,21 @@ section.sponsors .sponsor-item {
 #venue .website {
   margin-top: 10px;
   margin-bottom: 30px;
+}
+#venue .container {
+  margin: 0;
+  padding: 0;
+  padding-top: 30px;
+  width: 100%;
+}
+#venue .row {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+#venue .row .col-xs-12 {
+  width: 100%;
+  padding: 0;
 }
 #workshops .showcase {
   padding: 0;

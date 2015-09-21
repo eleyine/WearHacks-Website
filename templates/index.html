@@ -14,9 +14,19 @@
     {% include "mentors.html" %}
     {% include "faq.html" %}
     {% include "schedule.html" %}
-    {# {% include "venue.html" %} #}
+    {% include "venue.html" %}
     {% include "workshops.html" %}
     {% include "organizers.html" %}
     {% include "contact.html" %}
     {% include "footer.html" %}
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlpfrm5k0wf4qTlKaIKQF4DFxAgecKdnw&sensor=false"></script>
+
+{% compress js %}
+<script type="text/javascript" src="{% static 'javascripts/snazzy-map.js' %}{% if debug %}?v=00001{% endif %}"></script>
+{% endcompress %}
+
 {% endblock %}

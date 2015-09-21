@@ -33,6 +33,8 @@ class EventStats(generic.TemplateView):
 
         context['revenue'] = sum([c.amount for c in ChargeAttempt.objects.all()]) / 100.0
 
+        context['net_revenue'] = sum([c.amount * 0.97 - 30 for c in ChargeAttempt.objects.all()]) / 100.0
+
         context['revenue'] = sum([c.amount for c in ChargeAttempt.objects.all()]) / 100.0
         context['paid_tickets_num'] = sum([1 for r in Registration.objects.all() if r.charge is not None])
 

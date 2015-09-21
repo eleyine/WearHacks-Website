@@ -41,7 +41,8 @@
                 <p> F/M/Other: {{female}}/{{male}}/{{other}} </p>
 
                 <h3>Ticket Sales</h3>
-                <p>Revenue from tickets: ${{revenue}}.</p>
+                <p>Revenue from tickets (including Stripe's charge): ${{revenue}}.</p>
+                <p>Net Revenue (Estimate): ${{net_revenue}}.</br><small>Formula used per payment: amount x 0.97 - 0.30 </small></p>
                 <p>Number of paid tickets: {{paid_tickets_num}}</p>
 
                 <h3>Food Restrictions</h3>

@@ -403,6 +403,9 @@ section.sponsors .sponsor-item {
     text-align: center;
   }
 }
+#mentors .biography {
+  font-size: 12px;
+}
 .portrait.img-circle {
   height: 200px;
   width: 200px;

@@ -415,6 +415,18 @@ section.sponsors .sponsor-item {
   -webkit-transform: translate(-50%);
   margin-left: 100px;
 }
+.small-portrait.img-circle {
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+  border: 7px solid white;
+}
+.small-portrait.img-circle img {
+  -webkit-transform: translate(-50%);
+  margin-left: 75px;
+}
 #social {
   padding: 40px 0;
 }

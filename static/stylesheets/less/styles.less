@@ -500,6 +500,23 @@ section.sponsors {
     }
 }
 
+@small-portrait-dim: 150px;
+.small-portrait {
+    &.img-circle{
+        height:@small-portrait-dim;
+        width:@small-portrait-dim;
+        overflow:hidden;
+        border-radius:50%;
+        margin: auto;
+        border: 7px solid white;
+    }
+
+    &.img-circle img {
+        -webkit-transform:translate(-50%);
+        margin-left:@small-portrait-dim * 0.5;
+    }
+}
+
 #social {
     padding: 40px 0;
     .section-heading {

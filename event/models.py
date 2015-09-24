@@ -153,7 +153,7 @@ class Person(models.Model):
         return bool(self.telephone)
 
     class Meta:
-        ordering = ('-updated_at', 'category', 'last_name', 'rank',)
+        ordering = ('category', 'rank', 'last_name', 'last_updated', )
 
     def __unicode__(self):
         return self.full_name()

@@ -12,13 +12,13 @@
         </div>
         <div class="row">
         {% for mentor in mentors %}
-            <div class="col-xs-12 col-xs-offset-0 col-sm-6 col-md-3 col-lg-2 text-center">
+            <div class="col-xs-12 col-xs-offset-0 col-sm-6 col-md-3 col-lg-2">
                 {% if mentor.profile_pic %}
-                <div class="small-portrait img-circle hor">
+                <div class="small-portrait img-circle hor text-center">
                     <img src="{{ mentor.profile_pic.url }}" alt="{{mentor.first_name}} {{mentor.last_name}}" height="150px">
                 </div>
                 {% endif %}
-                <div class="name">
+                <div class="name text-center">
                 {% if mentor.website %}
                     <h3><a href="{{mentor.website}}" target="_blank">{{mentor.first_name}} {{mentor.last_name}}</a></h3>
                 {% else %}

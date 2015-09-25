@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 01:54-0400\n"
+"POT-Creation-Date: 2015-09-25 11:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,7 +146,7 @@ msgstr "Restons en contact!"
 msgid "For any questions and inquiries, feel free to contact us!"
 msgstr "Pour toute question ou demande, n'hésitez pas à nous contacter!"
 
-#: templates/faq.html:9 templates/navigation.html:37
+#: templates/faq.html:9 templates/navigation.html:47
 msgid "FAQ"
 msgstr "Questions Fréquentes"
 
@@ -559,40 +559,28 @@ msgstr ""
 #: templates/hardware.html:172
 msgid ""
 "\n"
-"                                    Particle.io Kits\n"
+"                                    Spark Maker Kit\n"
 "                                "
 msgstr ""
 
 #: templates/hardware.html:177
 msgid ""
 "\n"
-"                                    <ul>\n"
-"                                    <li>\n"
-"                                        <p>\n"
-"                                            <small>\n"
-"                                            The Photon (displayed) is a $19 "
-"tiny Wi-Fi development kit for creating cloud-connected projects and "
-"products for the Internet of Things.\n"
-"                                            </small>\n"
-"                                        </p>\n"
-"                                    </li>\n"
-"                                    <li>\n"
-"                                        <p>\n"
-"                                            <small>\n"
-"                                            The Electron is a tiny "
-"development kit for creating cellular-connected electronics projects and "
-"products. It comes with a SIM card and an affordable data plan for low-"
-"bandwidth things. \n"
-"                                            </small>\n"
-"                                        </p>\n"
-"                                    </li>\n"
+"                                    <p class=\"small\">The <strong>Spark "
+"Core</strong> is an Arduino-compatible, Wi-Fi enabled, cloud-powered "
+"development platform that makes creating internet-connected hardware a "
+"breeze.\n"
+"                                    The <strong>Spark Maker Kit</strong> "
+"contains all the necessary hardware components to get you started with "
+"building simple Internet enabled projects. </br>\n"
+"                                    <strong>Kit includes</strong>: Spark "
+"Core + breadboard + jumper wires + resistors + capacitors + sensors + "
+"buttons + LEDs + various other components + a carrying case. </p>\n"
 "                                "
 msgstr ""
-"\n"
-"                "
 
 #: templates/header.html:28 templates/registration/confirmation_email.html:149
-#: templates/registration/form.html:32
+#: templates/registration/form.html:32 templates/registration/stats.html:20
 msgid "The Biggest Wearable Hackathon in North-America"
 msgstr ""
 "Le plus grand <a href=\"#\" data-placement=\"bottom\" data-toggle=\"tooltip"
@@ -612,6 +600,10 @@ msgstr "S'inscrire"
 msgid "Sponsor Us"
 msgstr "Parrainez-nous"
 
+#: templates/header.html:65
+msgid "Volunteer for Us"
+msgstr ""
+
 #: templates/navigation.html:23
 msgid "Home"
 msgstr ""
@@ -625,34 +617,38 @@ msgid "Hardware"
 msgstr "Matériel"
 
 #: templates/navigation.html:33
-msgid "Judges"
-msgstr "Juges"
-
-#: templates/navigation.html:40
 msgid "Sponsors"
 msgstr "Parrains"
+
+#: templates/navigation.html:38
+msgid "Judges"
+msgstr "Juges"
 
 #: templates/navigation.html:43
 msgid "Mentors"
 msgstr "Mentors"
 
-#: templates/navigation.html:46
+#: templates/navigation.html:50
 msgid "Schedule"
 msgstr "Horaire"
 
-#: templates/navigation.html:49
+#: templates/navigation.html:53 templates/navigation.html.py:61
 msgid "Venue"
 msgstr "Lieu"
 
-#: templates/navigation.html:52
+#: templates/navigation.html:57
+msgid "Workshops"
+msgstr "Atelier"
+
+#: templates/navigation.html:64
 msgid "Team"
 msgstr "Équipe"
 
-#: templates/navigation.html:55
+#: templates/navigation.html:67
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/navigation.html:114
+#: templates/navigation.html:126
 msgid "Register"
 msgstr "Inscrivez-vous"
 
@@ -747,8 +743,8 @@ msgid "When"
 msgstr "Quand"
 
 #: templates/registration/confirmation_email.html:326
-msgid "October 2nd 05:00 PM to October 4th 07:00 PM"
-msgstr "2 Octobre à 17h au 4 Octobre à 19h"
+msgid "October 2nd 06:30 PM to October 4th 07:00 PM"
+msgstr "2 Octobre à 18h30 au 4 Octobre à 19h"
 
 #: templates/registration/confirmation_email.html:326
 msgid "Detailed Schedule"
@@ -897,7 +893,7 @@ msgstr ""
 
 #~ msgid "We will send you an email update with the venue."
 #~ msgstr ""
-#~ "On vous enverra un courriel pour vous tenir au courant de l'emplacement."
+"On vous enverra un courriel pour vous tenir au courant de l'emplacement."
 
 #~ msgid "Venue TBD"
 #~ msgstr "Lieu a determiner"

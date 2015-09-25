@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 01:54-0400\n"
+"POT-Creation-Date: 2015-09-25 11:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,62 +18,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: event/models.py:11
+#: event/models.py:48
 msgid "Local Standard"
 msgstr ""
 
-#: event/models.py:12
+#: event/models.py:49
 msgid "Local Premium"
 msgstr ""
 
-#: event/models.py:13
+#: event/models.py:50
 msgid "Global Standard"
 msgstr ""
 
-#: event/models.py:14
+#: event/models.py:51
 msgid "Global Premium"
 msgstr ""
 
-#: event/models.py:35
+#: event/models.py:72
 msgid "Other"
 msgstr ""
 
-#: event/models.py:36
+#: event/models.py:73
 msgid "Judge"
 msgstr ""
 
-#: event/models.py:37
+#: event/models.py:74
 msgid "Mentor"
 msgstr ""
 
-#: event/models.py:40 registration/models/models.py:97
+#: event/models.py:77 registration/models/models.py:97
 msgid "Only letters are allowed."
 msgstr "Seules les lettres sont autorisées."
 
-#: event/models.py:41
+#: event/models.py:78
 #, fuzzy
 #| msgid "Only letters are allowed."
 msgid "Only numbers are allowed."
 msgstr "Seules les lettres sont autorisées."
 
-#: event/models.py:52 registration/models/models.py:104
+#: event/models.py:89 registration/models/models.py:104
 msgid "Male"
 msgstr "Masculin"
 
-#: event/models.py:53 registration/models/models.py:105
+#: event/models.py:90 registration/models/models.py:105
 msgid "Female"
 msgstr "Féminin"
 
 #. Translators: Gender information
-#: event/models.py:55 registration/models/models.py:107
+#: event/models.py:92 registration/models/models.py:107
 msgid "Other / I prefer not to disclose"
 msgstr "Autre / Je préfère ne pas le signaler"
 
-#: event/models.py:60 registration/models/models.py:112
+#: event/models.py:97 registration/models/models.py:112
 msgid "gender"
 msgstr "Sexe"
 
-#: event/models.py:74
+#: event/models.py:111
 msgid ""
 "For internal use. Determines the order in which this person appears on the "
 "website."
@@ -264,6 +264,7 @@ msgstr ""
 "carte de crédit."
 
 #: registration/forms/helpers.py:100
+#, python-format
 msgid ""
 "Try to decrypt this message to win a free ticket.\n"
 "%(num_tickets_student)i tickets left out of %(total_num_tickets_student)i "
@@ -271,8 +272,9 @@ msgid ""
 "%(total_num_tickets_non_student)i tickets left for non-students."
 msgstr ""
 "Essaie de décrypter ce message pour gagner un billet gratuit.\n"
-"Il reste %(num_tickets_student)i billets gratuits sur %(total_num_tickets_student)i pour étudiants et "
-"%(num_tickets_non_student)i billets gratuits sur %(total_num_tickets_non_student)i  pour non-étudiants."
+"Il reste %(num_tickets_student)i billets gratuits sur "
+"%(total_num_tickets_student)i pour étudiants et %(num_tickets_non_student)i "
+"billets gratuits sur %(total_num_tickets_non_student)i  pour non-étudiants."
 
 #: registration/forms/helpers.py:104
 msgid "num_tickets_student"

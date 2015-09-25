@@ -414,6 +414,18 @@ section.sponsors .sponsor-item {
 #mentors .biography {
   font-size: 12px;
 }
+#mentors .mentor {
+  max-height: 650px;
+  height: 650px;
+  overflow: scroll;
+}
+@media (max-width: 768px) {
+  #mentors .mentor {
+    max-height: auto;
+    height: auto;
+    overflow: visible;
+  }
+}
 .portrait.img-circle {
   height: 200px;
   width: 200px;

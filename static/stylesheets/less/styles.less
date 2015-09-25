@@ -498,6 +498,18 @@ section.sponsors {
     .biography {
         font-size: 12px;
     }
+
+    .mentor {
+        max-height: 650px;
+        height: 650px;
+        overflow: scroll;
+
+        @media (max-width: 768px) {
+            max-height: auto;
+            height: auto;
+            overflow: visible;
+        }
+    }
 }
 
 @portrait-dim: 200px;

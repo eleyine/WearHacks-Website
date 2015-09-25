@@ -421,6 +421,9 @@ section.sponsors .sponsor-item {
 #mentors .social-buttons-container .social-buttons {
   display: inline-block;
 }
+#mentors .name p {
+  margin-bottom: 5px;
+}
 @media (min-width: 768px) {
   #mentors .mentor {
     max-height: 600px;

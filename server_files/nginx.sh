@@ -1,19 +1,27 @@
 # Source for /etc/nginx/sites-enabled/django
-# Be sure to change DJANGO_PROJECT_PATH 
+# Be sure to change /home/django/WearHacks-Website 
+server {
+    listen 80;
+    server_name montreal.wearhacks.com;
+    rewrite ^/(.*) https://montreal.wearhacks.com/$1 permanent;
+}
 
 upstream app_server {
     server 127.0.0.1:9000 fail_timeout=0;
 }
 
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server ipv6only=on;
+#    listen 80 default_server;
+#    listen [::]:80 default_server ipv6only=on;
+    listen 443 ssl;
 
     root /usr/share/nginx/html;
     index index.html index.htm;
 
     client_max_body_size 4G;
-    server_name _;
+    server_name montreal.wearhacks.com;
+    ssl_certificate /home/ssl/montreal.wearhacks.com.chained.crt;
+    ssl_certificate_key /home/ssl/montreal.wearhacks.com.key;
 
     keepalive_timeout 5;
 

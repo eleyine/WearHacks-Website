@@ -25,15 +25,18 @@
                     <h3>{{mentor.first_name}} {{mentor.last_name}} </h3>
                 {% endif %}
                 {% if mentor.role %}<p class="text-muted">{{ mentor.role }}</p>{% endif %}
+                <div class="social-buttons-container">
+                    <ul class="list-inline social-buttons">
+                        {% if mentor.twitter %}<li><a href="{{mentor.twitter}}"><i class="fa fa-twitter"></i></a></li>{% endif %}
+                        {% if mentor.website %}<li><a href="{{mentor.website}}"><i class="fa fa-globe"></i></a></li>{% endif %}
+                        {% if mentor.linkedin %}<li><a href="{{mentor.linkedin}}"><i class="fa fa-linkedin"></i></a></li>{% endif %}
+                        {% if mentor.facebook %}<li><a href="{{mentor.facebook}}"><i class="fa fa-facebook"></i></a></li>{% endif %}
+                        {% if mentor.github %}<li><a href="{{mentor.github}}"><i class="fa fa-github"></i></a></li>{% endif %}
+                    </ul>
+                </div>
                 </div>
                 {% if mentor.biography %}<p class="biography">{{ mentor.biography | safe }}</p>{% endif %}
-                <ul class="list-inline social-buttons">
-                    {% if mentor.twitter %}<li><a href="{{mentor.twitter}}"><i class="fa fa-twitter"></i></a></li>{% endif %}
-                    {% if mentor.website %}<li><a href="{{mentor.website}}"><i class="fa fa-globe"></i></a></li>{% endif %}
-                    {% if mentor.linkedin %}<li><a href="{{mentor.linkedin}}"><i class="fa fa-linkedin"></i></a></li>{% endif %}
-                    {% if mentor.facebook %}<li><a href="{{mentor.facebook}}"><i class="fa fa-facebook"></i></a></li>{% endif %}
-                    {% if mentor.github %}<li><a href="{{mentor.github}}"><i class="fa fa-github"></i></a></li>{% endif %}
-                </ul>
+                
             </div>
         {% endfor %}
         </div>

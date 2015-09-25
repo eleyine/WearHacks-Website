@@ -414,16 +414,26 @@ section.sponsors .sponsor-item {
 #mentors .biography {
   font-size: 12px;
 }
-#mentors .mentor {
-  max-height: 650px;
-  height: 650px;
-  overflow: scroll;
+#mentors .social-buttons-container {
+  text-align: center;
+  width: 100%;
 }
-@media (max-width: 768px) {
+#mentors .social-buttons-container .social-buttons {
+  display: inline-block;
+}
+@media (min-width: 768px) {
   #mentors .mentor {
-    max-height: auto;
-    height: auto;
-    overflow: visible;
+    max-height: 600px;
+    height: 600px;
+    overflow: hidden;
+  }
+  #mentors .mentor .name {
+    height: 100px;
+    max-height: 100px;
+  }
+  #mentors .mentor .biography {
+    max-height: 300px;
+    overflow: scroll;
   }
 }
 .portrait.img-circle {

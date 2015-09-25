@@ -891,8 +891,8 @@ msgstr ""
 "Plus d'activités à venir (Présentations, Ateliers, etc.). On vous tiendra au "
 "courant!"
 
-#~ msgid "We will send you an email update with the venue."
-#~ msgstr ""
+msgid "We will send you an email update with the venue."
+msgstr ""
 "On vous enverra un courriel pour vous tenir au courant de l'emplacement."
 
 #~ msgid "Venue TBD"

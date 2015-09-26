@@ -58,15 +58,20 @@ header {
     a.btn {
         margin: 10px 0;
     }
-
-    .volunteer-for-us a.btn {
-        background:none;
-        color: #eee;
+    .volunteer-for-us {
+        padding-bottom:10px;
     }
 
-    .volunteer-for-us a.btn:hover {
-        background: #000;
+    .volunteer-for-us a.btn {
+        opacity: 0.8;
+        border: 2px solid #fff;
         color: #fff;
+        background: none;
+        &:hover {
+            opacity: 1;
+            background: #eee;
+            color: #333;
+        }
     }
 
     .header-content {

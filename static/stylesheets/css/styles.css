@@ -46,13 +46,19 @@ header .background {
 header a.btn {
   margin: 10px 0;
 }
+header .volunteer-for-us {
+  padding-bottom: 10px;
+}
 header .volunteer-for-us a.btn {
+  opacity: 0.8;
+  border: 2px solid #fff;
+  color: #fff;
   background: none;
-  color: #eee;
 }
 header .volunteer-for-us a.btn:hover {
-  background: #000;
-  color: #fff;
+  opacity: 1;
+  background: #eee;
+  color: #333;
 }
 header .header-content {
   margin-top: 50px;

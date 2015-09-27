@@ -340,8 +340,8 @@ header .header-content-inner .how button {
 #about img {
   margin-bottom: 20px;
 }
-#hardware .portfolio-box .portfolio-box-caption .portfolio-box-caption-content {
-  top: 10%;
+#hardware .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .small {
+  font-size: 11px;
 }
 #hardware li {
   list-style: none;
@@ -433,7 +433,7 @@ section.sponsors .sponsor-item {
   }
 }
 #mentors .biography {
-  font-size: 12px;
+  font-size: 14px;
 }
 #mentors .social-buttons-container {
   text-align: center;
@@ -447,8 +447,8 @@ section.sponsors .sponsor-item {
 }
 @media (min-width: 768px) {
   #mentors .mentor {
-    max-height: 600px;
-    height: 600px;
+    max-height: 650px;
+    height: 650px;
     overflow: hidden;
   }
   #mentors .mentor .name {
@@ -456,8 +456,8 @@ section.sponsors .sponsor-item {
     max-height: 100px;
   }
   #mentors .mentor .biography {
-    max-height: 300px;
-    overflow: scroll;
+    max-height: 350px;
+    overflow: hidden;
   }
 }
 .portrait.img-circle {

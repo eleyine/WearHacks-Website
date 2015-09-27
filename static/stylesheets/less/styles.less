@@ -424,7 +424,9 @@ header {
 
 #hardware {
     .portfolio-box .portfolio-box-caption .portfolio-box-caption-content {
-        top: 10%;
+        .small {
+            font-size: 11px;
+        }
     }
     li {
         list-style: none;
@@ -517,7 +519,7 @@ section.sponsors {
 
 #mentors {
     .biography {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .social-buttons-container {
@@ -534,8 +536,8 @@ section.sponsors {
 
     @media (min-width: 768px) {
         .mentor {
-            max-height: 600px;
-            height: 600px;
+            max-height: 650px;
+            height: 650px;
             overflow: hidden;
 
             .name {
@@ -546,8 +548,8 @@ section.sponsors {
             }
 
             .biography {
-                max-height: 300px;
-                overflow:scroll;
+                max-height: 350px;
+                overflow: hidden; // don't make your bios too long folks
             }
         }
     }

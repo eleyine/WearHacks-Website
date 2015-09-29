@@ -26,8 +26,7 @@ from jsonview.decorators import json_view
 from tempfile import TemporaryFile
 import os
 import stripe
-
-# from datetime import datetime # used in early_bird stuff
+from time import gmtime, strftime
 
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
@@ -70,6 +69,7 @@ class SubmitRegistrationView(generic.View):
     @json_view
     def post(self, request, *args, **kwargs):
         print '*' * 100
+        print strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         request, language = self.get_language(request)
         order_id = request.POST.get('order_id', 'xxx')
         
@@ -241,6 +241,7 @@ class SubmitRegistrationView(generic.View):
                     checkout_message = _('Something went wrong on our end. </br>')
                     server_error = True
                     checkout_success = False
+                    print e
                     self._save_server_message_to_charge_attempt(charge_attempt, 
                         ['Stripe Request Error'], e)
 
@@ -250,12 +251,14 @@ class SubmitRegistrationView(generic.View):
                     checkout_message = _('Network communication with Stripe '
                         'failed. </br>')
                     checkout_success = False
+                    print e
                     self._save_server_message_to_charge_attempt(charge_attempt, 
                         ['API Connection Error'], e)
 
                 except stripe.error.StripeError, e:
                     checkout_message = _("Something went wrong on Stripe's end. </br>")
                     checkout_success = False
+                    print e
                     self._save_server_message_to_charge_attempt(charge_attempt, 
                         ['Stripe Error'], e)
 
@@ -263,6 +266,7 @@ class SubmitRegistrationView(generic.View):
                     checkout_message = ''
                     server_error = True
                     checkout_success = False
+                    print e
                     self._save_server_message_to_charge_attempt(charge_attempt, 
                         ['Error while creating Stripe charge'], e)
 

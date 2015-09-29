@@ -104,8 +104,13 @@ class SubmitRegistrationView(generic.View):
         # check registration information
         registration_success= False
         registration_message = ''
+
         challenge_id = request.POST.get('challenge_id', None)
-        challenge = get_object_or_404(Challenge, id=challenge_id)
+        if Challenge.objects.filter(id=challenge_id).exists():
+            challenge = Challenge.objects.get(id=challenge_id)
+        else:
+            challenge = None
+
         discount_code = None
         ticket_price = Registration.TICKET_FULL_PRICE
         form = self.form_class(request.POST, request.FILES, challenge=challenge)

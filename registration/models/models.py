@@ -205,7 +205,7 @@ class Registration(models.Model):
 
     # Challenge
     has_solved_challenge = models.BooleanField(default=False)
-    solved_challenge = models.ForeignKey('Challenge', null=True)
+    solved_challenge = models.ForeignKey('Challenge', null=True, blank=True)
 
     @property
     def has_submitted_waiver(self):

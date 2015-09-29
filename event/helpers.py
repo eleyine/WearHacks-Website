@@ -2,6 +2,7 @@ import os
 
 def get_profile_pic_filename(instance, old_filename):
     filename, file_extension = os.path.splitext(old_filename)
+    file_extension = file_extension.strip('.')
     basename = '%s_%s.%s' % (instance.last_name, instance.first_name,
         file_extension)
     filename = os.path.join( 

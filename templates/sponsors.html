@@ -51,7 +51,7 @@
   {% if sponsors.local_premium or sponsors.local_standard %}
     <div class="row col-lg-12 text-center">
       <div class="section-heading">
-          <h1>Local Sponsors</h1>
+          <h1>City Sponsors</h1>
           <hr class="primary">
       </div>
     </div>
@@ -91,6 +91,27 @@
             </div>
           </div>
       {% endif %}
+
+      <!-- community sponsors (6/row)-->
+      {% if sponsors.community %}
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 text-center">
+              <div class="row">
+                {% for sponsor in sponsors.community %}
+                <div class="col-xs-3 col-md-2">
+                  <div class="sponsor-logos-container logos-standard {{sponsor.name|slugify}}">
+                    <a href="{{sponsor.url}}" target="_blank">
+                      <span class="helper"></span>
+                      <img class="img-responsive" src="{% static sponsor.image.url %}">
+                    </a>        
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+      {% endif %}
+      
   {% endif %}
     <div class="row col-lg-12 text-center">
         <h4>Interested in sponsoring? E-mail us at <a href="mailto:montreal@wearhacks.com">montreal@wearhacks.com</a>!

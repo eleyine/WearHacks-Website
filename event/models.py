@@ -47,6 +47,7 @@ class Sponsor(models.Model):
     CATEGORIES = (
         ('ST', _('Local Standard')),
         ('PR', _('Local Premium')),
+        ('CM', _('Community')),
         ('GS', _('Global Standard')),
         ('GH', _('Global Premium')),
     )

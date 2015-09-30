@@ -319,7 +319,7 @@ class Registration(models.Model):
 
     def __unicode__(self):
         if self.pk:
-            return '{0} (#{1})'.format(self.full_name(), self.pk)
+            return '{0}'.format(self.pk) # '{0} (#{1})'.format(self.full_name(), self.pk)
         else:
             return '{0} (Not saved)'.format(self.full_name())
 

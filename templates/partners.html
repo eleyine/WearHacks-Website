@@ -1,0 +1,34 @@
+{% if sponsors.partners %}
+<section id="partners" class="partners">
+  <div class="container">
+  {% if sponsors.global_premium or sponsors.global_standard %}
+    <div class="row col-lg-12 text-center">
+      <div class="section-heading">
+          <h1>Partners</h1>
+          <hr class="primary">
+      </div>
+    </div>
+
+      <!-- standard sponsors (4/row)-->
+      {% if sponsors.partners %}
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 text-center">
+              <div class="row">
+                {% for sponsor in sponsors.partners %}
+                <div class="col-xs-6 col-md-4">
+                  <div class="sponsor-logos-container logos-standard {{sponsor.name|slugify}}">
+                    <a href="{{sponsor.url}}" target="_blank">
+                      <span class="helper"></span>
+                      <img class="img-responsive" src="{% static sponsor.image.url %}">
+                    </a>        
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+      {% endif %}
+  {% endif %}
+  
+</section>
+{% endif %}

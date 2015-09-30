@@ -48,6 +48,7 @@ class Sponsor(models.Model):
         ('ST', _('Local Standard')),
         ('PR', _('Local Premium')),
         ('CM', _('Community')),
+        ('PA', _('Partner')),
         ('GS', _('Global Standard')),
         ('GH', _('Global Premium')),
     )

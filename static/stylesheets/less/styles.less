@@ -437,7 +437,8 @@ header {
     }
 }
 
-section.sponsors {
+#sponsors,
+#partners {
     .sponsor-logos-container {
         text-align: center;
         margin: 10px 15px;
@@ -447,7 +448,8 @@ section.sponsors {
             display: inline-block;
             vertical-align: middle;
         }
-        &.logos-premium {
+        &.logos-premium,
+        &.logos-partner {
             height: 140px;
             a {
                 white-space: nowrap;
@@ -493,7 +495,36 @@ section.sponsors {
                 }
             } 
         }
-        
+
+        &.logos-partner {
+            height: 110px;
+            @media (max-width: 600px) {
+                margin: 5px 10px;
+                height: 70px;
+            }
+            a {
+                white-space: nowrap;
+                height: 110px;
+                margin: 0;
+                padding: 0;
+                @media (max-width: 600px) {
+                    height: 70px;
+                }
+                .helper {
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                }
+                img {
+                    max-height: 110px;
+                    @media (max-width: 600px) {
+                        max-height: 70px;
+                    }
+                    vertical-align: middle;
+                }
+            } 
+        }
+
         /* Special cases */
         &.softlayer a img {
             max-width: 500px;

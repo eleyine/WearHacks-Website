@@ -179,6 +179,7 @@ class RegistrationForm(forms.ModelForm):
         # Discount Code
         self.fields['discount_code_code'] = forms.CharField(required=False, 
             label = _('Discount Code'),
+            initial = 'WHWaitlist'
             )
 
         self.helper = FormHelper()
@@ -238,7 +239,7 @@ class RegistrationForm(forms.ModelForm):
         self.helper.layout.extend((
                 Fieldset(
                     _('Payment Options'),
-                    Field('discount_code_code', placeholder='CODE'),
+                    Field('discount_code_code', placeholder='CODE', readonly=True),
                     css_id='payment'
                 )
             ))

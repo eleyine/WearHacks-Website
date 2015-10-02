@@ -4,6 +4,8 @@ from django.conf.urls.i18n import i18n_patterns
 from wearhacks_website import views
 
 from django.contrib import admin
+from registration.views import register
+
 # from djrill import DjrillAdminSite
 
 # admin.site = DjrillAdminSite()
@@ -18,6 +20,7 @@ urlpatterns = patterns('',
 
 urlpatterns += i18n_patterns(
     url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^waitlist/$', register.SubmitRegistrationView.as_view(), name='register'),
     url(r'^register/', include('registration.urls')),
 )
 # Javascript Internationalization Support

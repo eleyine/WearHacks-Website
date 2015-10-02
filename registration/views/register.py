@@ -28,6 +28,9 @@ import os
 import stripe
 from time import gmtime, strftime
 
+class RegistraionClosed(generic.TemplateView):
+    template_name = 'registration/closed.html'
+
 class SubmitRegistrationView(generic.View):
     template_name = 'registration/form.html'
     form_class = RegistrationForm

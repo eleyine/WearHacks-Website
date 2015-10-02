@@ -350,6 +350,12 @@ header .header-content-inner .how button {
 #hardware li p {
   margin-bottom: 0;
 }
+#sponsors .col-centered,
+#partners .col-centered {
+  float: none;
+  margin: 0 auto;
+  display: inline-block;
+}
 #sponsors .sponsor-logos-container,
 #partners .sponsor-logos-container {
   text-align: center;

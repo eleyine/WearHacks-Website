@@ -8,7 +8,7 @@ class RegistrationAdmin(admin.ModelAdmin):
             'fields': (
                 ('first_name', 'last_name'),
                 ('gender', 'email'),
-                ('has_attended', 'is_waitlsited'),
+                ('has_attended', 'is_waitlisted'),
                 )
         }),
         ('Order Info', {
@@ -76,7 +76,7 @@ class RegistrationAdmin(admin.ModelAdmin):
         )
     # list_editable = ('staff_comments',)
     search_fields = ['order_id', 'email', 'first_name', 'last_name']
-    list_filter = ('is_waitlsited', 'has_attended', 'has_solved_challenge', 'charge__is_captured', 'is_student', 
+    list_filter = ('is_waitlisted', 'has_attended', 'has_solved_challenge', 'charge__is_captured', 'is_student', 
         'is_email_sent', 'gender')
     list_display_links = ('order_id',)
 

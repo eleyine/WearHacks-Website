@@ -333,6 +333,7 @@ class SubmitRegistrationView(generic.View):
                 new_registration.order_id = order_id
                 
                 new_registration.charge = charge_attempt
+                new_registration.is_waitlisted = True
                 new_registration.save()
             except Exception, e:
                 server_error = True
@@ -382,6 +383,7 @@ class SubmitRegistrationView(generic.View):
                 success_message += _('A confirmation email will be sent shortly.')
                 try:
                     new_registration.is_email_sent = True
+                    new_registration.is_waitlisted = True
                     new_registration.save()
                 except Exception, e:
                     server_messages.append('Failed while setting is_email_sent to True in registration.')

@@ -139,6 +139,7 @@ class Registration(models.Model):
         choices=TSHIRT_SIZE_CHOICES,
         verbose_name=_('T-Shirt size')
         )
+    is_waitlisted = models.BooleanField(default=False, verbose_name=_("Waitlisted?"))
     is_returning = models.BooleanField(default=False, verbose_name=_("Did you attend last year's event?"))
     is_first_time_hacker = models.BooleanField(default=False, verbose_name=_("Is this your first hackathon?"))
     preferred_language = models.CharField(max_length=2, 

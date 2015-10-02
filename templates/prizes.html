@@ -1,0 +1,52 @@
+{% load staticfiles %}
+
+{% if prizes %}
+<section id="prizes" class="prizes">
+  <div class="container">
+
+    <div class="row col-lg-12 text-center">
+      <div class="section-heading">
+          <h1>Prizes</h1>
+          <hr class="primary">
+      </div>
+    </div>
+
+    <div class="row">
+        {% for prize in prizes %}
+        <div class="col-md-4 col-md-offset-0 col-sm-offset-1 col-sm-10 text-center">
+          <div class="prize-container {{prize.title|slugify}}">
+            <div class='image'>
+                <div class="fui-{{prize.fa_class}} fa fa-{{prize.fa_class}}"></div>
+            </div>
+            <h3>{{prize.title}}
+            {% if prize.sponsor %}
+            <small>by 
+                {% if prize.sponsor.url %}
+                    <a href="{% static prize.sponsor.url %}">{{prize.sponsor.name}}</a>
+                {% else %}
+                    {{prize.sponsor.name}}
+                {% endif %}</small>
+            {% endif %}
+            </h3>
+            {% if prize.description %}
+            <p>
+                {{prize.description|safe}}
+            </p>      
+            {% endif %} 
+            {% if prize.all_perks %}
+            <ul class='perks'>
+            {% for perk in prize.all_perks %}
+                <li class='perk-item'>
+                    <i class="fa fa-check"></i> {{perk.description|safe}}
+                </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+  </div>
+</section>
+{% endif %}

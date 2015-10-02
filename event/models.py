@@ -6,6 +6,49 @@ import re, datetime
 from django.core.validators import RegexValidator
 from event.helpers import get_profile_pic_filename, get_image_filename
 
+
+class PrizePerk(models.Model):
+    rank = models.IntegerField(
+        default=999, 
+        help_text=_('For internal use. '
+            'Determines the order in which this perk appears on the website.')
+        )    
+    description = models.TextField(
+        help_text='This is HTML safe so you can use <a></a> tags for links, etc.')
+
+    class Meta:
+        ordering = ('rank',)
+
+    def __unicode__(self):
+        return '%i: %s' % (self.rank, self.description)
+
+class Prize(models.Model):
+    rank = models.IntegerField(
+        default=999, 
+        help_text=_('For internal use. '
+            'Determines the order in which this perk appears on the website.')
+        ) 
+    title = models.CharField(max_length=300)
+    description = models.TextField(max_length=300,
+        help_text='What to do to get this prize?', blank=True)
+    perks = models.ManyToManyField('PrizePerk', blank=True)
+    sponsor = models.ForeignKey('Sponsor', blank=True, null=True)
+    image = models.ImageField(
+        upload_to=get_image_filename,
+        blank=True)
+    fa_class = models.CharField(max_length=20, help_text='font-awesome class',
+        default='star-o')
+
+    class Meta:
+        ordering = ('rank', 'title',)
+
+    @property
+    def all_perks(self):
+        return self.perks.all()
+
+    def __unicode__(self):
+        return '%i: %s' % (self.rank, self.title)
+
 class Workshop(models.Model):
     moderators = models.ManyToManyField('Person')
 

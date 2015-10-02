@@ -1,5 +1,5 @@
 from django.contrib import admin
-from event.models import Person, Sponsor, Workshop
+from event.models import Person, Sponsor, Workshop, Prize, PrizePerk
 
 class PersonAdmin(admin.ModelAdmin):
     date_hierarchy = 'updated_at'
@@ -60,4 +60,6 @@ class PersonAdmin(admin.ModelAdmin):
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Sponsor)
 admin.site.register(Workshop)
+admin.site.register(Prize)
+admin.site.register(PrizePerk)
 

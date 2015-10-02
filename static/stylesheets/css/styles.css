@@ -492,6 +492,35 @@ header .header-content-inner .how button {
   line-height: 25px;
   color: #999999;
 }
+#prizes .image .fa {
+  width: 150px;
+  height: 100px;
+  background: url("../../images/prizes/cup.png") no-repeat center center;
+  background-size: 150px;
+}
+#prizes .image .fa:before {
+  position: relative;
+  top: 15%;
+  font-size: 40px;
+  color: #fae287;
+  text-shadow: 2px 2px #c5a016;
+}
+#prizes p {
+  font-size: 13px;
+}
+#prizes .perks {
+  list-style: none;
+  padding: 0 10px;
+  margin: 0;
+}
+#prizes .perk-item .fa {
+  margin-right: 10px;
+  color: green;
+}
+#prizes .prize-container {
+  height: 300px;
+  overflow: hidden;
+}
 @media (max-width: 768px) {
   #judges .name {
     text-align: center;

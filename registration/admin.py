@@ -20,6 +20,12 @@ class RegistrationAdmin(admin.ModelAdmin):
                 'discount_code',
                 )
         }),
+        ('Hacking experience', {
+            'classes': ('collapse',),
+            'fields': (
+                ('is_first_time_hacker', 'is_returning'),
+                )
+        }),
         ('Sponsor Info', {
             'fields': (
                 ('github', 'linkedin',),

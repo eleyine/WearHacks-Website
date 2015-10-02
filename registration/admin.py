@@ -8,6 +8,7 @@ class RegistrationAdmin(admin.ModelAdmin):
             'fields': (
                 ('first_name', 'last_name'),
                 ('gender', 'email'),
+                'has_attended',
                 )
         }),
         ('Order Info', {

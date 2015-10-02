@@ -601,10 +601,32 @@ header .header-content-inner .how button {
     width: 60%;
   }
 }
+#schedule p.activity.workshop {
+  line-height: 25px;
+  font-size: 14px;
+}
+#schedule p.activity.workshop:before {
+  content: "Workshop";
+  display: inline-block;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 2px;
+  border-color: red;
+  background: #fff;
+  color: #333;
+  font-weight: 600;
+  margin-right: 5px;
+  line-height: 14px;
+  padding: 2px 5px;
+}
 #schedule p emph {
   font-style: italic;
   font-weight: 100;
   letter-spacing: 1px;
+}
+#schedule a.annotated {
+  font-weight: normal;
 }
 #schedule h4 {
   padding: 10px 0;

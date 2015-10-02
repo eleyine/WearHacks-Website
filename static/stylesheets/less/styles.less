@@ -671,6 +671,7 @@ header {
                 width: 40%;
             }
         }
+
         &.activity {
             width: 70%;
             strong {
@@ -678,6 +679,27 @@ header {
             }
             @media (max-width: 768px) {
                 width: 60%;
+            }
+
+            &.workshop {
+                line-height: 25px;
+                font-size: 14px;
+            }
+
+            &.workshop:before {
+                content: "Workshop";
+                display: inline-block;
+                font-size: 8px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                border-radius: 2px;
+                border-color: red;
+                background: #fff;
+                color: #333;
+                font-weight: 600;
+                margin-right:5px;
+                line-height: 14px;
+                padding:2px 5px;
             }
         }
 
@@ -688,6 +710,9 @@ header {
         }
     }
 
+    a.annotated {
+        font-weight: normal;
+    }
     h4 {
         padding: 10px 0;
         font-weight: 400;

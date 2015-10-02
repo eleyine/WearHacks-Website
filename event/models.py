@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as __
 
 import re, datetime
+from pytz import timezone
 from django.core.validators import RegexValidator
 from event.helpers import get_profile_pic_filename, get_image_filename
 
@@ -74,6 +75,11 @@ class Workshop(models.Model):
     def human_readable_time_slot(self):
         start_time = self.time
         end_time = self.time + datetime.timedelta(0,self.duration*60)
+        # convert times to local timezone
+        eastern = timezone('US/Eastern')
+        start_time = start_time.astimezone(eastern)        
+        end_time = end_time.astimezone(eastern)        
+
         readable_time = '%s %s' % (
             datetime.datetime.strftime(start_time, '%A %I:%M%p - '),
             datetime.datetime.strftime(end_time, '%I:%M%p'),

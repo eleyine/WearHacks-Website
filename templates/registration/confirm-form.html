@@ -32,7 +32,7 @@
                     {% if registration %}
                         {% if registration.is_returning %}
                             Great to have you back, {{registration.first_name}}
-                        {% elif not registration.is_first_time_hacker %}
+                        {% elif registration.is_first_time_hacker %}
                             {{registration.first_name}} checkin' in</br>
                             <small>Plus, it's
                             {% if registration.gender == 'M' %}
@@ -46,14 +46,23 @@
                         {% else %}
                             {{registration.first_name}} in the house</br>
                             <small>
+                            Although 
                             {% if registration.gender == 'M' %}
                             he's
                             {% elif registration.gender == 'F' %}
-                            She's
+                            she's
                             {% else %}
-                            They're
+                            they're
                             {% endif %}
-                             a seasoned hacker.</small>                            
+                             a seasoned hacker, it's 
+                            {% if registration.gender == 'M' %}
+                            his
+                            {% elif registration.gender == 'F' %}
+                            her
+                            {% else %}
+                            their
+                            {% endif %}
+                              first time at Wearhacks</small>                            
                         {% endif %}
                     {% else %}
                         Check In

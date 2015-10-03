@@ -11,17 +11,19 @@
             </div>
         </div>
         {% for workshop in workshops %}
-        <div class="row">
-            <div class="showcase col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-1">
+        <div class="row workshop">
+<!--             <div class="showcase col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-1">
+                {% if workshop.showcase_image %}
                     <img class="img-responsive" src="{% static workshop.showcase_image.url %}" alt="{{workshop.title}}" height="200px">
-            </div>
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-0">
+                {% endif %}
+            </div> -->
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
                 <div class="info">
                     <p> {{workshop.human_readable_time_slot}} {% if workshop.location %}@ {{workshop.location}}{% endif %}</p>
                 </div>
                 <h3 class="title">{{workshop.title|safe}}</h3>
                 <div class="description">
-                    <p>{{workshop.description|safe}}</p>
+                    {workshop.description|safe}}
                 </div>
                 <div class="moderators">
                     <p class="moderated-by muted">Moderated by</p>
@@ -66,6 +68,11 @@
                     {% if judge.github %}<li><a href="{{judge.github}}"><i class="fa fa-github"></i></a></li>{% endif %}
                 </ul>
             </div>
+            {% if not forloop.last %}
+            <div class="col-sm-12">
+                <div class="divider"></div>
+            </div>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

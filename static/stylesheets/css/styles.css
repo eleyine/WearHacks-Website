@@ -735,6 +735,13 @@ header .header-content-inner .how button {
 #workshops .moderators .name {
   margin-bottom: 2px;
 }
+#workshops .divider {
+  background-color: #ddd;
+  width: 90%;
+  height: 1px;
+  display: block;
+  margin: 5px auto 20px auto;
+}
 #registration-form-container {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

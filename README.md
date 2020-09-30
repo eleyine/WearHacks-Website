@@ -1,4 +1,4 @@
-# Wearhacks Montreal 2015 Website Source
+# Wearhacks - An amazing project
 
 ## Branches
 

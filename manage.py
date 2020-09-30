@@ -11,7 +11,7 @@ if __name__ == "__main__":
     if settings.DEBUG:
         error_code = os.system("lessc static/stylesheets/less/styles.less static/stylesheets/css/styles.css")
         if error_code > 0:
-            print "Warning: Failed to compile LESS files. Make sure you have LESS CSS installed."
+            print "!Warning: Failed to compile LESS files. Make sure you have LESS CSS installed."
 
     from django.core.management import execute_from_command_line
 

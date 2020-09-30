@@ -1,4 +1,4 @@
-# Wearhacks Montreal 2015 Website Source
+# Wearhacks Montreal 2015 Website Source.
 
 ## Branches
 
@@ -25,11 +25,11 @@ $ workon wearhacks-website
 (wearhacks-website) $ ./setup.sh
 ```
 
-**Note**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you'd like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
+**Note**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you would like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
 
 **Manual install: what's in `setup.sh`?**
 
-If you don't want to use `setup.sh`
+If you do not want to use `setup.sh`
 
 ```bash
 $ mkvirtualenv wearhacks-website
@@ -81,4 +81,4 @@ Here are the setup instructions if you choose to do it with Digital Ocean.
 * Make sure you have fabric installed locally. If you ran `setup.sh`, you already have it.
 * In `wearhacks_website/server_files/`, copy `fab_config_example.py` and rename it to `fab_config.py`. Edit in in your deployment host address.
 * Then in `server_files`, run `fab all`
-* If you'd like a list of fab commands, run `fab -l`
+* If you would like a list of fab commands, run `fab -l`

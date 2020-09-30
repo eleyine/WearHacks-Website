@@ -1,19 +1,19 @@
-# Wearhacks Montreal 2015 Website Source
+# Wearhacks,Montreal 2015 Website Source
 
-## Branches
+## The Branches
 
 * `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>
 * `stable`: deployed branch with registration closed. Live on <http://montreal.wearhacks.com>
 
-# Installation
+# The Installation
 
-## Requirements
+## Requirements 
 
 * `pip` - instructions [here](https://pip.pypa.io/en/latest/installing.html)
 * `virtualenvwrapper` - instructions [here](https://virtualenvwrapper.readthedocs.org/en/latest/install.html)
 * `npm` - instructions [here](https://docs.npmjs.com/getting-started/installing-node)
 
-## Quick setup
+## Setup
 
 ```bash
 $ git clone git@github.com:eleyine/WearHacks-Website.git
@@ -27,7 +27,7 @@ $ workon wearhacks-website
 
 **Note**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you'd like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
 
-**Manual install: what's in `setup.sh`?**
+**Installing Manually: what's in `setup.sh`?**
 
 If you don't want to use `setup.sh`
 

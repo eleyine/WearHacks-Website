@@ -1,4 +1,5 @@
 # Wearhacks Montreal 2015 Website Source
+# An amazing website
 
 ## Branches
 

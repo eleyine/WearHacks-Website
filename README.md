@@ -7,7 +7,7 @@
 
 # Installation
 
-## Requirements
+## Recommended Requirements
 
 * `pip` - instructions [here](https://pip.pypa.io/en/latest/installing.html)
 * `virtualenvwrapper` - instructions [here](https://virtualenvwrapper.readthedocs.org/en/latest/install.html)

@@ -45,7 +45,7 @@ $ workon wearhacks-website
 
 Now, open <http://127.0.0.1:8000/>.
 
-## Usage
+## Usage of Github
 
 * To run on [localhost](http://127.0.0.1:8000/):
 

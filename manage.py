@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os
+import os exe
 import sys
 from django.conf import settings
 

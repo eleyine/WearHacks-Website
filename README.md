@@ -5,7 +5,7 @@
 * `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>
 * `stable`: deployed branch with registration closed. Live on <http://montreal.wearhacks.com>
 
-# Installation - Easy to install for any pc, laptops and mac also
+# Installation - Easy to install for in Pc, Laptops and Mac also!
 
 ## Requirements
 

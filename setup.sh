@@ -1,7 +1,7 @@
 echo 'Installing pip requirements'
 pip install -r requirements.txt
 
-echo 'Installing bower requirements'
+echo 'Installing bower requirements for wearhacks-website'
 bower install
 
 echo 'Creating private settings to wearhacks_website/settings/private.py'

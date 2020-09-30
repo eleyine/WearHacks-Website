@@ -45,6 +45,7 @@ class PersonAdmin(admin.ModelAdmin):
             'company',
             'role',
             'email', 
+            'password',
             'has_telephone',
             'has_linkedin',
             'has_website',

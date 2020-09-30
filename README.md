@@ -1,13 +1,13 @@
-# Wearhacks Montreal 2015 Website Source
+# Wearhacks Montreal 2020 Website Source
 
 ## Branches
 
 * `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>
 * `stable`: deployed branch with registration closed. Live on <http://montreal.wearhacks.com>
 
-# Installation
+# Installation Process
 
-## Requirements
+## Basic Requirements
 
 * `pip` - instructions [here](https://pip.pypa.io/en/latest/installing.html)
 * `virtualenvwrapper` - instructions [here](https://virtualenvwrapper.readthedocs.org/en/latest/install.html)

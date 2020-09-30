@@ -74,7 +74,7 @@ I wrote a `fabric` script to automate installation on Digital Ocean droplets usi
 
 Here are the setup instructions if you choose to do it with Digital Ocean. 
 
-* Create a Digital Ocean droplet with a Django installation image
+* Create a Digital Ocean droplet with a Django installation image.
 * Ssh into your droplet to obtain the postgresql database password. It will be displayed in the welcome message. 
 * Copy `wearhacks_website/settings/private.py` to `wearhacks_website/settings/server_private.py` and uncomment the postgresql settings. Edit in your postgresql password from the step above.
 

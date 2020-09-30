@@ -1,5 +1,7 @@
 # Wearhacks Montreal 2015 Website Source
 
+# Welcome to the Mountreal 2015 Website Source
+
 ## Branches
 
 * `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>

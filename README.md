@@ -13,7 +13,7 @@
 * `virtualenvwrapper` - instructions [here](https://virtualenvwrapper.readthedocs.org/en/latest/install.html)
 * `npm` - instructions [here](https://docs.npmjs.com/getting-started/installing-node)
 
-## Quick setup
+## Quick setup for github
 
 ```bash
 $ git clone git@github.com:eleyine/WearHacks-Website.git

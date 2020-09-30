@@ -2,7 +2,7 @@
 
 ## Branches
 
-* `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>
+* `master`: most up-to-date branch with open registration. Sign-up on <http://wearhacks.eleyine.com>
 * `stable`: deployed branch with registration closed. Live on <http://montreal.wearhacks.com>
 
 # Installation

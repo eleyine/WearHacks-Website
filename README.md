@@ -1,5 +1,5 @@
 # Wearhacks Montreal 2015 Website Source
-
+Good project
 ## Branches
 
 * `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>

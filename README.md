@@ -1,4 +1,4 @@
-# Wearhacks Montreal 2015 Website Source
+# Wearhacks Montreal 2015 Website Source AN AMAZING PROJECT
 
 ## Branches
 
@@ -31,7 +31,7 @@ $ workon wearhacks-website
 
 If you don't want to use `setup.sh`
 
-```bash
+```bashNNDNCD
 $ mkvirtualenv wearhacks-website
 $ workon wearhacks-website
 (wearhacks-website) $ pip install -r requirements.txt

@@ -5,7 +5,7 @@
 * `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>
 * `stable`: deployed branch with registration closed. Live on <http://montreal.wearhacks.com>
 
-# Installation
+# Quick Installation
 
 ## Requirements
 
@@ -25,7 +25,7 @@ $ workon wearhacks-website
 (wearhacks-website) $ ./setup.sh
 ```
 
-**Note**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you'd like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
+**Please Note**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you'd like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
 
 **Manual install: what's in `setup.sh`?**
 

@@ -1,19 +1,19 @@
-# Wearhacks Montreal 2015 Website Source
+# WEARHACKS MONTREAL 2015 WEBSITE SOURCE
 
-## Branches
+## BRANCHES
 
 * `master`: most up-to-date branch with open registration. Up on <http://wearhacks.eleyine.com>
 * `stable`: deployed branch with registration closed. Live on <http://montreal.wearhacks.com>
 
-# Installation
+# INSTALLATION
 
-## Requirements
+## REQUIREMENTS
 
 * `pip` - instructions [here](https://pip.pypa.io/en/latest/installing.html)
 * `virtualenvwrapper` - instructions [here](https://virtualenvwrapper.readthedocs.org/en/latest/install.html)
 * `npm` - instructions [here](https://docs.npmjs.com/getting-started/installing-node)
 
-## Quick setup
+## QUICK SETUP
 
 ```bash
 $ git clone git@github.com:eleyine/WearHacks-Website.git
@@ -25,9 +25,9 @@ $ workon wearhacks-website
 (wearhacks-website) $ ./setup.sh
 ```
 
-**Note**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you'd like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
+**NOTE**: `setup.sh` will copy `example_private_settings.py` to `private.py`. If you are on your local machine in dev mode, there's no need to edit it. However, if you'd like to deploy, *please update `wearhacks_website/settings/private.py` with your sensitive and deployment-specific settings*.
 
-**Manual install: what's in `setup.sh`?**
+**MANUAL INSTALL: what's in `setup.sh`?**
 
 If you don't want to use `setup.sh`
 
@@ -45,7 +45,7 @@ $ workon wearhacks-website
 
 Now, open <http://127.0.0.1:8000/>.
 
-## Usage
+## USAGE
 
 * To run on [localhost](http://127.0.0.1:8000/):
 
@@ -64,11 +64,11 @@ Now, open <http://127.0.0.1:8000/>.
 
 * You can edit `wearhacks_settings/settings/private.py` to enter sensitive and user-specific settings. All settings in `private.py` will override those defined in `dev.py` and `prod.py`. See `wearhacks_website/settings/__init__.py` for more information.
 
-## Stripe settings
+## STRIPE SETTINGS
 
 The registration app handles payment via [Stripe](https://stripe.com). To test this feature, edit in your Stripe API keys in your private settings files (`wearhacks_website/*private.py`).
 
-## Deployment on Digital Ocean
+## DEPLOYMENT ON DIGITAL OCEAN
 
 I wrote a `fabric` script to automate installation on Digital Ocean droplets using the one-step Django installation. If you are deploying elsewhere, you can have an idea of the steps to take by inspecting `server_files/fabfile.py`. 
 

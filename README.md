@@ -1,3 +1,4 @@
+Logr - An Amazing Project
 # Wearhacks Montreal 2015 Website Source
 
 ## Branches

@@ -14,7 +14,7 @@ from registration.forms.helpers import (
     get_confirm_button_html,
     get_challenge_question_header,
 )
-
+#ADDING THE DETAILS
 class ConfirmRegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration

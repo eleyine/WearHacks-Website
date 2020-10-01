@@ -1,4 +1,4 @@
-# Wearhacks Montreal 2020 Website Source UniqueMK
+# Wearhacks Montreal 2020 Website Source
 
 ## Branches
 

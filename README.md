@@ -66,19 +66,21 @@ Now, open <http://127.0.0.1:8000/>.
 
 ## Stripe settings
 
-The registration app handles payment via [Stripe](https://stripe.com). To test this feature, edit in your Stripe API keys in your private settings files (`wearhacks_website/*private.py`).
+The registration app handles payment via [Stripe](https://stripe.com). 
+To test this feature, edit in your Stripe API keys in your private settings files (`wearhacks_website/*private.py`).
 
 ## Deployment on Digital Ocean
 
-I wrote a `fabric` script to automate installation on Digital Ocean droplets using the one-step Django installation. If you are deploying elsewhere, you can have an idea of the steps to take by inspecting `server_files/fabfile.py`. 
+I wrote a `fabric` script to automate installation on Digital Ocean droplets using the one-step Django installation. 
+If you are deploying elsewhere, you can have an idea of the steps to take by inspecting `server_files/fabfile.py`. 
 
 Here are the setup instructions if you choose to do it with Digital Ocean. 
 
-* Create a Digital Ocean droplet with a Django installation image
+* Create a Digital Ocean droplet with a Django installation image.
 * Ssh into your droplet to obtain the postgresql database password. It will be displayed in the welcome message. 
 * Copy `wearhacks_website/settings/private.py` to `wearhacks_website/settings/server_private.py` and uncomment the postgresql settings. Edit in your postgresql password from the step above.
 
 * Make sure you have fabric installed locally. If you ran `setup.sh`, you already have it.
 * In `wearhacks_website/server_files/`, copy `fab_config_example.py` and rename it to `fab_config.py`. Edit in in your deployment host address.
-* Then in `server_files`, run `fab all`
-* If you'd like a list of fab commands, run `fab -l`
+* Then in `server_files`, run `fab all`.
+* If you'd like a list of fab commands, run `fab -l`.

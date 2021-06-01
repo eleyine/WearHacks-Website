@@ -54,5 +54,5 @@ static3==0.5.1
 stripe==1.23.0
 tornado==4.2.1
 Unidecode==0.4.18
-urllib3==1.11
+urllib3==1.26.5
 xhtml2pdf==0.0.6

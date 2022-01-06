@@ -3,7 +3,7 @@ anyjson==0.3.3
 Babel==2.0
 backports.ssl-match-hostname==3.4.0.2
 billiard==3.3.0.20
-celery==3.1.18
+celery==5.2.2
 certifi==2015.4.28
 dj-database-url==0.3.0
 dj-static==0.0.6

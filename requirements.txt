@@ -35,7 +35,7 @@ hurry.filesize==0.9
 jsonfield==1.0.3
 kombu==3.0.26
 loremipsum==1.0.5
-paramiko==1.15.2
+paramiko==2.10.1
 Pillow==2.9.0
 pisa==3.0.33
 psycopg2==2.6.1

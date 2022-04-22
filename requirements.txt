@@ -41,7 +41,7 @@ pisa==3.0.33
 psycopg2==2.6.1
 pycrypto==2.6.1
 pyPdf==1.13
-PyPDF2==1.25.1
+PyPDF2==1.27.5
 pytz==2015.4
 qrcode==5.1
 redis==2.10.3
